@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Louis - ABP AI Security Assistant - Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+<script>
+function goBackToPreviousPage() {
+    // Try to go back in history first
+    if (document.referrer && document.referrer.includes("index.html")) {
+        window.location.href = document.referrer;
+    } else {
+        // Fallback to Citadel InfoSec section
+        window.location.href = "index.html#cybersecurity";
+    }
+}
+</script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+        }
+        
+        .ai-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #64ffda, #3b82f6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            animation: pulse 2s infinite;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 0 30px rgba(100, 255, 218, 0.4);
+        }
+        
+        .ai-avatar:hover {
+            transform: scale(1.05);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .feature-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            border-color: rgba(100, 255, 218, 0.5);
+            transform: translateY(-5px);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #64ffda, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="text-white">
+    <div class="container mx-auto px-4 py-8 pt-24">
+        <!-- Header -->
+        <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 backdrop-blur-lg bg-black/20 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <div class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent cursor-pointer" onclick="window.location.href = 'index.html?goto=cybersecurity'">ABP</div>
+                <button id="back-btn" class="text-gray-400 hover:text-white transition-colors text-sm" onclick="window.location.href = 'index.html'; window.parent.postMessage({action: 'showPage', page: 'cybersecurity'}, '*');">← Back to ABP Citadel InfoSec</button>
+            </div>
+        </div>
+    </nav>
+<header class="text-center mb-12">
+            <h1 class="text-5xl font-bold mb-4 gradient-text">
+                Louis - ABP AI Security Assistant
+            </h1>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                Your intelligent cybersecurity companion powered by Aurora Borealis Photonics
+            </p>
+        </header>
+
+        <!-- AI Avatar -->
+        <div class="flex justify-center mb-12">
+            <div class="ai-avatar" onclick="startDemo()">
+                👨‍💼
+            </div>
+        </div>
+
+        <!-- Demo Status -->
+        <div id="demo-status" class="text-center mb-8">
+            <p class="text-gray-400">Click the AI avatar to start the security assessment demo</p>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div class="feature-card rounded-xl p-6">
+                <div class="text-4xl mb-4">🔍</div>
+                <h3 class="text-xl font-semibold mb-3">Comprehensive Analysis</h3>
+                <p class="text-gray-300 text-sm">Deep dive into your current security infrastructure and potential vulnerabilities.</p>
+            </div>
+            
+            <div class="feature-card rounded-xl p-6">
+                <div class="text-4xl mb-4">🎯</div>
+                <h3 class="text-xl font-semibold mb-3">Personalized Recommendations</h3>
+                <p class="text-gray-300 text-sm">Receive tailored security recommendations based on your industry and needs.</p>
+            </div>
+            
+            <div class="feature-card rounded-xl p-6">
+                <div class="text-4xl mb-4">📊</div>
+                <h3 class="text-xl font-semibold mb-3">Detailed Reporting</h3>
+                <p class="text-gray-300 text-sm">Generate professional PDF reports with implementation roadmaps.</p>
+            </div>
+            
+            <div class="feature-card rounded-xl p-6">
+                <div class="text-4xl mb-4">🎤</div>
+                <h3 class="text-xl font-semibold mb-3">Voice Interaction</h3>
+                <p class="text-gray-300 text-sm">Interact naturally using voice commands for intuitive assessment.</p>
+            </div>
+            
+            <div class="feature-card rounded-xl p-6">
+                <div class="text-4xl mb-4">⚡</div>
+                <h3 class="text-xl font-semibold mb-3">Real-time Guidance</h3>
+                <p class="text-gray-300 text-sm">Get instant feedback as you progress through the assessment.</p>
+            </div>
+            
+            <div class="feature-card rounded-xl p-6">
+                <div class="text-4xl mb-4">🔒</div>
+                <h3 class="text-xl font-semibold mb-3">Enterprise Security</h3>
+                <p class="text-gray-300 text-sm">Built with enterprise-grade security standards in mind.</p>
+            </div>
+        </div>
+
+        <!-- Demo Assessment Form -->
+        <div id="assessment-form" class="hidden max-w-4xl mx-auto">
+            <div class="feature-card rounded-xl p-8">
+                <h2 class="text-2xl font-bold mb-6 text-center">Security Assessment Demo</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-lg font-medium mb-2">Company Name</label>
+                        <input type="text" class="w-full p-3 bg-slate-800 border border-slate-600 rounded-lg text-white focus:border-teal-400 focus:outline-none" placeholder="Enter your company name">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-lg font-medium mb-2">Industry</label>
+                        <select class="w-full p-3 bg-slate-800 border border-slate-600 rounded-lg text-white focus:border-teal-400 focus:outline-none">
+                            <option>Select your industry</option>
+                            <option>Finance & Banking</option>
+                            <option>Healthcare</option>
+                            <option>Technology</option>
+                            <option>Manufacturing</option>
+                            <option>Education</option>
+                            <option>Government</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-lg font-medium mb-2">Do you currently have a firewall in place?</label>
+                        <div class="flex space-x-4">
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="firewall" value="yes" class="text-teal-400">
+                                <span>Yes</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="firewall" value="no" class="text-teal-400">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button onclick="generateRecommendations()" class="px-8 py-3 bg-gradient-to-r from-teal-400 to-blue-500 text-white rounded-lg hover:from-teal-500 hover:to-blue-600 font-semibold transition-colors">
+                            Generate Security Recommendations
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demo Results -->
+        <div id="demo-results" class="hidden max-w-6xl mx-auto mt-8">
+            <div class="feature-card rounded-xl p-8">
+                <h2 class="text-2xl font-bold mb-6 text-center">AI Security Recommendations</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-slate-700/50 rounded-lg p-4">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="text-2xl">🔥</span>
+                            <h3 class="text-lg font-semibold">Network Firewall</h3>
+                            <span class="px-2 py-1 bg-red-500 text-xs rounded-full">HIGH</span>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-3">Deploy a next-generation firewall to protect your network perimeter.</p>
+                        <div class="text-xs text-gray-400">
+                            <span>💰 Cost: $2,000 - $10,000</span> | 
+                            <span>⏱️ Time: 1-2 weeks</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-700/50 rounded-lg p-4">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="text-2xl">🔐</span>
+                            <h3 class="text-lg font-semibold">Multi-Factor Authentication</h3>
+                            <span class="px-2 py-1 bg-red-500 text-xs rounded-full">HIGH</span>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-3">Implement MFA across all critical systems and user accounts.</p>
+                        <div class="text-xs text-gray-400">
+                            <span>💰 Cost: $3 - $10 per user/month</span> | 
+                            <span>⏱️ Time: 1 week</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-700/50 rounded-lg p-4">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="text-2xl">💾</span>
+                            <h3 class="text-lg font-semibold">Backup Strategy</h3>
+                            <span class="px-2 py-1 bg-yellow-500 text-xs rounded-full">MEDIUM</span>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-3">Establish automated daily backups with 3-2-1 backup rule.</p>
+                        <div class="text-xs text-gray-400">
+                            <span>💰 Cost: $500 - $5,000/month</span> | 
+                            <span>⏱️ Time: 1-2 weeks</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-700/50 rounded-lg p-4">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="text-2xl">��</span>
+                            <h3 class="text-lg font-semibold">Security Training</h3>
+                            <span class="px-2 py-1 bg-yellow-500 text-xs rounded-full">MEDIUM</span>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-3">Implement regular security awareness training for employees.</p>
+                        <div class="text-xs text-gray-400">
+                            <span>💰 Cost: $20 - $50 per employee/year</span> | 
+                            <span>⏱️ Time: 2-4 weeks</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <button onclick="downloadReport()" class="px-8 py-3 bg-gradient-to-r from-teal-400 to-blue-500 text-white rounded-lg hover:from-teal-500 hover:to-blue-600 font-semibold transition-colors">
+                        Download Full Security Report
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-16 pt-8 border-t border-slate-700">
+            <p class="text-gray-400 text-sm">
+                © 2025 Aurora Borealis Photonics - ABP Citadel InfoSec Division
+            </p>
+            <p class="text-gray-500 text-xs mt-2">
+                Powered by advanced AI and machine learning technologies
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function startDemo() {
+            document.getElementById('demo-status').innerHTML = '<p class="text-teal-400">Louis activated! Starting security assessment...</p>';
+            
+            setTimeout(() => {
+                document.getElementById('assessment-form').classList.remove('hidden');
+                document.getElementById('demo-status').innerHTML = '<p class="text-teal-400">Please fill out the assessment form below</p>';
+            }, 1500);
+        }
+
+        function generateRecommendations() {
+            document.getElementById('demo-status').innerHTML = '<p class="text-yellow-400">🧠 AI analyzing your security posture...</p>';
+            
+            setTimeout(() => {
+                document.getElementById('demo-results').classList.remove('hidden');
+                document.getElementById('demo-status').innerHTML = '<p class="text-green-400">✅ Security analysis complete! Review your personalized recommendations below.</p>';
+            }, 2000);
+        }
+
+        function downloadReport() {
+            const reportContent = `
+CYBERSECURITY ASSESSMENT REPORT
+Generated by ABP Citadel InfoSec AI Assistant
+Date: ${new Date().toLocaleDateString()}
+
+EXECUTIVE SUMMARY
+================
+This demo report shows the capabilities of the Louis - ABP AI Security Assistant.
+
+RECOMMENDATIONS
+===============
+1. Network Firewall Implementation [HIGH PRIORITY]
+   - Deploy next-generation firewall
+   - Cost: $2,000 - $10,000
+   - Time: 1-2 weeks
+
+2. Multi-Factor Authentication [HIGH PRIORITY]
+   - Implement MFA across all systems
+   - Cost: $3 - $10 per user/month
+   - Time: 1 week
+
+3. Backup Strategy [MEDIUM PRIORITY]
+   - Establish 3-2-1 backup rule
+   - Cost: $500 - $5,000/month
+   - Time: 1-2 weeks
+
+4. Security Training [MEDIUM PRIORITY]
+   - Regular employee training
+   - Cost: $20 - $50 per employee/year
+   - Time: 2-4 weeks
+
+CONTACT INFORMATION
+==================
+ABP Citadel InfoSec
+Email: security@abp.com
+Phone: 1-800-ABP-SECURE
+Website: https://abp.com/cybersecurity
+
+© 2025 Aurora Borealis Photonics - ABP Citadel InfoSec Division
+            `;
+
+            const blob = new Blob([reportContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ABP_Security_Assessment_Demo_Report.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('📄 Demo security report downloaded! This showcases the full reporting capabilities of the Louis - ABP AI Security Assistant.');
+        }
+
+        // Voice demo (simplified)
+        if ('speechSynthesis' in window) {
+            setTimeout(() => {
+                const utterance = new SpeechSynthesisUtterance("Welcome to the Louis - ABP AI Security Assistant demo. Click my avatar to begin your security assessment.");
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                utterance.volume = 0.7;
+                // Uncomment the next line to enable voice greeting
+                // speechSynthesis.speak(utterance);
+            }, 2000);
+        }
+    </script>
+<script>
+function goBackToPreviousPage() {
+    // Try to go back in history first
+    if (document.referrer && document.referrer.includes("index.html")) {
+        window.location.href = document.referrer;
+    } else {
+        // Fallback to Citadel InfoSec section
+        window.location.href = "index.html#cybersecurity";
+    }
+}
+</script>
+</body>
+</html>
