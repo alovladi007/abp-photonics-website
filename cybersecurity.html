@@ -13,6 +13,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
     <style>
         body { font-family: 'Sora', sans-serif; }
     </style>
@@ -22,7 +25,10 @@
     <nav class="fixed top-0 w-full bg-black/90 backdrop-blur-lg z-50 border-b border-gray-800">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <div class="flex items-center space-x-8">
-                <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">ABP</a>
+                <a href="index.html" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    <span class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">ABP</span>
+                </a>
                 <div class="hidden md:flex items-center space-x-6">
                     <a href="index.html" class="hover:text-cyan-400 transition-colors">Home</a>
                     <a href="patents.html" class="hover:text-cyan-400 transition-colors">Patents</a>
@@ -37,8 +43,22 @@
         </div>
     </nav>
 
+    <!-- Breadcrumb Navigation -->
+    <div class="pt-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <nav class="flex items-center gap-2 text-sm text-gray-400">
+                <a href="index.html" class="hover:text-white transition-colors flex items-center gap-1">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                    Home
+                </a>
+                <span>/</span>
+                <span class="text-white">Cybersecurity</span>
+            </nav>
+        </div>
+    </div>
+
     <!-- Cybersecurity Content -->
-    <section class="min-h-screen bg-gray-900 pt-20">
+    <section class="min-h-screen bg-gray-900">
         <div class="max-w-7xl mx-auto px-6 py-20">
             <div class="text-center mb-16">
                 <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">ABP Cybersecurity Solutions</h1>
@@ -125,5 +145,9 @@
             <p class="text-gray-400">© 2024 Aurora Borealis Photonics. All rights reserved.</p>
         </div>
     </footer>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
 </body>
 </html>
