@@ -3447,90 +3447,95 @@ window.addEventListener('scroll', function() {
 
 <!-- Initialize Swiper -->
 <script>
-    // Simple working slider
-    window.addEventListener('load', function() {
-        // Wait a bit for everything to settle
+    // Force manual slider immediately - skip Swiper entirely for now
+    window.addEventListener('DOMContentLoaded', function() {
         setTimeout(function() {
-            // Only initialize if on home page
             const homeElement = document.getElementById('home');
             if (!homeElement || !homeElement.classList.contains('active')) {
                 return;
             }
             
-            // Check if Swiper is available
-            if (typeof Swiper === 'undefined') {
-                console.error('Swiper not loaded, using fallback');
-                useManualSlider();
+            console.log('Starting manual slider implementation');
+            
+            const slides = document.querySelectorAll('.hero-slider .swiper-slide');
+            console.log('Found slides:', slides.length);
+            
+            if (slides.length === 0) {
+                console.error('No slides found!');
                 return;
             }
             
-            try {
-                // Initialize Swiper exactly like the test page that works
-                window.heroSwiper = new Swiper('.hero-slider', {
-                    loop: true,
-                    autoplay: {
-                        delay: 6000,
-                        disableOnInteraction: false
-                    },
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
-                    pagination: {
-                        el: '.swiper-pagination',
-                        clickable: true,
-                    },
-                    effect: 'fade',
-                    fadeEffect: {
-                        crossFade: true
-                    }
+            let currentSlide = 0;
+            
+            // Hide all slides first
+            slides.forEach((slide, index) => {
+                slide.style.position = 'absolute';
+                slide.style.width = '100%';
+                slide.style.height = '100%';
+                slide.style.top = '0';
+                slide.style.left = '0';
+                slide.style.opacity = '0';
+                slide.style.transition = 'opacity 1s ease-in-out';
+                slide.style.zIndex = '1';
+                slide.style.display = 'block';
+                console.log(`Slide ${index} setup complete`);
+            });
+            
+            // Show first slide (Microchips)
+            slides[0].style.opacity = '1';
+            slides[0].style.zIndex = '2';
+            console.log('Showing first slide (Microchips)');
+            
+            // Change slides every 4 seconds
+            setInterval(function() {
+                if (!document.getElementById('home').classList.contains('active')) {
+                    return;
+                }
+                
+                // Hide current slide
+                slides[currentSlide].style.opacity = '0';
+                slides[currentSlide].style.zIndex = '1';
+                
+                // Move to next slide
+                currentSlide = (currentSlide + 1) % slides.length;
+                
+                // Show next slide
+                slides[currentSlide].style.opacity = '1';
+                slides[currentSlide].style.zIndex = '2';
+                
+                const slideNames = ['Microchips', 'FPGA', 'Microcontroller', 'Optics', 'Photomask'];
+                console.log(`Showing slide ${currentSlide}: ${slideNames[currentSlide]}`);
+            }, 4000);
+            
+            // Add manual navigation
+            const nextBtn = document.querySelector('.swiper-button-next');
+            const prevBtn = document.querySelector('.swiper-button-prev');
+            
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function() {
+                    slides[currentSlide].style.opacity = '0';
+                    slides[currentSlide].style.zIndex = '1';
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].style.opacity = '1';
+                    slides[currentSlide].style.zIndex = '2';
                 });
-                console.log('Swiper initialized');
-            } catch (e) {
-                console.error('Swiper error:', e);
-                useManualSlider();
             }
-        }, 1000);
+            
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function() {
+                    slides[currentSlide].style.opacity = '0';
+                    slides[currentSlide].style.zIndex = '1';
+                    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                    slides[currentSlide].style.opacity = '1';
+                    slides[currentSlide].style.zIndex = '2';
+                });
+            }
+        }, 500);
     });
     
-    // Manual slider function
-    function useManualSlider() {
-        const slides = document.querySelectorAll('.swiper-slide');
-        if (slides.length === 0) return;
-        
-        let currentSlide = 0;
-        
-        // Setup slides
-        slides.forEach((slide, index) => {
-            slide.style.position = 'absolute';
-            slide.style.width = '100%';
-            slide.style.height = '100%';
-            slide.style.top = '0';
-            slide.style.left = '0';
-            slide.style.transition = 'opacity 1s ease-in-out';
-            slide.style.opacity = index === 0 ? '1' : '0';
-            slide.style.display = 'block';
-        });
-        
-        // Auto advance
-        setInterval(function() {
-            if (document.getElementById('home').classList.contains('active')) {
-                slides[currentSlide].style.opacity = '0';
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].style.opacity = '1';
-                console.log('Manual slide change to:', currentSlide);
-            }
-        }, 6000);
-        
-        console.log('Manual slider activated');
-    }
-    
-    // Re-initialize when returning to home
+    // Dummy function for compatibility
     window.initializeHeroSlider = function() {
-        if (window.heroSwiper) {
-            window.heroSwiper.update();
-            window.heroSwiper.autoplay.start();
-        }
+        console.log('initializeHeroSlider called');
     };
 
     
