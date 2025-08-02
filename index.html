@@ -3219,12 +3219,10 @@ function openLouis() {
                 
                 setTimeout(() => {
                     // Re-initialize swiper if needed
-                    if (!heroSwiper && typeof Swiper !== 'undefined') {
-                        initializeSlider();
-                    } else if (heroSwiper) {
-                        // Destroy and recreate for clean state
-                        heroSwiper.destroy(true, true);
-                        initializeSlider();
+                    if (heroSwiper) {
+                        // Just update and restart
+                        heroSwiper.update();
+                        heroSwiper.autoplay.start();
                     }
                     
                     // Force visibility of all slider elements
@@ -3466,107 +3464,64 @@ window.addEventListener('scroll', function() {
     // Global swiper variable
     let heroSwiper = null;
     
-    // Wait for Swiper to load
-    function initializeSlider() {
-        console.log('Attempting to initialize slider...');
+    // Simple direct initialization
+    window.addEventListener('load', function() {
+        console.log('Window loaded, initializing Swiper...');
+        
+        // Check if Swiper exists
         if (typeof Swiper === 'undefined') {
-            console.log('Swiper not loaded yet, retrying...');
-            setTimeout(initializeSlider, 100);
+            console.error('Swiper library not loaded!');
             return;
         }
         
-        console.log('Swiper loaded, initializing...');
-        
-        // Check if slider element exists
-        const sliderElement = document.querySelector('.hero-slider');
-        if (!sliderElement) {
-            console.error('Slider element not found!');
-            return;
-        }
-        
-        // Initialize Swiper
+        // Initialize Swiper with minimal config first
         try {
             heroSwiper = new Swiper('.hero-slider', {
-            // Remove modules array for CDN version
-            effect: 'fade',
-            fadeEffect: {
-                crossFade: true
-            },
-            autoplay: {
-                delay: 6000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true
-            },
-            loop: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            speed: 1000,
-        on: {
-            init: function () {
-                // Animate first slide on load
-                const activeSlide = this.slides[this.activeIndex];
-                const content = activeSlide.querySelector('.animate-fadeInUp');
-                if (content) {
-                    content.style.animation = 'none';
-                    setTimeout(() => {
-                        content.style.animation = '';
-                    }, 100);
+                // Basic configuration
+                loop: true,
+                speed: 1000,
+                
+                // Navigation
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                
+                // Pagination
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                
+                // Autoplay
+                autoplay: {
+                    delay: 6000,
+                    disableOnInteraction: false,
+                },
+                
+                // Fade effect
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
                 }
-            },
-            slideChange: function () {
-                // Reset animation on slide change
-                const activeSlide = this.slides[this.activeIndex];
-                const content = activeSlide.querySelector('.animate-fadeInUp');
-                if (content) {
-                    content.style.animation = 'none';
-                    setTimeout(() => {
-                        content.style.animation = '';
-                    }, 100);
+            });
+            
+            console.log('Swiper initialized successfully!', heroSwiper);
+            
+            // Force update after initialization
+            setTimeout(() => {
+                if (heroSwiper) {
+                    heroSwiper.update();
+                    heroSwiper.autoplay.start();
+                    console.log('Swiper updated and autoplay started');
                 }
-            }
-        }
-    });
-            console.log('Swiper initialized successfully!');
+            }, 100);
+            
         } catch (error) {
             console.error('Error initializing Swiper:', error);
         }
-    }
-    
-    // Lazy load images
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                observer.unobserve(img);
-            }
-        });
     });
-    
-    document.querySelectorAll('img.lazy').forEach(img => {
-        imageObserver.observe(img);
-    });
-    
-    // Start initialization
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeSlider);
-    } else {
-        initializeSlider();
-    }
-    
-    // Also try initializing on window load as backup
-    window.addEventListener('load', function() {
-        if (!heroSwiper) {
-            initializeSlider();
-        }
-    });
+
     
     // Ensure home page is visible
     document.addEventListener('DOMContentLoaded', function() {
