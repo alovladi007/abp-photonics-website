@@ -964,8 +964,7 @@ function openLouis() {
                     <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">ABP Optoelectronics Systems & Design</h1>
                     <p class="text-xl text-blue-200 max-w-4xl mx-auto">Advanced photonics and hardware engineering for next-generation applications</p>
                     <p class="text-sm text-gray-400 mt-2">Last updated: December 2024</p>
-                    <!-- Debug button -->
-                    <button onclick="console.log('Test click'); alert('Button works! Now testing navigation...'); showPage('microchips-products');" class="mt-4 px-4 py-2 bg-red-500 text-white rounded">TEST: Go to Microchips</button>
+
                 </div>
 
                 <!-- Main Product Categories -->
@@ -978,12 +977,12 @@ function openLouis() {
                         </div>
                         <p class="text-blue-200 mb-8">Advanced semiconductor and electronic solutions for high-performance computing and embedded systems</p>
                         <div class="grid grid-cols-1 gap-4">
-                            <div onclick="console.log('Clicked microchips'); showPage('microchips-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                            <div onclick="showPage('microchips-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Advanced Microchips</h3>
                                 <p class="text-gray-400 text-sm mt-1">Silicon photonics integrated circuits for quantum computing</p>
                                 <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
                             </div>
-                            <div onclick="console.log('FPGA clicked'); showPage('fpga-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                            <div onclick="showPage('fpga-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">FPGA Solutions</h3>
                                 <p class="text-gray-400 text-sm mt-1">Programmable logic arrays for signal processing</p>
                                 <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
@@ -1317,6 +1316,943 @@ function openLouis() {
                             <p class="text-gray-400 text-sm mb-4">Cost-effective FPGA for edge computing applications</p>
                             <div class="flex items-center justify-between">
                                 <span class="text-cyan-400 font-semibold">$2,400</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MCU PRODUCTS PAGE -->
+    <div id="mcu-products" class="page-content">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <!-- Header with Back Button -->
+                <div class="flex items-center justify-between mb-8">
+                    <button onclick="showPage('hardware')" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Hardware
+                    </button>
+                    <span class="text-gray-400">ABP Optoelectronics</span>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Microcontrollers</h1>
+                    <p class="text-xl text-blue-200 max-w-3xl mx-auto">ARM Cortex-M7 based MCUs with advanced photonic interfaces</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center">
+                            <span class="text-6xl">🎯</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">ABP-MCU-M7X</h3>
+                            <p class="text-gray-400 text-sm mb-4">480MHz ARM Cortex-M7 with photonic I/O interfaces</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$125</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center">
+                            <span class="text-6xl">⚡</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">PhotoMCU-Pro</h3>
+                            <p class="text-gray-400 text-sm mb-4">Dual-core MCU with integrated optical transceivers</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$185</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-green-600 to-emerald-600 flex items-center justify-center">
+                            <span class="text-6xl">🔧</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">EdgeMCU-Lite</h3>
+                            <p class="text-gray-400 text-sm mb-4">Low-power MCU for edge AI and IoT applications</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$45</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ELECTRONICS CATALOG PAGE -->
+    <div id="electronics-catalog" class="page-content">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <!-- Header with Back Button -->
+                <div class="flex items-center justify-between mb-8">
+                    <button onclick="showPage('hardware')" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Hardware
+                    </button>
+                    <span class="text-gray-400">ABP Optoelectronics</span>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Electronics Catalog</h1>
+                    <p class="text-xl text-blue-200 max-w-3xl mx-auto">Complete range of electronic components and systems</p>
+                </div>
+
+                <!-- Category Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-slate-800/40 p-6 rounded-xl border border-blue-600/30">
+                        <h3 class="text-2xl font-bold text-cyan-400 mb-4">Power Management</h3>
+                        <ul class="space-y-3">
+                            <li class="text-gray-300 hover:text-cyan-400 cursor-pointer">• Voltage Regulators</li>
+                            <li class="text-gray-300 hover:text-cyan-400 cursor-pointer">• Power Modules</li>
+                            <li class="text-gray-300 hover:text-cyan-400 cursor-pointer">• Battery Management ICs</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-800/40 p-6 rounded-xl border border-blue-600/30">
+                        <h3 class="text-2xl font-bold text-cyan-400 mb-4">Sensors</h3>
+                        <ul class="space-y-3">
+                            <li class="text-gray-300 hover:text-cyan-400 cursor-pointer">• Photonic Sensors</li>
+                            <li class="text-gray-300 hover:text-cyan-400 cursor-pointer">• Temperature Sensors</li>
+                            <li class="text-gray-300 hover:text-cyan-400 cursor-pointer">• Pressure Sensors</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-800/40 p-6 rounded-xl border border-blue-600/30">
+                        <h3 class="text-2xl font-bold text-cyan-400 mb-4">Custom ASICs</h3>
+                        <ul class="space-y-3">
+                            <li class="text-gray-300 hover:text-cyan-400 cursor-pointer">• AI Accelerators</li>
+                            <li class="text-gray-300 hover:text-cyan-400 cursor-pointer">• Signal Processors</li>
+                            <li class="text-gray-300 hover:text-cyan-400 cursor-pointer">• Interface Controllers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- POLARIZERS PRODUCTS PAGE -->
+    <div id="polarizers-products" class="page-content">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <!-- Header with Back Button -->
+                <div class="flex items-center justify-between mb-8">
+                    <button onclick="showPage('hardware')" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Hardware
+                    </button>
+                    <span class="text-gray-400">ABP Optoelectronics</span>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Optical Polarizers</h1>
+                    <p class="text-xl text-blue-200 max-w-3xl mx-auto">High-precision polarization control components for photonic systems</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center">
+                            <span class="text-6xl">🔷</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">NanoPol-1550</h3>
+                            <p class="text-gray-400 text-sm mb-4">Ultra-thin film polarizer for 1550nm applications</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$450</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-blue-600 to-teal-600 flex items-center justify-center">
+                            <span class="text-6xl">💎</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">CrystalPol-Pro</h3>
+                            <p class="text-gray-400 text-sm mb-4">Birefringent crystal polarizer with 99.9% extinction</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$1,200</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-cyan-600 to-blue-600 flex items-center justify-center">
+                            <span class="text-6xl">🌀</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">WavePol-Variable</h3>
+                            <p class="text-gray-400 text-sm mb-4">Electronically controlled variable polarizer</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$2,800</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- LENSES & MIRRORS PRODUCTS PAGE -->
+    <div id="lenses-mirrors-products" class="page-content">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <!-- Header with Back Button -->
+                <div class="flex items-center justify-between mb-8">
+                    <button onclick="showPage('hardware')" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Hardware
+                    </button>
+                    <span class="text-gray-400">ABP Optoelectronics</span>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Lenses & Mirrors</h1>
+                    <p class="text-xl text-blue-200 max-w-3xl mx-auto">Ultra-low loss optical elements for photonic systems</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-indigo-600 to-blue-600 flex items-center justify-center">
+                            <span class="text-6xl">🔍</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">AspheriLens-HD</h3>
+                            <p class="text-gray-400 text-sm mb-4">High-precision aspheric lens with AR coating</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$320</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                            <span class="text-6xl">🪞</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">UltraMirror-99R</h3>
+                            <p class="text-gray-400 text-sm mb-4">99.9% reflectivity dielectric mirror</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$580</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-green-600 to-teal-600 flex items-center justify-center">
+                            <span class="text-6xl">⭕</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">MetaLens-Array</h3>
+                            <p class="text-gray-400 text-sm mb-4">Flat metalens array for beam shaping</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$3,500</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PRISMS & BEAMSPLITTERS PRODUCTS PAGE -->
+    <div id="prisms-beamsplitters-products" class="page-content">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <!-- Header with Back Button -->
+                <div class="flex items-center justify-between mb-8">
+                    <button onclick="showPage('hardware')" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Hardware
+                    </button>
+                    <span class="text-gray-400">ABP Optoelectronics</span>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Prisms & Beamsplitters</h1>
+                    <p class="text-xl text-blue-200 max-w-3xl mx-auto">Precision beam manipulation and splitting components</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-cyan-600 to-blue-600 flex items-center justify-center">
+                            <span class="text-6xl">🔺</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">RightAngle-Prism</h3>
+                            <p class="text-gray-400 text-sm mb-4">90-degree beam deviation prism with HR coating</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$180</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center">
+                            <span class="text-6xl">➗</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">CubeSplitter-50/50</h3>
+                            <p class="text-gray-400 text-sm mb-4">Polarizing cube beamsplitter with precise 50/50 split</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$420</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-green-600 to-emerald-600 flex items-center justify-center">
+                            <span class="text-6xl">🔶</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">Dove-Prism-Rotator</h3>
+                            <p class="text-gray-400 text-sm mb-4">Image rotation prism for optical systems</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$280</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- LASER SYSTEMS PRODUCTS PAGE -->
+    <div id="laser-systems-products" class="page-content">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <!-- Header with Back Button -->
+                <div class="flex items-center justify-between mb-8">
+                    <button onclick="showPage('hardware')" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Hardware
+                    </button>
+                    <span class="text-gray-400">ABP Optoelectronics</span>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Laser Systems</h1>
+                    <p class="text-xl text-blue-200 max-w-3xl mx-auto">Semiconductor and fiber laser solutions for advanced applications</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-red-600 to-orange-600 flex items-center justify-center">
+                            <span class="text-6xl">🔴</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">FiberLaser-10W</h3>
+                            <p class="text-gray-400 text-sm mb-4">10W CW fiber laser at 1064nm</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$8,500</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-green-600 to-lime-600 flex items-center justify-center">
+                            <span class="text-6xl">🟢</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">DPSS-Green-5W</h3>
+                            <p class="text-gray-400 text-sm mb-4">5W green DPSS laser at 532nm</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$4,200</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center">
+                            <span class="text-6xl">🔵</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">UV-Laser-355nm</h3>
+                            <p class="text-gray-400 text-sm mb-4">UV laser for precision micromachining</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$12,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PHOTOMASK PRODUCTS PAGE -->
+    <div id="photomask-products" class="page-content">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <!-- Header with Back Button -->
+                <div class="flex items-center justify-between mb-8">
+                    <button onclick="showPage('hardware')" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Hardware
+                    </button>
+                    <span class="text-gray-400">ABP Optoelectronics</span>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Photomask Technology</h1>
+                    <p class="text-xl text-blue-200 max-w-3xl mx-auto">10nm process technology masks and reticles for advanced lithography</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                            <span class="text-6xl">🎭</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">ChromeMask-10nm</h3>
+                            <p class="text-gray-400 text-sm mb-4">Chrome-on-quartz photomask for 10nm node</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$25,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-indigo-600 to-blue-600 flex items-center justify-center">
+                            <span class="text-6xl">🔲</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">PSM-Advanced</h3>
+                            <p class="text-gray-400 text-sm mb-4">Phase-shift mask for enhanced resolution</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$35,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-cyan-600 to-teal-600 flex items-center justify-center">
+                            <span class="text-6xl">⬛</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">OPC-Mask-Pro</h3>
+                            <p class="text-gray-400 text-sm mb-4">Optical proximity correction mask</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$40,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MASKLESS EXPOSURE PRODUCTS PAGE -->
+    <div id="maskless-exposure-products" class="page-content">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <!-- Header with Back Button -->
+                <div class="flex items-center justify-between mb-8">
+                    <button onclick="showPage('hardware')" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Hardware
+                    </button>
+                    <span class="text-gray-400">ABP Optoelectronics</span>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Maskless Exposure Systems</h1>
+                    <p class="text-xl text-blue-200 max-w-3xl mx-auto">Direct-write lithography for rapid prototyping and small-scale production</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center">
+                            <span class="text-6xl">✏️</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">DirectWrite-2000</h3>
+                            <p class="text-gray-400 text-sm mb-4">Laser direct-write system with 2μm resolution</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$180,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center">
+                            <span class="text-6xl">🖊️</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">E-Beam-Writer</h3>
+                            <p class="text-gray-400 text-sm mb-4">Electron beam lithography system</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$450,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-green-600 to-emerald-600 flex items-center justify-center">
+                            <span class="text-6xl">📐</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">DMD-Litho-Pro</h3>
+                            <p class="text-gray-400 text-sm mb-4">Digital micromirror device lithography</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$120,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- IMMERSION LITHOGRAPHY PRODUCTS PAGE -->
+    <div id="immersion-lithography-products" class="page-content">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <!-- Header with Back Button -->
+                <div class="flex items-center justify-between mb-8">
+                    <button onclick="showPage('hardware')" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Hardware
+                    </button>
+                    <span class="text-gray-400">ABP Optoelectronics</span>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Immersion Lithography</h1>
+                    <p class="text-xl text-blue-200 max-w-3xl mx-auto">193nm immersion lithography solutions for advanced semiconductor manufacturing</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center">
+                            <span class="text-6xl">💧</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">ArF-Immersion-Pro</h3>
+                            <p class="text-gray-400 text-sm mb-4">193nm ArF immersion scanner</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$2.5M</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center">
+                            <span class="text-6xl">🌊</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">FluidControl-System</h3>
+                            <p class="text-gray-400 text-sm mb-4">Precision immersion fluid management</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$85,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-teal-600 to-cyan-600 flex items-center justify-center">
+                            <span class="text-6xl">🔬</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">Immersion-Lens-NA1.35</h3>
+                            <p class="text-gray-400 text-sm mb-4">High NA immersion lens system</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$320,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- NANOIMPRINT PRODUCTS PAGE -->
+    <div id="nanoimprint-products" class="page-content">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <!-- Header with Back Button -->
+                <div class="flex items-center justify-between mb-8">
+                    <button onclick="showPage('hardware')" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Hardware
+                    </button>
+                    <span class="text-gray-400">ABP Optoelectronics</span>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Nanoimprint Technology</h1>
+                    <p class="text-xl text-blue-200 max-w-3xl mx-auto">Sub-10nm patterning capabilities for next-generation devices</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center">
+                            <span class="text-6xl">🔳</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">NanoImprint-5nm</h3>
+                            <p class="text-gray-400 text-sm mb-4">Thermal nanoimprint system for 5nm features</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$280,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center">
+                            <span class="text-6xl">🎯</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">UV-NIL-System</h3>
+                            <p class="text-gray-400 text-sm mb-4">UV-curable nanoimprint lithography</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$350,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-green-600 to-teal-600 flex items-center justify-center">
+                            <span class="text-6xl">🔲</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">RollToRoll-NIL</h3>
+                            <p class="text-gray-400 text-sm mb-4">Continuous roll-to-roll nanoimprint</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$450,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PVD PRODUCTS PAGE -->
+    <div id="pvd-products" class="page-content">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <!-- Header with Back Button -->
+                <div class="flex items-center justify-between mb-8">
+                    <button onclick="showPage('hardware')" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Hardware
+                    </button>
+                    <span class="text-gray-400">ABP Optoelectronics</span>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Physical Vapor Deposition</h1>
+                    <p class="text-xl text-blue-200 max-w-3xl mx-auto">Sputtering and evaporation systems for thin-film deposition</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center">
+                            <span class="text-6xl">💨</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">MagnetronSputter-Pro</h3>
+                            <p class="text-gray-400 text-sm mb-4">Multi-target magnetron sputtering system</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$380,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center">
+                            <span class="text-6xl">🌫️</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">E-Beam-Evaporator</h3>
+                            <p class="text-gray-400 text-sm mb-4">Electron beam evaporation system</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$450,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-green-600 to-teal-600 flex items-center justify-center">
+                            <span class="text-6xl">⚡</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">Ion-Beam-Sputter</h3>
+                            <p class="text-gray-400 text-sm mb-4">Ion beam sputtering for ultra-smooth films</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$520,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- CVD PRODUCTS PAGE -->
+    <div id="cvd-products" class="page-content">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <!-- Header with Back Button -->
+                <div class="flex items-center justify-between mb-8">
+                    <button onclick="showPage('hardware')" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Hardware
+                    </button>
+                    <span class="text-gray-400">ABP Optoelectronics</span>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Chemical Vapor Deposition</h1>
+                    <p class="text-xl text-blue-200 max-w-3xl mx-auto">PECVD, LPCVD, and MOCVD systems for advanced materials</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center">
+                            <span class="text-6xl">🔥</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">PECVD-300mm</h3>
+                            <p class="text-gray-400 text-sm mb-4">Plasma-enhanced CVD for 300mm wafers</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$850,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                            <span class="text-6xl">🌡️</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">LPCVD-Furnace</h3>
+                            <p class="text-gray-400 text-sm mb-4">Low-pressure CVD furnace system</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$620,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-green-600 to-emerald-600 flex items-center justify-center">
+                            <span class="text-6xl">💎</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">MOCVD-GaN</h3>
+                            <p class="text-gray-400 text-sm mb-4">Metal-organic CVD for GaN growth</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$1.2M</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ALD PRODUCTS PAGE -->
+    <div id="ald-products" class="page-content">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <!-- Header with Back Button -->
+                <div class="flex items-center justify-between mb-8">
+                    <button onclick="showPage('hardware')" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Hardware
+                    </button>
+                    <span class="text-gray-400">ABP Optoelectronics</span>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Atomic Layer Deposition</h1>
+                    <p class="text-xl text-blue-200 max-w-3xl mx-auto">Atomic-scale precision coating technology for advanced applications</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center">
+                            <span class="text-6xl">⚛️</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">ThermalALD-200</h3>
+                            <p class="text-gray-400 text-sm mb-4">Thermal ALD system for 200mm wafers</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$680,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center">
+                            <span class="text-6xl">🌊</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">PlasmaALD-Pro</h3>
+                            <p class="text-gray-400 text-sm mb-4">Plasma-enhanced ALD for low-temp processing</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$920,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-green-600 to-teal-600 flex items-center justify-center">
+                            <span class="text-6xl">🔄</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">BatchALD-System</h3>
+                            <p class="text-gray-400 text-sm mb-4">High-throughput batch ALD reactor</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$1.1M</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- EPITAXY PRODUCTS PAGE -->
+    <div id="epitaxy-products" class="page-content">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <!-- Header with Back Button -->
+                <div class="flex items-center justify-between mb-8">
+                    <button onclick="showPage('hardware')" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Hardware
+                    </button>
+                    <span class="text-gray-400">ABP Optoelectronics</span>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Epitaxial Growth Systems</h1>
+                    <p class="text-xl text-blue-200 max-w-3xl mx-auto">MBE and MOVPE systems for crystal growth</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                            <span class="text-6xl">🔬</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">MBE-Quantum</h3>
+                            <p class="text-gray-400 text-sm mb-4">Molecular beam epitaxy for quantum structures</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$2.8M</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center">
+                            <span class="text-6xl">💠</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">MOVPE-Production</h3>
+                            <p class="text-gray-400 text-sm mb-4">Production-scale MOVPE reactor</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$3.5M</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-green-600 to-emerald-600 flex items-center justify-center">
+                            <span class="text-6xl">🌟</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">HybridEpi-System</h3>
+                            <p class="text-gray-400 text-sm mb-4">Hybrid MBE/CVD epitaxy platform</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$4.2M</span>
                                 <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
                             </div>
                         </div>
