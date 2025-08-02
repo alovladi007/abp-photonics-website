@@ -118,6 +118,136 @@
 
             </div>
 
+            
+            <!-- Interactive Dashboard Section -->
+            <div class="mt-16 bg-gradient-to-br from-indigo-900/20 to-purple-900/20 rounded-3xl p-8 border border-indigo-500/30">
+                <h2 class="text-3xl font-bold mb-8 text-center">Neural Activity Dashboard</h2>
+                
+                <!-- Dashboard Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- EEG Waveform Panel -->
+                    <div class="bg-black/40 rounded-2xl p-6 border border-indigo-500/20">
+                        <h3 class="text-xl font-semibold mb-4 text-indigo-300">Live EEG Channels</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-400">Frontal (Fp1)</span>
+                                    <span class="text-cyan-400">Active</span>
+                                </div>
+                                <div class="h-12 bg-gray-800 rounded overflow-hidden">
+                                    <svg class="w-full h-full">
+                                        <polyline points="0,24 20,20 40,28 60,16 80,32 100,24 120,20 140,28 160,24 180,20 200,24" 
+                                                stroke="#00CFFF" stroke-width="2" fill="none"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-400">Temporal (T3)</span>
+                                    <span class="text-green-400">Normal</span>
+                                </div>
+                                <div class="h-12 bg-gray-800 rounded overflow-hidden">
+                                    <svg class="w-full h-full">
+                                        <polyline points="0,24 30,22 60,26 90,24 120,22 150,26 180,24 210,22" 
+                                                stroke="#10B981" stroke-width="2" fill="none"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-400">Occipital (O1)</span>
+                                    <span class="text-purple-400">Alpha Waves</span>
+                                </div>
+                                <div class="h-12 bg-gray-800 rounded overflow-hidden">
+                                    <svg class="w-full h-full">
+                                        <polyline points="0,24 15,18 30,30 45,18 60,30 75,18 90,30 105,18 120,30" 
+                                                stroke="#A78BFA" stroke-width="2" fill="none"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Brain State Analysis -->
+                    <div class="bg-black/40 rounded-2xl p-6 border border-purple-500/20">
+                        <h3 class="text-xl font-semibold mb-4 text-purple-300">Brain State Analysis</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-300">Alpha (8-12 Hz)</span>
+                                    <span class="text-purple-400 font-semibold">45%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <div class="bg-purple-400 h-3 rounded-full" style="width: 45%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-300">Beta (12-30 Hz)</span>
+                                    <span class="text-blue-400 font-semibold">30%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <div class="bg-blue-400 h-3 rounded-full" style="width: 30%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-300">Theta (4-8 Hz)</span>
+                                    <span class="text-green-400 font-semibold">20%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <div class="bg-green-400 h-3 rounded-full" style="width: 20%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-300">Delta (0.5-4 Hz)</span>
+                                    <span class="text-yellow-400 font-semibold">5%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <div class="bg-yellow-400 h-3 rounded-full" style="width: 5%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 p-4 bg-green-900/30 rounded-lg border border-green-500/30">
+                            <p class="text-green-400 font-semibold">Current State: Relaxed Focus</p>
+                            <p class="text-gray-400 text-sm mt-1">Optimal for cognitive tasks</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- BCI Control Interface -->
+                <div class="mt-8 bg-black/40 rounded-2xl p-6 border border-indigo-500/20">
+                    <h3 class="text-xl font-semibold mb-4 text-indigo-300">Brain-Computer Interface Control</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <button class="p-4 bg-indigo-900/30 rounded-lg border border-indigo-500/30 hover:bg-indigo-900/50 transition-all">
+                            <span class="text-2xl mb-2 block">⬆️</span>
+                            <span class="text-sm text-gray-300">Forward</span>
+                        </button>
+                        <button class="p-4 bg-indigo-900/30 rounded-lg border border-indigo-500/30 hover:bg-indigo-900/50 transition-all">
+                            <span class="text-2xl mb-2 block">⬇️</span>
+                            <span class="text-sm text-gray-300">Backward</span>
+                        </button>
+                        <button class="p-4 bg-indigo-900/30 rounded-lg border border-indigo-500/30 hover:bg-indigo-900/50 transition-all">
+                            <span class="text-2xl mb-2 block">⬅️</span>
+                            <span class="text-sm text-gray-300">Left</span>
+                        </button>
+                        <button class="p-4 bg-indigo-900/30 rounded-lg border border-indigo-500/30 hover:bg-indigo-900/50 transition-all">
+                            <span class="text-2xl mb-2 block">➡️</span>
+                            <span class="text-sm text-gray-300">Right</span>
+                        </button>
+                    </div>
+                    <p class="text-center mt-4 text-gray-400 text-sm">Neural commands detected and ready for execution</p>
+                </div>
+            </div>
+
+
             <!-- CTA Section -->
             <div class="text-center bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20">
                 <h2 class="text-3xl font-bold mb-4">Ready to Transform Healthcare?</h2>

@@ -118,6 +118,140 @@
 
             </div>
 
+            
+            <!-- Interactive Dashboard Section -->
+            <div class="mt-16 bg-gradient-to-br from-teal-900/20 to-blue-900/20 rounded-3xl p-8 border border-teal-500/30">
+                <h2 class="text-3xl font-bold mb-8 text-center">CliniScope Dashboard</h2>
+                
+                <!-- Patient Overview -->
+                <div class="bg-black/40 rounded-2xl p-6 border border-teal-500/20 mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="text-center p-4 bg-teal-900/30 rounded-lg">
+                            <div class="text-3xl font-bold text-teal-400">142</div>
+                            <div class="text-gray-400 text-sm">Active Patients</div>
+                        </div>
+                        <div class="text-center p-4 bg-yellow-900/30 rounded-lg">
+                            <div class="text-3xl font-bold text-yellow-400">8</div>
+                            <div class="text-gray-400 text-sm">Require Attention</div>
+                        </div>
+                        <div class="text-center p-4 bg-green-900/30 rounded-lg">
+                            <div class="text-3xl font-bold text-green-400">134</div>
+                            <div class="text-gray-400 text-sm">Stable</div>
+                        </div>
+                        <div class="text-center p-4 bg-purple-900/30 rounded-lg">
+                            <div class="text-3xl font-bold text-purple-400">96%</div>
+                            <div class="text-gray-400 text-sm">Compliance Rate</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dashboard Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Risk Stratification Panel -->
+                    <div class="bg-black/40 rounded-2xl p-6 border border-teal-500/20">
+                        <h3 class="text-xl font-semibold mb-4 text-teal-300">Risk Stratification</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-red-900/30 rounded-lg border border-red-500/30">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-red-400 font-semibold">High Risk</span>
+                                    <span class="text-2xl font-bold text-red-400">3</span>
+                                </div>
+                                <div class="text-gray-400 text-sm">Immediate intervention required</div>
+                            </div>
+                            
+                            <div class="p-4 bg-yellow-900/30 rounded-lg border border-yellow-500/30">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-yellow-400 font-semibold">Medium Risk</span>
+                                    <span class="text-2xl font-bold text-yellow-400">12</span>
+                                </div>
+                                <div class="text-gray-400 text-sm">Monitor closely</div>
+                            </div>
+                            
+                            <div class="p-4 bg-green-900/30 rounded-lg border border-green-500/30">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-green-400 font-semibold">Low Risk</span>
+                                    <span class="text-2xl font-bold text-green-400">127</span>
+                                </div>
+                                <div class="text-gray-400 text-sm">Routine follow-up</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Alerts Panel -->
+                    <div class="bg-black/40 rounded-2xl p-6 border border-blue-500/20">
+                        <h3 class="text-xl font-semibold mb-4 text-blue-300">Recent Alerts</h3>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-red-900/20 rounded-lg border-l-4 border-red-500">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-red-400 font-semibold">Critical: Abnormal Lab Results</p>
+                                        <p class="text-gray-400 text-sm">Patient #4521 - Potassium 6.2 mEq/L</p>
+                                    </div>
+                                    <span class="text-xs text-gray-500">2m ago</span>
+                                </div>
+                            </div>
+                            
+                            <div class="p-3 bg-yellow-900/20 rounded-lg border-l-4 border-yellow-500">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-yellow-400 font-semibold">Warning: Medication Non-Adherence</p>
+                                        <p class="text-gray-400 text-sm">Patient #3892 - Missed 3 doses</p>
+                                    </div>
+                                    <span class="text-xs text-gray-500">15m ago</span>
+                                </div>
+                            </div>
+                            
+                            <div class="p-3 bg-blue-900/20 rounded-lg border-l-4 border-blue-500">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-blue-400 font-semibold">Info: Appointment Reminder</p>
+                                        <p class="text-gray-400 text-sm">5 patients have appointments tomorrow</p>
+                                    </div>
+                                    <span class="text-xs text-gray-500">1h ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Predictive Analytics -->
+                <div class="mt-8 bg-black/40 rounded-2xl p-6 border border-teal-500/20">
+                    <h3 class="text-xl font-semibold mb-4 text-teal-300">30-Day Readmission Prediction</h3>
+                    <div class="h-48 flex items-end justify-between space-x-2">
+                        <div class="flex flex-col items-center flex-1">
+                            <div class="bg-green-500 w-full rounded-t" style="height: 20%"></div>
+                            <span class="text-xs text-gray-400 mt-2">Mon</span>
+                        </div>
+                        <div class="flex flex-col items-center flex-1">
+                            <div class="bg-green-500 w-full rounded-t" style="height: 15%"></div>
+                            <span class="text-xs text-gray-400 mt-2">Tue</span>
+                        </div>
+                        <div class="flex flex-col items-center flex-1">
+                            <div class="bg-yellow-500 w-full rounded-t" style="height: 35%"></div>
+                            <span class="text-xs text-gray-400 mt-2">Wed</span>
+                        </div>
+                        <div class="flex flex-col items-center flex-1">
+                            <div class="bg-green-500 w-full rounded-t" style="height: 25%"></div>
+                            <span class="text-xs text-gray-400 mt-2">Thu</span>
+                        </div>
+                        <div class="flex flex-col items-center flex-1">
+                            <div class="bg-green-500 w-full rounded-t" style="height: 18%"></div>
+                            <span class="text-xs text-gray-400 mt-2">Fri</span>
+                        </div>
+                        <div class="flex flex-col items-center flex-1">
+                            <div class="bg-green-500 w-full rounded-t" style="height: 22%"></div>
+                            <span class="text-xs text-gray-400 mt-2">Sat</span>
+                        </div>
+                        <div class="flex flex-col items-center flex-1">
+                            <div class="bg-green-500 w-full rounded-t" style="height: 20%"></div>
+                            <span class="text-xs text-gray-400 mt-2">Sun</span>
+                        </div>
+                    </div>
+                    <p class="text-center mt-4 text-gray-400">Average readmission risk: <span class="text-green-400 font-semibold">22%</span> (15% below baseline)</p>
+                </div>
+            </div>
+
+
             <!-- CTA Section -->
             <div class="text-center bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20">
                 <h2 class="text-3xl font-bold mb-4">Ready to Transform Healthcare?</h2>

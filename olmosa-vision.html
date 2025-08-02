@@ -118,6 +118,89 @@
 
             </div>
 
+            
+            <!-- Interactive Dashboard Section -->
+            <div class="mt-16 bg-gradient-to-br from-blue-900/20 to-purple-900/20 rounded-3xl p-8 border border-blue-500/30">
+                <h2 class="text-3xl font-bold mb-8 text-center">AI Imaging Analysis Dashboard</h2>
+                
+                <!-- Dashboard Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Image Analysis Panel -->
+                    <div class="bg-black/40 rounded-2xl p-6 border border-blue-500/20">
+                        <h3 class="text-xl font-semibold mb-4 text-blue-300">Current Scan Analysis</h3>
+                        <div class="bg-gray-800 rounded-lg p-4 mb-4">
+                            <div class="aspect-square bg-gradient-to-br from-blue-900 to-purple-900 rounded-lg flex items-center justify-center">
+                                <span class="text-6xl">🩻</span>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Scan Type:</span>
+                                <span class="text-white font-semibold">Chest X-Ray</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Processing Time:</span>
+                                <span class="text-green-400 font-semibold">1.2 seconds</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Confidence:</span>
+                                <span class="text-cyan-400 font-semibold">98.7%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Findings Panel -->
+                    <div class="bg-black/40 rounded-2xl p-6 border border-purple-500/20">
+                        <h3 class="text-xl font-semibold mb-4 text-purple-300">AI Findings</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-green-900/30 rounded-lg border border-green-500/30">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-2xl">✅</span>
+                                    <div>
+                                        <p class="text-green-400 font-semibold">No Abnormalities Detected</p>
+                                        <p class="text-gray-400 text-sm">Lungs appear clear and healthy</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 bg-blue-900/30 rounded-lg border border-blue-500/30">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-2xl">ℹ️</span>
+                                    <div>
+                                        <p class="text-blue-400 font-semibold">Minor Observation</p>
+                                        <p class="text-gray-400 text-sm">Slight cardiac silhouette enlargement - monitor</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Performance Metrics -->
+                <div class="mt-8 bg-black/40 rounded-2xl p-6 border border-blue-500/20">
+                    <h3 class="text-xl font-semibold mb-4 text-blue-300">System Performance Metrics</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-cyan-400">2.1M</div>
+                            <div class="text-gray-400 text-sm">Scans Analyzed</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-green-400">98.5%</div>
+                            <div class="text-gray-400 text-sm">Accuracy Rate</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-400">< 2s</div>
+                            <div class="text-gray-400 text-sm">Avg. Processing</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-pink-400">24/7</div>
+                            <div class="text-gray-400 text-sm">Availability</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <!-- CTA Section -->
             <div class="text-center bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20">
                 <h2 class="text-3xl font-bold mb-4">Ready to Transform Healthcare?</h2>
