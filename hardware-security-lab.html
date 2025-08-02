@@ -15,9 +15,6 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    <!-- Three.js for 3D Visualizations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
@@ -189,6 +186,32 @@
             transform-origin: bottom center;
             transition: transform 0.5s ease;
         }
+        
+        /* Waveform visualization */
+        .waveform {
+            position: relative;
+            height: 100px;
+            background: #111;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .waveform-line {
+            position: absolute;
+            bottom: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #333;
+        }
+        
+        .waveform-data {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body class="text-gray-300">
@@ -300,3 +323,860 @@
                 </div>
             </div>
         </nav>
+        
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto bg-gray-950">
+            <!-- Hardware Overview -->
+            <div id="overview" class="tab-content active p-6">
+                <h2 class="text-2xl font-bold mb-6">Hardware Security Overview</h2>
+                
+                <!-- Key Metrics -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm text-gray-400">Secure Elements</h3>
+                            <i data-lucide="cpu" class="w-5 h-5 text-green-500"></i>
+                        </div>
+                        <p class="text-3xl font-bold">24</p>
+                        <p class="text-sm text-gray-500 mt-2">Active devices</p>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm text-gray-400">Encryption Keys</h3>
+                            <i data-lucide="key" class="w-5 h-5 text-blue-500"></i>
+                        </div>
+                        <p class="text-3xl font-bold">1,847</p>
+                        <p class="text-sm text-gray-500 mt-2">Stored securely</p>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm text-gray-400">Attestations</h3>
+                            <i data-lucide="shield-check" class="w-5 h-5 text-purple-500"></i>
+                        </div>
+                        <p class="text-3xl font-bold">342</p>
+                        <p class="text-sm text-gray-500 mt-2">Last 24 hours</p>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm text-gray-400">Security Tests</h3>
+                            <i data-lucide="check-circle" class="w-5 h-5 text-green-500"></i>
+                        </div>
+                        <p class="text-3xl font-bold">98.5%</p>
+                        <p class="text-sm text-gray-500 mt-2">Pass rate</p>
+                    </div>
+                </div>
+                
+                <!-- Hardware Architecture Visualization -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">Secure Hardware Architecture</h3>
+                        <div id="architectureCanvas" class="h-64 bg-gray-950 rounded-lg relative overflow-hidden">
+                            <!-- CPU Core -->
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gray-800 border-2 border-blue-500 rounded-lg flex items-center justify-center">
+                                <span class="text-sm font-semibold">CPU Core</span>
+                            </div>
+                            
+                            <!-- Security Components -->
+                            <div class="absolute top-4 left-4 w-24 h-16 bg-gray-800 border border-green-500 rounded flex items-center justify-center">
+                                <span class="text-xs">Secure Boot</span>
+                            </div>
+                            
+                            <div class="absolute top-4 right-4 w-24 h-16 bg-gray-800 border border-purple-500 rounded flex items-center justify-center">
+                                <span class="text-xs">TPM 2.0</span>
+                            </div>
+                            
+                            <div class="absolute bottom-4 left-4 w-24 h-16 bg-gray-800 border border-yellow-500 rounded flex items-center justify-center">
+                                <span class="text-xs">HSM</span>
+                            </div>
+                            
+                            <div class="absolute bottom-4 right-4 w-24 h-16 bg-gray-800 border border-red-500 rounded flex items-center justify-center">
+                                <span class="text-xs">Secure RAM</span>
+                            </div>
+                            
+                            <!-- Data flow lines -->
+                            <svg class="absolute inset-0 w-full h-full">
+                                <line x1="25%" y1="25%" x2="40%" y2="40%" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5" class="data-flow"/>
+                                <line x1="75%" y1="25%" x2="60%" y2="40%" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5,5" class="data-flow"/>
+                                <line x1="25%" y1="75%" x2="40%" y2="60%" stroke="#eab308" stroke-width="2" stroke-dasharray="5,5" class="data-flow"/>
+                                <line x1="75%" y1="75%" x2="60%" y2="60%" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,5" class="data-flow"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">Security Status Monitor</h3>
+                        <canvas id="securityStatusChart" height="256"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Live Hardware Monitor -->
+                <div class="bg-gray-900 rounded-xl border border-gray-800">
+                    <div class="p-6 border-b border-gray-800">
+                        <h3 class="text-lg font-semibold">Live Hardware Monitor</h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="terminal" id="hardwareTerminal">
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">hw-monitor></span>
+                                <span class="terminal-output"> Initializing hardware security monitor...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- HSM Management -->
+            <div id="hsm" class="tab-content p-6">
+                <h2 class="text-2xl font-bold mb-6">Hardware Security Module Management</h2>
+                
+                <!-- HSM Status -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">HSM Status</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Device Status</span>
+                                <span class="text-sm text-green-500">Online</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Firmware Version</span>
+                                <span class="text-sm">v3.2.1</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Temperature</span>
+                                <span class="text-sm">42°C</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Uptime</span>
+                                <span class="text-sm">127 days</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">Key Storage</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">RSA Keys</span>
+                                <span class="text-sm">847</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">ECC Keys</span>
+                                <span class="text-sm">523</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">AES Keys</span>
+                                <span class="text-sm">477</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Storage Used</span>
+                                <span class="text-sm">67%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">Performance</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Sign/sec</span>
+                                <span class="text-sm">12,450</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Verify/sec</span>
+                                <span class="text-sm">45,230</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Encrypt/sec</span>
+                                <span class="text-sm">8,920</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Latency</span>
+                                <span class="text-sm">0.8ms</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Key Operations -->
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 mb-8">
+                    <h3 class="text-lg font-semibold mb-4">Key Operations</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <button onclick="generateKey()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center justify-center gap-2">
+                            <i data-lucide="plus" class="w-5 h-5"></i>
+                            Generate Key
+                        </button>
+                        <button onclick="importKey()" class="px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors flex items-center justify-center gap-2">
+                            <i data-lucide="upload" class="w-5 h-5"></i>
+                            Import Key
+                        </button>
+                        <button onclick="rotateKeys()" class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors flex items-center justify-center gap-2">
+                            <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                            Rotate Keys
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Key List -->
+                <div class="bg-gray-900 rounded-xl border border-gray-800">
+                    <div class="p-6 border-b border-gray-800">
+                        <h3 class="text-lg font-semibold">Stored Keys</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="border-b border-gray-800">
+                                    <th class="px-6 py-4 text-left text-sm font-semibold">Key ID</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold">Type</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold">Algorithm</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold">Created</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold">Status</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="keyList">
+                                <!-- Keys will be dynamically added here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Side-Channel Analysis -->
+            <div id="side-channel" class="tab-content p-6">
+                <h2 class="text-2xl font-bold mb-6">Side-Channel Analysis</h2>
+                
+                <!-- Analysis Types -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">Power Analysis</h3>
+                        <div class="waveform mb-4">
+                            <div class="waveform-line"></div>
+                            <canvas id="powerWaveform" class="waveform-data"></canvas>
+                        </div>
+                        <button onclick="startPowerAnalysis()" class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                            Start Analysis
+                        </button>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">EM Analysis</h3>
+                        <div class="waveform mb-4">
+                            <div class="waveform-line"></div>
+                            <canvas id="emWaveform" class="waveform-data"></canvas>
+                        </div>
+                        <button onclick="startEMAnalysis()" class="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors">
+                            Start Analysis
+                        </button>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">Timing Analysis</h3>
+                        <div class="waveform mb-4">
+                            <div class="waveform-line"></div>
+                            <canvas id="timingWaveform" class="waveform-data"></canvas>
+                        </div>
+                        <button onclick="startTimingAnalysis()" class="w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors">
+                            Start Analysis
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Analysis Results -->
+                <div class="bg-gray-900 rounded-xl border border-gray-800">
+                    <div class="p-6 border-b border-gray-800">
+                        <h3 class="text-lg font-semibold">Analysis Results</h3>
+                    </div>
+                    <div class="p-6">
+                        <div id="analysisResults" class="space-y-4">
+                            <p class="text-gray-500">No analysis running. Start an analysis to see results.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PUF Testing -->
+            <div id="puf" class="tab-content p-6">
+                <h2 class="text-2xl font-bold mb-6">Physical Unclonable Function Testing</h2>
+                
+                <!-- PUF Visualization -->
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 mb-8">
+                    <h3 class="text-lg font-semibold mb-4">PUF Response Pattern</h3>
+                    <div class="chip-grid" id="pufGrid">
+                        <!-- Grid cells will be dynamically generated -->
+                    </div>
+                    <div class="mt-4 grid grid-cols-3 gap-4">
+                        <button onclick="generateChallenge()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                            Generate Challenge
+                        </button>
+                        <button onclick="measureResponse()" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors">
+                            Measure Response
+                        </button>
+                        <button onclick="verifyUniqueness()" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors">
+                            Verify Uniqueness
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- PUF Metrics -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-sm text-gray-400 mb-2">Uniqueness</h3>
+                        <p class="text-2xl font-bold text-green-500">49.8%</p>
+                        <p class="text-xs text-gray-500">Ideal: 50%</p>
+                    </div>
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-sm text-gray-400 mb-2">Reliability</h3>
+                        <p class="text-2xl font-bold text-blue-500">98.7%</p>
+                        <p class="text-xs text-gray-500">Target: >95%</p>
+                    </div>
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-sm text-gray-400 mb-2">Entropy</h3>
+                        <p class="text-2xl font-bold text-purple-500">0.997</p>
+                        <p class="text-xs text-gray-500">Max: 1.0</p>
+                    </div>
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-sm text-gray-400 mb-2">Bit Error Rate</h3>
+                        <p class="text-2xl font-bold text-yellow-500">1.3%</p>
+                        <p class="text-xs text-gray-500">Target: <5%</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quantum Resistance -->
+            <div id="quantum" class="tab-content p-6">
+                <h2 class="text-2xl font-bold mb-6">Quantum Resistance Testing</h2>
+                
+                <!-- Post-Quantum Algorithms -->
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 mb-8">
+                    <h3 class="text-lg font-semibold mb-4">Post-Quantum Cryptography Algorithms</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">CRYSTALS-Kyber</h4>
+                            <p class="text-sm text-gray-400 mb-2">Key Encapsulation</p>
+                            <div class="flex items-center justify-between text-xs">
+                                <span>Security Level</span>
+                                <span class="text-green-500">5</span>
+                            </div>
+                        </div>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">CRYSTALS-Dilithium</h4>
+                            <p class="text-sm text-gray-400 mb-2">Digital Signatures</p>
+                            <div class="flex items-center justify-between text-xs">
+                                <span>Security Level</span>
+                                <span class="text-green-500">5</span>
+                            </div>
+                        </div>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">FALCON</h4>
+                            <p class="text-sm text-gray-400 mb-2">Digital Signatures</p>
+                            <div class="flex items-center justify-between text-xs">
+                                <span>Security Level</span>
+                                <span class="text-blue-500">3</span>
+                            </div>
+                        </div>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">SPHINCS+</h4>
+                            <p class="text-sm text-gray-400 mb-2">Hash-based Signatures</p>
+                            <div class="flex items-center justify-between text-xs">
+                                <span>Security Level</span>
+                                <span class="text-purple-500">3</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quantum Attack Simulation -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">Quantum Attack Simulation</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Algorithm to Test</label>
+                                <select class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500">
+                                    <option>RSA-2048</option>
+                                    <option>ECC-P256</option>
+                                    <option>AES-256</option>
+                                    <option>CRYSTALS-Kyber</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Quantum Computer Qubits</label>
+                                <input type="range" min="100" max="10000" value="1000" class="w-full" id="qubitSlider">
+                                <div class="flex justify-between text-xs text-gray-500">
+                                    <span>100</span>
+                                    <span id="qubitValue">1000</span>
+                                    <span>10,000</span>
+                                </div>
+                            </div>
+                            <button onclick="runQuantumSimulation()" class="w-full px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
+                                Run Quantum Attack Simulation
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">Security Assessment</h3>
+                        <canvas id="quantumSecurityChart" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Global variables
+        let currentTab = 'overview';
+        let charts = {};
+        let terminalLines = [];
+        let keys = [];
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            initializePUFGrid();
+            startHardwareMonitor();
+            loadKeys();
+            setupQuantumSlider();
+        });
+        
+        // Tab switching
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-gray-800');
+            });
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.closest('.tab-btn').classList.add('bg-gray-800');
+            
+            currentTab = tabName;
+            lucide.createIcons();
+        }
+        
+        // Initialize charts
+        function initializeCharts() {
+            // Security Status Chart
+            const statusCtx = document.getElementById('securityStatusChart').getContext('2d');
+            charts.securityStatus = new Chart(statusCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Encryption', 'Authentication', 'Integrity', 'Availability', 'Confidentiality', 'Non-repudiation'],
+                    datasets: [{
+                        label: 'Current Status',
+                        data: [95, 88, 92, 87, 94, 90],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                        pointBackgroundColor: '#10b981',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#10b981'
+                    }, {
+                        label: 'Target',
+                        data: [100, 100, 100, 100, 100, 100],
+                        borderColor: '#6b7280',
+                        backgroundColor: 'rgba(107, 114, 128, 0.1)',
+                        pointBackgroundColor: '#6b7280',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#6b7280'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                color: '#9ca3af'
+                            },
+                            grid: {
+                                color: '#374151'
+                            },
+                            pointLabels: {
+                                color: '#9ca3af'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#9ca3af'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Quantum Security Chart
+            const quantumCtx = document.getElementById('quantumSecurityChart').getContext('2d');
+            charts.quantumSecurity = new Chart(quantumCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['RSA-2048', 'ECC-P256', 'AES-256', 'Kyber-768', 'Dilithium-3'],
+                    datasets: [{
+                        label: 'Years to Break',
+                        data: [8, 6, 50, 1000000, 1000000],
+                        backgroundColor: [
+                            '#ef4444',
+                            '#f59e0b',
+                            '#eab308',
+                            '#10b981',
+                            '#10b981'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            type: 'logarithmic',
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#9ca3af'
+                            },
+                            grid: {
+                                color: '#374151'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#9ca3af'
+                            },
+                            grid: {
+                                color: '#374151'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize PUF grid
+        function initializePUFGrid() {
+            const grid = document.getElementById('pufGrid');
+            for (let i = 0; i < 64; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'chip-cell';
+                cell.id = `puf-cell-${i}`;
+                grid.appendChild(cell);
+            }
+        }
+        
+        // Hardware monitor
+        function startHardwareMonitor() {
+            const terminal = document.getElementById('hardwareTerminal');
+            
+            function addTerminalLine(line) {
+                const lineElement = document.createElement('div');
+                lineElement.className = 'terminal-line';
+                lineElement.innerHTML = line;
+                terminal.appendChild(lineElement);
+                
+                // Keep only last 20 lines
+                while (terminal.children.length > 20) {
+                    terminal.removeChild(terminal.firstChild);
+                }
+                
+                terminal.scrollTop = terminal.scrollHeight;
+            }
+            
+            // Initial messages
+            setTimeout(() => {
+                addTerminalLine('<span class="terminal-prompt">hw-monitor></span> <span class="terminal-output">HSM device detected: Luna Network HSM 7</span>');
+            }, 1000);
+            
+            setTimeout(() => {
+                addTerminalLine('<span class="terminal-prompt">hw-monitor></span> <span class="terminal-output">TPM 2.0 initialized successfully</span>');
+            }, 2000);
+            
+            setTimeout(() => {
+                addTerminalLine('<span class="terminal-prompt">hw-monitor></span> <span class="terminal-output">Secure boot chain verified</span>');
+            }, 3000);
+            
+            // Periodic updates
+            setInterval(() => {
+                const messages = [
+                    'Entropy pool refreshed: 4096 bits',
+                    'Temperature check: All sensors nominal',
+                    'Key operation completed: RSA-2048 signature',
+                    'Attestation request processed',
+                    'Secure enclave health check: PASS',
+                    'Random number generation test: PASS',
+                    'Side-channel countermeasures: ACTIVE',
+                    'Tamper detection: No incidents'
+                ];
+                
+                const message = messages[Math.floor(Math.random() * messages.length)];
+                addTerminalLine(`<span class="terminal-prompt">hw-monitor></span> <span class="terminal-output">${message}</span>`);
+            }, 5000);
+        }
+        
+        // Load keys
+        function loadKeys() {
+            keys = [
+                { id: 'KEY-001', type: 'RSA', algorithm: 'RSA-2048', created: '2024-01-15', status: 'Active' },
+                { id: 'KEY-002', type: 'ECC', algorithm: 'P-256', created: '2024-01-14', status: 'Active' },
+                { id: 'KEY-003', type: 'AES', algorithm: 'AES-256', created: '2024-01-13', status: 'Active' },
+                { id: 'KEY-004', type: 'RSA', algorithm: 'RSA-4096', created: '2024-01-12', status: 'Expired' }
+            ];
+            
+            displayKeys();
+        }
+        
+        function displayKeys() {
+            const keyList = document.getElementById('keyList');
+            keyList.innerHTML = '';
+            
+            keys.forEach(key => {
+                const row = document.createElement('tr');
+                row.className = 'border-b border-gray-800 hover:bg-gray-800';
+                row.innerHTML = `
+                    <td class="px-6 py-4 text-sm font-mono">${key.id}</td>
+                    <td class="px-6 py-4 text-sm">${key.type}</td>
+                    <td class="px-6 py-4 text-sm">${key.algorithm}</td>
+                    <td class="px-6 py-4 text-sm">${key.created}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 text-xs rounded-full ${
+                            key.status === 'Active' ? 'bg-green-500/20 text-green-500' : 'bg-gray-500/20 text-gray-500'
+                        }">${key.status}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <button onclick="rotateKey('${key.id}')" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded transition-colors">
+                            Rotate
+                        </button>
+                    </td>
+                `;
+                keyList.appendChild(row);
+            });
+        }
+        
+        // Quantum slider setup
+        function setupQuantumSlider() {
+            const slider = document.getElementById('qubitSlider');
+            const value = document.getElementById('qubitValue');
+            
+            slider.addEventListener('input', function() {
+                value.textContent = this.value;
+            });
+        }
+        
+        // Action functions
+        function startSecurityAudit() {
+            showNotification('Security audit initiated...');
+            setTimeout(() => {
+                showNotification('Security audit completed successfully', 'success');
+            }, 3000);
+        }
+        
+        function exportTestResults() {
+            showNotification('Exporting test results...');
+            setTimeout(() => {
+                showNotification('Test results exported', 'success');
+            }, 1500);
+        }
+        
+        function generateKey() {
+            showNotification('Generating new cryptographic key...');
+            setTimeout(() => {
+                const newKey = {
+                    id: `KEY-${String(keys.length + 1).padStart(3, '0')}`,
+                    type: 'RSA',
+                    algorithm: 'RSA-2048',
+                    created: new Date().toISOString().split('T')[0],
+                    status: 'Active'
+                };
+                keys.unshift(newKey);
+                displayKeys();
+                showNotification('Key generated successfully', 'success');
+            }, 2000);
+        }
+        
+        function importKey() {
+            showNotification('Import key functionality not implemented in demo', 'info');
+        }
+        
+        function rotateKeys() {
+            showNotification('Rotating all keys...');
+            setTimeout(() => {
+                showNotification('Key rotation completed', 'success');
+            }, 2500);
+        }
+        
+        function rotateKey(keyId) {
+            showNotification(`Rotating key ${keyId}...`);
+            setTimeout(() => {
+                showNotification(`Key ${keyId} rotated successfully`, 'success');
+            }, 1500);
+        }
+        
+        // Side-channel analysis functions
+        function startPowerAnalysis() {
+            showNotification('Starting power analysis...');
+            animateWaveform('powerWaveform');
+        }
+        
+        function startEMAnalysis() {
+            showNotification('Starting electromagnetic analysis...');
+            animateWaveform('emWaveform');
+        }
+        
+        function startTimingAnalysis() {
+            showNotification('Starting timing analysis...');
+            animateWaveform('timingWaveform');
+        }
+        
+        function animateWaveform(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            
+            let x = 0;
+            const animate = () => {
+                ctx.strokeStyle = '#10b981';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                
+                for (let i = 0; i < canvas.width; i++) {
+                    const y = canvas.height / 2 + Math.sin((i + x) * 0.02) * 30 * Math.random();
+                    if (i === 0) {
+                        ctx.moveTo(i, y);
+                    } else {
+                        ctx.lineTo(i, y);
+                    }
+                }
+                
+                ctx.stroke();
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                x += 2;
+                
+                if (x < 500) {
+                    requestAnimationFrame(animate);
+                } else {
+                    updateAnalysisResults();
+                }
+            };
+            
+            animate();
+        }
+        
+        function updateAnalysisResults() {
+            const results = document.getElementById('analysisResults');
+            results.innerHTML = `
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h4 class="font-semibold mb-2">Analysis Complete</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>Leakage Detected:</span>
+                            <span class="text-yellow-500">Minor</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>SNR:</span>
+                            <span>12.4 dB</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Countermeasures:</span>
+                            <span class="text-green-500">Effective</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // PUF functions
+        function generateChallenge() {
+            showNotification('Generating PUF challenge...');
+            const grid = document.getElementById('pufGrid');
+            const cells = grid.getElementsByClassName('chip-cell');
+            
+            for (let i = 0; i < cells.length; i++) {
+                cells[i].className = 'chip-cell';
+                if (Math.random() > 0.5) {
+                    cells[i].classList.add('active');
+                }
+            }
+        }
+        
+        function measureResponse() {
+            showNotification('Measuring PUF response...');
+            const grid = document.getElementById('pufGrid');
+            const cells = grid.getElementsByClassName('chip-cell');
+            
+            setTimeout(() => {
+                for (let i = 0; i < cells.length; i++) {
+                    if (cells[i].classList.contains('active')) {
+                        cells[i].classList.remove('active');
+                        cells[i].classList.add(Math.random() > 0.1 ? 'secure' : 'vulnerable');
+                    }
+                }
+                showNotification('PUF response measured', 'success');
+            }, 1500);
+        }
+        
+        function verifyUniqueness() {
+            showNotification('Verifying PUF uniqueness...');
+            setTimeout(() => {
+                showNotification('PUF uniqueness verified: 49.8% (Ideal: 50%)', 'success');
+            }, 2000);
+        }
+        
+        function runQuantumSimulation() {
+            showNotification('Running quantum attack simulation...');
+            setTimeout(() => {
+                showNotification('Simulation complete. Check security assessment.', 'success');
+                // Update chart with new data
+                const qubits = document.getElementById('qubitSlider').value;
+                const factor = Math.log10(qubits) / 4;
+                charts.quantumSecurity.data.datasets[0].data = [
+                    Math.max(1, 8 / factor),
+                    Math.max(1, 6 / factor),
+                    50 / (factor * 0.1),
+                    1000000,
+                    1000000
+                ];
+                charts.quantumSecurity.update();
+            }, 3000);
+        }
+        
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 ${
+                type === 'error' ? 'bg-red-600' :
+                type === 'success' ? 'bg-green-600' :
+                type === 'warning' ? 'bg-yellow-600' :
+                'bg-blue-600'
+            } text-white`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.5s';
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
