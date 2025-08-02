@@ -1,11 +1,62 @@
 <svg width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#0f3460;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-  <rect width="1920" height="1080" fill="url(#grad)" />
-  <text x="960" y="500" font-family="Arial, sans-serif" font-size="72" font-weight="bold" text-anchor="middle" fill="white" text-transform="uppercase">ABP MCU</text>
-  <text x="960" y="580" font-family="Arial, sans-serif" font-size="32" text-anchor="middle" fill="white" opacity="0.9">ARM Cortex-M7 480MHz</text>
+    <defs>
+        <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#0f3460;stop-opacity:1" />
+        </linearGradient>
+        
+            <pattern id="mcu" patternUnits="userSpaceOnUse" width="60" height="60">
+                <rect width="60" height="60" fill="none"/>
+                <rect x="10" y="10" width="40" height="40" fill="none" stroke="#2874a6" stroke-width="2" opacity="0.6"/>
+                <rect x="15" y="15" width="30" height="30" fill="#2874a6" opacity="0.2"/>
+                <text x="30" y="35" font-family="monospace" font-size="12" fill="#5dade2" text-anchor="middle" opacity="0.8">MCU</text>
+                <circle cx="10" cy="10" r="2" fill="#85c1e9"/>
+                <circle cx="50" cy="10" r="2" fill="#85c1e9"/>
+                <circle cx="10" cy="50" r="2" fill="#85c1e9"/>
+                <circle cx="50" cy="50" r="2" fill="#85c1e9"/>
+            </pattern>
+        
+        <filter id="glow">
+            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+            <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+    
+    <!-- Background gradient -->
+    <rect width="1920" height="1080" fill="url(#grad2)" />
+    
+    <!-- Pattern overlay -->
+    <rect width="1920" height="1080" fill="url(#mcu)" opacity="0.3" />
+    
+    <!-- Central glow effect -->
+    <circle cx="960" cy="540" r="300" fill="white" opacity="0.05" filter="url(#glow)" />
+    
+    <!-- Text content -->
+    <text x="960" y="480" font-family="Arial, sans-serif" font-size="72" font-weight="bold" text-anchor="middle" fill="white" text-transform="uppercase" filter="url(#glow)">ABP MCU</text>
+    <text x="960" y="580" font-family="Arial, sans-serif" font-size="36" text-anchor="middle" fill="white" opacity="0.9">ARM Cortex-M7 480MHz</text>
+    
+    <!-- Decorative elements -->
+    <rect x="860" y="620" width="200" height="3" fill="white" opacity="0.5" />
+    
+    <!-- Tech visualization -->
+    <g transform="translate(960, 700)" opacity="0.3">
+        <circle cx="-100" cy="0" r="3" fill="white">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="-50" cy="0" r="3" fill="white">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" begin="0.5s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="0" cy="0" r="3" fill="white">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" begin="1s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="50" cy="0" r="3" fill="white">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" begin="1.5s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="100" cy="0" r="3" fill="white">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" begin="2s" repeatCount="indefinite" />
+        </circle>
+    </g>
 </svg>

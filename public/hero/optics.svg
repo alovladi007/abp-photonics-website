@@ -1,11 +1,62 @@
 <svg width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-  <rect width="1920" height="1080" fill="url(#grad)" />
-  <text x="960" y="500" font-family="Arial, sans-serif" font-size="72" font-weight="bold" text-anchor="middle" fill="white" text-transform="uppercase">OPTICAL SYSTEMS</text>
-  <text x="960" y="580" font-family="Arial, sans-serif" font-size="32" text-anchor="middle" fill="white" opacity="0.9">Precision Optical Engineering</text>
+    <defs>
+        <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+        </linearGradient>
+        
+            <pattern id="lens" patternUnits="userSpaceOnUse" width="80" height="80">
+                <rect width="80" height="80" fill="none"/>
+                <circle cx="40" cy="40" r="25" fill="none" stroke="#a78bfa" stroke-width="2" opacity="0.5"/>
+                <circle cx="40" cy="40" r="15" fill="none" stroke="#c4b5fd" stroke-width="1.5" opacity="0.6"/>
+                <circle cx="40" cy="40" r="5" fill="#e9d5ff" opacity="0.8"/>
+                <line x1="0" y1="40" x2="15" y2="40" stroke="#a78bfa" stroke-width="1" opacity="0.7"/>
+                <line x1="65" y1="40" x2="80" y2="40" stroke="#a78bfa" stroke-width="1" opacity="0.7"/>
+                <path d="M 15 30 Q 40 20, 65 30" fill="none" stroke="#c4b5fd" stroke-width="1" opacity="0.5"/>
+                <path d="M 15 50 Q 40 60, 65 50" fill="none" stroke="#c4b5fd" stroke-width="1" opacity="0.5"/>
+            </pattern>
+        
+        <filter id="glow">
+            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+            <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+    
+    <!-- Background gradient -->
+    <rect width="1920" height="1080" fill="url(#grad3)" />
+    
+    <!-- Pattern overlay -->
+    <rect width="1920" height="1080" fill="url(#lens)" opacity="0.3" />
+    
+    <!-- Central glow effect -->
+    <circle cx="960" cy="540" r="300" fill="white" opacity="0.05" filter="url(#glow)" />
+    
+    <!-- Text content -->
+    <text x="960" y="480" font-family="Arial, sans-serif" font-size="72" font-weight="bold" text-anchor="middle" fill="white" text-transform="uppercase" filter="url(#glow)">OPTICAL SYSTEMS</text>
+    <text x="960" y="580" font-family="Arial, sans-serif" font-size="36" text-anchor="middle" fill="white" opacity="0.9">Precision Optical Engineering</text>
+    
+    <!-- Decorative elements -->
+    <rect x="860" y="620" width="200" height="3" fill="white" opacity="0.5" />
+    
+    <!-- Tech visualization -->
+    <g transform="translate(960, 700)" opacity="0.3">
+        <circle cx="-100" cy="0" r="3" fill="white">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="-50" cy="0" r="3" fill="white">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" begin="0.5s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="0" cy="0" r="3" fill="white">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" begin="1s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="50" cy="0" r="3" fill="white">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" begin="1.5s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="100" cy="0" r="3" fill="white">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" begin="2s" repeatCount="indefinite" />
+        </circle>
+    </g>
 </svg>
