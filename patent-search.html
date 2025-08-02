@@ -56,7 +56,7 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 pt-20">
+    <div class="min-h-screen bg-gray-900 pt-20">
         <div class="max-w-7xl mx-auto px-6 py-12">
             <!-- Header with Back Button -->
             <div class="flex items-center justify-between mb-8">
@@ -79,32 +79,32 @@
 
             <!-- Title Section -->
             <div class="text-center mb-12">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                     Patent Search Platform
                 </h1>
-                <p class="text-xl text-purple-200 max-w-3xl mx-auto">
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
                     Explore our comprehensive patent portfolio with advanced search capabilities
                 </p>
             </div>
 
             <!-- Search Section -->
-            <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 mb-8">
+            <div class="bg-gray-800 rounded-3xl p-8 mb-8 border border-gray-700">
                 <div class="max-w-4xl mx-auto">
                     <div class="relative mb-6">
                         <input 
                             type="text" 
                             id="searchInput"
                             placeholder="Search patents by title, number, inventor, or keyword..."
-                            class="w-full px-6 py-4 bg-white/10 border border-purple-400/30 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 search-input"
+                            class="w-full px-6 py-4 bg-gray-700 border border-gray-600 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20"
                         >
-                        <button onclick="searchPatents()" class="absolute right-2 top-1/2 transform -translate-y-1/2 px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl hover:shadow-lg transition-all">
+                        <button onclick="searchPatents()" class="absolute right-2 top-1/2 transform -translate-y-1/2 px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all">
                             Search
                         </button>
                     </div>
 
                     <!-- Filters -->
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                        <select id="categoryFilter" onchange="filterPatents()" class="px-4 py-2 bg-white/10 border border-purple-400/30 rounded-lg text-white">
+                        <select id="categoryFilter" onchange="filterPatents()" class="px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-400">
                             <option value="">All Categories</option>
                             <option value="photonics">Photonics & Optics</option>
                             <option value="fpga">FPGA & Computing</option>
@@ -112,14 +112,14 @@
                             <option value="security">Cybersecurity</option>
                         </select>
                         
-                        <select id="statusFilter" onchange="filterPatents()" class="px-4 py-2 bg-white/10 border border-purple-400/30 rounded-lg text-white">
+                        <select id="statusFilter" onchange="filterPatents()" class="px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-400">
                             <option value="">All Status</option>
                             <option value="granted">Granted</option>
                             <option value="pending">Pending</option>
                             <option value="filed">Filed</option>
                         </select>
                         
-                        <select id="yearFilter" onchange="filterPatents()" class="px-4 py-2 bg-white/10 border border-purple-400/30 rounded-lg text-white">
+                        <select id="yearFilter" onchange="filterPatents()" class="px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-400">
                             <option value="">All Years</option>
                             <option value="2024">2024</option>
                             <option value="2023">2023</option>
@@ -128,7 +128,7 @@
                             <option value="2020">2020</option>
                         </select>
                         
-                        <select id="sortBy" onchange="sortPatents()" class="px-4 py-2 bg-white/10 border border-purple-400/30 rounded-lg text-white">
+                        <select id="sortBy" onchange="sortPatents()" class="px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-400">
                             <option value="newest">Newest First</option>
                             <option value="oldest">Oldest First</option>
                             <option value="title">Title A-Z</option>
@@ -326,7 +326,7 @@
 
         function createPatentCard(patent) {
             const card = document.createElement('div');
-            card.className = 'patent-card bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-purple-400/30 hover:border-cyan-400/50 animate-slideIn';
+            card.className = 'patent-card bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-blue-400/50 animate-slideIn';
             
             const statusColor = patent.status === 'granted' ? 'text-green-400' : 'text-yellow-400';
             const statusText = patent.status.charAt(0).toUpperCase() + patent.status.slice(1);
@@ -336,23 +336,23 @@
                     <span class="text-3xl">${patent.icon}</span>
                     <span class="${statusColor} text-sm font-semibold">${statusText}</span>
                 </div>
-                <h3 class="text-xl font-bold mb-2">${patent.title}</h3>
+                <h3 class="text-xl font-bold mb-2 text-white">${patent.title}</h3>
                 <p class="text-gray-400 text-sm mb-4">${patent.abstract}</p>
                 <div class="space-y-2 text-sm">
                     <div class="flex justify-between">
                         <span class="text-gray-500">Patent #:</span>
-                        <span class="text-cyan-400">${patent.id}</span>
+                        <span class="text-blue-400">${patent.id}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-500">Year:</span>
-                        <span>${patent.year}</span>
+                        <span class="text-gray-300">${patent.year}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-500">Inventors:</span>
-                        <span class="text-right">${patent.inventors.join(', ')}</span>
+                        <span class="text-right text-gray-300">${patent.inventors.join(', ')}</span>
                     </div>
                 </div>
-                <button onclick="viewPatentDetails('${patent.id}')" class="mt-4 w-full px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:shadow-lg transition-all">
+                <button onclick="viewPatentDetails('${patent.id}')" class="mt-4 w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all">
                     View Details
                 </button>
             `;

@@ -44,81 +44,102 @@
     </nav>
 
     <!-- Patents Content -->
-    <section class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 pt-20">
+    <section class="min-h-screen bg-gray-900 pt-20">
         <div class="max-w-7xl mx-auto px-6 py-20">
+            <!-- Header with Navigation -->
+            <div class="flex items-center justify-between mb-12">
+                <a href="index.html" class="flex items-center text-gray-400 hover:text-white transition-colors">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back to Home
+                </a>
+                <div class="flex items-center gap-4">
+                    <a href="patent-search.html" class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors">
+                        Search Patents
+                    </a>
+                    <a href="patent-ai-assistant.html" class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:opacity-90 transition-opacity">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        AI Assistant
+                    </a>
+                </div>
+            </div>
+            
             <div class="text-center mb-16">
-                <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Patent Portfolio</h1>
-                <p class="text-xl text-purple-200 max-w-4xl mx-auto">Protecting innovation across photonics, computing, and biomedical technologies</p>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Patent Portfolio</h1>
+                <p class="text-xl text-gray-400 max-w-4xl mx-auto">Protecting innovation across photonics, computing, and biomedical technologies</p>
             </div>
 
             <!-- Patent Stats -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
-                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center">
-                    <div class="text-4xl font-bold text-cyan-400">127</div>
-                    <div class="text-gray-300">Total Patents</div>
+                <div class="bg-gray-800 rounded-2xl p-6 text-center border border-gray-700">
+                    <div class="text-4xl font-bold text-blue-400">127</div>
+                    <div class="text-gray-400">Total Patents</div>
                 </div>
-                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center">
+                <div class="bg-gray-800 rounded-2xl p-6 text-center border border-gray-700">
                     <div class="text-4xl font-bold text-purple-400">89</div>
-                    <div class="text-gray-300">Granted</div>
+                    <div class="text-gray-400">Granted</div>
                 </div>
-                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center">
-                    <div class="text-4xl font-bold text-pink-400">38</div>
-                    <div class="text-gray-300">Pending</div>
+                <div class="bg-gray-800 rounded-2xl p-6 text-center border border-gray-700">
+                    <div class="text-4xl font-bold text-green-400">38</div>
+                    <div class="text-gray-400">Pending</div>
                 </div>
-                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center">
-                    <div class="text-4xl font-bold text-indigo-400">15</div>
-                    <div class="text-gray-300">Countries</div>
+                <div class="bg-gray-800 rounded-2xl p-6 text-center border border-gray-700">
+                    <div class="text-4xl font-bold text-yellow-400">15</div>
+                    <div class="text-gray-400">Countries</div>
                 </div>
             </div>
 
             <!-- Patent Categories -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 hover:bg-white/15 transition-all">
+                <div class="bg-gray-800 rounded-3xl p-8 hover:bg-gray-700 transition-all border border-gray-700">
                     <div class="text-3xl mb-4">💡</div>
-                    <h3 class="text-2xl font-bold mb-4">Photonics & Optics</h3>
-                    <p class="text-gray-300 mb-4">Silicon photonics, integrated optics, quantum photonic devices</p>
-                    <div class="text-cyan-400 font-semibold">47 Patents</div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Photonics & Optics</h3>
+                    <p class="text-gray-400 mb-4">Silicon photonics, integrated optics, quantum photonic devices</p>
+                    <div class="text-blue-400 font-semibold">47 Patents</div>
                 </div>
-                <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 hover:bg-white/15 transition-all">
+                <div class="bg-gray-800 rounded-3xl p-8 hover:bg-gray-700 transition-all border border-gray-700">
                     <div class="text-3xl mb-4">🔧</div>
-                    <h3 class="text-2xl font-bold mb-4">FPGA & Computing</h3>
-                    <p class="text-gray-300 mb-4">Programmable logic, AI accelerators, embedded systems</p>
+                    <h3 class="text-2xl font-bold mb-4 text-white">FPGA & Computing</h3>
+                    <p class="text-gray-400 mb-4">Programmable logic, AI accelerators, embedded systems</p>
                     <div class="text-purple-400 font-semibold">35 Patents</div>
                 </div>
-                <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 hover:bg-white/15 transition-all">
+                <div class="bg-gray-800 rounded-3xl p-8 hover:bg-gray-700 transition-all border border-gray-700">
                     <div class="text-3xl mb-4">🧬</div>
-                    <h3 class="text-2xl font-bold mb-4">Biomedical Tech</h3>
-                    <p class="text-gray-300 mb-4">Biosensors, medical devices, diagnostic systems</p>
-                    <div class="text-pink-400 font-semibold">45 Patents</div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Biomedical Tech</h3>
+                    <p class="text-gray-400 mb-4">Biosensors, medical devices, diagnostic systems</p>
+                    <div class="text-green-400 font-semibold">45 Patents</div>
                 </div>
             </div>
 
             <!-- Search Platform CTA -->
-            <div class="mt-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-8 text-center">
-                <h2 class="text-3xl font-bold mb-4">Explore Our Patent Portfolio</h2>
-                <p class="text-xl mb-6 max-w-2xl mx-auto">Access our comprehensive patent search platform to discover innovations across all technology areas</p>
-                <a href="patent-search.html" class="inline-block px-8 py-4 bg-white text-purple-600 font-bold rounded-full hover:bg-gray-100 transform hover:scale-105 transition-all">
+            <div class="mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 text-center">
+                <h2 class="text-3xl font-bold mb-4 text-white">Explore Our Patent Portfolio</h2>
+                <p class="text-xl mb-6 max-w-2xl mx-auto text-gray-200">Access our comprehensive patent search platform to discover innovations across all technology areas</p>
+                <a href="patent-search.html" class="inline-block px-8 py-4 bg-white text-blue-600 font-bold rounded-full hover:bg-gray-100 transform hover:scale-105 transition-all">
                     Launch Patent Search Platform →
                 </a>
             </div>
 
             <!-- Recent Patents -->
             <div class="mt-16">
-                <h2 class="text-3xl font-bold mb-8">Recent Patents</h2>
+                <h2 class="text-3xl font-bold mb-8 text-white">Recent Patents</h2>
                 <div class="space-y-6">
-                    <div class="bg-white/5 backdrop-blur rounded-xl p-6 hover:bg-white/10 transition-all">
+                    <div class="bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition-all border border-gray-700">
                         <div class="flex justify-between items-start">
                             <div>
-                                <h4 class="text-xl font-semibold mb-2">Quantum Photonic Processor Architecture</h4>
+                                <h4 class="text-xl font-semibold mb-2 text-white">Quantum Photonic Processor Architecture</h4>
                                 <p class="text-gray-400">US Patent #11,234,567 • Granted: March 2024</p>
                             </div>
                             <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">Granted</span>
                         </div>
                     </div>
-                    <div class="bg-white/5 backdrop-blur rounded-xl p-6 hover:bg-white/10 transition-all">
+                    <div class="bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition-all border border-gray-700">
                         <div class="flex justify-between items-start">
                             <div>
-                                <h4 class="text-xl font-semibold mb-2">AI-Enhanced FPGA Routing Algorithm</h4>
+                                <h4 class="text-xl font-semibold mb-2 text-white">AI-Enhanced FPGA Routing Algorithm</h4>
                                 <p class="text-gray-400">US Patent Application #2024/123456 • Filed: January 2024</p>
                             </div>
                             <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm">Pending</span>
