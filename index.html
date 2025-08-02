@@ -471,7 +471,6 @@
                 <span class="cursor-pointer hover:text-cyan-400 transition-colors font-medium" onclick="showPage('patents')">Patents</span>
                 <span class="cursor-pointer hover:text-cyan-400 transition-colors font-medium" onclick="showPage('cybersecurity')">Cybersecurity</span>
                 <span class="cursor-pointer hover:text-cyan-400 transition-colors font-medium" onclick="showPage('hardware')">Hardware</span>
-                <span class="cursor-pointer hover:text-cyan-400 transition-colors font-medium text-xs" onclick="document.getElementById('hardware').scrollIntoView()">| Direct</span>
                 <span class="cursor-pointer hover:text-cyan-400 transition-colors font-medium" onclick="showPage('biotensor')">BioTensor</span>
                 <button class="px-4 py-2 bg-cyan-400 text-black font-semibold rounded-full hover:bg-cyan-300 transition-colors" onclick="openLouis()">AI Assistant</button>
             </div>
@@ -961,22 +960,26 @@ function openLouis() {
                         </div>
                         <p class="text-blue-200 mb-8">Advanced semiconductor and electronic solutions for high-performance computing and embedded systems</p>
                         <div class="grid grid-cols-1 gap-4">
-                            <a href="#microchips" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                            <div onclick="showPage('microchips-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Advanced Microchips</h3>
                                 <p class="text-gray-400 text-sm mt-1">Silicon photonics integrated circuits for quantum computing</p>
-                            </a>
-                            <a href="#fpga" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
+                            </div>
+                            <div onclick="showPage('fpga-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">FPGA Solutions</h3>
                                 <p class="text-gray-400 text-sm mt-1">Programmable logic arrays for signal processing</p>
-                            </a>
-                            <a href="#microcontroller" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
+                            </div>
+                            <div onclick="showPage('mcu-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Microcontrollers</h3>
                                 <p class="text-gray-400 text-sm mt-1">ARM Cortex-M7 based MCUs with photonic interfaces</p>
-                            </a>
-                            <a href="#more-electronics" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
+                            </div>
+                            <div onclick="showPage('electronics-catalog')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">More Electronics →</h3>
                                 <p class="text-gray-400 text-sm mt-1">Power management, sensors, and custom ASICs</p>
-                            </a>
+                                <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ Full Catalog</div>
+                            </div>
                         </div>
                     </div>
 
@@ -988,22 +991,26 @@ function openLouis() {
                         </div>
                         <p class="text-blue-200 mb-8">Precision optical components and systems for telecommunications, sensing, and quantum applications</p>
                         <div class="grid grid-cols-1 gap-4">
-                            <a href="#polarizers" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                            <div onclick="showPage('polarizers-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Optical Polarizers</h3>
                                 <p class="text-gray-400 text-sm mt-1">High-precision polarization control components</p>
-                            </a>
-                            <a href="#lenses-mirrors" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
+                            </div>
+                            <div onclick="showPage('lenses-mirrors-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Lenses & Mirrors</h3>
                                 <p class="text-gray-400 text-sm mt-1">Ultra-low loss optical elements for photonic systems</p>
-                            </a>
-                            <a href="#prisms-beamsplitters" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
+                            </div>
+                            <div onclick="showPage('prisms-beamsplitters-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Prisms & Beamsplitters</h3>
                                 <p class="text-gray-400 text-sm mt-1">Precision beam manipulation and splitting components</p>
-                            </a>
-                            <a href="#lasers" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
+                            </div>
+                            <div onclick="showPage('laser-systems-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Laser Systems</h3>
                                 <p class="text-gray-400 text-sm mt-1">Semiconductor and fiber laser solutions</p>
-                            </a>
+                                <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
+                            </div>
                         </div>
                     </div>
 
@@ -1015,22 +1022,26 @@ function openLouis() {
                         </div>
                         <p class="text-blue-200 mb-8">State-of-the-art lithography solutions for semiconductor manufacturing and photonic device fabrication</p>
                         <div class="grid grid-cols-1 gap-4">
-                            <a href="#photomask" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                            <div onclick="showPage('photomask-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Photomask Technology</h3>
                                 <p class="text-gray-400 text-sm mt-1">10nm process technology masks and reticles</p>
-                            </a>
-                            <a href="#euv-lithography" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
-                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">EUV Lithography</h3>
-                                <p class="text-gray-400 text-sm mt-1">Extreme ultraviolet lithography systems</p>
-                            </a>
-                            <a href="#immersion-lithography" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
+                            </div>
+                            <div onclick="showPage('maskless-exposure-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Maskless Exposure Systems</h3>
+                                <p class="text-gray-400 text-sm mt-1">Direct-write lithography for rapid prototyping</p>
+                                <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
+                            </div>
+                            <div onclick="showPage('immersion-lithography-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Immersion Lithography</h3>
                                 <p class="text-gray-400 text-sm mt-1">193nm immersion lithography solutions</p>
-                            </a>
-                            <a href="#nanoimprint" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
+                            </div>
+                            <div onclick="showPage('nanoimprint-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Nanoimprint Technology</h3>
                                 <p class="text-gray-400 text-sm mt-1">Sub-10nm patterning capabilities</p>
-                            </a>
+                                <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
+                            </div>
                         </div>
                     </div>
 
@@ -1042,22 +1053,26 @@ function openLouis() {
                         </div>
                         <p class="text-blue-200 mb-8">Advanced thin-film deposition systems for precision material engineering</p>
                         <div class="grid grid-cols-1 gap-4">
-                            <a href="#pvd" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                            <div onclick="showPage('pvd-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Physical Vapor Deposition (PVD)</h3>
                                 <p class="text-gray-400 text-sm mt-1">Sputtering and evaporation systems</p>
-                            </a>
-                            <a href="#cvd" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
+                            </div>
+                            <div onclick="showPage('cvd-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Chemical Vapor Deposition (CVD)</h3>
                                 <p class="text-gray-400 text-sm mt-1">PECVD, LPCVD, and MOCVD systems</p>
-                            </a>
-                            <a href="#ald" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
+                            </div>
+                            <div onclick="showPage('ald-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Atomic Layer Deposition (ALD)</h3>
                                 <p class="text-gray-400 text-sm mt-1">Atomic-scale precision coating technology</p>
-                            </a>
-                            <a href="#epitaxy" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
+                            </div>
+                            <div onclick="showPage('epitaxy-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Epitaxial Growth</h3>
                                 <p class="text-gray-400 text-sm mt-1">MBE and MOVPE systems for crystal growth</p>
-                            </a>
+                                <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1080,6 +1095,141 @@ function openLouis() {
                             <div class="text-4xl mb-3">🌍</div>
                             <h3 class="text-xl font-semibold mb-2">Global Support</h3>
                             <p class="text-blue-200">Worldwide technical support and rapid deployment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MICROCHIPS PRODUCTS PAGE -->
+    <div id="microchips-products" class="page-content">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <!-- Header with Back Button -->
+                <div class="flex items-center justify-between mb-8">
+                    <button onclick="showPage('hardware')" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Hardware
+                    </button>
+                    <span class="text-gray-400">ABP Optoelectronics</span>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Advanced Microchips</h1>
+                    <p class="text-xl text-blue-200 max-w-3xl mx-auto">Silicon photonics integrated circuits for next-generation computing</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <!-- Product 1 -->
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                            <span class="text-6xl">🔲</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">PIC-Q100 Series</h3>
+                            <p class="text-gray-400 text-sm mb-4">Quantum photonic integrated circuits with 100+ qubits support</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$12,500</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-green-600 to-teal-600 flex items-center justify-center">
+                            <span class="text-6xl">💠</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">SiPh-AI-2000</h3>
+                            <p class="text-gray-400 text-sm mb-4">AI accelerator chip with photonic neural network architecture</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$8,750</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center">
+                            <span class="text-6xl">⚡</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">OPU-5000X</h3>
+                            <p class="text-gray-400 text-sm mb-4">Optical processing unit for datacenter applications</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$15,000</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4 -->
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                            <span class="text-6xl">🌐</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">PhotoLink-10G</h3>
+                            <p class="text-gray-400 text-sm mb-4">10Gbps photonic interconnect chip for HPC clusters</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$3,200</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 5 -->
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-indigo-600 to-blue-600 flex items-center justify-center">
+                            <span class="text-6xl">🔮</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">QSec-256</h3>
+                            <p class="text-gray-400 text-sm mb-4">Quantum-secure encryption chip with photonic RNG</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$6,500</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 6 -->
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-teal-600 to-cyan-600 flex items-center justify-center">
+                            <span class="text-6xl">📡</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">LiDAR-SoC-Pro</h3>
+                            <p class="text-gray-400 text-sm mb-4">Integrated LiDAR system-on-chip for autonomous vehicles</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$4,800</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Specifications -->
+                <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20">
+                    <h2 class="text-2xl font-bold mb-6">Why Choose ABP Microchips?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-2 text-cyan-400">Ultra-Low Power</h3>
+                            <p class="text-gray-300">90% less power consumption compared to electronic alternatives</p>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-2 text-cyan-400">Speed of Light</h3>
+                            <p class="text-gray-300">Processing at optical speeds with minimal latency</p>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-2 text-cyan-400">Quantum Ready</h3>
+                            <p class="text-gray-300">Native support for quantum computing applications</p>
                         </div>
                     </div>
                 </div>
@@ -2023,6 +2173,22 @@ function openLouis() {
                     { opacity: 0, y: 20 }, 
                     { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
                 );
+            }
+            
+            // Re-initialize slider animations when returning to home
+            if (pageId === 'home' && typeof swiper !== 'undefined') {
+                setTimeout(() => {
+                    const activeSlide = document.querySelector('.swiper-slide-active');
+                    if (activeSlide) {
+                        const content = activeSlide.querySelector('.animate-fadeInUp');
+                        if (content) {
+                            content.style.animation = 'none';
+                            setTimeout(() => {
+                                content.style.animation = '';
+                            }, 100);
+                        }
+                    }
+                }, 100);
             }
             
             // Update back button
