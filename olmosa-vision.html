@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olmosa Vision - BioTensor Lab</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Sora', sans-serif; }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-black/90 backdrop-blur-lg z-50 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">ABP</a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="hover:text-cyan-400 transition-colors">Home</a>
+                    <a href="patents.html" class="hover:text-cyan-400 transition-colors">Patents</a>
+                    <a href="cybersecurity.html" class="hover:text-cyan-400 transition-colors">Cybersecurity</a>
+                    <a href="hardware.html" class="hover:text-cyan-400 transition-colors">Hardware</a>
+                    <a href="biotensor.html" class="hover:text-cyan-400 transition-colors">BioTensor</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 pt-20">
+        <div class="max-w-7xl mx-auto px-6 py-20">
+            <!-- Header with Back Button -->
+            <div class="flex items-center justify-between mb-8">
+                <a href="biotensor.html" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back to BioTensor
+                </a>
+                <span class="text-gray-400">BioTensor Lab</span>
+            </div>
+
+            <!-- Title Section -->
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent float-animation">
+                    Olmosa Vision
+                </h1>
+                <p class="text-2xl text-purple-200 mb-4">AI-Enhanced Medical Imaging Platform</p>
+                <p class="text-lg text-gray-300 max-w-4xl mx-auto">Next-generation medical imaging analysis system using deep learning for automated diagnosis, featuring advanced computer vision algorithms for radiological interpretation.</p>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20">
+                    <div class="text-4xl font-bold text-cyan-400 mb-2">98.5%</div>
+                    <div class="text-gray-300">Diagnostic Accuracy</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20">
+                    <div class="text-4xl font-bold text-cyan-400 mb-2">2M+</div>
+                    <div class="text-gray-300">Images Analyzed</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20">
+                    <div class="text-4xl font-bold text-cyan-400 mb-2"><30s</div>
+                    <div class="text-gray-300">Processing Time</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20">
+                    <div class="text-4xl font-bold text-cyan-400 mb-2">500+</div>
+                    <div class="text-gray-300">Hospitals</div>
+                </div>
+
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 hover:bg-white/15 transition-all border border-white/20">
+                    <div class="text-4xl mb-4">🩻</div>
+                    <h3 class="text-xl font-bold mb-3">X-Ray Analysis</h3>
+                    <p class="text-gray-300">Automated chest X-ray interpretation with 98% accuracy</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 hover:bg-white/15 transition-all border border-white/20">
+                    <div class="text-4xl mb-4">🧠</div>
+                    <h3 class="text-xl font-bold mb-3">MRI Processing</h3>
+                    <p class="text-gray-300">Advanced MRI scan analysis for neurological conditions</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 hover:bg-white/15 transition-all border border-white/20">
+                    <div class="text-4xl mb-4">🫁</div>
+                    <h3 class="text-xl font-bold mb-3">CT Scan AI</h3>
+                    <p class="text-gray-300">Lung nodule detection and COVID-19 screening</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 hover:bg-white/15 transition-all border border-white/20">
+                    <div class="text-4xl mb-4">🔬</div>
+                    <h3 class="text-xl font-bold mb-3">Pathology Vision</h3>
+                    <p class="text-gray-300">Digital pathology slide analysis for cancer detection</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 hover:bg-white/15 transition-all border border-white/20">
+                    <div class="text-4xl mb-4">📈</div>
+                    <h3 class="text-xl font-bold mb-3">3D Reconstruction</h3>
+                    <p class="text-gray-300">Real-time 3D medical image reconstruction and visualization</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 hover:bg-white/15 transition-all border border-white/20">
+                    <div class="text-4xl mb-4">🎯</div>
+                    <h3 class="text-xl font-bold mb-3">Precision Diagnostics</h3>
+                    <p class="text-gray-300">Multi-modal image fusion for enhanced diagnostic accuracy</p>
+                </div>
+
+            </div>
+
+            <!-- CTA Section -->
+            <div class="text-center bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20">
+                <h2 class="text-3xl font-bold mb-4">Ready to Transform Healthcare?</h2>
+                <p class="text-xl text-gray-300 mb-8">Contact us to learn more about implementing Olmosa Vision in your organization</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="mailto:biotensor@auroraborealisphonics.com" class="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-full hover:shadow-lg transform hover:scale-105 transition-all">
+                        Request Demo
+                    </a>
+                    <a href="#" class="px-8 py-4 bg-white/20 backdrop-blur text-white font-semibold rounded-full hover:bg-white/30 transition-all">
+                        Download Whitepaper
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-gray-400">© 2024 Aurora Borealis Photonics - BioTensor Lab. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
