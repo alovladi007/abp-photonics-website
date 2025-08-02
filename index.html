@@ -69,16 +69,23 @@
             font-size: 20px;
         }
 
+        /* Ensure hero slider has relative positioning */
+        .hero-slider {
+            position: relative;
+        }
+
         /* Pagination container */
         .swiper-pagination {
             position: absolute;
             bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
+            right: 0;
             z-index: 10;
             display: flex;
             gap: 10px;
             align-items: center;
+            justify-content: center;
+            width: 100%;
         }
 
         .hero-slider .swiper-pagination-bullet {
@@ -90,6 +97,7 @@
             cursor: pointer;
             border-radius: 50%;
             display: inline-block;
+            border: 2px solid rgba(255, 255, 255, 0.8);
         }
 
         .hero-slider .swiper-pagination-bullet-active {
