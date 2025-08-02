@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olosa Vision™ AI Dashboard - BioTensor Lab</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Olosa Vision AI Dashboard - Advanced medical imaging analysis with computer vision and LLM-powered diagnostics">
+    <meta name="keywords" content="medical imaging, AI diagnostics, computer vision, radiology AI, medical image analysis">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- TensorFlow.js for AI Models -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    
+    <!-- Custom Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* Animations */
+        @keyframes scan-line {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(transparent, rgba(59, 130, 246, 0.8), transparent);
+            animation: scan-line 3s linear infinite;
+        }
+        
+        @keyframes pulse-blue {
+            0%, 100% { 
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+            }
+            50% { 
+                opacity: 0.8;
+                box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+            }
+        }
+        
+        .pulse-blue {
+            animation: pulse-blue 2s infinite;
+        }
+        
+        @keyframes rotate-3d {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        
+        .rotate-3d {
+            animation: rotate-3d 10s linear infinite;
+        }
+        
+        /* Medical imaging styles */
+        .dicom-viewer {
+            background: #000;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dicom-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+        
+        .detection-box {
+            position: absolute;
+            border: 2px solid #00ff00;
+            background: rgba(0, 255, 0, 0.1);
+            pointer-events: none;
+        }
+        
+        .heatmap-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 0, 0, 0.6) 0%, transparent 70%);
+            mix-blend-mode: multiply;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .heatmap-overlay.active {
+            opacity: 1;
+        }
+        
+        /* Glass morphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Neural visualization */
+        .neural-path {
+            stroke-dasharray: 5, 5;
+            stroke-dashoffset: 0;
+            animation: dash 1s linear infinite;
+        }
+        
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -10;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-lg z-50 border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-8">
+                    <a href="biotensor.html" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                        Back to BioTensor Lab
+                    </a>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                        Olosa Vision™ AI Dashboard
+                    </h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleAIAssistant()" class="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
+                        <i data-lucide="brain" class="w-4 h-4"></i>
+                        AI Assistant
+                    </button>
+                    <button onclick="exportDiagnostics()" class="px-4 py-2 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition-colors">
+                        Export Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Container -->
+    <div class="flex h-screen pt-16">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-gray-800 border-r border-gray-700 overflow-y-auto">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold mb-4 text-blue-400">Imaging Analysis</h2>
+                <nav class="space-y-2">
+                    <button onclick="switchModule('overview')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3 bg-gray-700">
+                        <i data-lucide="activity" class="w-5 h-5 text-blue-400"></i>
+                        <span>Overview</span>
+                    </button>
+                    <button onclick="switchModule('xray')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="scan" class="w-5 h-5 text-cyan-400"></i>
+                        <span>X-Ray Analysis</span>
+                    </button>
+                    <button onclick="switchModule('mri')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="brain" class="w-5 h-5 text-purple-400"></i>
+                        <span>MRI Scanner</span>
+                    </button>
+                    <button onclick="switchModule('ct')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="circle-dot" class="w-5 h-5 text-green-400"></i>
+                        <span>CT Imaging</span>
+                    </button>
+                    <button onclick="switchModule('ultrasound')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="waves" class="w-5 h-5 text-pink-400"></i>
+                        <span>Ultrasound</span>
+                    </button>
+                    <button onclick="switchModule('pathology')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="microscope" class="w-5 h-5 text-yellow-400"></i>
+                        <span>Digital Pathology</span>
+                    </button>
+                    <button onclick="switchModule('ai-diagnostics')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="sparkles" class="w-5 h-5 text-orange-400"></i>
+                        <span>AI Diagnostics</span>
+                    </button>
+                    <button onclick="switchModule('llm-consult')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="message-circle" class="w-5 h-5 text-indigo-400"></i>
+                        <span>LLM Consultation</span>
+                    </button>
+                </nav>
+                
+                <h2 class="text-lg font-semibold mb-4 mt-8 text-cyan-400">Vision Models</h2>
+                <div class="space-y-3">
+                    <div class="bg-gray-700 rounded-lg p-3">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm">Chest X-Ray AI</span>
+                            <span class="text-xs text-green-400">Active</span>
+                        </div>
+                        <div class="w-full bg-gray-600 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full" style="width: 98%"></div>
+                        </div>
+                        <span class="text-xs text-gray-400">Accuracy: 98.7%</span>
+                    </div>
+                    <div class="bg-gray-700 rounded-lg p-3">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm">Brain MRI Segmentation</span>
+                            <span class="text-xs text-green-400">Active</span>
+                        </div>
+                        <div class="w-full bg-gray-600 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full" style="width: 94%"></div>
+                        </div>
+                        <span class="text-xs text-gray-400">Dice Score: 0.94</span>
+                    </div>
+                    <div class="bg-gray-700 rounded-lg p-3">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm">Pathology Vision LLM</span>
+                            <span class="text-xs text-yellow-400">Processing</span>
+                        </div>
+                        <div class="w-full bg-gray-600 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-yellow-500 to-red-500 h-2 rounded-full" style="width: 65%"></div>
+                        </div>
+                        <span class="text-xs text-gray-400">Training: 65%</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- Overview Module -->
+            <div id="overview-module" class="module-content p-6">
+                <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                    Medical Imaging Analysis Center
+                </h2>
+                
+                <!-- Key Metrics Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-blue-400">Scans Analyzed</h3>
+                            <i data-lucide="scan" class="w-6 h-6 text-blue-400"></i>
+                        </div>
+                        <p class="text-3xl font-bold">1,247</p>
+                        <p class="text-sm text-gray-400 mt-2">Today</p>
+                        <div class="mt-4 flex items-center gap-2 text-green-400 text-sm">
+                            <i data-lucide="trending-up" class="w-4 h-4"></i>
+                            <span>+12% from yesterday</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-cyan-400">AI Confidence</h3>
+                            <div class="pulse-blue">
+                                <i data-lucide="cpu" class="w-6 h-6 text-cyan-400"></i>
+                            </div>
+                        </div>
+                        <p class="text-3xl font-bold">96.4%</p>
+                        <p class="text-sm text-gray-400 mt-2">Average Score</p>
+                        <div class="mt-4 w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full" style="width: 96.4%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-green-400">Anomalies Detected</h3>
+                            <i data-lucide="alert-triangle" class="w-6 h-6 text-yellow-400"></i>
+                        </div>
+                        <p class="text-3xl font-bold">23</p>
+                        <p class="text-sm text-gray-400 mt-2">Requiring Review</p>
+                        <button class="mt-4 w-full px-4 py-2 bg-yellow-600/20 border border-yellow-600/50 rounded-lg hover:bg-yellow-600/30 transition-colors text-sm text-yellow-400">
+                            Review Queue
+                        </button>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-purple-400">Processing Time</h3>
+                            <i data-lucide="zap" class="w-6 h-6 text-purple-400"></i>
+                        </div>
+                        <p class="text-3xl font-bold">1.8s</p>
+                        <p class="text-sm text-gray-400 mt-2">Average per scan</p>
+                        <div class="mt-4 grid grid-cols-3 gap-1">
+                            <div class="h-8 bg-purple-500 rounded"></div>
+                            <div class="h-8 bg-purple-500 rounded"></div>
+                            <div class="h-8 bg-gray-700 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Analyses -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mb-8">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                        <i data-lucide="clock" class="w-6 h-6 text-blue-400"></i>
+                        Recent Analyses
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-gray-700/50 rounded-xl p-4 hover:bg-gray-700 transition-colors cursor-pointer">
+                            <div class="aspect-square bg-black rounded-lg mb-3 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20"></div>
+                                <div class="absolute top-2 right-2 px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded">
+                                    Normal
+                                </div>
+                                <div class="flex items-center justify-center h-full">
+                                    <i data-lucide="scan" class="w-16 h-16 text-gray-600"></i>
+                                </div>
+                            </div>
+                            <h4 class="font-semibold text-sm">Chest X-Ray</h4>
+                            <p class="text-xs text-gray-400">Patient: John D.</p>
+                            <p class="text-xs text-gray-500">2 min ago</p>
+                        </div>
+                        <div class="bg-gray-700/50 rounded-xl p-4 hover:bg-gray-700 transition-colors cursor-pointer">
+                            <div class="aspect-square bg-black rounded-lg mb-3 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-pink-900/20"></div>
+                                <div class="absolute top-2 right-2 px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded">
+                                    Review
+                                </div>
+                                <div class="flex items-center justify-center h-full">
+                                    <i data-lucide="brain" class="w-16 h-16 text-gray-600"></i>
+                                </div>
+                            </div>
+                            <h4 class="font-semibold text-sm">Brain MRI</h4>
+                            <p class="text-xs text-gray-400">Patient: Sarah M.</p>
+                            <p class="text-xs text-gray-500">5 min ago</p>
+                        </div>
+                        <div class="bg-gray-700/50 rounded-xl p-4 hover:bg-gray-700 transition-colors cursor-pointer">
+                            <div class="aspect-square bg-black rounded-lg mb-3 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-br from-green-900/20 to-blue-900/20"></div>
+                                <div class="absolute top-2 right-2 px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded">
+                                    Normal
+                                </div>
+                                <div class="flex items-center justify-center h-full">
+                                    <i data-lucide="circle-dot" class="w-16 h-16 text-gray-600"></i>
+                                </div>
+                            </div>
+                            <h4 class="font-semibold text-sm">CT Abdomen</h4>
+                            <p class="text-xs text-gray-400">Patient: Mike R.</p>
+                            <p class="text-xs text-gray-500">8 min ago</p>
+                        </div>
+                        <div class="bg-gray-700/50 rounded-xl p-4 hover:bg-gray-700 transition-colors cursor-pointer">
+                            <div class="aspect-square bg-black rounded-lg mb-3 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-br from-pink-900/20 to-purple-900/20"></div>
+                                <div class="absolute top-2 right-2 px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded">
+                                    Urgent
+                                </div>
+                                <div class="flex items-center justify-center h-full">
+                                    <i data-lucide="microscope" class="w-16 h-16 text-gray-600"></i>
+                                </div>
+                            </div>
+                            <h4 class="font-semibold text-sm">Pathology Slide</h4>
+                            <p class="text-xs text-gray-400">Patient: Lisa K.</p>
+                            <p class="text-xs text-gray-500">12 min ago</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Performance Analytics -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">Model Performance</h3>
+                        <canvas id="performanceChart" class="w-full h-64"></canvas>
+                    </div>
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">Analysis Distribution</h3>
+                        <canvas id="distributionChart" class="w-full h-64"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- X-Ray Analysis Module -->
+            <div id="xray-module" class="module-content p-6 hidden">
+                <h2 class="text-3xl font-bold mb-6">X-Ray Analysis</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Image Viewer -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-xl font-semibold">DICOM Viewer</h3>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="toggleHeatmap()" class="px-3 py-1 bg-blue-600 rounded hover:bg-blue-700 transition-colors text-sm">
+                                        Heatmap
+                                    </button>
+                                    <button onclick="toggleDetections()" class="px-3 py-1 bg-cyan-600 rounded hover:bg-cyan-700 transition-colors text-sm">
+                                        Detections
+                                    </button>
+                                    <button class="px-3 py-1 bg-gray-700 rounded hover:bg-gray-600 transition-colors text-sm">
+                                        <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="dicom-viewer rounded-xl h-96 relative">
+                                <div class="scan-line"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <i data-lucide="image" class="w-24 h-24 text-gray-700 mb-4"></i>
+                                        <p class="text-gray-500">Drop DICOM file here or click to upload</p>
+                                        <button class="mt-4 px-6 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
+                                            Load Sample
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="heatmapOverlay" class="heatmap-overlay"></div>
+                                <div id="detectionsOverlay" class="dicom-overlay hidden">
+                                    <div class="detection-box" style="top: 20%; left: 30%; width: 100px; height: 80px;">
+                                        <span class="absolute -top-6 left-0 text-xs text-green-400">Nodule (87%)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Image Controls -->
+                            <div class="mt-4 grid grid-cols-4 gap-2">
+                                <button class="px-3 py-2 bg-gray-700 rounded hover:bg-gray-600 transition-colors text-sm">
+                                    Brightness +
+                                </button>
+                                <button class="px-3 py-2 bg-gray-700 rounded hover:bg-gray-600 transition-colors text-sm">
+                                    Contrast +
+                                </button>
+                                <button class="px-3 py-2 bg-gray-700 rounded hover:bg-gray-600 transition-colors text-sm">
+                                    Invert
+                                </button>
+                                <button class="px-3 py-2 bg-gray-700 rounded hover:bg-gray-600 transition-colors text-sm">
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Analysis Panel -->
+                    <div class="space-y-6">
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-lg font-semibold mb-4">AI Analysis</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm">Pneumonia</span>
+                                        <span class="text-sm text-red-400">78%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-red-500 h-2 rounded-full" style="width: 78%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm">Cardiomegaly</span>
+                                        <span class="text-sm text-yellow-400">45%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-yellow-500 h-2 rounded-full" style="width: 45%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm">Pleural Effusion</span>
+                                        <span class="text-sm text-green-400">12%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 12%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="w-full mt-4 px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
+                                Generate Report
+                            </button>
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-lg font-semibold mb-4">Patient Info</h3>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">ID:</span>
+                                    <span>XR-2024-1247</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Age:</span>
+                                    <span>45 years</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Gender:</span>
+                                    <span>Male</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Study Date:</span>
+                                    <span>Dec 23, 2024</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-lg font-semibold mb-4">Quick Actions</h3>
+                            <div class="space-y-2">
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Compare with Previous
+                                </button>
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Request Second Opinion
+                                </button>
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Add to Teaching Set
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- MRI Scanner Module -->
+            <div id="mri-module" class="module-content p-6 hidden">
+                <h2 class="text-3xl font-bold mb-6">MRI Scanner</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- 3D Brain Viewer -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-xl font-semibold mb-4">3D Brain Visualization</h3>
+                            <div class="bg-black rounded-xl h-96 relative overflow-hidden">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="rotate-3d">
+                                        <div class="w-48 h-48 relative">
+                                            <div class="absolute inset-0 bg-gradient-to-br from-purple-600/30 to-pink-600/30 rounded-full blur-xl"></div>
+                                            <div class="absolute inset-4 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full"></div>
+                                            <div class="absolute inset-8 bg-gray-900 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="absolute top-4 left-4 space-y-2">
+                                    <div class="px-3 py-1 bg-purple-600/20 border border-purple-600/50 rounded text-xs text-purple-400">
+                                        T1-weighted
+                                    </div>
+                                    <div class="px-3 py-1 bg-pink-600/20 border border-pink-600/50 rounded text-xs text-pink-400">
+                                        Sagittal View
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Slice Navigation -->
+                            <div class="mt-4 space-y-2">
+                                <div class="flex items-center gap-4">
+                                    <span class="text-sm text-gray-400 w-20">Axial</span>
+                                    <input type="range" class="flex-1" min="0" max="100" value="50">
+                                    <span class="text-sm">50/100</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <span class="text-sm text-gray-400 w-20">Coronal</span>
+                                    <input type="range" class="flex-1" min="0" max="100" value="50">
+                                    <span class="text-sm">50/100</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <span class="text-sm text-gray-400 w-20">Sagittal</span>
+                                    <input type="range" class="flex-1" min="0" max="100" value="50">
+                                    <span class="text-sm">50/100</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Segmentation Results -->
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mt-6">
+                            <h3 class="text-xl font-semibold mb-4">Segmentation Analysis</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div class="text-center">
+                                    <div class="w-16 h-16 mx-auto mb-2 bg-gradient-to-br from-red-500 to-pink-500 rounded-full flex items-center justify-center">
+                                        <span class="text-2xl font-bold">GM</span>
+                                    </div>
+                                    <p class="text-sm">Gray Matter</p>
+                                    <p class="text-xs text-gray-400">42.3%</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-16 h-16 mx-auto mb-2 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
+                                        <span class="text-2xl font-bold">WM</span>
+                                    </div>
+                                    <p class="text-sm">White Matter</p>
+                                    <p class="text-xs text-gray-400">38.7%</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-16 h-16 mx-auto mb-2 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
+                                        <span class="text-2xl font-bold">CSF</span>
+                                    </div>
+                                    <p class="text-sm">CSF</p>
+                                    <p class="text-xs text-gray-400">15.2%</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-16 h-16 mx-auto mb-2 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center">
+                                        <span class="text-2xl font-bold">?</span>
+                                    </div>
+                                    <p class="text-sm">Anomaly</p>
+                                    <p class="text-xs text-red-400">3.8%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Analysis Sidebar -->
+                    <div class="space-y-6">
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-lg font-semibold mb-4">Scan Parameters</h3>
+                            <div class="space-y-3 text-sm">
+                                <div>
+                                    <label class="text-gray-400">Sequence</label>
+                                    <select class="w-full mt-1 px-3 py-2 bg-gray-700 rounded-lg">
+                                        <option>T1-weighted</option>
+                                        <option>T2-weighted</option>
+                                        <option>FLAIR</option>
+                                        <option>DWI</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-gray-400">Field Strength</label>
+                                    <select class="w-full mt-1 px-3 py-2 bg-gray-700 rounded-lg">
+                                        <option>1.5T</option>
+                                        <option>3.0T</option>
+                                        <option>7.0T</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-gray-400">Slice Thickness</label>
+                                    <input type="text" value="1.0 mm" class="w-full mt-1 px-3 py-2 bg-gray-700 rounded-lg">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-lg font-semibold mb-4">AI Findings</h3>
+                            <div class="space-y-3">
+                                <div class="p-3 bg-red-900/20 border border-red-600/50 rounded-lg">
+                                    <div class="flex items-start gap-2">
+                                        <i data-lucide="alert-circle" class="w-5 h-5 text-red-400 mt-0.5"></i>
+                                        <div>
+                                            <p class="font-medium text-red-400">Suspicious Lesion</p>
+                                            <p class="text-xs text-gray-400 mt-1">
+                                                4mm hyperintense lesion detected in right temporal lobe. 
+                                                Confidence: 89%
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-3 bg-yellow-900/20 border border-yellow-600/50 rounded-lg">
+                                    <div class="flex items-start gap-2">
+                                        <i data-lucide="info" class="w-5 h-5 text-yellow-400 mt-0.5"></i>
+                                        <div>
+                                            <p class="font-medium text-yellow-400">Mild Atrophy</p>
+                                            <p class="text-xs text-gray-400 mt-1">
+                                                Age-appropriate cortical atrophy observed.
+                                                Within normal limits.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-purple-900/20 to-pink-900/20 rounded-2xl p-6 border border-purple-500/20">
+                            <h3 class="text-lg font-semibold mb-3">Quick Analysis</h3>
+                            <button class="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-colors font-semibold">
+                                Run Full Brain Analysis
+                            </button>
+                            <p class="text-xs text-gray-400 mt-2">
+                                Estimated time: 45 seconds
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- AI Diagnostics Module -->
+            <div id="ai-diagnostics-module" class="module-content p-6 hidden">
+                <h2 class="text-3xl font-bold mb-6">AI Diagnostics Center</h2>
+                
+                <!-- Model Selection -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mb-8">
+                    <h3 class="text-xl font-semibold mb-4">Select Diagnostic Model</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <button class="p-4 bg-gray-700 rounded-xl hover:bg-gray-600 transition-colors text-left">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                                    <i data-lucide="scan" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="font-semibold">ChestNet Pro</h4>
+                            </div>
+                            <p class="text-sm text-gray-400">14 pathologies detection</p>
+                            <p class="text-xs text-green-400 mt-1">Accuracy: 98.7%</p>
+                        </button>
+                        <button class="p-4 bg-gray-700 rounded-xl hover:bg-gray-600 transition-colors text-left">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
+                                    <i data-lucide="brain" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="font-semibold">NeuroVision AI</h4>
+                            </div>
+                            <p class="text-sm text-gray-400">Brain tumor segmentation</p>
+                            <p class="text-xs text-green-400 mt-1">Dice Score: 0.94</p>
+                        </button>
+                        <button class="p-4 bg-gray-700 rounded-xl hover:bg-gray-600 transition-colors text-left">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-10 h-10 bg-pink-600 rounded-lg flex items-center justify-center">
+                                    <i data-lucide="eye" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="font-semibold">RetinaAI Plus</h4>
+                            </div>
+                            <p class="text-sm text-gray-400">Diabetic retinopathy</p>
+                            <p class="text-xs text-green-400 mt-1">Sensitivity: 96.2%</p>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Batch Processing -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">Batch Processing Queue</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-gray-700 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
+                                        <i data-lucide="loader" class="w-5 h-5 animate-spin"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">Chest X-Ray Batch</p>
+                                        <p class="text-xs text-gray-400">127 images</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm text-blue-400">Processing</p>
+                                    <p class="text-xs text-gray-400">45% complete</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-700 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 bg-gray-600 rounded flex items-center justify-center">
+                                        <i data-lucide="clock" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">MRI Brain Series</p>
+                                        <p class="text-xs text-gray-400">32 studies</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm text-gray-400">Queued</p>
+                                    <p class="text-xs text-gray-400">Est: 15 min</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full mt-4 px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
+                            Add New Batch
+                        </button>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">Model Performance Metrics</h3>
+                        <canvas id="modelMetricsChart" class="w-full h-64"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Neural Network Visualization -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-4">Neural Network Architecture</h3>
+                    <div class="bg-black rounded-xl h-64 relative overflow-hidden">
+                        <svg class="w-full h-full">
+                            <!-- Neural network paths -->
+                            <path d="M50,50 Q150,100 250,50" stroke="#3b82f6" fill="none" stroke-width="2" class="neural-path"/>
+                            <path d="M50,100 Q150,100 250,100" stroke="#8b5cf6" fill="none" stroke-width="2" class="neural-path"/>
+                            <path d="M50,150 Q150,100 250,150" stroke="#ec4899" fill="none" stroke-width="2" class="neural-path"/>
+                            
+                            <!-- Nodes -->
+                            <circle cx="50" cy="50" r="8" fill="#3b82f6"/>
+                            <circle cx="50" cy="100" r="8" fill="#3b82f6"/>
+                            <circle cx="50" cy="150" r="8" fill="#3b82f6"/>
+                            
+                            <circle cx="150" cy="75" r="10" fill="#8b5cf6"/>
+                            <circle cx="150" cy="125" r="10" fill="#8b5cf6"/>
+                            
+                            <circle cx="250" cy="50" r="8" fill="#ec4899"/>
+                            <circle cx="250" cy="100" r="8" fill="#ec4899"/>
+                            <circle cx="250" cy="150" r="8" fill="#ec4899"/>
+                        </svg>
+                        <div class="absolute bottom-4 left-4 right-4 flex justify-between text-xs text-gray-400">
+                            <span>Input Layer</span>
+                            <span>Hidden Layers</span>
+                            <span>Output Layer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- LLM Consultation Module -->
+            <div id="llm-consult-module" class="module-content p-6 hidden">
+                <h2 class="text-3xl font-bold mb-6">AI Medical Image Consultation</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Chat Interface -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-gray-800 rounded-2xl border border-gray-700 h-[600px] flex flex-col">
+                            <div class="p-4 border-b border-gray-700">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
+                                            <i data-lucide="bot" class="w-6 h-6"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold">Olosa Vision AI</h3>
+                                            <p class="text-xs text-gray-400">Powered by Vision-LLM v3.2</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                        <span class="text-xs text-gray-400">Online</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                                <!-- Sample Chat Messages -->
+                                <div class="flex gap-3">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex-shrink-0"></div>
+                                    <div class="bg-gray-700 rounded-2xl p-4 max-w-[80%]">
+                                        <p class="text-sm">Hello! I'm your AI radiology assistant. I can help analyze medical images, explain findings, and provide diagnostic insights. How can I assist you today?</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex gap-3 justify-end">
+                                    <div class="bg-blue-600 rounded-2xl p-4 max-w-[80%]">
+                                        <p class="text-sm">Can you analyze this chest X-ray for any abnormalities?</p>
+                                        <div class="mt-2 bg-black/50 rounded-lg p-2">
+                                            <img src="#" alt="X-ray thumbnail" class="w-32 h-32 object-cover rounded">
+                                        </div>
+                                    </div>
+                                    <div class="w-8 h-8 bg-gray-600 rounded-full flex-shrink-0"></div>
+                                </div>
+                                
+                                <div class="flex gap-3">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex-shrink-0"></div>
+                                    <div class="bg-gray-700 rounded-2xl p-4 max-w-[80%]">
+                                        <p class="text-sm mb-3">I've analyzed the chest X-ray. Here are my findings:</p>
+                                        <div class="bg-gray-800 rounded-lg p-3 space-y-2">
+                                            <div class="flex items-start gap-2">
+                                                <div class="w-2 h-2 bg-yellow-400 rounded-full mt-1.5"></div>
+                                                <div>
+                                                    <p class="text-sm font-medium">Mild cardiomegaly</p>
+                                                    <p class="text-xs text-gray-400">Cardiothoracic ratio: 0.52 (normal < 0.50)</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-start gap-2">
+                                                <div class="w-2 h-2 bg-green-400 rounded-full mt-1.5"></div>
+                                                <div>
+                                                    <p class="text-sm font-medium">Clear lung fields</p>
+                                                    <p class="text-xs text-gray-400">No consolidation or infiltrates</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-start gap-2">
+                                                <div class="w-2 h-2 bg-green-400 rounded-full mt-1.5"></div>
+                                                <div>
+                                                    <p class="text-sm font-medium">Normal bone structures</p>
+                                                    <p class="text-xs text-gray-400">No fractures or lesions detected</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm mt-3">Confidence: 94.3% | Model: ChestNet Pro v2.1</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 border-t border-gray-700">
+                                <div class="flex gap-2">
+                                    <button class="px-3 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                                        <i data-lucide="paperclip" class="w-5 h-5"></i>
+                                    </button>
+                                    <input type="text" placeholder="Ask about the medical image..." class="flex-1 bg-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <button class="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
+                                        <i data-lucide="send" class="w-5 h-5"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Info Panel -->
+                    <div class="space-y-6">
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-lg font-semibold mb-4">Vision AI Capabilities</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="scan" class="w-5 h-5 text-blue-400"></i>
+                                    <span class="text-sm">Multi-modal imaging</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="brain" class="w-5 h-5 text-purple-400"></i>
+                                    <span class="text-sm">14+ pathology detection</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="target" class="w-5 h-5 text-green-400"></i>
+                                    <span class="text-sm">Lesion localization</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="file-text" class="w-5 h-5 text-yellow-400"></i>
+                                    <span class="text-sm">Report generation</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-lg font-semibold mb-4">Quick Prompts</h3>
+                            <div class="space-y-2">
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Compare with normal anatomy
+                                </button>
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Explain findings in simple terms
+                                </button>
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Suggest differential diagnosis
+                                </button>
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Recommend follow-up imaging
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 rounded-2xl p-6 border border-blue-500/20">
+                            <h3 class="text-lg font-semibold mb-3">Training Status</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>Model Accuracy</span>
+                                        <span>98.7%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full" style="width: 98.7%"></div>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-400">
+                                    Last updated: 2 hours ago<br>
+                                    Training data: 2.3M images
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Right Sidebar - Quick Stats -->
+        <aside class="w-80 bg-gray-800 border-l border-gray-700 overflow-y-auto hidden xl:block">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold mb-4">System Status</h2>
+                
+                <!-- GPU Status -->
+                <div class="bg-gray-700 rounded-lg p-4 mb-4">
+                    <h3 class="text-sm font-semibold mb-3 text-blue-400">GPU Utilization</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>GPU 0 (A100)</span>
+                                <span>87%</span>
+                            </div>
+                            <div class="w-full bg-gray-600 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 87%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>GPU 1 (A100)</span>
+                                <span>62%</span>
+                            </div>
+                            <div class="w-full bg-gray-600 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 62%"></div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-400 mt-2">
+                            Memory: 72GB / 80GB
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Processing Queue -->
+                <div class="bg-gray-700 rounded-lg p-4 mb-4">
+                    <h3 class="text-sm font-semibold mb-3 text-cyan-400">Processing Queue</h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Pending</span>
+                            <span>47</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Processing</span>
+                            <span class="text-blue-400">12</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Completed</span>
+                            <span class="text-green-400">1,188</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Failed</span>
+                            <span class="text-red-400">2</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="bg-gray-700 rounded-lg p-4 mb-4">
+                    <h3 class="text-sm font-semibold mb-3 text-purple-400">Recent Activity</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-2 text-sm">
+                            <div class="w-2 h-2 bg-green-400 rounded-full mt-1.5"></div>
+                            <div>
+                                <p>Chest X-Ray analyzed</p>
+                                <p class="text-xs text-gray-400">Dr. Smith - 2 min ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 text-sm">
+                            <div class="w-2 h-2 bg-blue-400 rounded-full mt-1.5"></div>
+                            <div>
+                                <p>MRI batch completed</p>
+                                <p class="text-xs text-gray-400">32 studies - 5 min ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 text-sm">
+                            <div class="w-2 h-2 bg-yellow-400 rounded-full mt-1.5"></div>
+                            <div>
+                                <p>Model update available</p>
+                                <p class="text-xs text-gray-400">ChestNet v2.2 - 1 hr ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 rounded-lg p-4 border border-blue-500/20">
+                    <h3 class="text-sm font-semibold mb-3">Quick Actions</h3>
+                    <div class="space-y-2">
+                        <button class="w-full px-3 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                            Upload New Study
+                        </button>
+                        <button class="w-full px-3 py-2 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition-colors text-sm">
+                            Start Batch Analysis
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+    
+    <!-- AI Assistant Modal -->
+    <div id="aiAssistantModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-gray-800 rounded-2xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">Vision AI Assistant</h3>
+                    <button onclick="toggleAIAssistant()" class="text-gray-400 hover:text-white">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                
+                <div class="bg-gray-700 rounded-xl p-4 mb-6">
+                    <p class="text-sm text-gray-300">
+                        I'm your AI-powered medical imaging assistant. I can help you analyze images, 
+                        understand complex findings, and provide evidence-based insights.
+                    </p>
+                </div>
+                
+                <div class="space-y-4">
+                    <button class="w-full px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-left">
+                        <h4 class="font-semibold mb-1">Image Analysis Guide</h4>
+                        <p class="text-sm text-gray-400">Learn best practices for medical image interpretation</p>
+                    </button>
+                    <button class="w-full px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-left">
+                        <h4 class="font-semibold mb-1">Pathology Reference</h4>
+                        <p class="text-sm text-gray-400">Access comprehensive pathology database</p>
+                    </button>
+                    <button class="w-full px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-left">
+                        <h4 class="font-semibold mb-1">Report Templates</h4>
+                        <p class="text-sm text-gray-400">Generate standardized radiology reports</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Module switching
+        function switchModule(moduleName) {
+            // Hide all modules
+            document.querySelectorAll('.module-content').forEach(module => {
+                module.classList.add('hidden');
+            });
+            
+            // Show selected module
+            const selectedModule = document.getElementById(`${moduleName}-module`);
+            if (selectedModule) {
+                selectedModule.classList.remove('hidden');
+            }
+            
+            // Update button states
+            document.querySelectorAll('.module-btn').forEach(btn => {
+                btn.classList.remove('bg-gray-700');
+            });
+            event.target.closest('.module-btn').classList.add('bg-gray-700');
+            
+            // Reinitialize charts for the selected module
+            if (moduleName === 'overview') {
+                initOverviewCharts();
+            } else if (moduleName === 'ai-diagnostics') {
+                initDiagnosticsCharts();
+            }
+        }
+        
+        // Toggle functions
+        function toggleAIAssistant() {
+            const modal = document.getElementById('aiAssistantModal');
+            modal.classList.toggle('hidden');
+        }
+        
+        function toggleHeatmap() {
+            const overlay = document.getElementById('heatmapOverlay');
+            overlay.classList.toggle('active');
+        }
+        
+        function toggleDetections() {
+            const overlay = document.getElementById('detectionsOverlay');
+            overlay.classList.toggle('hidden');
+        }
+        
+        function exportDiagnostics() {
+            alert('Generating comprehensive diagnostic report...');
+        }
+        
+        // Initialize Overview Charts
+        function initOverviewCharts() {
+            // Performance Chart
+            const perfCtx = document.getElementById('performanceChart').getContext('2d');
+            new Chart(perfCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Accuracy',
+                        data: [96.5, 97.2, 96.8, 97.5, 98.1, 97.9, 98.7],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'Processing Time',
+                        data: [1.9, 1.8, 2.1, 1.7, 1.6, 1.8, 1.8],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        tension: 0.4,
+                        yAxisID: 'y1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#fff' }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        y: {
+                            grid: { color: '#374151' },
+                            ticks: { 
+                                color: '#9ca3af',
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        },
+                        y1: {
+                            position: 'right',
+                            grid: { display: false },
+                            ticks: { 
+                                color: '#9ca3af',
+                                callback: function(value) {
+                                    return value + 's';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Distribution Chart
+            const distCtx = document.getElementById('distributionChart').getContext('2d');
+            new Chart(distCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['X-Ray', 'MRI', 'CT', 'Ultrasound', 'Pathology'],
+                    datasets: [{
+                        data: [45, 20, 18, 12, 5],
+                        backgroundColor: [
+                            '#3b82f6',
+                            '#8b5cf6',
+                            '#10b981',
+                            '#ec4899',
+                            '#f59e0b'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: { color: '#fff' }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize Diagnostics Charts
+        function initDiagnosticsCharts() {
+            const metricsCtx = document.getElementById('modelMetricsChart').getContext('2d');
+            new Chart(metricsCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Accuracy', 'Precision', 'Recall', 'F1-Score', 'Speed', 'Efficiency'],
+                    datasets: [{
+                        label: 'ChestNet Pro',
+                        data: [98.7, 97.5, 96.8, 97.1, 95, 94],
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        borderColor: '#3b82f6',
+                        pointBackgroundColor: '#3b82f6'
+                    }, {
+                        label: 'NeuroVision AI',
+                        data: [94.2, 95.8, 93.5, 94.6, 88, 90],
+                        backgroundColor: 'rgba(139, 92, 246, 0.2)',
+                        borderColor: '#8b5cf6',
+                        pointBackgroundColor: '#8b5cf6'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#fff' }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            grid: { color: '#374151' },
+                            angleLines: { color: '#374151' },
+                            pointLabels: { color: '#9ca3af' },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize charts on load
+        window.addEventListener('DOMContentLoaded', () => {
+            initOverviewCharts();
+        });
+    </script>
+</body>
+</html>

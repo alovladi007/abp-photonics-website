@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYNX NatalCare™ AI Dashboard - BioTensor Lab</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="MYNX NatalCare AI Dashboard - Advanced prenatal monitoring with LLM-powered insights and predictive analytics">
+    <meta name="keywords" content="prenatal care, AI healthcare, maternal monitoring, fetal health, predictive analytics">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- TensorFlow.js for AI Models -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    
+    <!-- Custom Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* Animations */
+        @keyframes pulse-pink {
+            0%, 100% { 
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7);
+            }
+            50% { 
+                opacity: 0.8;
+                box-shadow: 0 0 0 10px rgba(236, 72, 153, 0);
+            }
+        }
+        
+        .pulse-pink {
+            animation: pulse-pink 2s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.3); }
+            70% { transform: scale(1); }
+        }
+        
+        .heartbeat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes data-flow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .data-flow::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(236, 72, 153, 0.4), transparent);
+            animation: data-flow 3s linear infinite;
+        }
+        
+        /* Neural network visualization */
+        .neural-node {
+            width: 12px;
+            height: 12px;
+            background: #ec4899;
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+        }
+        
+        .neural-connection {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, #ec4899, #8b5cf6);
+            transform-origin: left center;
+            opacity: 0.3;
+        }
+        
+        /* Glass morphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-lg z-50 border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-8">
+                    <a href="biotensor.html" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                        Back to BioTensor Lab
+                    </a>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                        MYNX NatalCare™ AI Dashboard
+                    </h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleAIAssistant()" class="px-4 py-2 bg-pink-600 rounded-lg hover:bg-pink-700 transition-colors flex items-center gap-2">
+                        <i data-lucide="brain" class="w-4 h-4"></i>
+                        AI Assistant
+                    </button>
+                    <button onclick="exportReport()" class="px-4 py-2 bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors">
+                        Export Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Container -->
+    <div class="flex h-screen pt-16">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-gray-800 border-r border-gray-700 overflow-y-auto">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold mb-4 text-pink-400">Patient Monitoring</h2>
+                <nav class="space-y-2">
+                    <button onclick="switchModule('overview')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3 bg-gray-700">
+                        <i data-lucide="activity" class="w-5 h-5 text-pink-400"></i>
+                        <span>Overview</span>
+                    </button>
+                    <button onclick="switchModule('vitals')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="heart" class="w-5 h-5 text-red-400"></i>
+                        <span>Vital Signs</span>
+                    </button>
+                    <button onclick="switchModule('fetal')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="baby" class="w-5 h-5 text-blue-400"></i>
+                        <span>Fetal Monitoring</span>
+                    </button>
+                    <button onclick="switchModule('ai-insights')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="sparkles" class="w-5 h-5 text-yellow-400"></i>
+                        <span>AI Insights</span>
+                    </button>
+                    <button onclick="switchModule('risk')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="alert-triangle" class="w-5 h-5 text-orange-400"></i>
+                        <span>Risk Assessment</span>
+                    </button>
+                    <button onclick="switchModule('nutrition')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="apple" class="w-5 h-5 text-green-400"></i>
+                        <span>Nutrition Tracking</span>
+                    </button>
+                    <button onclick="switchModule('appointments')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="calendar" class="w-5 h-5 text-purple-400"></i>
+                        <span>Appointments</span>
+                    </button>
+                    <button onclick="switchModule('llm-chat')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="message-circle" class="w-5 h-5 text-cyan-400"></i>
+                        <span>LLM Consultation</span>
+                    </button>
+                </nav>
+                
+                <h2 class="text-lg font-semibold mb-4 mt-8 text-purple-400">AI Models</h2>
+                <div class="space-y-3">
+                    <div class="bg-gray-700 rounded-lg p-3">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm">Prenatal Risk Model</span>
+                            <span class="text-xs text-green-400">Active</span>
+                        </div>
+                        <div class="w-full bg-gray-600 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-pink-500 to-purple-500 h-2 rounded-full" style="width: 95%"></div>
+                        </div>
+                        <span class="text-xs text-gray-400">Accuracy: 95.3%</span>
+                    </div>
+                    <div class="bg-gray-700 rounded-lg p-3">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm">Fetal Anomaly Detection</span>
+                            <span class="text-xs text-green-400">Active</span>
+                        </div>
+                        <div class="w-full bg-gray-600 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full" style="width: 92%"></div>
+                        </div>
+                        <span class="text-xs text-gray-400">Accuracy: 92.7%</span>
+                    </div>
+                    <div class="bg-gray-700 rounded-lg p-3">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm">Nutrition LLM</span>
+                            <span class="text-xs text-yellow-400">Training</span>
+                        </div>
+                        <div class="w-full bg-gray-600 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-yellow-500 to-orange-500 h-2 rounded-full" style="width: 78%"></div>
+                        </div>
+                        <span class="text-xs text-gray-400">Progress: 78%</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- Overview Module -->
+            <div id="overview-module" class="module-content p-6">
+                <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                    Patient Overview - Sarah Johnson
+                </h2>
+                
+                <!-- Key Metrics Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-pink-400">Gestational Age</h3>
+                            <i data-lucide="calendar-days" class="w-6 h-6 text-pink-400"></i>
+                        </div>
+                        <p class="text-3xl font-bold">24 weeks</p>
+                        <p class="text-sm text-gray-400 mt-2">Second Trimester</p>
+                        <div class="mt-4 w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-pink-500 to-purple-500 h-2 rounded-full" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-blue-400">Fetal Heart Rate</h3>
+                            <div class="heartbeat">
+                                <i data-lucide="heart" class="w-6 h-6 text-red-500"></i>
+                            </div>
+                        </div>
+                        <p class="text-3xl font-bold">142 bpm</p>
+                        <p class="text-sm text-green-400 mt-2">Normal Range</p>
+                        <canvas id="heartRateChart" class="mt-4 h-16"></canvas>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-green-400">Risk Score</h3>
+                            <i data-lucide="shield-check" class="w-6 h-6 text-green-400"></i>
+                        </div>
+                        <p class="text-3xl font-bold">Low</p>
+                        <p class="text-sm text-gray-400 mt-2">AI Confidence: 94%</p>
+                        <div class="mt-4 flex gap-1">
+                            <div class="w-full h-8 bg-green-500 rounded"></div>
+                            <div class="w-full h-8 bg-gray-700 rounded"></div>
+                            <div class="w-full h-8 bg-gray-700 rounded"></div>
+                            <div class="w-full h-8 bg-gray-700 rounded"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-purple-400">Next Appointment</h3>
+                            <i data-lucide="clock" class="w-6 h-6 text-purple-400"></i>
+                        </div>
+                        <p class="text-3xl font-bold">5 days</p>
+                        <p class="text-sm text-gray-400 mt-2">Dec 28, 2024</p>
+                        <button class="mt-4 w-full px-4 py-2 bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors text-sm">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- AI Insights Panel -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mb-8">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                        <i data-lucide="brain" class="w-6 h-6 text-yellow-400"></i>
+                        AI-Generated Insights
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-700/50 rounded-xl p-4">
+                            <h4 class="font-semibold text-pink-400 mb-2">Maternal Health Summary</h4>
+                            <p class="text-sm text-gray-300 mb-3">
+                                Based on continuous monitoring, maternal vitals remain stable. Blood pressure trending slightly upward but within normal range. 
+                                Recommend increased hydration and moderate exercise.
+                            </p>
+                            <div class="flex items-center gap-2 text-xs text-gray-400">
+                                <i data-lucide="cpu" class="w-4 h-4"></i>
+                                Generated by MYNX-LLM v2.4
+                            </div>
+                        </div>
+                        <div class="bg-gray-700/50 rounded-xl p-4">
+                            <h4 class="font-semibold text-blue-400 mb-2">Fetal Development</h4>
+                            <p class="text-sm text-gray-300 mb-3">
+                                Fetal growth parameters are tracking at 65th percentile. All organ systems developing normally. 
+                                Movement patterns indicate healthy neuromuscular development.
+                            </p>
+                            <div class="flex items-center gap-2 text-xs text-gray-400">
+                                <i data-lucide="cpu" class="w-4 h-4"></i>
+                                Confidence: 96.2%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Real-time Monitoring -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">Real-time Vitals</h3>
+                        <canvas id="vitalsChart" class="w-full h-64"></canvas>
+                    </div>
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">Movement Pattern Analysis</h3>
+                        <canvas id="movementChart" class="w-full h-64"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vital Signs Module -->
+            <div id="vitals-module" class="module-content p-6 hidden">
+                <h2 class="text-3xl font-bold mb-6">Vital Signs Monitoring</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Blood Pressure -->
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4 text-red-400">Blood Pressure</h3>
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <p class="text-sm text-gray-400">Systolic</p>
+                                <p class="text-3xl font-bold">118 <span class="text-lg text-gray-400">mmHg</span></p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400">Diastolic</p>
+                                <p class="text-3xl font-bold">76 <span class="text-lg text-gray-400">mmHg</span></p>
+                            </div>
+                        </div>
+                        <canvas id="bpChart" class="w-full h-48"></canvas>
+                    </div>
+                    
+                    <!-- Heart Rate -->
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4 text-pink-400">Heart Rate</h3>
+                        <div class="flex items-center justify-between mb-4">
+                            <p class="text-3xl font-bold">78 <span class="text-lg text-gray-400">bpm</span></p>
+                            <div class="heartbeat text-4xl">❤️</div>
+                        </div>
+                        <canvas id="maternalHRChart" class="w-full h-48"></canvas>
+                    </div>
+                    
+                    <!-- Temperature -->
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4 text-orange-400">Temperature</h3>
+                        <p class="text-3xl font-bold mb-4">36.8°C <span class="text-lg text-green-400">Normal</span></p>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span>Morning</span>
+                                <span>36.5°C</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span>Afternoon</span>
+                                <span>36.8°C</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span>Evening</span>
+                                <span>36.7°C</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Oxygen Saturation -->
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4 text-blue-400">Oxygen Saturation</h3>
+                        <p class="text-3xl font-bold mb-4">98% <span class="text-lg text-green-400">Optimal</span></p>
+                        <div class="relative h-32">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-32 h-32 rounded-full border-8 border-blue-500 border-t-transparent animate-spin"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Fetal Monitoring Module -->
+            <div id="fetal-module" class="module-content p-6 hidden">
+                <h2 class="text-3xl font-bold mb-6">Fetal Monitoring</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-lg font-semibold mb-4 text-blue-400">Fetal Heart Rate</h3>
+                        <div class="text-center">
+                            <p class="text-5xl font-bold mb-2">142</p>
+                            <p class="text-lg text-gray-400">beats per minute</p>
+                            <div class="mt-4 heartbeat text-6xl">💙</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-lg font-semibold mb-4 text-purple-400">Movement Count</h3>
+                        <div class="text-center">
+                            <p class="text-5xl font-bold mb-2">18</p>
+                            <p class="text-lg text-gray-400">movements today</p>
+                            <div class="mt-4 text-green-400">
+                                <i data-lucide="trending-up" class="w-12 h-12 mx-auto"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-lg font-semibold mb-4 text-pink-400">Growth Percentile</h3>
+                        <div class="text-center">
+                            <p class="text-5xl font-bold mb-2">65th</p>
+                            <p class="text-lg text-gray-400">percentile</p>
+                            <div class="mt-4 w-full bg-gray-700 rounded-full h-4">
+                                <div class="bg-gradient-to-r from-pink-500 to-purple-500 h-4 rounded-full" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ultrasound Simulation -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mb-8">
+                    <h3 class="text-xl font-semibold mb-4">3D Ultrasound Visualization</h3>
+                    <div class="bg-black rounded-xl h-96 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20"></div>
+                        <div class="text-center z-10">
+                            <i data-lucide="baby" class="w-32 h-32 mx-auto text-blue-400 mb-4"></i>
+                            <p class="text-gray-400">AI-Enhanced 3D Rendering</p>
+                            <button class="mt-4 px-6 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
+                                Start Scan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fetal Development Timeline -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-4">Development Milestones</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-4 h-4 bg-green-500 rounded-full"></div>
+                            <div class="flex-1">
+                                <p class="font-semibold">Week 20: Anatomy Scan</p>
+                                <p class="text-sm text-gray-400">All organs developing normally ✓</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-4 h-4 bg-blue-500 rounded-full pulse-pink"></div>
+                            <div class="flex-1">
+                                <p class="font-semibold">Week 24: Viability Milestone</p>
+                                <p class="text-sm text-gray-400">Current week - monitoring enhanced</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-4 h-4 bg-gray-500 rounded-full"></div>
+                            <div class="flex-1">
+                                <p class="font-semibold">Week 28: Third Trimester</p>
+                                <p class="text-sm text-gray-400">Upcoming milestone</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- AI Insights Module -->
+            <div id="ai-insights-module" class="module-content p-6 hidden">
+                <h2 class="text-3xl font-bold mb-6">AI-Powered Insights</h2>
+                
+                <!-- Neural Network Visualization -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mb-8">
+                    <h3 class="text-xl font-semibold mb-4">Neural Network Activity</h3>
+                    <div class="relative h-64 bg-black rounded-xl overflow-hidden">
+                        <canvas id="neuralCanvas" class="w-full h-full"></canvas>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 mt-4">
+                        <div class="text-center">
+                            <p class="text-2xl font-bold text-pink-400">2.3M</p>
+                            <p class="text-sm text-gray-400">Parameters</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-2xl font-bold text-blue-400">847ms</p>
+                            <p class="text-sm text-gray-400">Inference Time</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-2xl font-bold text-green-400">99.2%</p>
+                            <p class="text-sm text-gray-400">Confidence</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Predictive Analytics -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-lg font-semibold mb-4 text-purple-400">Risk Prediction Model</h3>
+                        <canvas id="riskPredictionChart" class="w-full h-64"></canvas>
+                    </div>
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-lg font-semibold mb-4 text-blue-400">Outcome Probability</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>Normal Delivery</span>
+                                    <span class="text-green-400">78%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-green-500 h-2 rounded-full" style="width: 78%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>Preterm Risk</span>
+                                    <span class="text-yellow-400">15%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-yellow-500 h-2 rounded-full" style="width: 15%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>Complications</span>
+                                    <span class="text-red-400">7%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-red-500 h-2 rounded-full" style="width: 7%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AI Recommendations -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-4">AI Recommendations</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-gradient-to-br from-pink-900/20 to-purple-900/20 rounded-xl p-4 border border-pink-500/20">
+                            <h4 class="font-semibold text-pink-400 mb-2">Immediate Actions</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-green-400 mt-0.5"></i>
+                                    <span>Schedule glucose tolerance test</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-green-400 mt-0.5"></i>
+                                    <span>Increase iron supplementation</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="alert-circle" class="w-4 h-4 text-yellow-400 mt-0.5"></i>
+                                    <span>Monitor blood pressure daily</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-gradient-to-br from-blue-900/20 to-purple-900/20 rounded-xl p-4 border border-blue-500/20">
+                            <h4 class="font-semibold text-blue-400 mb-2">Lifestyle Optimizations</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="activity" class="w-4 h-4 text-blue-400 mt-0.5"></i>
+                                    <span>30 min prenatal yoga daily</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="droplet" class="w-4 h-4 text-blue-400 mt-0.5"></i>
+                                    <span>Increase water intake to 3L/day</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="moon" class="w-4 h-4 text-blue-400 mt-0.5"></i>
+                                    <span>Optimize sleep position (left side)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- LLM Chat Module -->
+            <div id="llm-chat-module" class="module-content p-6 hidden">
+                <h2 class="text-3xl font-bold mb-6">AI Medical Consultation</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Chat Interface -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-gray-800 rounded-2xl border border-gray-700 h-[600px] flex flex-col">
+                            <div class="p-4 border-b border-gray-700">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center">
+                                            <i data-lucide="bot" class="w-6 h-6"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold">MYNX Medical AI</h3>
+                                            <p class="text-xs text-gray-400">Powered by MYNX-LLM v2.4</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                        <span class="text-xs text-gray-400">Online</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                                <!-- Sample Chat Messages -->
+                                <div class="flex gap-3">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex-shrink-0"></div>
+                                    <div class="bg-gray-700 rounded-2xl p-4 max-w-[80%]">
+                                        <p class="text-sm">Hello Sarah! I'm your AI prenatal care assistant. I've reviewed your latest vitals and everything looks great. How are you feeling today?</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex gap-3 justify-end">
+                                    <div class="bg-blue-600 rounded-2xl p-4 max-w-[80%]">
+                                        <p class="text-sm">I've been feeling some mild cramping. Is this normal at 24 weeks?</p>
+                                    </div>
+                                    <div class="w-8 h-8 bg-gray-600 rounded-full flex-shrink-0"></div>
+                                </div>
+                                
+                                <div class="flex gap-3">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex-shrink-0"></div>
+                                    <div class="bg-gray-700 rounded-2xl p-4 max-w-[80%]">
+                                        <p class="text-sm mb-3">Mild cramping can be normal at 24 weeks as your uterus expands. Based on your monitoring data:</p>
+                                        <ul class="text-sm space-y-1 ml-4">
+                                            <li>• No contractions detected</li>
+                                            <li>• Fetal movement patterns normal</li>
+                                            <li>• No signs of preterm labor</li>
+                                        </ul>
+                                        <p class="text-sm mt-3">However, please monitor for: severe pain, bleeding, or regular contractions. Would you like me to schedule a check-up?</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 border-t border-gray-700">
+                                <div class="flex gap-2">
+                                    <input type="text" placeholder="Ask your medical question..." class="flex-1 bg-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                                    <button class="px-4 py-2 bg-pink-600 rounded-lg hover:bg-pink-700 transition-colors">
+                                        <i data-lucide="send" class="w-5 h-5"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- LLM Info Panel -->
+                    <div class="space-y-6">
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-lg font-semibold mb-4">AI Capabilities</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="brain" class="w-5 h-5 text-purple-400"></i>
+                                    <span class="text-sm">Medical knowledge base</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="shield" class="w-5 h-5 text-green-400"></i>
+                                    <span class="text-sm">HIPAA compliant</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="clock" class="w-5 h-5 text-blue-400"></i>
+                                    <span class="text-sm">24/7 availability</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="languages" class="w-5 h-5 text-pink-400"></i>
+                                    <span class="text-sm">15+ languages</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-lg font-semibold mb-4">Quick Actions</h3>
+                            <div class="space-y-2">
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Explain my test results
+                                </button>
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Nutrition recommendations
+                                </button>
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Exercise guidelines
+                                </button>
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Medication safety check
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-lg font-semibold mb-4">Model Performance</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>Response Accuracy</span>
+                                        <span>97.8%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 97.8%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>User Satisfaction</span>
+                                        <span>4.9/5.0</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 98%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Right Sidebar - Quick Stats -->
+        <aside class="w-80 bg-gray-800 border-l border-gray-700 overflow-y-auto hidden xl:block">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold mb-4">Live Monitoring</h2>
+                
+                <!-- Real-time Alerts -->
+                <div class="bg-gray-700 rounded-lg p-4 mb-4">
+                    <h3 class="text-sm font-semibold mb-3 text-yellow-400">Active Alerts</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-start gap-2 text-sm">
+                            <i data-lucide="info" class="w-4 h-4 text-blue-400 mt-0.5"></i>
+                            <div>
+                                <p class="font-medium">Hydration Reminder</p>
+                                <p class="text-xs text-gray-400">Drink 500ml water</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 text-sm">
+                            <i data-lucide="pill" class="w-4 h-4 text-green-400 mt-0.5"></i>
+                            <div>
+                                <p class="font-medium">Medication Due</p>
+                                <p class="text-xs text-gray-400">Prenatal vitamins in 2h</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="space-y-4">
+                    <div class="bg-gray-700 rounded-lg p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm text-gray-400">Weight Gain</span>
+                            <span class="text-sm font-semibold">+8.2 kg</span>
+                        </div>
+                        <div class="w-full bg-gray-600 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-green-500 to-blue-500 h-2 rounded-full" style="width: 70%"></div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">Within healthy range</p>
+                    </div>
+                    
+                    <div class="bg-gray-700 rounded-lg p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm text-gray-400">Sleep Quality</span>
+                            <span class="text-sm font-semibold">82%</span>
+                        </div>
+                        <div class="flex gap-1">
+                            <div class="w-full h-16 bg-blue-500 rounded" style="height: 60%"></div>
+                            <div class="w-full h-16 bg-blue-500 rounded" style="height: 80%"></div>
+                            <div class="w-full h-16 bg-blue-500 rounded" style="height: 70%"></div>
+                            <div class="w-full h-16 bg-blue-500 rounded" style="height: 85%"></div>
+                            <div class="w-full h-16 bg-blue-500 rounded" style="height: 90%"></div>
+                            <div class="w-full h-16 bg-blue-500 rounded" style="height: 75%"></div>
+                            <div class="w-full h-16 bg-blue-500 rounded" style="height: 82%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-700 rounded-lg p-4">
+                        <h3 class="text-sm font-semibold mb-3">Today's Summary</h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Steps</span>
+                                <span>4,823 / 6,000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Water</span>
+                                <span>1.8L / 3.0L</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Calories</span>
+                                <span>2,150 kcal</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Protein</span>
+                                <span>78g / 85g</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AI Assistant Preview -->
+                <div class="mt-6 bg-gradient-to-br from-pink-900/20 to-purple-900/20 rounded-lg p-4 border border-pink-500/20">
+                    <h3 class="text-sm font-semibold mb-2">AI Assistant</h3>
+                    <p class="text-xs text-gray-400 mb-3">Your personalized prenatal care companion is ready to help.</p>
+                    <button onclick="switchModule('llm-chat')" class="w-full px-3 py-2 bg-pink-600 rounded-lg hover:bg-pink-700 transition-colors text-sm">
+                        Start Conversation
+                    </button>
+                </div>
+            </div>
+        </aside>
+    </div>
+    
+    <!-- AI Assistant Modal (Hidden by default) -->
+    <div id="aiAssistantModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-gray-800 rounded-2xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">AI Medical Assistant</h3>
+                    <button onclick="toggleAIAssistant()" class="text-gray-400 hover:text-white">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                
+                <div class="bg-gray-700 rounded-xl p-4 mb-6">
+                    <p class="text-sm text-gray-300">
+                        I'm your AI-powered prenatal care assistant. I can help you understand your health data, 
+                        answer questions about pregnancy, and provide personalized recommendations based on your monitoring data.
+                    </p>
+                </div>
+                
+                <div class="space-y-4">
+                    <button class="w-full px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-left">
+                        <h4 class="font-semibold mb-1">Analyze My Latest Results</h4>
+                        <p class="text-sm text-gray-400">Get insights from your recent tests and monitoring data</p>
+                    </button>
+                    <button class="w-full px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-left">
+                        <h4 class="font-semibold mb-1">Pregnancy Symptoms Guide</h4>
+                        <p class="text-sm text-gray-400">Learn about common symptoms and when to seek help</p>
+                    </button>
+                    <button class="w-full px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-left">
+                        <h4 class="font-semibold mb-1">Nutrition & Exercise Plan</h4>
+                        <p class="text-sm text-gray-400">Get personalized recommendations for your stage of pregnancy</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Module switching
+        function switchModule(moduleName) {
+            // Hide all modules
+            document.querySelectorAll('.module-content').forEach(module => {
+                module.classList.add('hidden');
+            });
+            
+            // Show selected module
+            const selectedModule = document.getElementById(`${moduleName}-module`);
+            if (selectedModule) {
+                selectedModule.classList.remove('hidden');
+            }
+            
+            // Update button states
+            document.querySelectorAll('.module-btn').forEach(btn => {
+                btn.classList.remove('bg-gray-700');
+            });
+            event.target.closest('.module-btn').classList.add('bg-gray-700');
+            
+            // Reinitialize charts for the selected module
+            if (moduleName === 'overview') {
+                initOverviewCharts();
+            } else if (moduleName === 'vitals') {
+                initVitalsCharts();
+            } else if (moduleName === 'ai-insights') {
+                initAICharts();
+                animateNeuralNetwork();
+            }
+        }
+        
+        // Toggle AI Assistant Modal
+        function toggleAIAssistant() {
+            const modal = document.getElementById('aiAssistantModal');
+            modal.classList.toggle('hidden');
+        }
+        
+        // Export Report
+        function exportReport() {
+            alert('Generating comprehensive prenatal care report...');
+        }
+        
+        // Initialize Overview Charts
+        function initOverviewCharts() {
+            // Heart Rate Mini Chart
+            const hrCtx = document.getElementById('heartRateChart').getContext('2d');
+            new Chart(hrCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 20}, (_, i) => ''),
+                    datasets: [{
+                        data: Array.from({length: 20}, () => 140 + Math.random() * 10),
+                        borderColor: '#ef4444',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.4,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: { display: false },
+                        y: { display: false }
+                    }
+                }
+            });
+            
+            // Vitals Chart
+            const vitalsCtx = document.getElementById('vitalsChart').getContext('2d');
+            new Chart(vitalsCtx, {
+                type: 'line',
+                data: {
+                    labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'],
+                    datasets: [{
+                        label: 'Heart Rate',
+                        data: [72, 68, 70, 78, 82, 76, 74],
+                        borderColor: '#ec4899',
+                        backgroundColor: 'rgba(236, 72, 153, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'Blood Pressure',
+                        data: [115, 112, 118, 120, 118, 116, 114],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        tension: 0.4,
+                        yAxisID: 'y1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#fff' }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        y: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        y1: {
+                            position: 'right',
+                            grid: { display: false },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    }
+                }
+            });
+            
+            // Movement Chart
+            const movementCtx = document.getElementById('movementChart').getContext('2d');
+            new Chart(movementCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['6 AM', '8 AM', '10 AM', '12 PM', '2 PM', '4 PM', '6 PM', '8 PM'],
+                    datasets: [{
+                        label: 'Movement Count',
+                        data: [2, 3, 1, 4, 3, 5, 2, 3],
+                        backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                        borderColor: '#3b82f6',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#fff' }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        y: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize Vitals Charts
+        function initVitalsCharts() {
+            // Blood Pressure Chart
+            const bpCtx = document.getElementById('bpChart').getContext('2d');
+            new Chart(bpCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Systolic',
+                        data: [120, 118, 122, 119, 121, 118, 118],
+                        borderColor: '#ef4444',
+                        tension: 0.4
+                    }, {
+                        label: 'Diastolic',
+                        data: [78, 76, 80, 77, 79, 76, 76],
+                        borderColor: '#3b82f6',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#fff' }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        y: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    }
+                }
+            });
+            
+            // Maternal Heart Rate Chart
+            const mhrCtx = document.getElementById('maternalHRChart').getContext('2d');
+            new Chart(mhrCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+                    datasets: [{
+                        label: 'Heart Rate',
+                        data: Array.from({length: 24}, () => 70 + Math.random() * 20),
+                        borderColor: '#ec4899',
+                        backgroundColor: 'rgba(236, 72, 153, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        y: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize AI Charts
+        function initAICharts() {
+            // Risk Prediction Chart
+            const riskCtx = document.getElementById('riskPredictionChart').getContext('2d');
+            new Chart(riskCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Preterm Labor', 'Gestational Diabetes', 'Preeclampsia', 'Fetal Growth', 'Placental Issues', 'Infections'],
+                    datasets: [{
+                        label: 'Risk Level',
+                        data: [15, 22, 8, 5, 3, 10],
+                        backgroundColor: 'rgba(236, 72, 153, 0.2)',
+                        borderColor: '#ec4899',
+                        pointBackgroundColor: '#ec4899'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#fff' }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            grid: { color: '#374151' },
+                            angleLines: { color: '#374151' },
+                            pointLabels: { color: '#9ca3af' },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Neural Network Animation
+        function animateNeuralNetwork() {
+            const canvas = document.getElementById('neuralCanvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            
+            const nodes = [];
+            const connections = [];
+            
+            // Create nodes
+            const layers = [4, 6, 8, 6, 3];
+            const layerSpacing = canvas.width / (layers.length + 1);
+            
+            layers.forEach((nodeCount, layerIndex) => {
+                const x = layerSpacing * (layerIndex + 1);
+                const nodeSpacing = canvas.height / (nodeCount + 1);
+                
+                for (let i = 0; i < nodeCount; i++) {
+                    const y = nodeSpacing * (i + 1);
+                    nodes.push({ x, y, layer: layerIndex, active: Math.random() > 0.5 });
+                }
+            });
+            
+            // Create connections
+            for (let i = 0; i < layers.length - 1; i++) {
+                const currentLayer = nodes.filter(n => n.layer === i);
+                const nextLayer = nodes.filter(n => n.layer === i + 1);
+                
+                currentLayer.forEach(node1 => {
+                    nextLayer.forEach(node2 => {
+                        if (Math.random() > 0.6) {
+                            connections.push({
+                                from: node1,
+                                to: node2,
+                                active: Math.random() > 0.5
+                            });
+                        }
+                    });
+                });
+            }
+            
+            // Animation loop
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw connections
+                connections.forEach(conn => {
+                    ctx.beginPath();
+                    ctx.moveTo(conn.from.x, conn.from.y);
+                    ctx.lineTo(conn.to.x, conn.to.y);
+                    ctx.strokeStyle = conn.active ? 'rgba(236, 72, 153, 0.3)' : 'rgba(255, 255, 255, 0.1)';
+                    ctx.stroke();
+                    
+                    // Randomly activate/deactivate
+                    if (Math.random() > 0.98) {
+                        conn.active = !conn.active;
+                    }
+                });
+                
+                // Draw nodes
+                nodes.forEach(node => {
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, 6, 0, Math.PI * 2);
+                    ctx.fillStyle = node.active ? '#ec4899' : '#374151';
+                    ctx.fill();
+                    
+                    if (node.active) {
+                        ctx.shadowBlur = 10;
+                        ctx.shadowColor = '#ec4899';
+                        ctx.fill();
+                        ctx.shadowBlur = 0;
+                    }
+                    
+                    // Randomly activate/deactivate
+                    if (Math.random() > 0.98) {
+                        node.active = !node.active;
+                    }
+                });
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
+        
+        // Initialize charts on load
+        window.addEventListener('DOMContentLoaded', () => {
+            initOverviewCharts();
+        });
+    </script>
+</body>
+</html>
