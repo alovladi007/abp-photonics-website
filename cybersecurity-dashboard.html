@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Command Center - Aurora Borealis Photonics</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="ABP Cybersecurity Command Center - Real-time threat monitoring, incident response, and security analytics">
+    <meta name="keywords" content="cybersecurity dashboard, threat monitoring, incident response, security analytics, SOC">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js for Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* Animations */
+        @keyframes pulse-red {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes pulse-yellow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        @keyframes slide-in {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .pulse-red {
+            animation: pulse-red 2s infinite;
+        }
+        
+        .pulse-yellow {
+            animation: pulse-yellow 2s infinite;
+        }
+        
+        .slide-in {
+            animation: slide-in 0.3s ease-out;
+        }
+        
+        /* Gradient borders */
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(#0a0a0a, #0a0a0a) padding-box,
+                        linear-gradient(45deg, #3b82f6, #8b5cf6) border-box;
+            border: 1px solid transparent;
+        }
+        
+        /* Threat level colors */
+        .threat-critical { color: #ef4444; }
+        .threat-high { color: #f59e0b; }
+        .threat-medium { color: #eab308; }
+        .threat-low { color: #10b981; }
+        
+        /* Tab content */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Live feed animation */
+        @keyframes feed-update {
+            from { background-color: rgba(59, 130, 246, 0.2); }
+            to { background-color: transparent; }
+        }
+        
+        .feed-new {
+            animation: feed-update 1s ease-out;
+        }
+    </style>
+</head>
+<body class="text-gray-300">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-md border-b border-gray-800 z-50">
+        <div class="px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-6">
+                    <a href="cybersecurity.html" class="flex items-center text-gray-400 hover:text-white transition-colors">
+                        <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i>
+                        Back to Cybersecurity
+                    </a>
+                    <div class="h-6 w-px bg-gray-700"></div>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                        Security Command Center
+                    </h1>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <!-- Status Indicator -->
+                    <div class="flex items-center gap-2 px-4 py-2 bg-gray-800 rounded-lg">
+                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span class="text-sm">System Operational</span>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <button onclick="initiateEmergencyProtocol()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors flex items-center gap-2">
+                        <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                        Emergency Protocol
+                    </button>
+                    
+                    <button onclick="exportSecurityReport()" class="p-2 hover:bg-gray-800 rounded-lg transition-colors">
+                        <i data-lucide="download" class="w-5 h-5"></i>
+                    </button>
+                    
+                    <button onclick="toggleFullscreen()" class="p-2 hover:bg-gray-800 rounded-lg transition-colors">
+                        <i data-lucide="maximize" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="flex h-screen pt-16">
+        <!-- Sidebar Navigation -->
+        <nav class="w-64 bg-gray-900 border-r border-gray-800 overflow-y-auto">
+            <div class="p-4">
+                <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Security Modules</h2>
+                <ul class="space-y-2">
+                    <li>
+                        <button onclick="switchTab('dashboard')" class="tab-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-3 bg-gray-800">
+                            <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                            <span>Dashboard Overview</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="switchTab('threats')" class="tab-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-3">
+                            <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                            <span>Threat Monitor</span>
+                            <span class="ml-auto px-2 py-1 bg-red-600 text-white text-xs rounded-full">3</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="switchTab('incidents')" class="tab-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-3">
+                            <i data-lucide="file-warning" class="w-5 h-5"></i>
+                            <span>Incident Response</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="switchTab('network')" class="tab-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-3">
+                            <i data-lucide="network" class="w-5 h-5"></i>
+                            <span>Network Security</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="switchTab('vulnerabilities')" class="tab-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-3">
+                            <i data-lucide="bug" class="w-5 h-5"></i>
+                            <span>Vulnerability Scan</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="switchTab('compliance')" class="tab-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-3">
+                            <i data-lucide="shield-check" class="w-5 h-5"></i>
+                            <span>Compliance</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="switchTab('ai-defense')" class="tab-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-3">
+                            <i data-lucide="brain" class="w-5 h-5"></i>
+                            <span>AI Defense System</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="switchTab('reports')" class="tab-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-3">
+                            <i data-lucide="file-text" class="w-5 h-5"></i>
+                            <span>Security Reports</span>
+                        </button>
+                    </li>
+                </ul>
+                
+                <!-- Security Score -->
+                <div class="mt-8 p-4 bg-gray-800 rounded-lg">
+                    <h3 class="text-sm font-semibold mb-2">Overall Security Score</h3>
+                    <div class="flex items-center gap-3">
+                        <div class="relative w-16 h-16">
+                            <svg class="w-16 h-16 transform -rotate-90">
+                                <circle cx="32" cy="32" r="28" stroke="#374151" stroke-width="8" fill="none"></circle>
+                                <circle cx="32" cy="32" r="28" stroke="#10b981" stroke-width="8" fill="none"
+                                        stroke-dasharray="176" stroke-dashoffset="35" stroke-linecap="round"></circle>
+                            </svg>
+                            <span class="absolute inset-0 flex items-center justify-center text-lg font-bold">85</span>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-400">Good</p>
+                            <p class="text-xs text-gray-500">Last updated: 5m ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto bg-gray-950">
+            <!-- Dashboard Overview -->
+            <div id="dashboard" class="tab-content active p-6">
+                <h2 class="text-2xl font-bold mb-6">Security Dashboard</h2>
+                
+                <!-- Key Metrics -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm text-gray-400">Active Threats</h3>
+                            <i data-lucide="alert-circle" class="w-5 h-5 text-red-500"></i>
+                        </div>
+                        <p class="text-3xl font-bold text-red-500">3</p>
+                        <p class="text-sm text-gray-500 mt-2">↑ 2 from yesterday</p>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm text-gray-400">Blocked Attacks</h3>
+                            <i data-lucide="shield" class="w-5 h-5 text-green-500"></i>
+                        </div>
+                        <p class="text-3xl font-bold">1,247</p>
+                        <p class="text-sm text-gray-500 mt-2">Last 24 hours</p>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm text-gray-400">System Uptime</h3>
+                            <i data-lucide="activity" class="w-5 h-5 text-blue-500"></i>
+                        </div>
+                        <p class="text-3xl font-bold">99.98%</p>
+                        <p class="text-sm text-gray-500 mt-2">30 day average</p>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm text-gray-400">Vulnerabilities</h3>
+                            <i data-lucide="bug" class="w-5 h-5 text-yellow-500"></i>
+                        </div>
+                        <p class="text-3xl font-bold text-yellow-500">12</p>
+                        <p class="text-sm text-gray-500 mt-2">Pending patches</p>
+                    </div>
+                </div>
+                
+                <!-- Charts Row -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <!-- Threat Trends Chart -->
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">Threat Activity (7 Days)</h3>
+                        <canvas id="threatTrendsChart" height="200"></canvas>
+                    </div>
+                    
+                    <!-- Attack Types Distribution -->
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">Attack Types Distribution</h3>
+                        <canvas id="attackTypesChart" height="200"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Live Activity Feed -->
+                <div class="bg-gray-900 rounded-xl border border-gray-800">
+                    <div class="p-6 border-b border-gray-800">
+                        <h3 class="text-lg font-semibold">Live Security Feed</h3>
+                    </div>
+                    <div id="liveFeed" class="max-h-96 overflow-y-auto">
+                        <!-- Feed items will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Threat Monitor -->
+            <div id="threats" class="tab-content p-6">
+                <h2 class="text-2xl font-bold mb-6">Active Threat Monitor</h2>
+                
+                <!-- Threat Level Summary -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-gray-900 p-4 rounded-lg border-2 border-red-600">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-semibold">Critical</span>
+                            <span class="text-2xl font-bold text-red-500">1</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900 p-4 rounded-lg border-2 border-orange-600">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-semibold">High</span>
+                            <span class="text-2xl font-bold text-orange-500">2</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900 p-4 rounded-lg border-2 border-yellow-600">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-semibold">Medium</span>
+                            <span class="text-2xl font-bold text-yellow-500">5</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900 p-4 rounded-lg border-2 border-green-600">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-semibold">Low</span>
+                            <span class="text-2xl font-bold text-green-500">12</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Active Threats List -->
+                <div class="bg-gray-900 rounded-xl border border-gray-800">
+                    <div class="p-6 border-b border-gray-800">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-semibold">Active Threats</h3>
+                            <button onclick="refreshThreats()" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors flex items-center gap-2">
+                                <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="border-b border-gray-800">
+                                    <th class="px-6 py-4 text-left text-sm font-semibold">Threat ID</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold">Type</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold">Source</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold">Target</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold">Severity</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold">Status</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="threatsList">
+                                <!-- Threats will be dynamically added here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Incident Response -->
+            <div id="incidents" class="tab-content p-6">
+                <h2 class="text-2xl font-bold mb-6">Incident Response Center</h2>
+                
+                <!-- Incident Creation -->
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 mb-8">
+                    <h3 class="text-lg font-semibold mb-4">Create New Incident</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Incident Title</label>
+                            <input type="text" id="incidentTitle" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter incident title">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Severity</label>
+                            <select id="incidentSeverity" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500">
+                                <option value="critical">Critical</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium mb-2">Description</label>
+                            <textarea id="incidentDescription" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500" rows="3" placeholder="Describe the incident"></textarea>
+                        </div>
+                        <div class="md:col-span-2">
+                            <button onclick="createIncident()" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                                Create Incident
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Active Incidents -->
+                <div class="bg-gray-900 rounded-xl border border-gray-800">
+                    <div class="p-6 border-b border-gray-800">
+                        <h3 class="text-lg font-semibold">Active Incidents</h3>
+                    </div>
+                    <div id="incidentsList" class="divide-y divide-gray-800">
+                        <!-- Incidents will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Network Security -->
+            <div id="network" class="tab-content p-6">
+                <h2 class="text-2xl font-bold mb-6">Network Security Monitor</h2>
+                
+                <!-- Network Status -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">Firewall Status</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Main Firewall</span>
+                                <span class="text-sm text-green-500">Active</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Rules Active</span>
+                                <span class="text-sm">2,451</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Blocked IPs</span>
+                                <span class="text-sm">847</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">Network Traffic</h3>
+                        <canvas id="networkTrafficChart" height="150"></canvas>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">Active Connections</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Internal</span>
+                                <span class="text-sm">1,245</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">External</span>
+                                <span class="text-sm">342</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Suspicious</span>
+                                <span class="text-sm text-yellow-500">7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Network Map -->
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                    <h3 class="text-lg font-semibold mb-4">Network Topology</h3>
+                    <div id="networkMap" class="h-96 bg-gray-950 rounded-lg flex items-center justify-center">
+                        <p class="text-gray-500">Network visualization would be rendered here</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vulnerability Scanner -->
+            <div id="vulnerabilities" class="tab-content p-6">
+                <h2 class="text-2xl font-bold mb-6">Vulnerability Scanner</h2>
+                
+                <!-- Scan Controls -->
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 mb-8">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold">System Scan</h3>
+                            <p class="text-sm text-gray-400 mt-1">Last scan: 2 hours ago</p>
+                        </div>
+                        <button onclick="startVulnerabilityScan()" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center gap-2">
+                            <i data-lucide="search" class="w-4 h-4"></i>
+                            Start New Scan
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Vulnerability List -->
+                <div class="bg-gray-900 rounded-xl border border-gray-800">
+                    <div class="p-6 border-b border-gray-800">
+                        <h3 class="text-lg font-semibold">Detected Vulnerabilities</h3>
+                    </div>
+                    <div id="vulnerabilityList" class="divide-y divide-gray-800">
+                        <!-- Vulnerabilities will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Compliance -->
+            <div id="compliance" class="tab-content p-6">
+                <h2 class="text-2xl font-bold mb-6">Compliance Dashboard</h2>
+                
+                <!-- Compliance Overview -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">GDPR Compliance</h3>
+                        <div class="relative w-32 h-32 mx-auto">
+                            <svg class="w-32 h-32 transform -rotate-90">
+                                <circle cx="64" cy="64" r="56" stroke="#374151" stroke-width="12" fill="none"></circle>
+                                <circle cx="64" cy="64" r="56" stroke="#10b981" stroke-width="12" fill="none"
+                                        stroke-dasharray="352" stroke-dashoffset="35" stroke-linecap="round"></circle>
+                            </svg>
+                            <span class="absolute inset-0 flex items-center justify-center text-2xl font-bold">92%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">ISO 27001</h3>
+                        <div class="relative w-32 h-32 mx-auto">
+                            <svg class="w-32 h-32 transform -rotate-90">
+                                <circle cx="64" cy="64" r="56" stroke="#374151" stroke-width="12" fill="none"></circle>
+                                <circle cx="64" cy="64" r="56" stroke="#3b82f6" stroke-width="12" fill="none"
+                                        stroke-dasharray="352" stroke-dashoffset="70" stroke-linecap="round"></circle>
+                            </svg>
+                            <span class="absolute inset-0 flex items-center justify-center text-2xl font-bold">88%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">SOC 2</h3>
+                        <div class="relative w-32 h-32 mx-auto">
+                            <svg class="w-32 h-32 transform -rotate-90">
+                                <circle cx="64" cy="64" r="56" stroke="#374151" stroke-width="12" fill="none"></circle>
+                                <circle cx="64" cy="64" r="56" stroke="#8b5cf6" stroke-width="12" fill="none"
+                                        stroke-dasharray="352" stroke-dashoffset="53" stroke-linecap="round"></circle>
+                            </svg>
+                            <span class="absolute inset-0 flex items-center justify-center text-2xl font-bold">90%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Compliance Checklist -->
+                <div class="bg-gray-900 rounded-xl border border-gray-800">
+                    <div class="p-6 border-b border-gray-800">
+                        <h3 class="text-lg font-semibold">Compliance Requirements</h3>
+                    </div>
+                    <div id="complianceChecklist" class="p-6">
+                        <!-- Checklist items will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- AI Defense System -->
+            <div id="ai-defense" class="tab-content p-6">
+                <h2 class="text-2xl font-bold mb-6">AI Defense System</h2>
+                
+                <!-- AI Status -->
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 mb-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold">AI Defense Status</h3>
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                            <span class="text-sm text-green-500">Active Learning</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <p class="text-sm text-gray-400">Patterns Learned</p>
+                            <p class="text-2xl font-bold">12,847</p>
+                        </div>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <p class="text-sm text-gray-400">Threats Predicted</p>
+                            <p class="text-2xl font-bold">342</p>
+                        </div>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <p class="text-sm text-gray-400">Accuracy Rate</p>
+                            <p class="text-2xl font-bold">97.3%</p>
+                        </div>
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <p class="text-sm text-gray-400">Response Time</p>
+                            <p class="text-2xl font-bold">0.3ms</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AI Predictions -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">Threat Predictions</h3>
+                        <canvas id="aiPredictionsChart" height="200"></canvas>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4">AI Activity Log</h3>
+                        <div id="aiActivityLog" class="space-y-3 max-h-64 overflow-y-auto">
+                            <!-- AI activities will be dynamically added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Security Reports -->
+            <div id="reports" class="tab-content p-6">
+                <h2 class="text-2xl font-bold mb-6">Security Reports</h2>
+                
+                <!-- Report Generation -->
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 mb-8">
+                    <h3 class="text-lg font-semibold mb-4">Generate Report</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Report Type</label>
+                            <select id="reportType" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500">
+                                <option value="executive">Executive Summary</option>
+                                <option value="technical">Technical Report</option>
+                                <option value="compliance">Compliance Report</option>
+                                <option value="incident">Incident Report</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Time Period</label>
+                            <select id="reportPeriod" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500">
+                                <option value="24h">Last 24 Hours</option>
+                                <option value="7d">Last 7 Days</option>
+                                <option value="30d">Last 30 Days</option>
+                                <option value="custom">Custom Range</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">&nbsp;</label>
+                            <button onclick="generateReport()" class="w-full px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                                Generate Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Reports -->
+                <div class="bg-gray-900 rounded-xl border border-gray-800">
+                    <div class="p-6 border-b border-gray-800">
+                        <h3 class="text-lg font-semibold">Recent Reports</h3>
+                    </div>
+                    <div id="recentReports" class="divide-y divide-gray-800">
+                        <!-- Reports will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Right Sidebar - Quick Stats -->
+        <aside class="w-80 bg-gray-900 border-l border-gray-800 overflow-y-auto hidden xl:block">
+            <div class="p-6">
+                <h3 class="text-lg font-semibold mb-4">Real-time Statistics</h3>
+                
+                <!-- Geographic Threats -->
+                <div class="mb-6">
+                    <h4 class="text-sm font-medium text-gray-400 mb-3">Geographic Threat Sources</h4>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Russia</span>
+                            <span class="text-sm text-red-500">342</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">China</span>
+                            <span class="text-sm text-orange-500">287</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Unknown</span>
+                            <span class="text-sm text-yellow-500">156</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Brazil</span>
+                            <span class="text-sm text-green-500">89</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- System Health -->
+                <div class="mb-6">
+                    <h4 class="text-sm font-medium text-gray-400 mb-3">System Health</h4>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-sm">CPU Usage</span>
+                                <span class="text-sm">42%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 42%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-sm">Memory</span>
+                                <span class="text-sm">68%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="bg-purple-500 h-2 rounded-full" style="width: 68%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-sm">Network</span>
+                                <span class="text-sm">23%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full" style="width: 23%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Alerts -->
+                <div>
+                    <h4 class="text-sm font-medium text-gray-400 mb-3">Recent Alerts</h4>
+                    <div id="recentAlerts" class="space-y-3">
+                        <!-- Alerts will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+    
+    <!-- Emergency Protocol Modal -->
+    <div id="emergencyModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden">
+        <div class="flex items-center justify-center h-full">
+            <div class="bg-gray-900 rounded-xl border border-red-600 p-8 max-w-md w-full mx-4">
+                <h2 class="text-2xl font-bold text-red-500 mb-4">Emergency Protocol</h2>
+                <p class="text-gray-300 mb-6">This will initiate emergency security protocols including:</p>
+                <ul class="space-y-2 mb-6 text-gray-400">
+                    <li>• Block all external connections</li>
+                    <li>• Enable maximum firewall protection</li>
+                    <li>• Alert security team</li>
+                    <li>• Create system backup</li>
+                </ul>
+                <div class="flex gap-4">
+                    <button onclick="confirmEmergencyProtocol()" class="flex-1 px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
+                        Confirm
+                    </button>
+                    <button onclick="closeEmergencyModal()" class="flex-1 px-6 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Global variables
+        let currentTab = 'dashboard';
+        let charts = {};
+        let threats = [];
+        let incidents = [];
+        let vulnerabilities = [];
+        
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            startLiveFeed();
+            loadThreats();
+            loadVulnerabilities();
+            loadCompliance();
+            loadRecentReports();
+            startAIMonitoring();
+            updateRecentAlerts();
+        });
+        
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active state from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-gray-800');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active state to clicked button
+            event.target.closest('.tab-btn').classList.add('bg-gray-800');
+            
+            currentTab = tabName;
+            
+            // Refresh Lucide icons
+            lucide.createIcons();
+        }
+        
+        // Initialize charts
+        function initializeCharts() {
+            // Threat Trends Chart
+            const threatCtx = document.getElementById('threatTrendsChart').getContext('2d');
+            charts.threatTrends = new Chart(threatCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Critical',
+                        data: [2, 3, 1, 4, 2, 3, 1],
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'High',
+                        data: [5, 7, 6, 8, 5, 6, 2],
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'Medium',
+                        data: [12, 15, 18, 14, 16, 13, 5],
+                        borderColor: '#eab308',
+                        backgroundColor: 'rgba(234, 179, 8, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#9ca3af'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#374151'
+                            },
+                            ticks: {
+                                color: '#9ca3af'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: '#374151'
+                            },
+                            ticks: {
+                                color: '#9ca3af'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Attack Types Chart
+            const attackCtx = document.getElementById('attackTypesChart').getContext('2d');
+            charts.attackTypes = new Chart(attackCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['DDoS', 'Malware', 'Phishing', 'SQL Injection', 'XSS', 'Other'],
+                    datasets: [{
+                        data: [342, 287, 156, 89, 67, 45],
+                        backgroundColor: [
+                            '#ef4444',
+                            '#f59e0b',
+                            '#eab308',
+                            '#10b981',
+                            '#3b82f6',
+                            '#8b5cf6'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: '#9ca3af'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Network Traffic Chart
+            const networkCtx = document.getElementById('networkTrafficChart').getContext('2d');
+            charts.networkTraffic = new Chart(networkCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 20}, (_, i) => i),
+                    datasets: [{
+                        label: 'Inbound',
+                        data: Array.from({length: 20}, () => Math.random() * 100),
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Outbound',
+                        data: Array.from({length: 20}, () => Math.random() * 80),
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            display: false
+                        },
+                        x: {
+                            display: false
+                        }
+                    }
+                }
+            });
+            
+            // AI Predictions Chart
+            const aiCtx = document.getElementById('aiPredictionsChart').getContext('2d');
+            charts.aiPredictions = new Chart(aiCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Next Hour', '6 Hours', '24 Hours', '3 Days', '7 Days'],
+                    datasets: [{
+                        label: 'Predicted Threats',
+                        data: [3, 12, 45, 89, 156],
+                        backgroundColor: '#8b5cf6'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#374151'
+                            },
+                            ticks: {
+                                color: '#9ca3af'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: '#374151'
+                            },
+                            ticks: {
+                                color: '#9ca3af'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Live feed functionality
+        function startLiveFeed() {
+            const feedContainer = document.getElementById('liveFeed');
+            const feedTypes = [
+                { type: 'blocked', icon: 'shield', color: 'text-green-500', message: 'Blocked suspicious connection from' },
+                { type: 'scan', icon: 'search', color: 'text-blue-500', message: 'Port scan detected from' },
+                { type: 'auth', icon: 'user-x', color: 'text-yellow-500', message: 'Failed authentication attempt from' },
+                { type: 'malware', icon: 'bug', color: 'text-red-500', message: 'Malware detected and quarantined' }
+            ];
+            
+            function addFeedItem() {
+                const feedType = feedTypes[Math.floor(Math.random() * feedTypes.length)];
+                const ip = `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+                const time = new Date().toLocaleTimeString();
+                
+                const feedItem = document.createElement('div');
+                feedItem.className = 'p-4 hover:bg-gray-800 transition-colors feed-new';
+                feedItem.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="${feedType.icon}" class="w-5 h-5 ${feedType.color}"></i>
+                        <div class="flex-1">
+                            <p class="text-sm">${feedType.message} ${ip}</p>
+                            <p class="text-xs text-gray-500">${time}</p>
+                        </div>
+                    </div>
+                `;
+                
+                feedContainer.insertBefore(feedItem, feedContainer.firstChild);
+                
+                // Remove old items
+                while (feedContainer.children.length > 10) {
+                    feedContainer.removeChild(feedContainer.lastChild);
+                }
+                
+                // Refresh icons
+                lucide.createIcons();
+            }
+            
+            // Add initial items
+            for (let i = 0; i < 5; i++) {
+                addFeedItem();
+            }
+            
+            // Add new items periodically
+            setInterval(addFeedItem, 5000);
+        }
+        
+        // Load threats
+        function loadThreats() {
+            threats = [
+                { id: 'THR-001', type: 'DDoS Attack', source: '192.168.1.100', target: 'Web Server', severity: 'critical', status: 'active' },
+                { id: 'THR-002', type: 'SQL Injection', source: '10.0.0.50', target: 'Database', severity: 'high', status: 'mitigating' },
+                { id: 'THR-003', type: 'Port Scan', source: '172.16.0.25', target: 'Network', severity: 'medium', status: 'monitoring' }
+            ];
+            
+            displayThreats();
+        }
+        
+        function displayThreats() {
+            const threatsList = document.getElementById('threatsList');
+            threatsList.innerHTML = '';
+            
+            threats.forEach(threat => {
+                const row = document.createElement('tr');
+                row.className = 'border-b border-gray-800 hover:bg-gray-800';
+                row.innerHTML = `
+                    <td class="px-6 py-4 text-sm">${threat.id}</td>
+                    <td class="px-6 py-4 text-sm">${threat.type}</td>
+                    <td class="px-6 py-4 text-sm">${threat.source}</td>
+                    <td class="px-6 py-4 text-sm">${threat.target}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 text-xs rounded-full ${
+                            threat.severity === 'critical' ? 'bg-red-500/20 text-red-500' :
+                            threat.severity === 'high' ? 'bg-orange-500/20 text-orange-500' :
+                            threat.severity === 'medium' ? 'bg-yellow-500/20 text-yellow-500' :
+                            'bg-green-500/20 text-green-500'
+                        }">${threat.severity.toUpperCase()}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 text-xs rounded-full ${
+                            threat.status === 'active' ? 'bg-red-500/20 text-red-500 pulse-red' :
+                            threat.status === 'mitigating' ? 'bg-yellow-500/20 text-yellow-500 pulse-yellow' :
+                            'bg-blue-500/20 text-blue-500'
+                        }">${threat.status.toUpperCase()}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <button onclick="mitigateThreat('${threat.id}')" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded transition-colors">
+                            Mitigate
+                        </button>
+                    </td>
+                `;
+                threatsList.appendChild(row);
+            });
+        }
+        
+        // Create incident
+        function createIncident() {
+            const title = document.getElementById('incidentTitle').value;
+            const severity = document.getElementById('incidentSeverity').value;
+            const description = document.getElementById('incidentDescription').value;
+            
+            if (!title || !description) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            const incident = {
+                id: `INC-${Date.now()}`,
+                title,
+                severity,
+                description,
+                status: 'open',
+                created: new Date().toLocaleString()
+            };
+            
+            incidents.unshift(incident);
+            displayIncidents();
+            
+            // Clear form
+            document.getElementById('incidentTitle').value = '';
+            document.getElementById('incidentDescription').value = '';
+        }
+        
+        function displayIncidents() {
+            const incidentsList = document.getElementById('incidentsList');
+            incidentsList.innerHTML = '';
+            
+            incidents.forEach(incident => {
+                const item = document.createElement('div');
+                item.className = 'p-6 hover:bg-gray-800 transition-colors';
+                item.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <h4 class="font-semibold mb-1">${incident.title}</h4>
+                            <p class="text-sm text-gray-400 mb-2">${incident.description}</p>
+                            <div class="flex items-center gap-4 text-sm">
+                                <span class="text-gray-500">ID: ${incident.id}</span>
+                                <span class="px-2 py-1 rounded-full ${
+                                    incident.severity === 'critical' ? 'bg-red-500/20 text-red-500' :
+                                    incident.severity === 'high' ? 'bg-orange-500/20 text-orange-500' :
+                                    incident.severity === 'medium' ? 'bg-yellow-500/20 text-yellow-500' :
+                                    'bg-green-500/20 text-green-500'
+                                }">${incident.severity.toUpperCase()}</span>
+                                <span class="text-gray-500">${incident.created}</span>
+                            </div>
+                        </div>
+                        <button onclick="closeIncident('${incident.id}')" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors">
+                            Close
+                        </button>
+                    </div>
+                `;
+                incidentsList.appendChild(item);
+            });
+            
+            if (incidents.length === 0) {
+                incidentsList.innerHTML = '<p class="p-6 text-center text-gray-500">No active incidents</p>';
+            }
+        }
+        
+        // Load vulnerabilities
+        function loadVulnerabilities() {
+            vulnerabilities = [
+                { id: 'CVE-2024-1234', name: 'OpenSSL Buffer Overflow', severity: 'critical', status: 'unpatched', discovered: '2 hours ago' },
+                { id: 'CVE-2024-5678', name: 'Apache Log4j RCE', severity: 'high', status: 'patch available', discovered: '1 day ago' },
+                { id: 'CVE-2024-9012', name: 'WordPress SQL Injection', severity: 'medium', status: 'patched', discovered: '3 days ago' }
+            ];
+            
+            displayVulnerabilities();
+        }
+        
+        function displayVulnerabilities() {
+            const vulnList = document.getElementById('vulnerabilityList');
+            vulnList.innerHTML = '';
+            
+            vulnerabilities.forEach(vuln => {
+                const item = document.createElement('div');
+                item.className = 'p-6 hover:bg-gray-800 transition-colors';
+                item.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <h4 class="font-semibold mb-1">${vuln.name}</h4>
+                            <p class="text-sm text-gray-400 mb-2">CVE ID: ${vuln.id}</p>
+                            <div class="flex items-center gap-4 text-sm">
+                                <span class="px-2 py-1 rounded-full ${
+                                    vuln.severity === 'critical' ? 'bg-red-500/20 text-red-500' :
+                                    vuln.severity === 'high' ? 'bg-orange-500/20 text-orange-500' :
+                                    vuln.severity === 'medium' ? 'bg-yellow-500/20 text-yellow-500' :
+                                    'bg-green-500/20 text-green-500'
+                                }">${vuln.severity.toUpperCase()}</span>
+                                <span class="${
+                                    vuln.status === 'unpatched' ? 'text-red-500' :
+                                    vuln.status === 'patch available' ? 'text-yellow-500' :
+                                    'text-green-500'
+                                }">${vuln.status.toUpperCase()}</span>
+                                <span class="text-gray-500">Discovered ${vuln.discovered}</span>
+                            </div>
+                        </div>
+                        ${vuln.status === 'patch available' ? `
+                            <button onclick="applyPatch('${vuln.id}')" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                                Apply Patch
+                            </button>
+                        ` : ''}
+                    </div>
+                `;
+                vulnList.appendChild(item);
+            });
+        }
+        
+        // Load compliance data
+        function loadCompliance() {
+            const checklist = document.getElementById('complianceChecklist');
+            const items = [
+                { category: 'Data Protection', items: [
+                    { name: 'Encryption at rest', status: true },
+                    { name: 'Encryption in transit', status: true },
+                    { name: 'Data retention policy', status: true },
+                    { name: 'Right to erasure implementation', status: false }
+                ]},
+                { category: 'Access Control', items: [
+                    { name: 'Multi-factor authentication', status: true },
+                    { name: 'Role-based access control', status: true },
+                    { name: 'Regular access reviews', status: false },
+                    { name: 'Privileged access management', status: true }
+                ]},
+                { category: 'Incident Response', items: [
+                    { name: 'Incident response plan', status: true },
+                    { name: '24/7 monitoring', status: true },
+                    { name: 'Breach notification procedure', status: true },
+                    { name: 'Regular drills conducted', status: false }
+                ]}
+            ];
+            
+            checklist.innerHTML = '';
+            items.forEach(category => {
+                const section = document.createElement('div');
+                section.className = 'mb-6';
+                section.innerHTML = `
+                    <h4 class="font-semibold mb-3">${category.category}</h4>
+                    <div class="space-y-2">
+                        ${category.items.map(item => `
+                            <div class="flex items-center justify-between p-3 bg-gray-800 rounded-lg">
+                                <span class="text-sm">${item.name}</span>
+                                <span class="${item.status ? 'text-green-500' : 'text-red-500'}">
+                                    ${item.status ? '✓ Compliant' : '✗ Non-compliant'}
+                                </span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                checklist.appendChild(section);
+            });
+        }
+        
+        // AI monitoring
+        function startAIMonitoring() {
+            const activities = [
+                'Analyzing network traffic patterns...',
+                'Detected anomaly in user behavior',
+                'Updated threat intelligence database',
+                'Predicted potential DDoS attack in 2 hours',
+                'Optimized firewall rules based on traffic analysis',
+                'Identified 3 false positives in threat detection',
+                'Learning from new attack patterns...'
+            ];
+            
+            function addAIActivity() {
+                const activityLog = document.getElementById('aiActivityLog');
+                const activity = activities[Math.floor(Math.random() * activities.length)];
+                const time = new Date().toLocaleTimeString();
+                
+                const item = document.createElement('div');
+                item.className = 'p-3 bg-gray-800 rounded-lg text-sm slide-in';
+                item.innerHTML = `
+                    <p>${activity}</p>
+                    <p class="text-xs text-gray-500 mt-1">${time}</p>
+                `;
+                
+                activityLog.insertBefore(item, activityLog.firstChild);
+                
+                // Keep only recent activities
+                while (activityLog.children.length > 5) {
+                    activityLog.removeChild(activityLog.lastChild);
+                }
+            }
+            
+            // Add initial activities
+            for (let i = 0; i < 3; i++) {
+                addAIActivity();
+            }
+            
+            // Add new activities periodically
+            setInterval(addAIActivity, 8000);
+        }
+        
+        // Recent reports
+        function loadRecentReports() {
+            const reports = [
+                { name: 'Weekly Security Summary', type: 'Executive', date: '2024-01-15', size: '2.4 MB' },
+                { name: 'Incident Report - DDoS Attack', type: 'Incident', date: '2024-01-14', size: '1.8 MB' },
+                { name: 'Monthly Compliance Review', type: 'Compliance', date: '2024-01-10', size: '3.2 MB' },
+                { name: 'Vulnerability Assessment Q4', type: 'Technical', date: '2024-01-05', size: '5.6 MB' }
+            ];
+            
+            const reportsContainer = document.getElementById('recentReports');
+            reports.forEach(report => {
+                const item = document.createElement('div');
+                item.className = 'p-6 hover:bg-gray-800 transition-colors cursor-pointer';
+                item.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold mb-1">${report.name}</h4>
+                            <div class="flex items-center gap-4 text-sm text-gray-400">
+                                <span>${report.type}</span>
+                                <span>${report.date}</span>
+                                <span>${report.size}</span>
+                            </div>
+                        </div>
+                        <button class="p-2 hover:bg-gray-700 rounded-lg transition-colors">
+                            <i data-lucide="download" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                `;
+                reportsContainer.appendChild(item);
+            });
+            
+            // Refresh icons
+            lucide.createIcons();
+        }
+        
+        // Recent alerts
+        function updateRecentAlerts() {
+            const alerts = [
+                { message: 'Failed login attempt detected', time: '2m ago', severity: 'medium' },
+                { message: 'Firewall rule updated', time: '15m ago', severity: 'low' },
+                { message: 'New vulnerability discovered', time: '1h ago', severity: 'high' },
+                { message: 'Backup completed successfully', time: '3h ago', severity: 'low' }
+            ];
+            
+            const alertsContainer = document.getElementById('recentAlerts');
+            alertsContainer.innerHTML = '';
+            
+            alerts.forEach(alert => {
+                const item = document.createElement('div');
+                item.className = 'p-3 bg-gray-800 rounded-lg';
+                item.innerHTML = `
+                    <p class="text-sm mb-1">${alert.message}</p>
+                    <p class="text-xs text-gray-500">${alert.time}</p>
+                `;
+                alertsContainer.appendChild(item);
+            });
+        }
+        
+        // Action functions
+        function refreshThreats() {
+            loadThreats();
+            showNotification('Threats refreshed');
+        }
+        
+        function mitigateThreat(threatId) {
+            const threat = threats.find(t => t.id === threatId);
+            if (threat) {
+                threat.status = 'mitigating';
+                displayThreats();
+                showNotification(`Mitigating threat ${threatId}`);
+            }
+        }
+        
+        function closeIncident(incidentId) {
+            incidents = incidents.filter(i => i.id !== incidentId);
+            displayIncidents();
+            showNotification('Incident closed');
+        }
+        
+        function startVulnerabilityScan() {
+            showNotification('Vulnerability scan started...');
+            setTimeout(() => {
+                loadVulnerabilities();
+                showNotification('Vulnerability scan completed');
+            }, 3000);
+        }
+        
+        function applyPatch(vulnId) {
+            const vuln = vulnerabilities.find(v => v.id === vulnId);
+            if (vuln) {
+                vuln.status = 'patched';
+                displayVulnerabilities();
+                showNotification(`Patch applied for ${vulnId}`);
+            }
+        }
+        
+        function generateReport() {
+            const type = document.getElementById('reportType').value;
+            const period = document.getElementById('reportPeriod').value;
+            showNotification(`Generating ${type} report for ${period}...`);
+            
+            setTimeout(() => {
+                showNotification('Report generated successfully');
+                loadRecentReports();
+            }, 2000);
+        }
+        
+        function initiateEmergencyProtocol() {
+            document.getElementById('emergencyModal').classList.remove('hidden');
+        }
+        
+        function confirmEmergencyProtocol() {
+            closeEmergencyModal();
+            showNotification('Emergency protocol initiated!', 'error');
+            
+            // Simulate emergency actions
+            setTimeout(() => {
+                showNotification('All external connections blocked', 'warning');
+            }, 1000);
+            
+            setTimeout(() => {
+                showNotification('Security team alerted', 'warning');
+            }, 2000);
+            
+            setTimeout(() => {
+                showNotification('System backup initiated', 'info');
+            }, 3000);
+        }
+        
+        function closeEmergencyModal() {
+            document.getElementById('emergencyModal').classList.add('hidden');
+        }
+        
+        function exportSecurityReport() {
+            showNotification('Exporting security report...');
+            setTimeout(() => {
+                showNotification('Report exported successfully');
+            }, 1500);
+        }
+        
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+        
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 ${
+                type === 'error' ? 'bg-red-600' :
+                type === 'warning' ? 'bg-yellow-600' :
+                type === 'success' ? 'bg-green-600' :
+                'bg-blue-600'
+            } text-white slide-in`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        // Update network traffic chart periodically
+        setInterval(() => {
+            if (charts.networkTraffic) {
+                charts.networkTraffic.data.datasets.forEach(dataset => {
+                    dataset.data.shift();
+                    dataset.data.push(Math.random() * 100);
+                });
+                charts.networkTraffic.update('none');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
