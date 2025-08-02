@@ -1,0 +1,11 @@
+<svg width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#grad)" />
+  <text x="960" y="500" font-family="Arial, sans-serif" font-size="72" font-weight="bold" text-anchor="middle" fill="white" text-transform="uppercase">PHOTOMASK LITHOGRAPHY</text>
+  <text x="960" y="580" font-family="Arial, sans-serif" font-size="32" text-anchor="middle" fill="white" opacity="0.9">10nm Process Technology</text>
+</svg>
