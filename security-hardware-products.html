@@ -89,6 +89,8 @@
                         <a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a>
                         <a href="hardware.html" class="text-gray-400 hover:text-white transition-colors">Hardware</a>
                         <a href="cybersecurity.html" class="text-gray-400 hover:text-white transition-colors">Cybersecurity</a>
+                        <a href="biotensor.html" class="text-gray-400 hover:text-white transition-colors">BioTensor</a>
+                        <a href="patents.html" class="text-gray-400 hover:text-white transition-colors">Patents</a>
                         <a href="hardware-security-lab.html" class="text-gray-400 hover:text-white transition-colors">Security Lab</a>
                     </nav>
                 </div>
@@ -104,8 +106,21 @@
         </div>
     </header>
     
+    <!-- Breadcrumb Navigation -->
+    <div class="pt-20 px-6">
+        <div class="container mx-auto">
+            <nav class="flex items-center gap-2 text-sm text-gray-400 mb-4">
+                <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                <span>/</span>
+                <a href="hardware.html" class="hover:text-white transition-colors">Hardware</a>
+                <span>/</span>
+                <span class="text-white">Security Hardware Products</span>
+            </nav>
+        </div>
+    </div>
+    
     <!-- Hero Section -->
-    <section class="pt-24 pb-12 px-6">
+    <section class="pt-4 pb-12 px-6">
         <div class="container mx-auto text-center">
             <h2 class="text-5xl font-bold mb-6">
                 <span class="gradient-text">Next-Generation Hardware Security</span>
@@ -168,9 +183,14 @@
                             <li>• Tamper-Evident Enclosure</li>
                         </ul>
                     </div>
-                    <a href="usb-data-blocker.html" class="block w-full text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
-                        View Details →
-                    </a>
+                    <div class="flex gap-2">
+                        <a href="usb-data-blocker.html" class="flex-1 text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
+                            View Details →
+                        </a>
+                        <button onclick="showROICalculator(); document.getElementById('productSelect').value='usb-blocker'; updateROI();" class="px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-all" title="Calculate ROI">
+                            <i data-lucide="calculator" class="w-5 h-5"></i>
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Product 2: Pocket HSM -->
@@ -205,9 +225,14 @@
                             <li>• USB-C Form Factor</li>
                         </ul>
                     </div>
-                    <a href="pocket-hsm.html" class="block w-full text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
-                        View Details →
-                    </a>
+                    <div class="flex gap-2">
+                        <a href="pocket-hsm.html" class="flex-1 text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
+                            View Details →
+                        </a>
+                        <button onclick="showROICalculator(); document.getElementById('productSelect').value='pocket-hsm'; updateROI();" class="px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-all" title="Calculate ROI">
+                            <i data-lucide="calculator" class="w-5 h-5"></i>
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Product 3: IoT Secure Element Hat -->
@@ -242,9 +267,14 @@
                             <li>• 4-Layer PCB Design</li>
                         </ul>
                     </div>
-                    <a href="iot-secure-element.html" class="block w-full text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
-                        View Details →
-                    </a>
+                    <div class="flex gap-2">
+                        <a href="iot-secure-element.html" class="flex-1 text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
+                            View Details →
+                        </a>
+                        <button onclick="showROICalculator(); document.getElementById('productSelect').value='iot-secure'; updateROI();" class="px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-all" title="Calculate ROI">
+                            <i data-lucide="calculator" class="w-5 h-5"></i>
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Product 4: USB-C Storage Encryptor -->
@@ -279,9 +309,14 @@
                             <li>• AES-XTS Core</li>
                         </ul>
                     </div>
-                    <a href="usb-storage-encryptor.html" class="block w-full text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
-                        View Details →
-                    </a>
+                    <div class="flex gap-2">
+                        <a href="usb-storage-encryptor.html" class="flex-1 text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
+                            View Details →
+                        </a>
+                        <button onclick="showROICalculator(); document.getElementById('productSelect').value='usb-encryptor'; updateROI();" class="px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-all" title="Calculate ROI">
+                            <i data-lucide="calculator" class="w-5 h-5"></i>
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Product 5: Side-Channel Lab Shield -->
@@ -316,9 +351,14 @@
                             <li>• Foldable Design</li>
                         </ul>
                     </div>
-                    <a href="lab-shield.html" class="block w-full text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
-                        View Details →
-                    </a>
+                    <div class="flex gap-2">
+                        <a href="lab-shield.html" class="flex-1 text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
+                            View Details →
+                        </a>
+                        <button onclick="showROICalculator(); document.getElementById('productSelect').value='lab-shield'; updateROI();" class="px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-all" title="Calculate ROI">
+                            <i data-lucide="calculator" class="w-5 h-5"></i>
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Product 6: Secure Edge Router -->
@@ -353,9 +393,14 @@
                             <li>• OpenWRT + Secure Boot</li>
                         </ul>
                     </div>
-                    <a href="secure-router.html" class="block w-full text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
-                        View Details →
-                    </a>
+                    <div class="flex gap-2">
+                        <a href="secure-router.html" class="flex-1 text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
+                            View Details →
+                        </a>
+                        <button onclick="showROICalculator(); document.getElementById('productSelect').value='secure-router'; updateROI();" class="px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-all" title="Calculate ROI">
+                            <i data-lucide="calculator" class="w-5 h-5"></i>
+                        </button>
+                    </div>
                 </div>
                 
             </div>
