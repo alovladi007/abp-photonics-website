@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PatentPro AI Assistant - Aurora Borealis Photonics</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Advanced AI-powered patent assistant for comprehensive patent search, application drafting, and filing strategies">
+    <meta name="keywords" content="patent AI, patent assistant, patent search, USPTO, patent application">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #6b7280;
+            margin: 0 2px;
+            animation: typing 1.4s infinite;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .shimmer {
+            background: linear-gradient(90deg, #f3f4f6 0%, #e5e7eb 50%, #f3f4f6 100%);
+            background-size: 1000px 100%;
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-gray-900/95 backdrop-blur-lg z-50 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="patents.html" class="flex items-center text-gray-400 hover:text-white transition-colors">
+                        <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i>
+                        Back to Patents
+                    </a>
+                    <div class="h-6 w-px bg-gray-700"></div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+                            <i data-lucide="file-text" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-lg font-bold">PatentPro AI</h1>
+                            <p class="text-xs text-gray-400">Intelligent Patent Assistant</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-gray-800 transition-colors">
+                        <i data-lucide="sun" class="w-5 h-5 text-gray-400"></i>
+                    </button>
+                    <button onclick="showSettings()" class="p-2 rounded-lg hover:bg-gray-800 transition-colors">
+                        <i data-lucide="settings" class="w-5 h-5 text-gray-400"></i>
+                    </button>
+                    <button onclick="startDemo()" class="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:opacity-90 transition-opacity flex items-center space-x-2">
+                        <i data-lucide="play" class="w-4 h-4"></i>
+                        <span class="text-sm font-medium">Demo</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="flex h-screen pt-16">
+        <!-- Sidebar Navigation -->
+        <nav class="w-64 bg-gray-800/50 backdrop-blur-sm border-r border-gray-700 overflow-y-auto">
+            <div class="p-4 space-y-2">
+                <button onclick="switchTab('chat')" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-700/50 transition-colors text-left active">
+                    <i data-lucide="message-square" class="w-5 h-5"></i>
+                    <span>AI Assistant</span>
+                </button>
+                <button onclick="switchTab('search')" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-700/50 transition-colors text-left">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                    <span>Patent Search</span>
+                </button>
+                <button onclick="switchTab('application')" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-700/50 transition-colors text-left">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                    <span>Application Drafting</span>
+                </button>
+                <button onclick="switchTab('claims')" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-700/50 transition-colors text-left">
+                    <i data-lucide="book-open" class="w-5 h-5"></i>
+                    <span>Claims Assistant</span>
+                </button>
+                <button onclick="switchTab('timeline')" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-700/50 transition-colors text-left">
+                    <i data-lucide="clock" class="w-5 h-5"></i>
+                    <span>Timeline Tracker</span>
+                </button>
+                <button onclick="switchTab('costs')" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-700/50 transition-colors text-left">
+                    <i data-lucide="dollar-sign" class="w-5 h-5"></i>
+                    <span>Cost Estimator</span>
+                </button>
+                <button onclick="switchTab('international')" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-700/50 transition-colors text-left">
+                    <i data-lucide="globe" class="w-5 h-5"></i>
+                    <span>International Filing</span>
+                </button>
+                <button onclick="switchTab('analytics')" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-700/50 transition-colors text-left">
+                    <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+                    <span>Analytics</span>
+                </button>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="p-4 border-t border-gray-700">
+                <h3 class="text-sm font-medium text-gray-400 mb-3">Quick Stats</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">Active Drafts</span>
+                        <span class="text-sm font-medium">3</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">Searches Today</span>
+                        <span class="text-sm font-medium">12</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">AI Credits</span>
+                        <span class="text-sm font-medium text-green-400">2,847</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-hidden flex">
+            <!-- Tab Contents -->
+            <div class="flex-1 overflow-y-auto">
+                <!-- Chat Assistant Tab -->
+                <div id="chat-tab" class="tab-content active p-6">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="mb-6">
+                            <h2 class="text-2xl font-bold mb-2">AI Patent Assistant</h2>
+                            <p class="text-gray-400">Get instant help with patent searches, applications, and strategies</p>
+                        </div>
+                        
+                        <!-- Chat Messages -->
+                        <div id="chat-messages" class="space-y-4 mb-6 h-[calc(100vh-300px)] overflow-y-auto">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                                </div>
+                                <div class="flex-1 bg-gray-800 rounded-lg p-4">
+                                    <p class="text-sm">Welcome to PatentPro AI! I'm here to help you with:</p>
+                                    <ul class="mt-2 space-y-1 text-sm text-gray-400">
+                                        <li>• Patent searches and prior art analysis</li>
+                                        <li>• Application drafting and review</li>
+                                        <li>• Claims optimization</li>
+                                        <li>• Filing strategies and cost estimation</li>
+                                    </ul>
+                                    <p class="mt-2 text-sm">How can I assist you today?</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Chat Input -->
+                        <div class="bg-gray-800 rounded-lg p-4">
+                            <div class="flex space-x-3">
+                                <input 
+                                    type="text" 
+                                    id="chat-input"
+                                    placeholder="Ask me anything about patents..."
+                                    class="flex-1 bg-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    onkeypress="handleChatKeyPress(event)"
+                                >
+                                <button onclick="sendChatMessage()" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:opacity-90 transition-opacity flex items-center space-x-2">
+                                    <i data-lucide="send" class="w-4 h-4"></i>
+                                    <span>Send</span>
+                                </button>
+                            </div>
+                            <div class="flex items-center justify-between mt-3">
+                                <div class="flex space-x-2">
+                                    <button class="text-xs text-gray-400 hover:text-white transition-colors">
+                                        <i data-lucide="paperclip" class="w-4 h-4 inline mr-1"></i>
+                                        Attach file
+                                    </button>
+                                    <button class="text-xs text-gray-400 hover:text-white transition-colors">
+                                        <i data-lucide="mic" class="w-4 h-4 inline mr-1"></i>
+                                        Voice input
+                                    </button>
+                                </div>
+                                <span class="text-xs text-gray-500">Powered by PatentGPT Pro</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Patent Search Tab -->
+                <div id="search-tab" class="tab-content p-6">
+                    <div class="max-w-6xl mx-auto">
+                        <div class="mb-6">
+                            <h2 class="text-2xl font-bold mb-2">Patent Search & Prior Art Analysis</h2>
+                            <p class="text-gray-400">Search millions of patents to assess patentability</p>
+                        </div>
+                        
+                        <!-- Search Interface -->
+                        <div class="bg-gray-800 rounded-lg p-6 mb-6">
+                            <div class="flex space-x-3 mb-4">
+                                <input 
+                                    type="text" 
+                                    id="patent-search-input"
+                                    placeholder="Enter keywords, patent numbers, or technology descriptions..."
+                                    class="flex-1 bg-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                <button onclick="performPatentSearch()" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:opacity-90 transition-opacity flex items-center space-x-2">
+                                    <i data-lucide="search" class="w-4 h-4"></i>
+                                    <span>Search</span>
+                                </button>
+                            </div>
+                            
+                            <!-- Filters -->
+                            <div class="grid grid-cols-4 gap-3">
+                                <select class="bg-gray-700 rounded-lg px-3 py-2 text-sm">
+                                    <option>All Categories</option>
+                                    <option>Photonics & Optics</option>
+                                    <option>Electronics</option>
+                                    <option>Software</option>
+                                    <option>Biomedical</option>
+                                </select>
+                                <select class="bg-gray-700 rounded-lg px-3 py-2 text-sm">
+                                    <option>All Status</option>
+                                    <option>Granted</option>
+                                    <option>Pending</option>
+                                    <option>Expired</option>
+                                </select>
+                                <select class="bg-gray-700 rounded-lg px-3 py-2 text-sm">
+                                    <option>Date Range</option>
+                                    <option>Last Year</option>
+                                    <option>Last 5 Years</option>
+                                    <option>Last 10 Years</option>
+                                </select>
+                                <select class="bg-gray-700 rounded-lg px-3 py-2 text-sm">
+                                    <option>Sort By</option>
+                                    <option>Relevance</option>
+                                    <option>Date (Newest)</option>
+                                    <option>Citations</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Search Results -->
+                        <div id="search-results" class="space-y-4">
+                            <!-- Sample Result -->
+                            <div class="bg-gray-800 rounded-lg p-6 hover:bg-gray-750 transition-colors cursor-pointer">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-blue-400">US10,123,456B2</h3>
+                                        <p class="text-gray-400 text-sm">Filed: Jan 15, 2023 | Granted: Aug 20, 2024</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">92% Match</span>
+                                </div>
+                                <h4 class="font-medium mb-2">Quantum-Enhanced Photonic Computing System</h4>
+                                <p class="text-gray-400 text-sm mb-3">A system and method for implementing quantum computing operations using photonic integrated circuits...</p>
+                                <div class="flex items-center space-x-4 text-sm">
+                                    <span class="text-gray-500">Assignee: <span class="text-gray-300">TechCorp Inc.</span></span>
+                                    <span class="text-gray-500">Citations: <span class="text-gray-300">47</span></span>
+                                    <button class="text-blue-400 hover:text-blue-300">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Application Drafting Tab -->
+                <div id="application-tab" class="tab-content p-6">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="mb-6">
+                            <h2 class="text-2xl font-bold mb-2">Patent Application Drafting</h2>
+                            <p class="text-gray-400">Create professional patent applications with AI assistance</p>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <!-- Title Section -->
+                            <div class="bg-gray-800 rounded-lg p-6">
+                                <label class="block text-sm font-medium mb-2">Invention Title</label>
+                                <input 
+                                    type="text" 
+                                    placeholder="Enter a descriptive title for your invention"
+                                    class="w-full bg-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                <p class="text-xs text-gray-500 mt-2">AI will suggest improvements to make your title more precise</p>
+                            </div>
+                            
+                            <!-- Abstract -->
+                            <div class="bg-gray-800 rounded-lg p-6">
+                                <label class="block text-sm font-medium mb-2">Abstract</label>
+                                <textarea 
+                                    rows="4"
+                                    placeholder="Provide a brief summary of your invention (150-250 words)"
+                                    class="w-full bg-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                ></textarea>
+                                <div class="flex justify-between mt-2">
+                                    <span class="text-xs text-gray-500">0/250 words</span>
+                                    <button class="text-xs text-blue-400 hover:text-blue-300">AI Enhance</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Technical Field -->
+                            <div class="bg-gray-800 rounded-lg p-6">
+                                <label class="block text-sm font-medium mb-2">Technical Field</label>
+                                <select class="w-full bg-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option>Select primary technical field</option>
+                                    <option>Computer Science & Software</option>
+                                    <option>Electronics & Semiconductors</option>
+                                    <option>Photonics & Optics</option>
+                                    <option>Biotechnology</option>
+                                    <option>Mechanical Engineering</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="flex justify-between">
+                                <button class="px-6 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                                    Save Draft
+                                </button>
+                                <div class="space-x-3">
+                                    <button class="px-6 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                                        AI Review
+                                    </button>
+                                    <button class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:opacity-90 transition-opacity">
+                                        Continue to Claims
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Claims Assistant Tab -->
+                <div id="claims-tab" class="tab-content p-6">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="mb-6">
+                            <h2 class="text-2xl font-bold mb-2">Claims Drafting Assistant</h2>
+                            <p class="text-gray-400">Draft strong patent claims with real-time AI analysis</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-6">
+                            <!-- Claims Editor -->
+                            <div class="col-span-2 space-y-4">
+                                <div class="bg-gray-800 rounded-lg p-6">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h3 class="font-medium">Independent Claim 1</h3>
+                                        <button class="text-sm text-blue-400 hover:text-blue-300">Add Dependent Claim</button>
+                                    </div>
+                                    <textarea 
+                                        rows="8"
+                                        placeholder="1. A system comprising:&#10;   a processor;&#10;   a memory coupled to the processor;&#10;   wherein..."
+                                        class="w-full bg-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm"
+                                    ></textarea>
+                                </div>
+                                
+                                <button class="w-full px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors flex items-center justify-center space-x-2">
+                                    <i data-lucide="plus" class="w-4 h-4"></i>
+                                    <span>Add New Independent Claim</span>
+                                </button>
+                            </div>
+                            
+                            <!-- AI Analysis Panel -->
+                            <div class="bg-gray-800 rounded-lg p-6">
+                                <h3 class="font-medium mb-4 flex items-center">
+                                    <i data-lucide="zap" class="w-4 h-4 mr-2 text-yellow-400"></i>
+                                    AI Analysis
+                                </h3>
+                                
+                                <div class="space-y-4">
+                                    <!-- Claim Score -->
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-2">
+                                            <span>Claim Strength</span>
+                                            <span class="text-green-400">85/100</span>
+                                        </div>
+                                        <div class="w-full bg-gray-700 rounded-full h-2">
+                                            <div class="bg-gradient-to-r from-green-400 to-green-500 h-2 rounded-full" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Issues -->
+                                    <div>
+                                        <h4 class="text-sm font-medium mb-2">Potential Issues</h4>
+                                        <ul class="space-y-2 text-sm">
+                                            <li class="flex items-start space-x-2">
+                                                <i data-lucide="alert-circle" class="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5"></i>
+                                                <span class="text-gray-400">Consider adding "non-transitory" before "memory"</span>
+                                            </li>
+                                            <li class="flex items-start space-x-2">
+                                                <i data-lucide="check-circle" class="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5"></i>
+                                                <span class="text-gray-400">Good use of "comprising" for broad coverage</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <!-- Suggestions -->
+                                    <div>
+                                        <h4 class="text-sm font-medium mb-2">AI Suggestions</h4>
+                                        <button class="w-full px-3 py-2 bg-gray-700 rounded text-sm hover:bg-gray-600 transition-colors text-left">
+                                            Add method claim variant
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Tab -->
+                <div id="timeline-tab" class="tab-content p-6">
+                    <div class="max-w-6xl mx-auto">
+                        <div class="mb-6">
+                            <h2 class="text-2xl font-bold mb-2">Patent Prosecution Timeline</h2>
+                            <p class="text-gray-400">Track your patent application progress</p>
+                        </div>
+                        
+                        <!-- Timeline -->
+                        <div class="relative">
+                            <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-700"></div>
+                            
+                            <div class="space-y-8">
+                                <!-- Timeline Event -->
+                                <div class="relative flex items-start">
+                                    <div class="absolute left-8 w-4 h-4 bg-green-500 rounded-full -translate-x-1/2"></div>
+                                    <div class="ml-16 bg-gray-800 rounded-lg p-6 flex-1">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h3 class="font-medium">Application Filed</h3>
+                                            <span class="text-sm text-gray-400">Oct 15, 2024</span>
+                                        </div>
+                                        <p class="text-gray-400 text-sm">USPTO Application #17/123,456 successfully filed</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="relative flex items-start">
+                                    <div class="absolute left-8 w-4 h-4 bg-blue-500 rounded-full -translate-x-1/2"></div>
+                                    <div class="ml-16 bg-gray-800 rounded-lg p-6 flex-1">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h3 class="font-medium">Office Action Response Due</h3>
+                                            <span class="text-sm text-orange-400">In 14 days</span>
+                                        </div>
+                                        <p class="text-gray-400 text-sm">Non-final office action received. Response deadline: Nov 30, 2024</p>
+                                        <button class="mt-3 text-sm text-blue-400 hover:text-blue-300">View Office Action</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="relative flex items-start opacity-50">
+                                    <div class="absolute left-8 w-4 h-4 bg-gray-600 rounded-full -translate-x-1/2"></div>
+                                    <div class="ml-16 bg-gray-800 rounded-lg p-6 flex-1">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h3 class="font-medium">Expected Grant</h3>
+                                            <span class="text-sm text-gray-400">Q2 2025 (Estimated)</span>
+                                        </div>
+                                        <p class="text-gray-400 text-sm">Based on current prosecution timeline</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cost Estimator Tab -->
+                <div id="costs-tab" class="tab-content p-6">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="mb-6">
+                            <h2 class="text-2xl font-bold mb-2">Patent Cost Estimator</h2>
+                            <p class="text-gray-400">Calculate total costs for your patent application</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-6">
+                            <!-- Input Parameters -->
+                            <div class="space-y-4">
+                                <div class="bg-gray-800 rounded-lg p-6">
+                                    <h3 class="font-medium mb-4">Application Details</h3>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="block text-sm mb-2">Application Type</label>
+                                            <select class="w-full bg-gray-700 rounded-lg px-3 py-2">
+                                                <option>Utility Patent</option>
+                                                <option>Design Patent</option>
+                                                <option>Provisional Patent</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm mb-2">Entity Size</label>
+                                            <select class="w-full bg-gray-700 rounded-lg px-3 py-2">
+                                                <option>Large Entity</option>
+                                                <option>Small Entity (50% discount)</option>
+                                                <option>Micro Entity (75% discount)</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm mb-2">Number of Claims</label>
+                                            <input type="number" value="20" class="w-full bg-gray-700 rounded-lg px-3 py-2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Cost Breakdown -->
+                            <div class="bg-gray-800 rounded-lg p-6">
+                                <h3 class="font-medium mb-4">Estimated Costs</h3>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">USPTO Filing Fees</span>
+                                        <span class="font-medium">$1,820</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Attorney Fees</span>
+                                        <span class="font-medium">$8,500</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Search & Examination</span>
+                                        <span class="font-medium">$2,400</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Drawings (5)</span>
+                                        <span class="font-medium">$500</span>
+                                    </div>
+                                    <hr class="border-gray-700">
+                                    <div class="flex justify-between text-lg font-semibold">
+                                        <span>Total Estimate</span>
+                                        <span class="text-green-400">$13,220</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6 p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                                    <p class="text-sm text-blue-400">
+                                        <i data-lucide="info" class="w-4 h-4 inline mr-1"></i>
+                                        This is an estimate. Actual costs may vary based on complexity and prosecution requirements.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- International Filing Tab -->
+                <div id="international-tab" class="tab-content p-6">
+                    <div class="max-w-6xl mx-auto">
+                        <div class="mb-6">
+                            <h2 class="text-2xl font-bold mb-2">International Patent Strategy</h2>
+                            <p class="text-gray-400">Plan your global patent protection</p>
+                        </div>
+                        
+                        <!-- World Map Placeholder -->
+                        <div class="bg-gray-800 rounded-lg p-8 mb-6">
+                            <div class="h-96 flex items-center justify-center">
+                                <div class="text-center">
+                                    <i data-lucide="globe" class="w-16 h-16 text-gray-600 mx-auto mb-4"></i>
+                                    <p class="text-gray-400">Interactive world map showing filing strategies</p>
+                                    <div class="mt-6 flex justify-center space-x-4">
+                                        <div class="flex items-center">
+                                            <div class="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
+                                            <span class="text-sm">Filed</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <div class="w-4 h-4 bg-blue-500 rounded-full mr-2"></div>
+                                            <span class="text-sm">Planned</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <div class="w-4 h-4 bg-yellow-500 rounded-full mr-2"></div>
+                                            <span class="text-sm">Considering</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Filing Options -->
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="bg-gray-800 rounded-lg p-6">
+                                <h3 class="font-medium mb-4">PCT Application</h3>
+                                <p class="text-gray-400 text-sm mb-4">File once, preserve rights in 150+ countries</p>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-center text-green-400">
+                                        <i data-lucide="check" class="w-4 h-4 mr-2"></i>
+                                        30-month deadline for national phase
+                                    </li>
+                                    <li class="flex items-center text-green-400">
+                                        <i data-lucide="check" class="w-4 h-4 mr-2"></i>
+                                        Single search report
+                                    </li>
+                                    <li class="flex items-center text-green-400">
+                                        <i data-lucide="check" class="w-4 h-4 mr-2"></i>
+                                        Cost-effective for multiple countries
+                                    </li>
+                                </ul>
+                                <button class="mt-4 px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors">
+                                    Calculate PCT Costs
+                                </button>
+                            </div>
+                            
+                            <div class="bg-gray-800 rounded-lg p-6">
+                                <h3 class="font-medium mb-4">Direct Foreign Filing</h3>
+                                <p class="text-gray-400 text-sm mb-4">File directly in selected countries</p>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-center text-yellow-400">
+                                        <i data-lucide="alert-circle" class="w-4 h-4 mr-2"></i>
+                                        12-month priority deadline
+                                    </li>
+                                    <li class="flex items-center text-yellow-400">
+                                        <i data-lucide="alert-circle" class="w-4 h-4 mr-2"></i>
+                                        Separate applications per country
+                                    </li>
+                                    <li class="flex items-center text-green-400">
+                                        <i data-lucide="check" class="w-4 h-4 mr-2"></i>
+                                        Faster prosecution possible
+                                    </li>
+                                </ul>
+                                <button class="mt-4 px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                                    Select Countries
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Tab -->
+                <div id="analytics-tab" class="tab-content p-6">
+                    <div class="max-w-6xl mx-auto">
+                        <div class="mb-6">
+                            <h2 class="text-2xl font-bold mb-2">Patent Analytics Dashboard</h2>
+                            <p class="text-gray-400">Track your patent portfolio performance</p>
+                        </div>
+                        
+                        <!-- Stats Grid -->
+                        <div class="grid grid-cols-4 gap-4 mb-8">
+                            <div class="bg-gray-800 rounded-lg p-6">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-gray-400 text-sm">Total Patents</span>
+                                    <i data-lucide="file-text" class="w-5 h-5 text-blue-400"></i>
+                                </div>
+                                <div class="text-2xl font-bold">24</div>
+                                <div class="text-xs text-green-400">+3 this quarter</div>
+                            </div>
+                            
+                            <div class="bg-gray-800 rounded-lg p-6">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-gray-400 text-sm">Citations</span>
+                                    <i data-lucide="quote" class="w-5 h-5 text-purple-400"></i>
+                                </div>
+                                <div class="text-2xl font-bold">147</div>
+                                <div class="text-xs text-green-400">+23% YoY</div>
+                            </div>
+                            
+                            <div class="bg-gray-800 rounded-lg p-6">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-gray-400 text-sm">Active Applications</span>
+                                    <i data-lucide="clock" class="w-5 h-5 text-yellow-400"></i>
+                                </div>
+                                <div class="text-2xl font-bold">8</div>
+                                <div class="text-xs text-gray-400">3 office actions pending</div>
+                            </div>
+                            
+                            <div class="bg-gray-800 rounded-lg p-6">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-gray-400 text-sm">Success Rate</span>
+                                    <i data-lucide="trending-up" class="w-5 h-5 text-green-400"></i>
+                                </div>
+                                <div class="text-2xl font-bold">87%</div>
+                                <div class="text-xs text-green-400">Above industry avg</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Charts -->
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="bg-gray-800 rounded-lg p-6">
+                                <h3 class="font-medium mb-4">Filing Trend</h3>
+                                <canvas id="filingChart" height="200"></canvas>
+                            </div>
+                            
+                            <div class="bg-gray-800 rounded-lg p-6">
+                                <h3 class="font-medium mb-4">Technology Distribution</h3>
+                                <canvas id="techChart" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Insights Panel (Right Sidebar) -->
+            <aside id="ai-insights" class="w-96 bg-gray-800/50 backdrop-blur-sm border-l border-gray-700 p-6 hidden">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="font-medium flex items-center">
+                        <i data-lucide="sparkles" class="w-5 h-5 mr-2 text-yellow-400"></i>
+                        AI Insights
+                    </h3>
+                    <button onclick="toggleAIInsights()" class="text-gray-400 hover:text-white">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                
+                <div id="ai-insights-content" class="space-y-4">
+                    <!-- Dynamic AI insights will be inserted here -->
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Demo Modal -->
+    <div id="demo-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden">
+        <div class="flex items-center justify-center h-full p-4">
+            <div class="bg-gray-800 rounded-lg max-w-md w-full p-6">
+                <h3 class="text-xl font-bold mb-4">Interactive Demo</h3>
+                <p class="text-gray-400 mb-6">Experience the power of PatentPro AI with our guided tour.</p>
+                <div class="space-y-3">
+                    <button onclick="startDemoTour()" class="w-full px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:opacity-90 transition-opacity">
+                        Start Guided Tour
+                    </button>
+                    <button onclick="closeDemo()" class="w-full px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-gray-700/50', 'text-white');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            
+            // Add active class to clicked button
+            event.currentTarget.classList.add('bg-gray-700/50', 'text-white');
+            
+            // Initialize tab-specific features
+            if (tabName === 'analytics') {
+                initializeCharts();
+            }
+        }
+
+        // Chat functionality
+        function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addChatMessage(message, 'user');
+            input.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Simulate AI response
+            setTimeout(() => {
+                removeTypingIndicator();
+                const response = generateAIResponse(message);
+                addChatMessage(response, 'assistant');
+            }, 1500);
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendChatMessage();
+            }
+        }
+
+        function addChatMessage(message, role) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex items-start space-x-3 animate-fadeIn';
+            
+            if (role === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="user" class="w-4 h-4 text-white"></i>
+                    </div>
+                    <div class="flex-1 bg-blue-600/20 rounded-lg p-4">
+                        <p class="text-sm">${message}</p>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                    </div>
+                    <div class="flex-1 bg-gray-800 rounded-lg p-4">
+                        <p class="text-sm">${message}</p>
+                    </div>
+                `;
+            }
+            
+            messagesContainer.appendChild(messageDiv);
+            lucide.createIcons();
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chat-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.className = 'flex items-start space-x-3';
+            typingDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-4">
+                    <div class="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            `;
+            messagesContainer.appendChild(typingDiv);
+            lucide.createIcons();
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+
+        function generateAIResponse(message) {
+            const responses = {
+                'patent': 'I can help you with patent searches, application drafting, and filing strategies. What specific aspect would you like to explore?',
+                'search': 'To perform a patent search, use the Patent Search tab. I can help you formulate effective search queries and analyze results.',
+                'cost': 'Patent costs vary based on type and complexity. Use our Cost Estimator tab for a detailed breakdown. Typical utility patents range from $10,000-$20,000.',
+                'claim': 'Strong claims are crucial for patent protection. I can help you draft claims that are broad enough for protection but specific enough to be granted.',
+                'default': 'I understand you need help with your patent process. Could you be more specific about what you\'d like to know? I can assist with searches, applications, claims, costs, and international filing strategies.'
+            };
+            
+            const lowerMessage = message.toLowerCase();
+            for (const [key, response] of Object.entries(responses)) {
+                if (lowerMessage.includes(key)) {
+                    return response;
+                }
+            }
+            return responses.default;
+        }
+
+        // Patent Search
+        function performPatentSearch() {
+            const searchInput = document.getElementById('patent-search-input');
+            const query = searchInput.value.trim();
+            
+            if (!query) return;
+            
+            // Show loading state
+            const resultsContainer = document.getElementById('search-results');
+            resultsContainer.innerHTML = '<div class="text-center py-8"><div class="animate-spin w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full mx-auto"></div><p class="text-gray-400 mt-4">Searching patents...</p></div>';
+            
+            // Simulate search results
+            setTimeout(() => {
+                displaySearchResults();
+            }, 2000);
+        }
+
+        function displaySearchResults() {
+            const resultsContainer = document.getElementById('search-results');
+            const results = [
+                { id: 'US10,123,456B2', title: 'Quantum-Enhanced Photonic Computing System', match: 92 },
+                { id: 'US10,987,654B1', title: 'Optical Neural Network Architecture', match: 87 },
+                { id: 'EP3,456,789A1', title: 'Photonic Integrated Circuit for AI Processing', match: 78 },
+                { id: 'WO2024/123456', title: 'Silicon Photonics Platform for Quantum Computing', match: 72 }
+            ];
+            
+            resultsContainer.innerHTML = results.map(result => `
+                <div class="bg-gray-800 rounded-lg p-6 hover:bg-gray-750 transition-colors cursor-pointer">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-400">${result.id}</h3>
+                            <p class="text-gray-400 text-sm">Filed: Jan 15, 2023 | Status: Granted</p>
+                        </div>
+                        <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">${result.match}% Match</span>
+                    </div>
+                    <h4 class="font-medium mb-2">${result.title}</h4>
+                    <p class="text-gray-400 text-sm mb-3">A system and method for implementing advanced computing operations using integrated photonic circuits...</p>
+                    <div class="flex items-center space-x-4 text-sm">
+                        <span class="text-gray-500">Assignee: <span class="text-gray-300">TechCorp Inc.</span></span>
+                        <span class="text-gray-500">Citations: <span class="text-gray-300">47</span></span>
+                        <button class="text-blue-400 hover:text-blue-300">View Details</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Initialize Charts
+        function initializeCharts() {
+            // Filing Trend Chart
+            const filingCtx = document.getElementById('filingChart');
+            if (filingCtx && !filingCtx.chart) {
+                filingCtx.chart = new Chart(filingCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+                        datasets: [{
+                            label: 'Patents Filed',
+                            data: [2, 3, 5, 8, 12, 15],
+                            borderColor: 'rgb(59, 130, 246)',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                ticks: { color: 'rgba(255, 255, 255, 0.7)' }
+                            },
+                            x: {
+                                grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                ticks: { color: 'rgba(255, 255, 255, 0.7)' }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Technology Distribution Chart
+            const techCtx = document.getElementById('techChart');
+            if (techCtx && !techCtx.chart) {
+                techCtx.chart = new Chart(techCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Photonics', 'Electronics', 'Software', 'Biomedical'],
+                        datasets: [{
+                            data: [35, 25, 25, 15],
+                            backgroundColor: [
+                                'rgb(59, 130, 246)',
+                                'rgb(139, 92, 246)',
+                                'rgb(236, 72, 153)',
+                                'rgb(34, 197, 94)'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { color: 'rgba(255, 255, 255, 0.7)' }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // UI Functions
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+        }
+
+        function showSettings() {
+            alert('Settings panel would open here');
+        }
+
+        function startDemo() {
+            document.getElementById('demo-modal').classList.remove('hidden');
+        }
+
+        function closeDemo() {
+            document.getElementById('demo-modal').classList.add('hidden');
+        }
+
+        function startDemoTour() {
+            closeDemo();
+            alert('Interactive demo tour would start here');
+        }
+
+        function toggleAIInsights() {
+            const panel = document.getElementById('ai-insights');
+            panel.classList.toggle('hidden');
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Any initialization code
+        });
+    </script>
+</body>
+</html>
