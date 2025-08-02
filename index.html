@@ -941,44 +941,143 @@ function openLouis() {
 
     <!-- HARDWARE PAGE -->
     <div id="hardware" class="page-content">
-        <section class="min-h-screen bg-gradient-to-br from-green-900 via-teal-900 to-blue-900 pt-20">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
             <div class="max-w-7xl mx-auto px-6 py-20">
                 <div class="text-center mb-16">
-                    <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-green-400 to-teal-400 bg-clip-text text-transparent">ABP Optoelectronics Systems & Design</h1>
-                    <p class="text-xl text-green-200 max-w-4xl mx-auto">Advanced photonics and hardware engineering for next-generation applications</p>
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">ABP Optoelectronics Systems & Design</h1>
+                    <p class="text-xl text-blue-200 max-w-4xl mx-auto">Advanced photonics and hardware engineering for next-generation applications</p>
                 </div>
 
-                <!-- Core Technologies -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                    <div class="bg-green-900/30 p-8 rounded-xl border border-green-600/30 hover:scale-105 transition-transform">
-                        <div class="text-5xl mb-4">🌟</div>
-                        <h3 class="text-2xl font-bold mb-4">Photonics</h3>
-                        <p class="text-green-200">Advanced light-based technologies for computing, sensing, and communication systems</p>
+                <!-- Main Product Categories -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+                    <!-- Electronics Section -->
+                    <div class="bg-slate-800/40 p-8 rounded-2xl border border-blue-600/30 backdrop-blur-sm">
+                        <div class="flex items-center mb-6">
+                            <span class="text-4xl mr-4">⚡</span>
+                            <h2 class="text-3xl font-bold text-cyan-400">Electronics</h2>
+                        </div>
+                        <p class="text-blue-200 mb-8">Advanced semiconductor and electronic solutions for high-performance computing and embedded systems</p>
+                        <div class="grid grid-cols-1 gap-4">
+                            <a href="#microchips" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Advanced Microchips</h3>
+                                <p class="text-gray-400 text-sm mt-1">Silicon photonics integrated circuits for quantum computing</p>
+                            </a>
+                            <a href="#fpga" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">FPGA Solutions</h3>
+                                <p class="text-gray-400 text-sm mt-1">Programmable logic arrays for signal processing</p>
+                            </a>
+                            <a href="#microcontroller" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Microcontrollers</h3>
+                                <p class="text-gray-400 text-sm mt-1">ARM Cortex-M7 based MCUs with photonic interfaces</p>
+                            </a>
+                            <a href="#more-electronics" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">More Electronics →</h3>
+                                <p class="text-gray-400 text-sm mt-1">Power management, sensors, and custom ASICs</p>
+                            </a>
+                        </div>
                     </div>
-                    <div class="bg-green-900/30 p-8 rounded-xl border border-green-600/30 hover:scale-105 transition-transform">
-                        <div class="text-5xl mb-4">⚙️</div>
-                        <h3 class="text-2xl font-bold mb-4">Electronic Design Automation</h3>
-                        <p class="text-green-200">Automated circuit synthesis, verification, and layout optimization tools</p>
+
+                    <!-- Optical Systems Section -->
+                    <div class="bg-slate-800/40 p-8 rounded-2xl border border-blue-600/30 backdrop-blur-sm">
+                        <div class="flex items-center mb-6">
+                            <span class="text-4xl mr-4">🔬</span>
+                            <h2 class="text-3xl font-bold text-cyan-400">Optical Systems</h2>
+                        </div>
+                        <p class="text-blue-200 mb-8">Precision optical components and systems for telecommunications, sensing, and quantum applications</p>
+                        <div class="grid grid-cols-1 gap-4">
+                            <a href="#polarizers" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Optical Polarizers</h3>
+                                <p class="text-gray-400 text-sm mt-1">High-precision polarization control components</p>
+                            </a>
+                            <a href="#lenses-mirrors" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Lenses & Mirrors</h3>
+                                <p class="text-gray-400 text-sm mt-1">Ultra-low loss optical elements for photonic systems</p>
+                            </a>
+                            <a href="#prisms-beamsplitters" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Prisms & Beamsplitters</h3>
+                                <p class="text-gray-400 text-sm mt-1">Precision beam manipulation and splitting components</p>
+                            </a>
+                            <a href="#lasers" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Laser Systems</h3>
+                                <p class="text-gray-400 text-sm mt-1">Semiconductor and fiber laser solutions</p>
+                            </a>
+                        </div>
                     </div>
-                    <div class="bg-green-900/30 p-8 rounded-xl border border-green-600/30 hover:scale-105 transition-transform">
-                        <div class="text-5xl mb-4">🔧</div>
-                        <h3 class="text-2xl font-bold mb-4">FPGA Design</h3>
-                        <p class="text-green-200">Flexible architectures for high-speed signal processing and modular control</p>
+
+                    <!-- Photolithography Section -->
+                    <div class="bg-slate-800/40 p-8 rounded-2xl border border-blue-600/30 backdrop-blur-sm">
+                        <div class="flex items-center mb-6">
+                            <span class="text-4xl mr-4">🎯</span>
+                            <h2 class="text-3xl font-bold text-cyan-400">Photolithography</h2>
+                        </div>
+                        <p class="text-blue-200 mb-8">State-of-the-art lithography solutions for semiconductor manufacturing and photonic device fabrication</p>
+                        <div class="grid grid-cols-1 gap-4">
+                            <a href="#photomask" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Photomask Technology</h3>
+                                <p class="text-gray-400 text-sm mt-1">10nm process technology masks and reticles</p>
+                            </a>
+                            <a href="#euv-lithography" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">EUV Lithography</h3>
+                                <p class="text-gray-400 text-sm mt-1">Extreme ultraviolet lithography systems</p>
+                            </a>
+                            <a href="#immersion-lithography" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Immersion Lithography</h3>
+                                <p class="text-gray-400 text-sm mt-1">193nm immersion lithography solutions</p>
+                            </a>
+                            <a href="#nanoimprint" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Nanoimprint Technology</h3>
+                                <p class="text-gray-400 text-sm mt-1">Sub-10nm patterning capabilities</p>
+                            </a>
+                        </div>
                     </div>
-                    <div class="bg-green-900/30 p-8 rounded-xl border border-green-600/30 hover:scale-105 transition-transform">
-                        <div class="text-5xl mb-4">🧪</div>
-                        <h3 class="text-2xl font-bold mb-4">Hardware Verification</h3>
-                        <p class="text-green-200">Comprehensive testing and validation of complex hardware systems</p>
+
+                    <!-- Deposition Technologies Section -->
+                    <div class="bg-slate-800/40 p-8 rounded-2xl border border-blue-600/30 backdrop-blur-sm">
+                        <div class="flex items-center mb-6">
+                            <span class="text-4xl mr-4">💎</span>
+                            <h2 class="text-3xl font-bold text-cyan-400">Deposition Technologies</h2>
+                        </div>
+                        <p class="text-blue-200 mb-8">Advanced thin-film deposition systems for precision material engineering</p>
+                        <div class="grid grid-cols-1 gap-4">
+                            <a href="#pvd" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Physical Vapor Deposition (PVD)</h3>
+                                <p class="text-gray-400 text-sm mt-1">Sputtering and evaporation systems</p>
+                            </a>
+                            <a href="#cvd" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Chemical Vapor Deposition (CVD)</h3>
+                                <p class="text-gray-400 text-sm mt-1">PECVD, LPCVD, and MOCVD systems</p>
+                            </a>
+                            <a href="#ald" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Atomic Layer Deposition (ALD)</h3>
+                                <p class="text-gray-400 text-sm mt-1">Atomic-scale precision coating technology</p>
+                            </a>
+                            <a href="#epitaxy" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                                <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Epitaxial Growth</h3>
+                                <p class="text-gray-400 text-sm mt-1">MBE and MOVPE systems for crystal growth</p>
+                            </a>
+                        </div>
                     </div>
-                    <div class="bg-green-900/30 p-8 rounded-xl border border-green-600/30 hover:scale-105 transition-transform">
-                        <div class="text-5xl mb-4">🔬</div>
-                        <h3 class="text-2xl font-bold mb-4">Nano-systems Design</h3>
-                        <p class="text-green-200">Atomic-scale modeling and simulation of photonic behavior</p>
-                    </div>
-                    <div class="bg-green-900/30 p-8 rounded-xl border border-green-600/30 hover:scale-105 transition-transform">
-                        <div class="text-5xl mb-4">📦</div>
-                        <h3 class="text-2xl font-bold mb-4">System-on-Chip Design</h3>
-                        <p class="text-green-200">Highly integrated mixed-signal SoC solutions for optoelectronic hardware</p>
+                </div>
+
+                <!-- Additional Information -->
+                <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20">
+                    <h2 class="text-3xl font-bold mb-6 text-center">Why Choose ABP Optoelectronics?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="text-4xl mb-3">🏆</div>
+                            <h3 class="text-xl font-semibold mb-2">Industry Leadership</h3>
+                            <p class="text-blue-200">25+ years of experience in photonics and hardware design</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl mb-3">🔧</div>
+                            <h3 class="text-xl font-semibold mb-2">Custom Solutions</h3>
+                            <p class="text-blue-200">Tailored designs to meet your specific requirements</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl mb-3">🌍</div>
+                            <h3 class="text-xl font-semibold mb-2">Global Support</h3>
+                            <p class="text-blue-200">Worldwide technical support and rapid deployment</p>
+                        </div>
                     </div>
                 </div>
             </div>
