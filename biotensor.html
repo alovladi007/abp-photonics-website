@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioTensor - Aurora Borealis Photonics</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="BioTensor Lab - Machine learning and biomedical engineering research for healthcare innovation">
+    <meta name="keywords" content="biotensor, biomedical engineering, machine learning, bioimaging, biosensing, healthcare technology">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Sora', sans-serif; }
+        
+        /* DNA Helix Animation */
+        .dna-helix {
+            width: 200px;
+            height: 400px;
+            position: relative;
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+        
+        .helix-strand {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #00CFFF 0%, #1E40AF 50%, #7C3AED 100%);
+            opacity: 0.3;
+            border-radius: 50%;
+        }
+        
+        .strand-1 {
+            transform: rotateY(0deg) translateZ(50px);
+        }
+        
+        .strand-2 {
+            transform: rotateY(180deg) translateZ(50px);
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-black/90 backdrop-blur-lg z-50 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">ABP</a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="hover:text-cyan-400 transition-colors">Home</a>
+                    <a href="patents.html" class="hover:text-cyan-400 transition-colors">Patents</a>
+                    <a href="cybersecurity.html" class="hover:text-cyan-400 transition-colors">Cybersecurity</a>
+                    <a href="hardware.html" class="hover:text-cyan-400 transition-colors">Hardware</a>
+                    <a href="biotensor.html" class="text-cyan-400">BioTensor</a>
+                </div>
+            </div>
+            <a href="ai-security-assistant/demo.html" class="hidden md:inline-block px-4 py-2 bg-cyan-400 text-black font-semibold rounded-full hover:bg-cyan-300 transition-colors">
+                AI Assistant
+            </a>
+        </div>
+    </nav>
+
+    <!-- BioTensor Content -->
+    <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20 relative overflow-hidden">
+        <!-- 3D DNA Helix Background -->
+        <div class="absolute inset-0 flex items-center justify-center opacity-10">
+            <div class="dna-helix">
+                <div class="helix-strand strand-1"></div>
+                <div class="helix-strand strand-2"></div>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 py-20 relative z-10">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">BioTensor Lab</h1>
+                <p class="text-xl text-blue-200 max-w-4xl mx-auto">Machine learning and biomedical engineering research driving innovation in healthcare technology</p>
+            </div>
+
+            <!-- Research Areas -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <a href="mynx-natalcare.html" class="bg-slate-800/40 p-6 rounded-xl border border-blue-600/30 hover:scale-105 transition-all duration-300 cursor-pointer transform hover:rotate-1 hover:shadow-2xl backdrop-blur-sm block">
+                    <div class="text-4xl mb-3 animate-pulse">🧠</div>
+                    <h3 class="text-xl font-bold mb-3">Machine Learning in Biomedical Engineering</h3>
+                    <p class="text-blue-200 text-sm">Advanced AI algorithms for medical diagnosis, drug discovery, and personalized treatment</p>
+                    <div class="mt-3 text-blue-300 text-xs">→ Explore MYNX NatalCare™</div>
+                </a>
+                <a href="olmosa-vision.html" class="bg-slate-800/40 p-6 rounded-xl border border-blue-600/30 hover:scale-105 transition-all duration-300 cursor-pointer transform hover:rotate-1 hover:shadow-2xl backdrop-blur-sm block">
+                    <div class="text-4xl mb-3 animate-pulse">🩻</div>
+                    <h3 class="text-xl font-bold mb-3">Bioimaging</h3>
+                    <p class="text-blue-200 text-sm">High-resolution medical imaging systems with AI-enhanced analysis and interpretation</p>
+                    <div class="mt-3 text-blue-300 text-xs">→ Explore Olmosa Vision</div>
+                </a>
+                <a href="cerebro-logic.html" class="bg-slate-800/40 p-6 rounded-xl border border-blue-600/30 hover:scale-105 transition-all duration-300 cursor-pointer transform hover:rotate-1 hover:shadow-2xl backdrop-blur-sm block">
+                    <div class="text-4xl mb-3 animate-pulse">🔬</div>
+                    <h3 class="text-xl font-bold mb-3">Biosensing</h3>
+                    <p class="text-blue-200 text-sm">Next-generation biosensors for real-time health monitoring and disease detection</p>
+                    <div class="mt-3 text-blue-300 text-xs">→ Explore CerebroLogic</div>
+                </a>
+                <a href="praedica.html" class="bg-slate-800/40 p-6 rounded-xl border border-blue-600/30 hover:scale-105 transition-all duration-300 cursor-pointer transform hover:rotate-1 hover:shadow-2xl backdrop-blur-sm block">
+                    <div class="text-4xl mb-3 animate-pulse">📊</div>
+                    <h3 class="text-xl font-bold mb-3">Clinical Intelligence</h3>
+                    <p class="text-blue-200 text-sm">Dynamic dashboard for clinicians to detect risks, understand trajectories, and take action</p>
+                    <div class="mt-3 text-blue-300 text-xs">→ Explore CliniScope</div>
+                </a>
+            </div>
+
+            <!-- Research Projects -->
+            <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 mb-16 border border-white/20">
+                <h2 class="text-3xl font-bold mb-8 text-center">🔬 Current Research Projects</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-blue-500/20 p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold mb-3">Neural Network Drug Discovery</h3>
+                        <p class="text-blue-200">Using deep learning to accelerate pharmaceutical research and identify novel therapeutic compounds</p>
+                    </div>
+                    <div class="bg-blue-500/20 p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold mb-3">AI-Powered Medical Imaging</h3>
+                        <p class="text-blue-200">Computer vision systems for automated diagnosis from medical scans and pathology images</p>
+                    </div>
+                    <div class="bg-blue-500/20 p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold mb-3">Wearable Health Sensors</h3>
+                        <p class="text-blue-200">Smart biosensors for continuous monitoring of vital signs and biomarkers</p>
+                    </div>
+                    <div class="bg-blue-500/20 p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold mb-3">Precision Medicine Platform</h3>
+                        <p class="text-blue-200">Personalized treatment recommendations based on genetic and phenotypic data analysis</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center">
+                <a href="mailto:biotensor@auroraborealisphonics.com" class="inline-block px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold rounded-full hover:shadow-lg transform hover:scale-105 transition-all">
+                    Partner With BioTensor Lab
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-gray-400">© 2024 Aurora Borealis Photonics. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
