@@ -3468,13 +3468,25 @@ window.addEventListener('scroll', function() {
     
     // Wait for Swiper to load
     function initializeSlider() {
+        console.log('Attempting to initialize slider...');
         if (typeof Swiper === 'undefined') {
+            console.log('Swiper not loaded yet, retrying...');
             setTimeout(initializeSlider, 100);
             return;
         }
         
+        console.log('Swiper loaded, initializing...');
+        
+        // Check if slider element exists
+        const sliderElement = document.querySelector('.hero-slider');
+        if (!sliderElement) {
+            console.error('Slider element not found!');
+            return;
+        }
+        
         // Initialize Swiper
-        heroSwiper = new Swiper('.hero-slider', {
+        try {
+            heroSwiper = new Swiper('.hero-slider', {
             // Remove modules array for CDN version
             effect: 'fade',
             fadeEffect: {
@@ -3520,6 +3532,11 @@ window.addEventListener('scroll', function() {
             }
         }
     });
+            console.log('Swiper initialized successfully!');
+        } catch (error) {
+            console.error('Error initializing Swiper:', error);
+        }
+    }
     
     // Lazy load images
     const imageObserver = new IntersectionObserver((entries, observer) => {
@@ -3544,6 +3561,13 @@ window.addEventListener('scroll', function() {
     } else {
         initializeSlider();
     }
+    
+    // Also try initializing on window load as backup
+    window.addEventListener('load', function() {
+        if (!heroSwiper) {
+            initializeSlider();
+        }
+    });
     
     // Ensure home page is visible
     document.addEventListener('DOMContentLoaded', function() {
