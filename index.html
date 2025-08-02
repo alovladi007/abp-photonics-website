@@ -3209,10 +3209,10 @@ function openLouis() {
                 
                 setTimeout(() => {
                     // Re-initialize swiper if needed
-                    if (heroSwiper) {
+                    if (window.heroSwiper) {
                         // Just update and restart
-                        heroSwiper.update();
-                        heroSwiper.autoplay.start();
+                        window.heroSwiper.update();
+                        window.heroSwiper.autoplay.start();
                     }
                     
                     // Force visibility of all slider elements
@@ -3451,66 +3451,91 @@ window.addEventListener('scroll', function() {
 
 <!-- Initialize Swiper -->
 <script>
-    // Global swiper variable
-    let heroSwiper = null;
+    // Wait for everything to load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Give Swiper time to load
+        setTimeout(function() {
+            if (typeof Swiper !== 'undefined') {
+                const swiper = new Swiper('.hero-slider', {
+                    loop: true,
+                    effect: 'fade',
+                    fadeEffect: {
+                        crossFade: true
+                    },
+                    autoplay: {
+                        delay: 6000,
+                        disableOnInteraction: false,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                });
+                
+                // Store globally
+                window.heroSwiper = swiper;
+                console.log('Swiper initialized!');
+            } else {
+                console.error('Swiper not loaded');
+                // Try one more time
+                setTimeout(function() {
+                    if (typeof Swiper !== 'undefined') {
+                        const swiper = new Swiper('.hero-slider', {
+                            loop: true,
+                            effect: 'fade',
+                            autoplay: {
+                                delay: 6000,
+                            },
+                            navigation: {
+                                nextEl: '.swiper-button-next',
+                                prevEl: '.swiper-button-prev',
+                            },
+                            pagination: {
+                                el: '.swiper-pagination',
+                            },
+                        });
+                        window.heroSwiper = swiper;
+                    }
+                }, 1000);
+            }
+        }, 500);
+    });
     
-    // Simple direct initialization
-    window.addEventListener('load', function() {
-        console.log('Window loaded, initializing Swiper...');
-        
-        // Check if Swiper exists
-        if (typeof Swiper === 'undefined') {
-            console.error('Swiper library not loaded!');
-            return;
-        }
-        
-        // Initialize Swiper with minimal config first
-        try {
-            heroSwiper = new Swiper('.hero-slider', {
-                // Basic configuration
-                loop: true,
-                speed: 1000,
-                
-                // Navigation
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                
-                // Pagination
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                
-                // Autoplay
-                autoplay: {
-                    delay: 6000,
-                    disableOnInteraction: false,
-                },
-                
-                // Fade effect
-                effect: 'fade',
-                fadeEffect: {
-                    crossFade: true
-                }
+    // Manual slider fallback if Swiper fails
+    setTimeout(function() {
+        // Check if Swiper initialized
+        if (!window.heroSwiper) {
+            console.log('Swiper failed, using manual slider');
+            const slides = document.querySelectorAll('.swiper-slide');
+            let currentSlide = 0;
+            
+            // Add transition styles
+            slides.forEach((slide) => {
+                slide.style.transition = 'opacity 1s ease-in-out';
+                slide.style.position = 'absolute';
+                slide.style.width = '100%';
+                slide.style.height = '100%';
+                slide.style.top = '0';
+                slide.style.left = '0';
             });
             
-            console.log('Swiper initialized successfully!', heroSwiper);
+            // Show first slide
+            slides.forEach((slide, index) => {
+                slide.style.opacity = index === 0 ? '1' : '0';
+            });
             
-            // Force update after initialization
-            setTimeout(() => {
-                if (heroSwiper) {
-                    heroSwiper.update();
-                    heroSwiper.autoplay.start();
-                    console.log('Swiper updated and autoplay started');
-                }
-            }, 100);
-            
-        } catch (error) {
-            console.error('Error initializing Swiper:', error);
+            // Manual slide change
+            setInterval(function() {
+                slides[currentSlide].style.opacity = '0';
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].style.opacity = '1';
+            }, 6000);
         }
-    });
+    }, 3000);
 
     
     // Ensure home page is visible
