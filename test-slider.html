@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider Test</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        body { margin: 0; padding: 0; }
+        .hero-slider { width: 100%; height: 100vh; }
+        .swiper-slide { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 3em; 
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .slide1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .slide2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .slide3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .slide4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .slide5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+    </style>
+</head>
+<body>
+    <div class="swiper hero-slider">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide slide1">Slide 1 - Microchips</div>
+            <div class="swiper-slide slide2">Slide 2 - FPGA</div>
+            <div class="swiper-slide slide3">Slide 3 - Microcontroller</div>
+            <div class="swiper-slide slide4">Slide 4 - Optics</div>
+            <div class="swiper-slide slide5">Slide 5 - Photomask</div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Simple test
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, Swiper available:', typeof Swiper !== 'undefined');
+            
+            if (typeof Swiper !== 'undefined') {
+                const swiper = new Swiper('.hero-slider', {
+                    loop: true,
+                    autoplay: {
+                        delay: 3000,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                });
+                console.log('Swiper initialized:', swiper);
+            } else {
+                console.error('Swiper not found!');
+            }
+        });
+    </script>
+</body>
+</html>
