@@ -105,6 +105,15 @@
         .bg-optics { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .bg-photomask { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
         
+        /* Ensure hero slider is always visible */
+        .hero-slider, .hero-slider .swiper-slide {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        .hero-slider .swiper-slide > div {
+            opacity: 1 !important;
+        }
+        
         /* Professional Dark Color Palette */
         :root {
             --bg-primary: #1C1F26;      /* Charcoal/Gunmetal */
@@ -974,7 +983,7 @@ function openLouis() {
                                 <p class="text-gray-400 text-sm mt-1">Silicon photonics integrated circuits for quantum computing</p>
                                 <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
                             </div>
-                            <div onclick="showPage('fpga-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                            <div onclick="console.log('FPGA clicked'); showPage('fpga-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">FPGA Solutions</h3>
                                 <p class="text-gray-400 text-sm mt-1">Programmable logic arrays for signal processing</p>
                                 <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
@@ -1239,6 +1248,77 @@ function openLouis() {
                         <div>
                             <h3 class="text-lg font-semibold mb-2 text-cyan-400">Quantum Ready</h3>
                             <p class="text-gray-300">Native support for quantum computing applications</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FPGA PRODUCTS PAGE -->
+    <div id="fpga-products" class="page-content">
+        <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <!-- Header with Back Button -->
+                <div class="flex items-center justify-between mb-8">
+                    <button onclick="showPage('hardware')" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Hardware
+                    </button>
+                    <span class="text-gray-400">ABP Optoelectronics</span>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">FPGA Solutions</h1>
+                    <p class="text-xl text-blue-200 max-w-3xl mx-auto">Programmable logic arrays for high-performance signal processing</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <!-- Product 1 -->
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
+                            <span class="text-6xl">🎛️</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">Stratix X Ultra</h3>
+                            <p class="text-gray-400 text-sm mb-4">High-end FPGA with 10M logic elements and photonic I/O</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$18,500</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-green-600 to-cyan-600 flex items-center justify-center">
+                            <span class="text-6xl">⚙️</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">Arria 20 Pro</h3>
+                            <p class="text-gray-400 text-sm mb-4">Mid-range FPGA optimized for DSP and AI workloads</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$7,200</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="bg-slate-800/40 rounded-xl border border-blue-600/30 overflow-hidden hover:border-cyan-400/50 transition-all hover:scale-105">
+                        <div class="h-48 bg-gradient-to-br from-orange-600 to-pink-600 flex items-center justify-center">
+                            <span class="text-6xl">🔌</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">Cyclone VII Edge</h3>
+                            <p class="text-gray-400 text-sm mb-4">Cost-effective FPGA for edge computing applications</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-cyan-400 font-semibold">$2,400</span>
+                                <button class="px-4 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 transition-colors text-sm font-semibold">View Details</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2198,9 +2278,26 @@ function openLouis() {
                     // Re-initialize swiper if needed
                     if (!heroSwiper && typeof Swiper !== 'undefined') {
                         initializeSlider();
+                    } else if (heroSwiper) {
+                        // Update swiper and force refresh
+                        heroSwiper.update();
+                        heroSwiper.slideTo(0, 0); // Go to first slide instantly
+                        
+                        // Restart autoplay
+                        if (heroSwiper.autoplay) {
+                            heroSwiper.autoplay.stop();
+                            heroSwiper.autoplay.start();
+                        }
                     }
                     
-                    // Force animation restart
+                    // Force visibility of all slide elements
+                    const sliderSection = document.querySelector('.hero-slider');
+                    if (sliderSection) {
+                        sliderSection.style.opacity = '1';
+                        sliderSection.style.visibility = 'visible';
+                    }
+                    
+                    // Force animation restart on all slides
                     const slides = document.querySelectorAll('.swiper-slide .animate-fadeInUp');
                     slides.forEach(slide => {
                         slide.style.animation = 'none';
@@ -2208,11 +2305,13 @@ function openLouis() {
                         slide.style.animation = '';
                     });
                     
-                    // Restart autoplay
-                    if (heroSwiper && heroSwiper.autoplay) {
-                        heroSwiper.autoplay.start();
-                    }
-                }, 200);
+                    // Ensure slide images are visible
+                    const slideImages = document.querySelectorAll('.swiper-slide img');
+                    slideImages.forEach(img => {
+                        img.style.opacity = '1';
+                        img.style.display = 'block';
+                    });
+                }, 300);
             }
             
             // Update back button
