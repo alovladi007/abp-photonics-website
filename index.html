@@ -3455,15 +3455,8 @@ window.addEventListener('scroll', function() {
                 return;
             }
             
-            console.log('Starting manual slider implementation');
-            
             const slides = document.querySelectorAll('.hero-slider .swiper-slide');
-            console.log('Found slides:', slides.length);
-            
-            if (slides.length === 0) {
-                console.error('No slides found!');
-                return;
-            }
+            if (slides.length === 0) return;
             
             let currentSlide = 0;
             
@@ -3478,34 +3471,51 @@ window.addEventListener('scroll', function() {
                 slide.style.transition = 'opacity 1s ease-in-out';
                 slide.style.zIndex = '1';
                 slide.style.display = 'block';
-                console.log(`Slide ${index} setup complete`);
             });
             
-            // Show first slide (Microchips)
+            // Show first slide
             slides[0].style.opacity = '1';
             slides[0].style.zIndex = '2';
-            console.log('Showing first slide (Microchips)');
             
-            // Change slides every 4 seconds
+            // Create pagination dots
+            const pagination = document.querySelector('.swiper-pagination');
+            if (pagination) {
+                pagination.innerHTML = '';
+                slides.forEach((_, index) => {
+                    const dot = document.createElement('span');
+                    dot.className = 'swiper-pagination-bullet' + (index === 0 ? ' swiper-pagination-bullet-active' : '');
+                    dot.addEventListener('click', function() {
+                        goToSlide(index);
+                    });
+                    pagination.appendChild(dot);
+                });
+            }
+            
+            // Function to go to specific slide
+            function goToSlide(index) {
+                slides[currentSlide].style.opacity = '0';
+                slides[currentSlide].style.zIndex = '1';
+                if (pagination) {
+                    pagination.children[currentSlide].classList.remove('swiper-pagination-bullet-active');
+                }
+                
+                currentSlide = index;
+                
+                slides[currentSlide].style.opacity = '1';
+                slides[currentSlide].style.zIndex = '2';
+                if (pagination) {
+                    pagination.children[currentSlide].classList.add('swiper-pagination-bullet-active');
+                }
+            }
+            
+            // Change slides every 6 seconds
             setInterval(function() {
                 if (!document.getElementById('home').classList.contains('active')) {
                     return;
                 }
-                
-                // Hide current slide
-                slides[currentSlide].style.opacity = '0';
-                slides[currentSlide].style.zIndex = '1';
-                
-                // Move to next slide
-                currentSlide = (currentSlide + 1) % slides.length;
-                
-                // Show next slide
-                slides[currentSlide].style.opacity = '1';
-                slides[currentSlide].style.zIndex = '2';
-                
-                const slideNames = ['Microchips', 'FPGA', 'Microcontroller', 'Optics', 'Photomask'];
-                console.log(`Showing slide ${currentSlide}: ${slideNames[currentSlide]}`);
-            }, 4000);
+                const nextSlide = (currentSlide + 1) % slides.length;
+                goToSlide(nextSlide);
+            }, 6000);
             
             // Add manual navigation
             const nextBtn = document.querySelector('.swiper-button-next');
@@ -3513,21 +3523,15 @@ window.addEventListener('scroll', function() {
             
             if (nextBtn) {
                 nextBtn.addEventListener('click', function() {
-                    slides[currentSlide].style.opacity = '0';
-                    slides[currentSlide].style.zIndex = '1';
-                    currentSlide = (currentSlide + 1) % slides.length;
-                    slides[currentSlide].style.opacity = '1';
-                    slides[currentSlide].style.zIndex = '2';
+                    const nextSlide = (currentSlide + 1) % slides.length;
+                    goToSlide(nextSlide);
                 });
             }
             
             if (prevBtn) {
                 prevBtn.addEventListener('click', function() {
-                    slides[currentSlide].style.opacity = '0';
-                    slides[currentSlide].style.zIndex = '1';
-                    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-                    slides[currentSlide].style.opacity = '1';
-                    slides[currentSlide].style.zIndex = '2';
+                    const prevSlide = (currentSlide - 1 + slides.length) % slides.length;
+                    goToSlide(prevSlide);
                 });
             }
         }, 500);
