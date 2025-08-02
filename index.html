@@ -948,6 +948,8 @@ function openLouis() {
                     <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">ABP Optoelectronics Systems & Design</h1>
                     <p class="text-xl text-blue-200 max-w-4xl mx-auto">Advanced photonics and hardware engineering for next-generation applications</p>
                     <p class="text-sm text-gray-400 mt-2">Last updated: December 2024</p>
+                    <!-- Debug button -->
+                    <button onclick="console.log('Test click'); alert('Button works! Now testing navigation...'); showPage('microchips-products');" class="mt-4 px-4 py-2 bg-red-500 text-white rounded">TEST: Go to Microchips</button>
                 </div>
 
                 <!-- Main Product Categories -->
@@ -960,7 +962,7 @@ function openLouis() {
                         </div>
                         <p class="text-blue-200 mb-8">Advanced semiconductor and electronic solutions for high-performance computing and embedded systems</p>
                         <div class="grid grid-cols-1 gap-4">
-                            <div onclick="showPage('microchips-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
+                            <div onclick="console.log('Clicked microchips'); showPage('microchips-products')" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group">
                                 <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Advanced Microchips</h3>
                                 <p class="text-gray-400 text-sm mt-1">Silicon photonics integrated circuits for quantum computing</p>
                                 <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
@@ -2164,6 +2166,10 @@ function openLouis() {
             const newPage = document.getElementById(pageId);
             if (newPage) {
                 newPage.classList.add('active');
+                console.log('Navigated to:', pageId);
+            } else {
+                console.error('Page not found:', pageId);
+                alert('Error: Page "' + pageId + '" not found!');
             }
             window.scrollTo(0, 0);
             
