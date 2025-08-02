@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Hardware Products - Aurora Borealis Photonics</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="ABP Security Hardware Products - Innovative hardware security solutions for modern threats. USB data blockers, pocket HSMs, secure elements, and more.">
+    <meta name="keywords" content="hardware security, USB data blocker, FIDO2, secure element, IoT security, side-channel protection, secure router">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js for ROI Calculator -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+        }
+        
+        /* Product card hover effects */
+        .product-card {
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: #3b82f6;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Gradient text animation */
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 8s ease infinite;
+        }
+        
+        /* Pulse animation for featured badge */
+        @keyframes pulse-badge {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+            }
+        }
+        
+        .pulse-badge {
+            animation: pulse-badge 2s infinite;
+        }
+        
+        /* Chart container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-lg z-50 border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-8">
+                    <h1 class="text-2xl font-bold gradient-text">ABP Security Hardware</h1>
+                    <nav class="hidden md:flex items-center gap-6">
+                        <a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                        <a href="hardware.html" class="text-gray-400 hover:text-white transition-colors">Hardware</a>
+                        <a href="cybersecurity.html" class="text-gray-400 hover:text-white transition-colors">Cybersecurity</a>
+                        <a href="hardware-security-lab.html" class="text-gray-400 hover:text-white transition-colors">Security Lab</a>
+                    </nav>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleComparison()" class="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
+                        Compare Products
+                    </button>
+                    <button onclick="showROICalculator()" class="px-4 py-2 bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors">
+                        ROI Calculator
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="pt-24 pb-12 px-6">
+        <div class="container mx-auto text-center">
+            <h2 class="text-5xl font-bold mb-6">
+                <span class="gradient-text">Next-Generation Hardware Security</span>
+            </h2>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
+                Innovative, cost-effective security hardware solutions designed for modern threats. 
+                From USB protection to quantum-resistant encryption, we've got you covered.
+            </p>
+            <div class="flex justify-center gap-4 text-sm">
+                <div class="px-4 py-2 bg-gray-800 rounded-full">
+                    <span class="text-gray-400">Starting at</span>
+                    <span class="text-green-400 font-bold ml-2">$2.80 BOM</span>
+                </div>
+                <div class="px-4 py-2 bg-gray-800 rounded-full">
+                    <span class="text-gray-400">Market TAM</span>
+                    <span class="text-blue-400 font-bold ml-2">$27B+ by 2025</span>
+                </div>
+                <div class="px-4 py-2 bg-gray-800 rounded-full">
+                    <span class="text-gray-400">Dev Time</span>
+                    <span class="text-purple-400 font-bold ml-2">< 3 months MVP</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Products Grid -->
+    <section class="py-12 px-6">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Product 1: USB Data Blocker 2.0 -->
+                <div class="product-card bg-gray-800 rounded-2xl p-6 relative">
+                    <div class="absolute top-4 right-4 px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full pulse-badge">
+                        HIGH DEMAND
+                    </div>
+                    <div class="text-4xl mb-4">🔌</div>
+                    <h3 class="text-2xl font-bold mb-2">USB "Juice-Jacking" Data-Blocker 2.0</h3>
+                    <p class="text-gray-400 mb-4">
+                        Advanced charge-only adapter with AI anomaly detection and tamper-evidence features.
+                    </p>
+                    <div class="space-y-2 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">BOM Cost:</span>
+                            <span class="text-green-400 font-bold">$3.80</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Market Size:</span>
+                            <span class="text-blue-400">$124M+ (7% CAGR)</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Target:</span>
+                            <span class="text-purple-400">B2C / Enterprise</span>
+                        </div>
+                    </div>
+                    <div class="space-y-2 mb-6">
+                        <h4 class="text-sm font-semibold text-gray-300">Key Components:</h4>
+                        <ul class="text-xs text-gray-500 space-y-1">
+                            <li>• STM32F0 MCU</li>
+                            <li>• INA219 Current Sensor</li>
+                            <li>• Tamper-Evident Enclosure</li>
+                        </ul>
+                    </div>
+                    <a href="usb-data-blocker.html" class="block w-full text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
+                        View Details →
+                    </a>
+                </div>
+                
+                <!-- Product 2: Pocket HSM -->
+                <div class="product-card bg-gray-800 rounded-2xl p-6 relative">
+                    <div class="absolute top-4 right-4 px-3 py-1 bg-purple-500/20 text-purple-400 text-xs rounded-full">
+                        FIDO2 READY
+                    </div>
+                    <div class="text-4xl mb-4">🔐</div>
+                    <h3 class="text-2xl font-bold mb-2">Passkey-Ready "Pocket HSM"</h3>
+                    <p class="text-gray-400 mb-4">
+                        Affordable FIDO2/WebAuthn hardware token for phishing-proof authentication.
+                    </p>
+                    <div class="space-y-2 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">BOM Cost:</span>
+                            <span class="text-green-400 font-bold">$6.50</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">vs YubiKey:</span>
+                            <span class="text-blue-400">60% cheaper</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Target:</span>
+                            <span class="text-purple-400">SMBs / Developers</span>
+                        </div>
+                    </div>
+                    <div class="space-y-2 mb-6">
+                        <h4 class="text-sm font-semibold text-gray-300">Key Components:</h4>
+                        <ul class="text-xs text-gray-500 space-y-1">
+                            <li>• ATECC608A Secure Element</li>
+                            <li>• RP2040 MCU</li>
+                            <li>• USB-C Form Factor</li>
+                        </ul>
+                    </div>
+                    <a href="pocket-hsm.html" class="block w-full text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
+                        View Details →
+                    </a>
+                </div>
+                
+                <!-- Product 3: IoT Secure Element Hat -->
+                <div class="product-card bg-gray-800 rounded-2xl p-6 relative">
+                    <div class="absolute top-4 right-4 px-3 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full">
+                        MAKER FRIENDLY
+                    </div>
+                    <div class="text-4xl mb-4">🔧</div>
+                    <h3 class="text-2xl font-bold mb-2">Clip-On Secure Element for IoT</h3>
+                    <p class="text-gray-400 mb-4">
+                        Drop-in hardware security module for Raspberry Pi, Arduino, and other dev boards.
+                    </p>
+                    <div class="space-y-2 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">BOM Cost:</span>
+                            <span class="text-green-400 font-bold">$2.80</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Market:</span>
+                            <span class="text-blue-400">$27B by 2025</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Target:</span>
+                            <span class="text-purple-400">IoT OEMs</span>
+                        </div>
+                    </div>
+                    <div class="space-y-2 mb-6">
+                        <h4 class="text-sm font-semibold text-gray-300">Key Components:</h4>
+                        <ul class="text-xs text-gray-500 space-y-1">
+                            <li>• ATECC608A Secure Element</li>
+                            <li>• Qwiic/PMOD Connectors</li>
+                            <li>• 4-Layer PCB Design</li>
+                        </ul>
+                    </div>
+                    <a href="iot-secure-element.html" class="block w-full text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
+                        View Details →
+                    </a>
+                </div>
+                
+                <!-- Product 4: USB-C Storage Encryptor -->
+                <div class="product-card bg-gray-800 rounded-2xl p-6 relative">
+                    <div class="absolute top-4 right-4 px-3 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded-full">
+                        HIGH MARGIN
+                    </div>
+                    <div class="text-4xl mb-4">💾</div>
+                    <h3 class="text-2xl font-bold mb-2">Inline USB-C Storage Encryptor</h3>
+                    <p class="text-gray-400 mb-4">
+                        Transparent hardware encryption for any USB-C SSD with future quantum-resistant support.
+                    </p>
+                    <div class="space-y-2 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">BOM Cost:</span>
+                            <span class="text-green-400 font-bold">$19.00</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Retail Price:</span>
+                            <span class="text-blue-400">$99-149</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Target:</span>
+                            <span class="text-purple-400">Professionals</span>
+                        </div>
+                    </div>
+                    <div class="space-y-2 mb-6">
+                        <h4 class="text-sm font-semibold text-gray-300">Key Components:</h4>
+                        <ul class="text-xs text-gray-500 space-y-1">
+                            <li>• Lattice iCE40 FPGA</li>
+                            <li>• Cypress EZ-USB FX3</li>
+                            <li>• AES-XTS Core</li>
+                        </ul>
+                    </div>
+                    <a href="usb-storage-encryptor.html" class="block w-full text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
+                        View Details →
+                    </a>
+                </div>
+                
+                <!-- Product 5: Side-Channel Lab Shield -->
+                <div class="product-card bg-gray-800 rounded-2xl p-6 relative">
+                    <div class="absolute top-4 right-4 px-3 py-1 bg-red-500/20 text-red-400 text-xs rounded-full">
+                        ACADEMIC
+                    </div>
+                    <div class="text-4xl mb-4">📡</div>
+                    <h3 class="text-2xl font-bold mb-2">Side-Channel Emission Lab Shield</h3>
+                    <p class="text-gray-400 mb-4">
+                        Portable Faraday cage with built-in spectrum analyzer for hardware security testing.
+                    </p>
+                    <div class="space-y-2 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">BOM Cost:</span>
+                            <span class="text-green-400 font-bold">$28.00</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">vs TEMPEST:</span>
+                            <span class="text-blue-400">95% cheaper</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Target:</span>
+                            <span class="text-purple-400">Universities</span>
+                        </div>
+                    </div>
+                    <div class="space-y-2 mb-6">
+                        <h4 class="text-sm font-semibold text-gray-300">Key Components:</h4>
+                        <ul class="text-xs text-gray-500 space-y-1">
+                            <li>• RTL-SDR Module</li>
+                            <li>• Mu-metal Shielding</li>
+                            <li>• Foldable Design</li>
+                        </ul>
+                    </div>
+                    <a href="lab-shield.html" class="block w-full text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
+                        View Details →
+                    </a>
+                </div>
+                
+                <!-- Product 6: Secure Edge Router -->
+                <div class="product-card bg-gray-800 rounded-2xl p-6 relative">
+                    <div class="absolute top-4 right-4 px-3 py-1 bg-cyan-500/20 text-cyan-400 text-xs rounded-full">
+                        ZERO-TRUST
+                    </div>
+                    <div class="text-4xl mb-4">🌐</div>
+                    <h3 class="text-2xl font-bold mb-2">WireGuard-Ready Secure Router</h3>
+                    <p class="text-gray-400 mb-4">
+                        Enterprise-grade secure boot router for micro-offices with cloud management portal.
+                    </p>
+                    <div class="space-y-2 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">BOM Cost:</span>
+                            <span class="text-green-400 font-bold">$32.00</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Office Size:</span>
+                            <span class="text-blue-400">< 50 seats</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Target:</span>
+                            <span class="text-purple-400">MSPs</span>
+                        </div>
+                    </div>
+                    <div class="space-y-2 mb-6">
+                        <h4 class="text-sm font-semibold text-gray-300">Key Components:</h4>
+                        <ul class="text-xs text-gray-500 space-y-1">
+                            <li>• NXP LS1012A SoC</li>
+                            <li>• TrustZone Support</li>
+                            <li>• OpenWRT + Secure Boot</li>
+                        </ul>
+                    </div>
+                    <a href="secure-router.html" class="block w-full text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:shadow-lg transition-all">
+                        View Details →
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- Comparison Table (Hidden by default) -->
+    <section id="comparisonSection" class="py-12 px-6 hidden">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-8">Product Comparison</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full bg-gray-800 rounded-lg overflow-hidden">
+                    <thead class="bg-gray-700">
+                        <tr>
+                            <th class="px-4 py-3 text-left">Product</th>
+                            <th class="px-4 py-3 text-center">BOM Cost</th>
+                            <th class="px-4 py-3 text-center">Market Size</th>
+                            <th class="px-4 py-3 text-center">Dev Time</th>
+                            <th class="px-4 py-3 text-center">Target Market</th>
+                            <th class="px-4 py-3 text-center">Key Differentiator</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700">
+                        <tr class="hover:bg-gray-700/50">
+                            <td class="px-4 py-3">USB Data Blocker 2.0</td>
+                            <td class="px-4 py-3 text-center text-green-400">$3.80</td>
+                            <td class="px-4 py-3 text-center">$124M+</td>
+                            <td class="px-4 py-3 text-center">6 weeks</td>
+                            <td class="px-4 py-3 text-center">B2C/Enterprise</td>
+                            <td class="px-4 py-3 text-center">AI Anomaly Detection</td>
+                        </tr>
+                        <tr class="hover:bg-gray-700/50">
+                            <td class="px-4 py-3">Pocket HSM</td>
+                            <td class="px-4 py-3 text-center text-green-400">$6.50</td>
+                            <td class="px-4 py-3 text-center">Growing</td>
+                            <td class="px-4 py-3 text-center">8 weeks</td>
+                            <td class="px-4 py-3 text-center">SMBs</td>
+                            <td class="px-4 py-3 text-center">Open Source</td>
+                        </tr>
+                        <tr class="hover:bg-gray-700/50">
+                            <td class="px-4 py-3">IoT Secure Element</td>
+                            <td class="px-4 py-3 text-center text-green-400">$2.80</td>
+                            <td class="px-4 py-3 text-center">$27B by 2025</td>
+                            <td class="px-4 py-3 text-center">4 weeks</td>
+                            <td class="px-4 py-3 text-center">IoT OEMs</td>
+                            <td class="px-4 py-3 text-center">Drop-in Solution</td>
+                        </tr>
+                        <tr class="hover:bg-gray-700/50">
+                            <td class="px-4 py-3">USB-C Encryptor</td>
+                            <td class="px-4 py-3 text-center text-green-400">$19.00</td>
+                            <td class="px-4 py-3 text-center">Niche</td>
+                            <td class="px-4 py-3 text-center">12 weeks</td>
+                            <td class="px-4 py-3 text-center">Professionals</td>
+                            <td class="px-4 py-3 text-center">Quantum-Ready</td>
+                        </tr>
+                        <tr class="hover:bg-gray-700/50">
+                            <td class="px-4 py-3">Lab Shield</td>
+                            <td class="px-4 py-3 text-center text-green-400">$28.00</td>
+                            <td class="px-4 py-3 text-center">Academic</td>
+                            <td class="px-4 py-3 text-center">10 weeks</td>
+                            <td class="px-4 py-3 text-center">Universities</td>
+                            <td class="px-4 py-3 text-center">Portability</td>
+                        </tr>
+                        <tr class="hover:bg-gray-700/50">
+                            <td class="px-4 py-3">Secure Router</td>
+                            <td class="px-4 py-3 text-center text-green-400">$32.00</td>
+                            <td class="px-4 py-3 text-center">SMB Market</td>
+                            <td class="px-4 py-3 text-center">12 weeks</td>
+                            <td class="px-4 py-3 text-center">MSPs</td>
+                            <td class="px-4 py-3 text-center">Secure Boot</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ROI Calculator Modal -->
+    <div id="roiModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-gray-800 rounded-2xl p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">ROI Calculator</h3>
+                    <button onclick="closeROICalculator()" class="text-gray-400 hover:text-white">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Select Product</h4>
+                        <select id="productSelect" class="w-full px-4 py-2 bg-gray-700 rounded-lg mb-4" onchange="updateROI()">
+                            <option value="usb-blocker">USB Data Blocker 2.0</option>
+                            <option value="pocket-hsm">Pocket HSM</option>
+                            <option value="iot-secure">IoT Secure Element</option>
+                            <option value="usb-encryptor">USB-C Encryptor</option>
+                            <option value="lab-shield">Lab Shield</option>
+                            <option value="secure-router">Secure Router</option>
+                        </select>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-sm text-gray-400">Production Volume</label>
+                                <input type="number" id="volume" value="1000" min="100" class="w-full px-4 py-2 bg-gray-700 rounded-lg" onchange="updateROI()">
+                            </div>
+                            <div>
+                                <label class="text-sm text-gray-400">Retail Markup (%)</label>
+                                <input type="number" id="markup" value="300" min="100" class="w-full px-4 py-2 bg-gray-700 rounded-lg" onchange="updateROI()">
+                            </div>
+                            <div>
+                                <label class="text-sm text-gray-400">Monthly Sales Target (%)</label>
+                                <input type="number" id="salesTarget" value="10" min="1" max="100" class="w-full px-4 py-2 bg-gray-700 rounded-lg" onchange="updateROI()">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Projected Returns</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Unit Cost:</span>
+                                <span id="unitCost" class="text-green-400 font-bold">$3.80</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Retail Price:</span>
+                                <span id="retailPrice" class="text-blue-400 font-bold">$15.20</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Gross Margin:</span>
+                                <span id="grossMargin" class="text-purple-400 font-bold">75%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Monthly Revenue:</span>
+                                <span id="monthlyRevenue" class="text-yellow-400 font-bold">$1,520</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Break-even Time:</span>
+                                <span id="breakeven" class="text-cyan-400 font-bold">2.5 months</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <div class="chart-container">
+                                <canvas id="roiChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 p-4 bg-gray-700 rounded-lg">
+                    <p class="text-sm text-gray-400">
+                        <strong>Note:</strong> These calculations are estimates based on typical industry margins and do not include operational costs, marketing, or R&D expenses.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Call to Action -->
+    <section class="py-16 px-6">
+        <div class="container mx-auto text-center">
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-12">
+                <h2 class="text-4xl font-bold mb-4">Ready to Secure the Future?</h2>
+                <p class="text-xl mb-8 text-gray-200">
+                    Partner with us to bring these innovative security solutions to market
+                </p>
+                <div class="flex justify-center gap-4">
+                    <a href="mailto:partnerships@abp-tech.com" class="px-8 py-3 bg-white text-gray-900 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        Partner With Us
+                    </a>
+                    <a href="hardware-security-lab.html" class="px-8 py-3 bg-transparent border-2 border-white rounded-lg font-semibold hover:bg-white/10 transition-colors">
+                        Test in Our Lab
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Product data
+        const productData = {
+            'usb-blocker': { bom: 3.80, name: 'USB Data Blocker 2.0', devCost: 15000 },
+            'pocket-hsm': { bom: 6.50, name: 'Pocket HSM', devCost: 25000 },
+            'iot-secure': { bom: 2.80, name: 'IoT Secure Element', devCost: 10000 },
+            'usb-encryptor': { bom: 19.00, name: 'USB-C Encryptor', devCost: 35000 },
+            'lab-shield': { bom: 28.00, name: 'Lab Shield', devCost: 30000 },
+            'secure-router': { bom: 32.00, name: 'Secure Router', devCost: 40000 }
+        };
+        
+        let roiChart = null;
+        
+        function toggleComparison() {
+            const section = document.getElementById('comparisonSection');
+            section.classList.toggle('hidden');
+            if (!section.classList.contains('hidden')) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        function showROICalculator() {
+            document.getElementById('roiModal').classList.remove('hidden');
+            updateROI();
+        }
+        
+        function closeROICalculator() {
+            document.getElementById('roiModal').classList.add('hidden');
+        }
+        
+        function updateROI() {
+            const productKey = document.getElementById('productSelect').value;
+            const product = productData[productKey];
+            const volume = parseInt(document.getElementById('volume').value);
+            const markup = parseInt(document.getElementById('markup').value);
+            const salesTarget = parseInt(document.getElementById('salesTarget').value);
+            
+            const unitCost = product.bom;
+            const retailPrice = unitCost * (markup / 100);
+            const grossMargin = ((retailPrice - unitCost) / retailPrice * 100).toFixed(1);
+            const monthlySales = volume * (salesTarget / 100);
+            const monthlyRevenue = monthlySales * retailPrice;
+            const totalInvestment = product.devCost + (unitCost * volume);
+            const monthlyProfit = monthlySales * (retailPrice - unitCost);
+            const breakeven = (totalInvestment / monthlyProfit).toFixed(1);
+            
+            // Update display
+            document.getElementById('unitCost').textContent = `$${unitCost.toFixed(2)}`;
+            document.getElementById('retailPrice').textContent = `$${retailPrice.toFixed(2)}`;
+            document.getElementById('grossMargin').textContent = `${grossMargin}%`;
+            document.getElementById('monthlyRevenue').textContent = `$${monthlyRevenue.toLocaleString()}`;
+            document.getElementById('breakeven').textContent = `${breakeven} months`;
+            
+            // Update chart
+            updateROIChart(totalInvestment, monthlyProfit);
+        }
+        
+        function updateROIChart(investment, monthlyProfit) {
+            const ctx = document.getElementById('roiChart').getContext('2d');
+            
+            const months = Array.from({length: 24}, (_, i) => i + 1);
+            const cumulative = months.map(m => m * monthlyProfit - investment);
+            
+            if (roiChart) {
+                roiChart.destroy();
+            }
+            
+            roiChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months.map(m => `Month ${m}`),
+                    datasets: [{
+                        label: 'Cumulative Profit',
+                        data: cumulative,
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Break-even',
+                        data: months.map(() => 0),
+                        borderColor: '#ef4444',
+                        borderDash: [5, 5],
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: '#374151'
+                            },
+                            ticks: {
+                                color: '#9ca3af'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: '#374151'
+                            },
+                            ticks: {
+                                color: '#9ca3af',
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Close modal on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeROICalculator();
+            }
+        });
+    </script>
+</body>
+</html>
