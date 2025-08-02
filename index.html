@@ -1897,7 +1897,8 @@ function openLouis() {
 
         // Page navigation with proper history tracking
         function showPage(pageId) {
-            const currentPage = document.querySelector('.page-content.active').id;
+            const currentPageElement = document.querySelector('.page-content.active');
+            const currentPage = currentPageElement ? currentPageElement.id : 'home';
             
             // Only add to history if we're navigating to a different page
             if (currentPage !== pageId) {
@@ -1908,14 +1909,19 @@ function openLouis() {
             document.querySelectorAll('.page-content').forEach(page => {
                 page.classList.remove('active');
             });
-            document.getElementById(pageId).classList.add('active');
+            const newPage = document.getElementById(pageId);
+            if (newPage) {
+                newPage.classList.add('active');
+            }
             window.scrollTo(0, 0);
             
-            // Add page transition animation
-            gsap.fromTo(`#${pageId}`, 
-                { opacity: 0, y: 20 }, 
-                { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
-            );
+            // Add page transition animation if GSAP is available
+            if (typeof gsap !== 'undefined') {
+                gsap.fromTo(`#${pageId}`, 
+                    { opacity: 0, y: 20 }, 
+                    { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
+                );
+            }
             
             // Update back button
             updateBackButton();
@@ -2191,6 +2197,14 @@ window.addEventListener('scroll', function() {
     } else {
         initializeSlider();
     }
+    
+    // Ensure home page is visible
+    document.addEventListener('DOMContentLoaded', function() {
+        const homePage = document.getElementById('home');
+        if (homePage && !homePage.classList.contains('active')) {
+            homePage.classList.add('active');
+        }
+    });
 </script>
 
 </body>
