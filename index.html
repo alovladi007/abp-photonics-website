@@ -33,8 +33,15 @@
         @keyframes aurora { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
         .floating { animation: float 6s ease-in-out infinite; }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
-        .page-content { display: none; }
-        .page-content.active { display: block; }
+        .page-content { 
+            display: none; 
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .page-content.active { 
+            display: block; 
+            opacity: 1;
+        }
         .cursor-dot { width: 8px; height: 8px; background: #3b82f6; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; mix-blend-mode: difference; }
         
         /* Hero Slider Styles */
@@ -2166,6 +2173,10 @@ function openLouis() {
             const newPage = document.getElementById(pageId);
             if (newPage) {
                 newPage.classList.add('active');
+                // Force opacity for transition
+                setTimeout(() => {
+                    newPage.style.opacity = '1';
+                }, 10);
                 console.log('Navigated to:', pageId);
             } else {
                 console.error('Page not found:', pageId);
@@ -2182,19 +2193,26 @@ function openLouis() {
             }
             
             // Re-initialize slider animations when returning to home
-            if (pageId === 'home' && typeof swiper !== 'undefined') {
+            if (pageId === 'home') {
                 setTimeout(() => {
-                    const activeSlide = document.querySelector('.swiper-slide-active');
-                    if (activeSlide) {
-                        const content = activeSlide.querySelector('.animate-fadeInUp');
-                        if (content) {
-                            content.style.animation = 'none';
-                            setTimeout(() => {
-                                content.style.animation = '';
-                            }, 100);
-                        }
+                    // Re-initialize swiper if needed
+                    if (!heroSwiper && typeof Swiper !== 'undefined') {
+                        initializeSlider();
                     }
-                }, 100);
+                    
+                    // Force animation restart
+                    const slides = document.querySelectorAll('.swiper-slide .animate-fadeInUp');
+                    slides.forEach(slide => {
+                        slide.style.animation = 'none';
+                        slide.offsetHeight; // Force reflow
+                        slide.style.animation = '';
+                    });
+                    
+                    // Restart autoplay
+                    if (heroSwiper && heroSwiper.autoplay) {
+                        heroSwiper.autoplay.start();
+                    }
+                }, 200);
             }
             
             // Update back button
@@ -2393,6 +2411,9 @@ window.addEventListener('scroll', function() {
 
 <!-- Initialize Swiper -->
 <script>
+    // Global swiper variable
+    let heroSwiper = null;
+    
     // Wait for Swiper to load
     function initializeSlider() {
         if (typeof Swiper === 'undefined') {
@@ -2401,7 +2422,7 @@ window.addEventListener('scroll', function() {
         }
         
         // Initialize Swiper
-        const swiper = new Swiper('.hero-slider', {
+        heroSwiper = new Swiper('.hero-slider', {
             // Remove modules array for CDN version
             effect: 'fade',
         fadeEffect: {
