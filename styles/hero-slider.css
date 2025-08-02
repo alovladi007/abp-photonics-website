@@ -1,0 +1,71 @@
+/* Hero Slider Custom Styles */
+
+/* Swiper Navigation Arrows */
+.hero-slider .swiper-button-next,
+.hero-slider .swiper-button-prev {
+  color: #00CFFF;
+  background: rgba(0, 25, 51, 0.8);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.hero-slider .swiper-button-next:hover,
+.hero-slider .swiper-button-prev:hover {
+  background: rgba(0, 207, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.hero-slider .swiper-button-next::after,
+.hero-slider .swiper-button-prev::after {
+  font-size: 20px;
+}
+
+/* Swiper Pagination */
+.hero-slider .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.hero-slider .swiper-pagination-bullet-active {
+  background: #00CFFF;
+  width: 40px;
+  border-radius: 6px;
+}
+
+/* Fade In Up Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 1s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-slider .swiper-button-next,
+  .hero-slider .swiper-button-prev {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .hero-slider .swiper-button-next::after,
+  .hero-slider .swiper-button-prev::after {
+    font-size: 16px;
+  }
+}

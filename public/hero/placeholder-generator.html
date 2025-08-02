@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Image Placeholder Generator</title>
+    <style>
+        body { margin: 0; padding: 20px; background: #1a1a1a; color: white; font-family: Arial, sans-serif; }
+        .canvas-container { margin: 20px 0; }
+        canvas { border: 2px solid #333; display: block; margin: 10px 0; }
+        button { padding: 10px 20px; margin: 5px; background: #00CFFF; color: black; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #00A0CC; }
+    </style>
+</head>
+<body>
+    <h1>Hero Slider Placeholder Images</h1>
+    <p>Click each button to download the placeholder image</p>
+    
+    <div class="canvas-container">
+        <canvas id="microchips" width="1920" height="1080"></canvas>
+        <button onclick="downloadCanvas('microchips')">Download Microchips Image</button>
+    </div>
+    
+    <div class="canvas-container">
+        <canvas id="fpga" width="1920" height="1080"></canvas>
+        <button onclick="downloadCanvas('fpga')">Download FPGA Image</button>
+    </div>
+    
+    <div class="canvas-container">
+        <canvas id="cybersecurity" width="1920" height="1080"></canvas>
+        <button onclick="downloadCanvas('cybersecurity')">Download Cybersecurity Image</button>
+    </div>
+    
+    <div class="canvas-container">
+        <canvas id="bioinformatics" width="1920" height="1080"></canvas>
+        <button onclick="downloadCanvas('bioinformatics')">Download Bioinformatics Image</button>
+    </div>
+
+    <script>
+        // Generate Microchips placeholder
+        const microchipsCanvas = document.getElementById('microchips');
+        const microchipsCtx = microchipsCanvas.getContext('2d');
+        
+        // Background gradient
+        const microchipsGradient = microchipsCtx.createLinearGradient(0, 0, 1920, 1080);
+        microchipsGradient.addColorStop(0, '#1e3c72');
+        microchipsGradient.addColorStop(1, '#2a5298');
+        microchipsCtx.fillStyle = microchipsGradient;
+        microchipsCtx.fillRect(0, 0, 1920, 1080);
+        
+        // Circuit pattern
+        microchipsCtx.strokeStyle = '#00CFFF';
+        microchipsCtx.lineWidth = 2;
+        for (let i = 0; i < 20; i++) {
+            microchipsCtx.beginPath();
+            microchipsCtx.moveTo(Math.random() * 1920, Math.random() * 1080);
+            microchipsCtx.lineTo(Math.random() * 1920, Math.random() * 1080);
+            microchipsCtx.stroke();
+        }
+        
+        // Generate FPGA placeholder
+        const fpgaCanvas = document.getElementById('fpga');
+        const fpgaCtx = fpgaCanvas.getContext('2d');
+        
+        const fpgaGradient = fpgaCtx.createLinearGradient(0, 0, 1920, 1080);
+        fpgaGradient.addColorStop(0, '#2c3e50');
+        fpgaGradient.addColorStop(1, '#3498db');
+        fpgaCtx.fillStyle = fpgaGradient;
+        fpgaCtx.fillRect(0, 0, 1920, 1080);
+        
+        // Grid pattern
+        fpgaCtx.strokeStyle = '#5DADE2';
+        fpgaCtx.lineWidth = 1;
+        for (let x = 0; x < 1920; x += 60) {
+            fpgaCtx.beginPath();
+            fpgaCtx.moveTo(x, 0);
+            fpgaCtx.lineTo(x, 1080);
+            fpgaCtx.stroke();
+        }
+        for (let y = 0; y < 1080; y += 60) {
+            fpgaCtx.beginPath();
+            fpgaCtx.moveTo(0, y);
+            fpgaCtx.lineTo(1920, y);
+            fpgaCtx.stroke();
+        }
+        
+        // Generate Cybersecurity placeholder
+        const cyberCanvas = document.getElementById('cybersecurity');
+        const cyberCtx = cyberCanvas.getContext('2d');
+        
+        const cyberGradient = cyberCtx.createLinearGradient(0, 0, 1920, 1080);
+        cyberGradient.addColorStop(0, '#141e30');
+        cyberGradient.addColorStop(1, '#243b55');
+        cyberCtx.fillStyle = cyberGradient;
+        cyberCtx.fillRect(0, 0, 1920, 1080);
+        
+        // Lock icon
+        cyberCtx.strokeStyle = '#00FF00';
+        cyberCtx.lineWidth = 4;
+        cyberCtx.beginPath();
+        cyberCtx.arc(960, 440, 80, Math.PI, 0, false);
+        cyberCtx.stroke();
+        cyberCtx.fillStyle = '#00FF00';
+        cyberCtx.fillRect(880, 440, 160, 120);
+        
+        // Generate Bioinformatics placeholder
+        const bioCanvas = document.getElementById('bioinformatics');
+        const bioCtx = bioCanvas.getContext('2d');
+        
+        const bioGradient = bioCtx.createLinearGradient(0, 0, 1920, 1080);
+        bioGradient.addColorStop(0, '#0f2027');
+        bioGradient.addColorStop(0.5, '#203a43');
+        bioGradient.addColorStop(1, '#2c5364');
+        bioCtx.fillStyle = bioGradient;
+        bioCtx.fillRect(0, 0, 1920, 1080);
+        
+        // DNA helix
+        bioCtx.strokeStyle = '#FF00FF';
+        bioCtx.lineWidth = 3;
+        for (let x = 0; x < 1920; x += 10) {
+            const y1 = 540 + Math.sin(x * 0.01) * 100;
+            const y2 = 540 - Math.sin(x * 0.01) * 100;
+            bioCtx.beginPath();
+            bioCtx.arc(x, y1, 3, 0, Math.PI * 2);
+            bioCtx.fill();
+            bioCtx.beginPath();
+            bioCtx.arc(x, y2, 3, 0, Math.PI * 2);
+            bioCtx.fill();
+        }
+        
+        function downloadCanvas(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = canvasId + '.jpg';
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            link.click();
+        }
+    </script>
+</body>
+</html>

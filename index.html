@@ -3,19 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurora Borealis Photonics - Complete Interactive Website</title>
+    <title>Aurora Borealis Photonics - Advanced Photonics, Cybersecurity & Biomedical Innovation</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Aurora Borealis Photonics - Leading innovation in silicon photonics, FPGA development, quantum-safe cybersecurity, and bioinformatics. Explore our cutting-edge solutions for the future of technology.">
+    <meta name="keywords" content="photonics, silicon photonics, FPGA, cybersecurity, bioinformatics, quantum computing, AI, microchips, biomedical engineering, patent services">
+    <meta name="author" content="Aurora Borealis Photonics">
+    <meta property="og:title" content="Aurora Borealis Photonics - Advanced Technology Solutions">
+    <meta property="og:description" content="Pioneering next-generation photonic integrated circuits, FPGA solutions, quantum-safe cybersecurity, and breakthrough bioinformatics technologies.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://auroraborealisphonics.com">
+    <meta name="twitter:card" content="summary_large_image">
+    
     <script src="https://cdn.tailwindcss.com"></script>
-<script>
-function openLouis() {
-  window.location.href = "ai-security-assistant/demo.html";
-}
-</script>
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script>
-function openLouis() {
-  window.location.href = "ai-security-assistant/demo.html";
-}
-</script>
+    <script>
+    function openLouis() {
+      window.location.href = "ai-security-assistant/demo.html";
+    }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: "Sora", sans-serif; }
@@ -26,6 +36,66 @@ function openLouis() {
         .page-content { display: none; }
         .page-content.active { display: block; }
         .cursor-dot { width: 8px; height: 8px; background: #3b82f6; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; mix-blend-mode: difference; }
+        
+        /* Hero Slider Styles */
+        .hero-slider .swiper-button-next,
+        .hero-slider .swiper-button-prev {
+            color: #00CFFF;
+            background: rgba(0, 25, 51, 0.8);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .hero-slider .swiper-button-next:hover,
+        .hero-slider .swiper-button-prev:hover {
+            background: rgba(0, 207, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .hero-slider .swiper-button-next::after,
+        .hero-slider .swiper-button-prev::after {
+            font-size: 20px;
+        }
+
+        .hero-slider .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 1;
+            transition: all 0.3s ease;
+        }
+
+        .hero-slider .swiper-pagination-bullet-active {
+            background: #00CFFF;
+            width: 40px;
+            border-radius: 6px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        /* Fallback gradient backgrounds */
+        .bg-microchips { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
+        .bg-fpga { background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%); }
+        .bg-cybersecurity { background: linear-gradient(135deg, #141e30 0%, #243b55 100%); }
+        .bg-bioinformatics { background: linear-gradient(135deg, #0f2027 0%, #203a43 0%, #2c5364 100%); }
         
         /* Professional Dark Color Palette */
         :root {
@@ -389,34 +459,231 @@ function openLouis() {
     <div class="cursor-dot" id="cursor"></div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 backdrop-blur-lg bg-black/20 border-b border-white/10">
+    <nav class="fixed top-0 w-full z-50 backdrop-blur-lg bg-black/90 border-b border-white/10 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-4">
-                <div class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent cursor-pointer" onclick="showPage('home')">ABP</div>
+                <div class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent cursor-pointer hover:scale-105 transition-transform" onclick="showPage('home')">ABP</div>
                 <button id="back-btn" class="hidden text-gray-400 hover:text-white transition-colors text-sm" onclick="goBack()">← Back</button>
             </div>
-            <div class="hidden md:flex space-x-8">
-                <span class="cursor-pointer hover:text-blue-400 transition-colors" onclick="showPage('patents')">Patents</span>
-                <span class="cursor-pointer hover:text-blue-400 transition-colors" onclick="showPage('cybersecurity')">Cybersecurity</span>
-                <span class="cursor-pointer hover:text-blue-400 transition-colors" onclick="showPage('hardware')">Hardware</span>
-                <span class="cursor-pointer hover:text-blue-400 transition-colors" onclick="showPage('biotensor')">BioTensor</span>
+            <div class="hidden md:flex items-center space-x-8">
+                <span class="cursor-pointer hover:text-cyan-400 transition-colors font-medium" onclick="showPage('home')">Home</span>
+                <span class="cursor-pointer hover:text-cyan-400 transition-colors font-medium" onclick="showPage('patents')">Patents</span>
+                <span class="cursor-pointer hover:text-cyan-400 transition-colors font-medium" onclick="showPage('cybersecurity')">Cybersecurity</span>
+                <span class="cursor-pointer hover:text-cyan-400 transition-colors font-medium" onclick="showPage('hardware')">Hardware</span>
+                <span class="cursor-pointer hover:text-cyan-400 transition-colors font-medium" onclick="showPage('biotensor')">BioTensor</span>
+                <button class="px-4 py-2 bg-cyan-400 text-black font-semibold rounded-full hover:bg-cyan-300 transition-colors" onclick="openLouis()">AI Assistant</button>
+            </div>
+            <button class="md:hidden text-white" onclick="toggleMobileMenu()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="hidden bg-black/95 backdrop-blur-md" id="mobileMenu">
+            <div class="px-6 py-4 space-y-4">
+                <span class="block cursor-pointer hover:text-cyan-400 transition-colors font-medium" onclick="showPage('home'); toggleMobileMenu()">Home</span>
+                <span class="block cursor-pointer hover:text-cyan-400 transition-colors font-medium" onclick="showPage('patents'); toggleMobileMenu()">Patents</span>
+                <span class="block cursor-pointer hover:text-cyan-400 transition-colors font-medium" onclick="showPage('cybersecurity'); toggleMobileMenu()">Cybersecurity</span>
+                <span class="block cursor-pointer hover:text-cyan-400 transition-colors font-medium" onclick="showPage('hardware'); toggleMobileMenu()">Hardware</span>
+                <span class="block cursor-pointer hover:text-cyan-400 transition-colors font-medium" onclick="showPage('biotensor'); toggleMobileMenu()">BioTensor</span>
+                <button class="w-full px-4 py-2 bg-cyan-400 text-black font-semibold rounded-full hover:bg-cyan-300 transition-colors" onclick="openLouis(); toggleMobileMenu()">AI Assistant</button>
             </div>
         </div>
     </nav>
 
     <!-- HOME PAGE -->
     <div id="home" class="page-content active">
-        <section class="aurora-bg min-h-screen flex items-center justify-center relative overflow-hidden">
-            <div class="absolute inset-0">
-                <div class="absolute top-20 left-10 w-4 h-4 bg-blue-400 rounded-full opacity-60 floating"></div>
-                <div class="absolute bottom-32 right-16 w-6 h-6 bg-purple-400 rounded-full opacity-40 floating" style="animation-delay: 2s;"></div>
+        <!-- Hero Slider Section -->
+        <section class="relative w-full h-screen overflow-hidden">
+            <div class="swiper hero-slider h-full">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1: Microchips -->
+                    <div class="swiper-slide relative">
+                        <div class="absolute inset-0 bg-microchips">
+                            <!-- Replace with actual image: <img src="/hero/microchips.jpg" alt="Microchips" class="w-full h-full object-cover"> -->
+                        </div>
+                        <div class="absolute inset-0 bg-[#001933]/70"></div>
+                        <div class="relative z-10 flex items-center h-full px-6 md:px-20">
+                            <div class="max-w-xl space-y-6 animate-fadeInUp">
+                                <p class="text-cyan-400 uppercase tracking-wider text-sm md:text-base font-medium">
+                                    Silicon Photonics Innovation
+                                </p>
+                                <h1 class="text-white text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight uppercase">
+                                    Advanced Microchip Solutions
+                                </h1>
+                                <p class="text-gray-300 text-lg md:text-xl leading-relaxed">
+                                    Pioneering next-generation photonic integrated circuits for quantum computing and AI acceleration.
+                                </p>
+                                <a href="#microchips" class="inline-flex items-center bg-cyan-400 text-slate-900 font-semibold px-8 py-4 rounded-md hover:bg-cyan-300 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-cyan-400/50">
+                                    Explore Microchips
+                                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: FPGA -->
+                    <div class="swiper-slide relative">
+                        <div class="absolute inset-0 bg-fpga">
+                            <!-- Replace with actual image: <img src="/hero/fpga.jpg" alt="FPGA" class="w-full h-full object-cover"> -->
+                        </div>
+                        <div class="absolute inset-0 bg-[#001933]/70"></div>
+                        <div class="relative z-10 flex items-center h-full px-6 md:px-20">
+                            <div class="max-w-xl space-y-6 animate-fadeInUp">
+                                <p class="text-cyan-400 uppercase tracking-wider text-sm md:text-base font-medium">
+                                    Programmable Logic Design
+                                </p>
+                                <h1 class="text-white text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight uppercase">
+                                    FPGA Development Excellence
+                                </h1>
+                                <p class="text-gray-300 text-lg md:text-xl leading-relaxed">
+                                    Custom FPGA solutions for high-performance computing, signal processing, and embedded systems.
+                                </p>
+                                <a href="#fpga" class="inline-flex items-center bg-cyan-400 text-slate-900 font-semibold px-8 py-4 rounded-md hover:bg-cyan-300 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-cyan-400/50">
+                                    View FPGA Solutions
+                                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Cybersecurity -->
+                    <div class="swiper-slide relative">
+                        <div class="absolute inset-0 bg-cybersecurity">
+                            <!-- Replace with actual image: <img src="/hero/cybersecurity.jpg" alt="Cybersecurity" class="w-full h-full object-cover"> -->
+                        </div>
+                        <div class="absolute inset-0 bg-[#001933]/70"></div>
+                        <div class="relative z-10 flex items-center h-full px-6 md:px-20">
+                            <div class="max-w-xl space-y-6 animate-fadeInUp">
+                                <p class="text-cyan-400 uppercase tracking-wider text-sm md:text-base font-medium">
+                                    AI-Powered Protection
+                                </p>
+                                <h1 class="text-white text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight uppercase">
+                                    Quantum-Safe Cybersecurity
+                                </h1>
+                                <p class="text-gray-300 text-lg md:text-xl leading-relaxed">
+                                    Revolutionary security solutions combining quantum encryption with AI threat detection.
+                                </p>
+                                <a href="#cybersecurity" class="inline-flex items-center bg-cyan-400 text-slate-900 font-semibold px-8 py-4 rounded-md hover:bg-cyan-300 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-cyan-400/50">
+                                    Secure Your Future
+                                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Bioinformatics -->
+                    <div class="swiper-slide relative">
+                        <div class="absolute inset-0 bg-bioinformatics">
+                            <!-- Replace with actual image: <img src="/hero/bioinformatics.jpg" alt="Bioinformatics" class="w-full h-full object-cover"> -->
+                        </div>
+                        <div class="absolute inset-0 bg-[#001933]/70"></div>
+                        <div class="relative z-10 flex items-center h-full px-6 md:px-20">
+                            <div class="max-w-xl space-y-6 animate-fadeInUp">
+                                <p class="text-cyan-400 uppercase tracking-wider text-sm md:text-base font-medium">
+                                    Photonic DNA Sequencing
+                                </p>
+                                <h1 class="text-white text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight uppercase">
+                                    Bioinformatics Innovation
+                                </h1>
+                                <p class="text-gray-300 text-lg md:text-xl leading-relaxed">
+                                    Breakthrough optical technologies for rapid genomic analysis and personalized medicine.
+                                </p>
+                                <a href="#bioinformatics" class="inline-flex items-center bg-cyan-400 text-slate-900 font-semibold px-8 py-4 rounded-md hover:bg-cyan-300 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-cyan-400/50">
+                                    Discover Bio Solutions
+                                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                
+                <!-- Pagination -->
+                <div class="swiper-pagination"></div>
             </div>
-            <div class="text-center px-6 max-w-6xl mx-auto relative z-10">
-                <h1 class="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent">Aurora Borealis Photonics</h1>
-                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">Advancing the future of extended reality and mixed-reality web interfaces through cutting-edge photonics, cybersecurity, and biomedical innovation.</p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button class="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-semibold text-lg hover:scale-105 transition-transform shadow-lg">Explore Our Solutions</button>
-                    <button class="px-8 py-4 border-2 border-white/30 rounded-full font-semibold text-lg hover:bg-white/10 transition-colors backdrop-blur-sm">Watch Demo</button>
+        </section>
+
+        <!-- Technology Showcase Section -->
+        <section class="py-20 px-6 bg-gradient-to-b from-black via-gray-900 to-black">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Core Technologies</h2>
+                    <p class="text-xl text-gray-400 max-w-3xl mx-auto">Pioneering the future through advanced research and development</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Microchips Card -->
+                    <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-sm border border-gray-700/30 hover:border-cyan-400/50 transition-all duration-500 hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative p-6">
+                            <div class="w-16 h-16 mb-4 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Silicon Photonics</h3>
+                            <p class="text-gray-400 text-sm mb-4">Next-gen photonic integrated circuits for quantum computing and AI acceleration</p>
+                            <a href="#microchips" class="text-cyan-400 text-sm font-medium hover:text-cyan-300 transition-colors">Learn more →</a>
+                        </div>
+                    </div>
+                    
+                    <!-- FPGA Card -->
+                    <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-sm border border-gray-700/30 hover:border-purple-400/50 transition-all duration-500 hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative p-6">
+                            <div class="w-16 h-16 mb-4 rounded-lg bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">FPGA Solutions</h3>
+                            <p class="text-gray-400 text-sm mb-4">Custom programmable logic for high-performance computing and embedded systems</p>
+                            <a href="#fpga" class="text-purple-400 text-sm font-medium hover:text-purple-300 transition-colors">Learn more →</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Cybersecurity Card -->
+                    <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-sm border border-gray-700/30 hover:border-green-400/50 transition-all duration-500 hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-br from-green-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative p-6">
+                            <div class="w-16 h-16 mb-4 rounded-lg bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Quantum Security</h3>
+                            <p class="text-gray-400 text-sm mb-4">AI-powered quantum-safe encryption and advanced threat detection systems</p>
+                            <a href="#cybersecurity" class="text-green-400 text-sm font-medium hover:text-green-300 transition-colors">Learn more →</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Bioinformatics Card -->
+                    <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-sm border border-gray-700/30 hover:border-pink-400/50 transition-all duration-500 hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-br from-pink-500/10 to-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative p-6">
+                            <div class="w-16 h-16 mb-4 rounded-lg bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Photonic Genomics</h3>
+                            <p class="text-gray-400 text-sm mb-4">Revolutionary optical technologies for rapid DNA analysis and personalized medicine</p>
+                            <a href="#bioinformatics" class="text-pink-400 text-sm font-medium hover:text-pink-300 transition-colors">Learn more →</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1723,7 +1990,170 @@ function openLouis() {
 function openLouis() {
   window.location.href = "ai-security-assistant/demo.html";
 }
+
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenu.classList.toggle('hidden');
+}
+
+// Add scroll effect to navbar
+window.addEventListener('scroll', function() {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+        navbar.classList.add('bg-black/95');
+        navbar.classList.remove('bg-black/90');
+    } else {
+        navbar.classList.add('bg-black/90');
+        navbar.classList.remove('bg-black/95');
+    }
+    });
 </script>
+
+<!-- Footer -->
+<footer class="bg-black border-t border-gray-800 mt-20">
+    <div class="max-w-7xl mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Company Info -->
+            <div class="col-span-1 md:col-span-2">
+                <h3 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">Aurora Borealis Photonics</h3>
+                <p class="text-gray-400 mb-4">Advancing the future of technology through cutting-edge photonics, cybersecurity, and biomedical innovation.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#patents" class="text-gray-400 hover:text-cyan-400 transition-colors">Patents & IP</a></li>
+                    <li><a href="#cybersecurity" class="text-gray-400 hover:text-cyan-400 transition-colors">Cybersecurity</a></li>
+                    <li><a href="#hardware" class="text-gray-400 hover:text-cyan-400 transition-colors">Hardware Solutions</a></li>
+                    <li><a href="#biotensor" class="text-gray-400 hover:text-cyan-400 transition-colors">BioTensor Lab</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact -->
+            <div>
+                <h4 class="text-white font-semibold mb-4">Contact Us</h4>
+                <ul class="space-y-2 text-gray-400">
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        info@abphotonics.com
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                        </svg>
+                        +1 (555) 123-4567
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        123 Innovation Drive<br>Tech Valley, CA 94025
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2024 Aurora Borealis Photonics. All rights reserved. | <a href="#" class="hover:text-cyan-400 transition-colors">Privacy Policy</a> | <a href="#" class="hover:text-cyan-400 transition-colors">Terms of Service</a></p>
+        </div>
+    </div>
+</footer>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+    // Initialize Swiper with lazy loading
+    const swiper = new Swiper('.hero-slider', {
+        modules: ['autoplay', 'navigation', 'pagination', 'effect-fade'],
+        effect: 'fade',
+        fadeEffect: {
+            crossFade: true
+        },
+        autoplay: {
+            delay: 6000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+        },
+        loop: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        preloadImages: false,
+        lazy: {
+            loadPrevNext: true,
+        },
+        speed: 1000,
+        on: {
+            init: function () {
+                // Animate first slide on load
+                const activeSlide = this.slides[this.activeIndex];
+                const content = activeSlide.querySelector('.animate-fadeInUp');
+                if (content) {
+                    content.style.animation = 'none';
+                    setTimeout(() => {
+                        content.style.animation = '';
+                    }, 100);
+                }
+            },
+            slideChange: function () {
+                // Reset animation on slide change
+                const activeSlide = this.slides[this.activeIndex];
+                const content = activeSlide.querySelector('.animate-fadeInUp');
+                if (content) {
+                    content.style.animation = 'none';
+                    setTimeout(() => {
+                        content.style.animation = '';
+                    }, 100);
+                }
+            }
+        }
+    });
+    
+    // Lazy load images
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                observer.unobserve(img);
+            }
+        });
+    });
+    
+    document.querySelectorAll('img.lazy').forEach(img => {
+        imageObserver.observe(img);
+    });
+</script>
+
 </body>
 </html>
 <script>function startAssessment(){alert("Security Assessment Started! Contact security@abp.com");}</script>
