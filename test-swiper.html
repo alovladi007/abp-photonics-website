@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiper Test</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+        }
+        .swiper {
+            width: 100%;
+            height: 100vh;
+        }
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            color: white;
+            font-weight: bold;
+        }
+        .slide1 { background: linear-gradient(135deg, #1e3c72, #2a5298); }
+        .slide2 { background: linear-gradient(135deg, #2c3e50, #3498db); }
+        .slide3 { background: linear-gradient(135deg, #1a1a2e, #0f3460); }
+        .slide4 { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .slide5 { background: linear-gradient(135deg, #f093fb, #f5576c); }
+    </style>
+</head>
+<body>
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide slide1">Microchips</div>
+            <div class="swiper-slide slide2">FPGA</div>
+            <div class="swiper-slide slide3">Microcontroller</div>
+            <div class="swiper-slide slide4">Optics</div>
+            <div class="swiper-slide slide5">Photomask</div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+            effect: 'fade',
+            fadeEffect: {
+                crossFade: true
+            },
+            loop: true,
+            autoplay: {
+                delay: 3000,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+        
+        console.log('Swiper initialized:', swiper);
+    </script>
+</body>
+</html>

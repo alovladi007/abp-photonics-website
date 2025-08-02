@@ -2113,32 +2113,39 @@ window.addEventListener('scroll', function() {
 
 <!-- Initialize Swiper -->
 <script>
-    // Initialize Swiper with lazy loading
-    const swiper = new Swiper('.hero-slider', {
-        modules: ['autoplay', 'navigation', 'pagination', 'effect-fade'],
-        effect: 'fade',
-        fadeEffect: {
-            crossFade: true
-        },
-        autoplay: {
-            delay: 6000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true
-        },
-        loop: true,
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        preloadImages: false,
-        lazy: {
-            loadPrevNext: true,
-        },
-        speed: 1000,
+    // Debug: Check if Swiper is loaded
+    console.log('Swiper loaded:', typeof Swiper !== 'undefined');
+    
+    // Wait for DOM to be ready
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded, initializing Swiper...');
+        
+        // Check if hero slider exists
+        const heroSlider = document.querySelector('.hero-slider');
+        console.log('Hero slider element:', heroSlider);
+        
+        // Initialize Swiper
+        const swiper = new Swiper('.hero-slider', {
+            // Remove modules array - Swiper 11 doesn't need it for CDN version
+            effect: 'fade',
+            fadeEffect: {
+                crossFade: true
+            },
+            autoplay: {
+                delay: 6000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            },
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            speed: 1000,
         on: {
             init: function () {
                 // Animate first slide on load
@@ -2180,6 +2187,7 @@ window.addEventListener('scroll', function() {
     document.querySelectorAll('img.lazy').forEach(img => {
         imageObserver.observe(img);
     });
+    }); // Close DOMContentLoaded
 </script>
 
 </body>
