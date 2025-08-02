@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CerebroLogic™ AI Dashboard - BioTensor Lab</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="CerebroLogic AI Dashboard - Advanced neural interface and brain-computer interaction with LLM-powered analysis">
+    <meta name="keywords" content="brain computer interface, BCI, neural interface, EEG, neurofeedback, brain signals">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- TensorFlow.js for AI Models -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    
+    <!-- Custom Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* Neural animations */
+        @keyframes neural-pulse {
+            0% { 
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% { 
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+        
+        .neural-pulse {
+            animation: neural-pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes brain-wave {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .brain-wave {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.4), transparent);
+            animation: brain-wave 3s linear infinite;
+        }
+        
+        @keyframes signal-flow {
+            0% { 
+                stroke-dashoffset: 0;
+            }
+            100% { 
+                stroke-dashoffset: -100;
+            }
+        }
+        
+        .signal-flow {
+            stroke-dasharray: 10 5;
+            animation: signal-flow 2s linear infinite;
+        }
+        
+        /* EEG wave styles */
+        .eeg-wave {
+            stroke: #8b5cf6;
+            stroke-width: 2;
+            fill: none;
+            filter: drop-shadow(0 0 3px rgba(139, 92, 246, 0.5));
+        }
+        
+        /* Thought bubble animation */
+        @keyframes thought-bubble {
+            0%, 100% { 
+                transform: translateY(0) scale(1);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            50% { 
+                transform: translateY(-30px) scale(1.1);
+                opacity: 1;
+            }
+            80% {
+                opacity: 0;
+            }
+        }
+        
+        .thought-bubble {
+            animation: thought-bubble 4s ease-in-out infinite;
+        }
+        
+        /* Glass morphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Neural network glow */
+        .neural-glow {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5),
+                        0 0 40px rgba(139, 92, 246, 0.3),
+                        0 0 60px rgba(139, 92, 246, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-lg z-50 border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-8">
+                    <a href="biotensor.html" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                        Back to BioTensor Lab
+                    </a>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                        CerebroLogic™ AI Dashboard
+                    </h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleAIAssistant()" class="px-4 py-2 bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-2">
+                        <i data-lucide="brain" class="w-4 h-4"></i>
+                        AI Assistant
+                    </button>
+                    <button onclick="exportSession()" class="px-4 py-2 bg-pink-600 rounded-lg hover:bg-pink-700 transition-colors">
+                        Export Session
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Container -->
+    <div class="flex h-screen pt-16">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-gray-800 border-r border-gray-700 overflow-y-auto">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold mb-4 text-purple-400">Neural Interface</h2>
+                <nav class="space-y-2">
+                    <button onclick="switchModule('overview')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3 bg-gray-700">
+                        <i data-lucide="activity" class="w-5 h-5 text-purple-400"></i>
+                        <span>Overview</span>
+                    </button>
+                    <button onclick="switchModule('eeg')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="brain" class="w-5 h-5 text-pink-400"></i>
+                        <span>EEG Monitor</span>
+                    </button>
+                    <button onclick="switchModule('bci')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="cpu" class="w-5 h-5 text-blue-400"></i>
+                        <span>BCI Control</span>
+                    </button>
+                    <button onclick="switchModule('thought')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="message-square" class="w-5 h-5 text-cyan-400"></i>
+                        <span>Thought-to-Text</span>
+                    </button>
+                    <button onclick="switchModule('motor')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="move" class="w-5 h-5 text-green-400"></i>
+                        <span>Motor Imagery</span>
+                    </button>
+                    <button onclick="switchModule('neurofeedback')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="bar-chart-3" class="w-5 h-5 text-yellow-400"></i>
+                        <span>Neurofeedback</span>
+                    </button>
+                    <button onclick="switchModule('decoder')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="binary" class="w-5 h-5 text-orange-400"></i>
+                        <span>Neural Decoder</span>
+                    </button>
+                    <button onclick="switchModule('llm-neural')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="sparkles" class="w-5 h-5 text-indigo-400"></i>
+                        <span>LLM Analysis</span>
+                    </button>
+                </nav>
+                
+                <h2 class="text-lg font-semibold mb-4 mt-8 text-pink-400">Neural Models</h2>
+                <div class="space-y-3">
+                    <div class="bg-gray-700 rounded-lg p-3">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm">EEG Classifier</span>
+                            <span class="text-xs text-green-400">Active</span>
+                        </div>
+                        <div class="w-full bg-gray-600 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full" style="width: 94%"></div>
+                        </div>
+                        <span class="text-xs text-gray-400">Accuracy: 94.2%</span>
+                    </div>
+                    <div class="bg-gray-700 rounded-lg p-3">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm">Motor Imagery AI</span>
+                            <span class="text-xs text-green-400">Active</span>
+                        </div>
+                        <div class="w-full bg-gray-600 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full" style="width: 89%"></div>
+                        </div>
+                        <span class="text-xs text-gray-400">Accuracy: 89.7%</span>
+                    </div>
+                    <div class="bg-gray-700 rounded-lg p-3">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm">Thought Decoder LLM</span>
+                            <span class="text-xs text-yellow-400">Training</span>
+                        </div>
+                        <div class="w-full bg-gray-600 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-yellow-500 to-orange-500 h-2 rounded-full" style="width: 72%"></div>
+                        </div>
+                        <span class="text-xs text-gray-400">Progress: 72%</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- Overview Module -->
+            <div id="overview-module" class="module-content p-6">
+                <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Neural Interface Command Center
+                </h2>
+                
+                <!-- Key Metrics Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-purple-400">Neural Activity</h3>
+                            <div class="neural-pulse">
+                                <i data-lucide="brain" class="w-6 h-6 text-purple-400"></i>
+                            </div>
+                        </div>
+                        <p class="text-3xl font-bold">87.3%</p>
+                        <p class="text-sm text-gray-400 mt-2">Signal Quality</p>
+                        <div class="mt-4 h-8 relative overflow-hidden rounded">
+                            <div class="brain-wave"></div>
+                            <div class="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-pink-400">BCI Connection</h3>
+                            <i data-lucide="wifi" class="w-6 h-6 text-green-400"></i>
+                        </div>
+                        <p class="text-3xl font-bold">Active</p>
+                        <p class="text-sm text-gray-400 mt-2">32 Channels</p>
+                        <div class="mt-4 grid grid-cols-8 gap-1">
+                            {Array.from({length: 32}, (_, i) => 
+                                `<div class="w-2 h-2 rounded-full ${i < 28 ? 'bg-green-400' : 'bg-yellow-400'}"></div>`
+                            ).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-blue-400">Thoughts Decoded</h3>
+                            <i data-lucide="message-circle" class="w-6 h-6 text-blue-400"></i>
+                        </div>
+                        <p class="text-3xl font-bold">247</p>
+                        <p class="text-sm text-gray-400 mt-2">This Session</p>
+                        <div class="mt-4 flex items-center gap-2 text-green-400 text-sm">
+                            <i data-lucide="trending-up" class="w-4 h-4"></i>
+                            <span>92% accuracy</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-green-400">Motor Commands</h3>
+                            <i data-lucide="move-3d" class="w-6 h-6 text-green-400"></i>
+                        </div>
+                        <p class="text-3xl font-bold">156</p>
+                        <p class="text-sm text-gray-400 mt-2">Executed</p>
+                        <button class="mt-4 w-full px-4 py-2 bg-green-600/20 border border-green-600/50 rounded-lg hover:bg-green-600/30 transition-colors text-sm text-green-400">
+                            Calibrate
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Brain Activity Visualization -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mb-8">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                        <i data-lucide="activity" class="w-6 h-6 text-purple-400"></i>
+                        Real-time Brain Activity
+                    </h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-black rounded-xl p-4 relative overflow-hidden">
+                            <h4 class="text-sm font-semibold mb-4 text-purple-300">3D Brain Mapping</h4>
+                            <div class="h-64 flex items-center justify-center">
+                                <div class="relative">
+                                    <div class="w-48 h-48 rounded-full bg-gradient-to-br from-purple-600/30 to-pink-600/30 neural-glow"></div>
+                                    <div class="absolute inset-4 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 opacity-80"></div>
+                                    <div class="absolute inset-8 rounded-full bg-gray-900"></div>
+                                    <!-- Neural activity points -->
+                                    <div class="absolute top-8 left-12 w-3 h-3 bg-yellow-400 rounded-full neural-pulse"></div>
+                                    <div class="absolute top-16 right-16 w-3 h-3 bg-red-400 rounded-full neural-pulse" style="animation-delay: 0.5s"></div>
+                                    <div class="absolute bottom-12 left-20 w-3 h-3 bg-green-400 rounded-full neural-pulse" style="animation-delay: 1s"></div>
+                                    <div class="absolute bottom-20 right-12 w-3 h-3 bg-blue-400 rounded-full neural-pulse" style="animation-delay: 1.5s"></div>
+                                </div>
+                            </div>
+                            <div class="mt-4 grid grid-cols-4 gap-2 text-xs">
+                                <div class="text-center">
+                                    <div class="w-3 h-3 bg-yellow-400 rounded-full mx-auto mb-1"></div>
+                                    <span>Frontal</span>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-3 h-3 bg-red-400 rounded-full mx-auto mb-1"></div>
+                                    <span>Temporal</span>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-3 h-3 bg-green-400 rounded-full mx-auto mb-1"></div>
+                                    <span>Parietal</span>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-3 h-3 bg-blue-400 rounded-full mx-auto mb-1"></div>
+                                    <span>Occipital</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-black rounded-xl p-4">
+                            <h4 class="text-sm font-semibold mb-4 text-pink-300">Frequency Bands</h4>
+                            <canvas id="frequencyChart" class="w-full h-64"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Thoughts & Commands -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">Recent Thoughts Decoded</h3>
+                        <div class="space-y-3 max-h-64 overflow-y-auto">
+                            <div class="flex items-start gap-3 p-3 bg-gray-700/50 rounded-lg">
+                                <div class="thought-bubble">
+                                    <i data-lucide="message-circle" class="w-5 h-5 text-blue-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm">"Move cursor to the right"</p>
+                                    <p class="text-xs text-gray-400">2 seconds ago • 94% confidence</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 bg-gray-700/50 rounded-lg">
+                                <div class="thought-bubble" style="animation-delay: 1s">
+                                    <i data-lucide="message-circle" class="w-5 h-5 text-purple-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm">"Select the blue button"</p>
+                                    <p class="text-xs text-gray-400">5 seconds ago • 89% confidence</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 bg-gray-700/50 rounded-lg">
+                                <div class="thought-bubble" style="animation-delay: 2s">
+                                    <i data-lucide="message-circle" class="w-5 h-5 text-pink-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm">"Open application menu"</p>
+                                    <p class="text-xs text-gray-400">8 seconds ago • 91% confidence</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">Motor Command History</h3>
+                        <canvas id="motorChart" class="w-full h-64"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- EEG Monitor Module -->
+            <div id="eeg-module" class="module-content p-6 hidden">
+                <h2 class="text-3xl font-bold mb-6">EEG Signal Monitor</h2>
+                
+                <!-- Channel Grid -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-semibold">Live EEG Channels</h3>
+                        <div class="flex items-center gap-4">
+                            <button class="px-3 py-1 bg-purple-600 rounded hover:bg-purple-700 transition-colors text-sm">
+                                10-20 System
+                            </button>
+                            <button class="px-3 py-1 bg-gray-700 rounded hover:bg-gray-600 transition-colors text-sm">
+                                Montage
+                            </button>
+                            <button class="px-3 py-1 bg-gray-700 rounded hover:bg-gray-600 transition-colors text-sm">
+                                Filters
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- EEG Waveforms -->
+                    <div class="space-y-2 bg-black rounded-xl p-4 max-h-96 overflow-y-auto">
+                        {['Fp1', 'Fp2', 'F3', 'F4', 'C3', 'C4', 'P3', 'P4', 'O1', 'O2', 'F7', 'F8', 'T3', 'T4', 'T5', 'T6'].map((channel, i) => `
+                            <div class="flex items-center gap-4 py-1 border-b border-gray-800">
+                                <span class="text-xs text-gray-400 w-12">${channel}</span>
+                                <div class="flex-1 h-12 relative">
+                                    <svg class="w-full h-full">
+                                        <path class="eeg-wave" d="M 0 25 Q 50 ${10 + Math.random() * 30} 100 25 T 200 25 T 300 25 T 400 25 T 500 25 T 600 25 T 700 25 T 800 25"></path>
+                                    </svg>
+                                </div>
+                                <span class="text-xs text-green-400">${(85 + Math.random() * 10).toFixed(1)}μV</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <!-- Signal Analysis -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-lg font-semibold mb-4">Frequency Analysis</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm">Delta (0.5-4 Hz)</span>
+                                    <span class="text-sm text-purple-400">12%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-purple-500 h-2 rounded-full" style="width: 12%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm">Theta (4-8 Hz)</span>
+                                    <span class="text-sm text-blue-400">18%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full" style="width: 18%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm">Alpha (8-13 Hz)</span>
+                                    <span class="text-sm text-green-400">45%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-green-500 h-2 rounded-full" style="width: 45%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm">Beta (13-30 Hz)</span>
+                                    <span class="text-sm text-yellow-400">20%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-yellow-500 h-2 rounded-full" style="width: 20%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm">Gamma (30-100 Hz)</span>
+                                    <span class="text-sm text-red-400">5%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-red-500 h-2 rounded-full" style="width: 5%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-lg font-semibold mb-4">Signal Quality</h3>
+                        <div class="flex items-center justify-center h-48">
+                            <div class="relative w-40 h-40">
+                                <svg class="w-full h-full transform -rotate-90">
+                                    <circle cx="80" cy="80" r="70" stroke="#374151" stroke-width="10" fill="none"></circle>
+                                    <circle cx="80" cy="80" r="70" stroke="url(#gradient)" stroke-width="10" fill="none" 
+                                            stroke-dasharray="440" stroke-dashoffset="53"></circle>
+                                    <defs>
+                                        <linearGradient id="gradient">
+                                            <stop offset="0%" stop-color="#8b5cf6"></stop>
+                                            <stop offset="100%" stop-color="#ec4899"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <p class="text-3xl font-bold">88%</p>
+                                        <p class="text-sm text-gray-400">Quality</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-2 text-sm mt-4">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Impedance</span>
+                                <span class="text-green-400">< 5kΩ</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Noise Level</span>
+                                <span class="text-yellow-400">Moderate</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Artifacts</span>
+                                <span class="text-green-400">Minimal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-lg font-semibold mb-4">Event Markers</h3>
+                        <div class="space-y-2 max-h-64 overflow-y-auto">
+                            <div class="p-2 bg-purple-900/20 border border-purple-600/50 rounded text-sm">
+                                <div class="flex justify-between">
+                                    <span>P300 Detected</span>
+                                    <span class="text-xs text-gray-400">14:23:45</span>
+                                </div>
+                            </div>
+                            <div class="p-2 bg-blue-900/20 border border-blue-600/50 rounded text-sm">
+                                <div class="flex justify-between">
+                                    <span>Alpha Burst</span>
+                                    <span class="text-xs text-gray-400">14:23:38</span>
+                                </div>
+                            </div>
+                            <div class="p-2 bg-green-900/20 border border-green-600/50 rounded text-sm">
+                                <div class="flex justify-between">
+                                    <span>Motor Imagery</span>
+                                    <span class="text-xs text-gray-400">14:23:32</span>
+                                </div>
+                            </div>
+                            <div class="p-2 bg-yellow-900/20 border border-yellow-600/50 rounded text-sm">
+                                <div class="flex justify-between">
+                                    <span>Eye Blink</span>
+                                    <span class="text-xs text-gray-400">14:23:28</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Thought-to-Text Module -->
+            <div id="thought-module" class="module-content p-6 hidden">
+                <h2 class="text-3xl font-bold mb-6">Thought-to-Text Interface</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Main Interface -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-xl font-semibold">Neural Text Decoder</h3>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                    <span class="text-sm text-gray-400">Decoding Active</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Thought Input Area -->
+                            <div class="bg-black rounded-xl p-6 mb-4">
+                                <div class="text-center mb-6">
+                                    <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full mb-4 neural-glow">
+                                        <i data-lucide="brain" class="w-10 h-10"></i>
+                                    </div>
+                                    <p class="text-gray-400">Focus on your intended text...</p>
+                                </div>
+                                
+                                <!-- Real-time Decoding -->
+                                <div class="bg-gray-900 rounded-lg p-4 min-h-[100px]">
+                                    <p class="text-lg" id="decodedText">Hello, I am thinking this message...</p>
+                                    <div class="flex items-center gap-2 mt-2">
+                                        <div class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                                        <span class="text-xs text-gray-500">Neural signal processing...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Character Prediction -->
+                            <div class="grid grid-cols-10 gap-2 mb-4">
+                                {['A', 'E', 'I', 'O', 'U', 'N', 'R', 'S', 'T', 'L'].map(char => `
+                                    <button class="p-3 bg-gray-700 rounded hover:bg-gray-600 transition-colors text-center">
+                                        <span class="text-lg font-bold">${char}</span>
+                                        <div class="text-xs text-gray-400 mt-1">${(70 + Math.random() * 20).toFixed(0)}%</div>
+                                    </button>
+                                `).join('')}
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="flex gap-4">
+                                <button class="flex-1 px-4 py-2 bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors">
+                                    Send Message
+                                </button>
+                                <button class="px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                                    Clear
+                                </button>
+                                <button class="px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                                    Train
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Message History -->
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mt-6">
+                            <h3 class="text-xl font-semibold mb-4">Decoded Messages</h3>
+                            <div class="space-y-3 max-h-64 overflow-y-auto">
+                                <div class="p-3 bg-gray-700/50 rounded-lg">
+                                    <p class="text-sm">"Turn on the lights in the living room"</p>
+                                    <div class="flex justify-between mt-2 text-xs text-gray-400">
+                                        <span>14:20:15</span>
+                                        <span>Confidence: 92%</span>
+                                    </div>
+                                </div>
+                                <div class="p-3 bg-gray-700/50 rounded-lg">
+                                    <p class="text-sm">"Send email to John about the meeting"</p>
+                                    <div class="flex justify-between mt-2 text-xs text-gray-400">
+                                        <span>14:18:42</span>
+                                        <span>Confidence: 88%</span>
+                                    </div>
+                                </div>
+                                <div class="p-3 bg-gray-700/50 rounded-lg">
+                                    <p class="text-sm">"Play my favorite playlist"</p>
+                                    <div class="flex justify-between mt-2 text-xs text-gray-400">
+                                        <span>14:15:23</span>
+                                        <span>Confidence: 95%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Side Panel -->
+                    <div class="space-y-6">
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-lg font-semibold mb-4">Decoding Stats</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>Accuracy</span>
+                                        <span>89.3%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full" style="width: 89.3%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>Speed</span>
+                                        <span>12 WPM</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                                <div class="pt-2 space-y-2 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Total Words</span>
+                                        <span>1,247</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Session Time</span>
+                                        <span>2h 15m</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Error Rate</span>
+                                        <span class="text-green-400">10.7%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-lg font-semibold mb-4">Word Predictions</h3>
+                            <div class="space-y-2">
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-left">
+                                    <div class="flex justify-between">
+                                        <span>message</span>
+                                        <span class="text-sm text-purple-400">78%</span>
+                                    </div>
+                                </button>
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-left">
+                                    <div class="flex justify-between">
+                                        <span>meeting</span>
+                                        <span class="text-sm text-blue-400">65%</span>
+                                    </div>
+                                </button>
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-left">
+                                    <div class="flex justify-between">
+                                        <span>morning</span>
+                                        <span class="text-sm text-green-400">52%</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-purple-900/20 to-pink-900/20 rounded-2xl p-6 border border-purple-500/20">
+                            <h3 class="text-lg font-semibold mb-3">Training Mode</h3>
+                            <p class="text-sm text-gray-400 mb-4">
+                                Improve accuracy by training the decoder with your neural patterns.
+                            </p>
+                            <button class="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-colors font-semibold">
+                                Start Training Session
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- LLM Neural Analysis Module -->
+            <div id="llm-neural-module" class="module-content p-6 hidden">
+                <h2 class="text-3xl font-bold mb-6">LLM Neural Pattern Analysis</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Chat Interface -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-gray-800 rounded-2xl border border-gray-700 h-[600px] flex flex-col">
+                            <div class="p-4 border-b border-gray-700">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                                            <i data-lucide="bot" class="w-6 h-6"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold">CerebroLogic AI</h3>
+                                            <p class="text-xs text-gray-400">Powered by Neural-LLM v4.1</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                        <span class="text-xs text-gray-400">Connected</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                                <!-- Sample Chat Messages -->
+                                <div class="flex gap-3">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex-shrink-0"></div>
+                                    <div class="bg-gray-700 rounded-2xl p-4 max-w-[80%]">
+                                        <p class="text-sm">Hello! I'm analyzing your neural patterns in real-time. I can help interpret your brain activity, optimize BCI performance, and provide insights into your cognitive states.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex gap-3 justify-end">
+                                    <div class="bg-purple-600 rounded-2xl p-4 max-w-[80%]">
+                                        <p class="text-sm">What patterns do you see in my current brain activity?</p>
+                                    </div>
+                                    <div class="w-8 h-8 bg-gray-600 rounded-full flex-shrink-0"></div>
+                                </div>
+                                
+                                <div class="flex gap-3">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex-shrink-0"></div>
+                                    <div class="bg-gray-700 rounded-2xl p-4 max-w-[80%]">
+                                        <p class="text-sm mb-3">I'm detecting several interesting patterns in your neural activity:</p>
+                                        <div class="bg-gray-800 rounded-lg p-3 space-y-2">
+                                            <div class="flex items-start gap-2">
+                                                <div class="w-2 h-2 bg-green-400 rounded-full mt-1.5"></div>
+                                                <div>
+                                                    <p class="text-sm font-medium">High Alpha Activity (10-12 Hz)</p>
+                                                    <p class="text-xs text-gray-400">Indicating relaxed focus in occipital regions</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-start gap-2">
+                                                <div class="w-2 h-2 bg-blue-400 rounded-full mt-1.5"></div>
+                                                <div>
+                                                    <p class="text-sm font-medium">Beta Bursts in Motor Cortex</p>
+                                                    <p class="text-xs text-gray-400">Suggesting motor imagery or planning</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-start gap-2">
+                                                <div class="w-2 h-2 bg-purple-400 rounded-full mt-1.5"></div>
+                                                <div>
+                                                    <p class="text-sm font-medium">Gamma Synchronization</p>
+                                                    <p class="text-xs text-gray-400">Enhanced cognitive processing detected</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm mt-3">Your neural efficiency score is 87%, which is excellent for BCI control.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 border-t border-gray-700">
+                                <div class="flex gap-2">
+                                    <button class="px-3 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                                        <i data-lucide="brain" class="w-5 h-5"></i>
+                                    </button>
+                                    <input type="text" placeholder="Ask about your neural patterns..." class="flex-1 bg-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                    <button class="px-4 py-2 bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors">
+                                        <i data-lucide="send" class="w-5 h-5"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Analysis Panel -->
+                    <div class="space-y-6">
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-lg font-semibold mb-4">Neural Insights</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="brain" class="w-5 h-5 text-purple-400"></i>
+                                    <span class="text-sm">Pattern recognition</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="activity" class="w-5 h-5 text-pink-400"></i>
+                                    <span class="text-sm">Real-time analysis</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="trending-up" class="w-5 h-5 text-blue-400"></i>
+                                    <span class="text-sm">Performance optimization</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="shield" class="w-5 h-5 text-green-400"></i>
+                                    <span class="text-sm">HIPAA compliant</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-lg font-semibold mb-4">Quick Analysis</h3>
+                            <div class="space-y-2">
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Analyze focus patterns
+                                </button>
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Optimize BCI settings
+                                </button>
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Cognitive load assessment
+                                </button>
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Meditation guidance
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-purple-900/20 to-pink-900/20 rounded-2xl p-6 border border-purple-500/20">
+                            <h3 class="text-lg font-semibold mb-3">Model Status</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>Pattern Recognition</span>
+                                        <span>94.2%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full" style="width: 94.2%"></div>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-400">
+                                    Last calibration: 30 min ago<br>
+                                    Neural data: 2.4GB processed
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Right Sidebar - Neural Stats -->
+        <aside class="w-80 bg-gray-800 border-l border-gray-700 overflow-y-auto hidden xl:block">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold mb-4">Neural Statistics</h2>
+                
+                <!-- Connection Status -->
+                <div class="bg-gray-700 rounded-lg p-4 mb-4">
+                    <h3 class="text-sm font-semibold mb-3 text-purple-400">BCI Connection</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Device</span>
+                            <span class="text-sm text-green-400">NeuroLink Pro</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Channels</span>
+                            <span class="text-sm">32 active</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Sample Rate</span>
+                            <span class="text-sm">1000 Hz</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Latency</span>
+                            <span class="text-sm text-green-400">< 10ms</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cognitive States -->
+                <div class="bg-gray-700 rounded-lg p-4 mb-4">
+                    <h3 class="text-sm font-semibold mb-3 text-pink-400">Cognitive States</h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Focus Level</span>
+                            <div class="flex gap-1">
+                                <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                                <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                                <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                                <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-600 rounded-full"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Relaxation</span>
+                            <div class="flex gap-1">
+                                <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                                <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                                <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-600 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-600 rounded-full"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Engagement</span>
+                            <div class="flex gap-1">
+                                <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                                <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                                <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                                <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                                <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Session Summary -->
+                <div class="bg-gray-700 rounded-lg p-4 mb-4">
+                    <h3 class="text-sm font-semibold mb-3 text-blue-400">Session Summary</h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Duration</span>
+                            <span>2h 45m</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Commands</span>
+                            <span>156</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Accuracy</span>
+                            <span class="text-green-400">91.3%</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Thoughts Decoded</span>
+                            <span>247</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="bg-gradient-to-br from-purple-900/20 to-pink-900/20 rounded-lg p-4 border border-purple-500/20">
+                    <h3 class="text-sm font-semibold mb-3">Quick Actions</h3>
+                    <div class="space-y-2">
+                        <button class="w-full px-3 py-2 bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors text-sm">
+                            Calibrate Device
+                        </button>
+                        <button class="w-full px-3 py-2 bg-pink-600 rounded-lg hover:bg-pink-700 transition-colors text-sm">
+                            Start Training
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+    
+    <!-- AI Assistant Modal -->
+    <div id="aiAssistantModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-gray-800 rounded-2xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">Neural AI Assistant</h3>
+                    <button onclick="toggleAIAssistant()" class="text-gray-400 hover:text-white">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                
+                <div class="bg-gray-700 rounded-xl p-4 mb-6">
+                    <p class="text-sm text-gray-300">
+                        I'm your AI-powered neural interface assistant. I can help you optimize BCI performance, 
+                        interpret brain signals, and enhance your neural control capabilities.
+                    </p>
+                </div>
+                
+                <div class="space-y-4">
+                    <button class="w-full px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-left">
+                        <h4 class="font-semibold mb-1">BCI Optimization Guide</h4>
+                        <p class="text-sm text-gray-400">Learn how to improve your brain-computer interface performance</p>
+                    </button>
+                    <button class="w-full px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-left">
+                        <h4 class="font-semibold mb-1">Neural Pattern Training</h4>
+                        <p class="text-sm text-gray-400">Exercises to enhance your neural control</p>
+                    </button>
+                    <button class="w-full px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-left">
+                        <h4 class="font-semibold mb-1">Cognitive Enhancement</h4>
+                        <p class="text-sm text-gray-400">Techniques for improving focus and mental clarity</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Module switching
+        function switchModule(moduleName) {
+            // Hide all modules
+            document.querySelectorAll('.module-content').forEach(module => {
+                module.classList.add('hidden');
+            });
+            
+            // Show selected module
+            const selectedModule = document.getElementById(`${moduleName}-module`);
+            if (selectedModule) {
+                selectedModule.classList.remove('hidden');
+            }
+            
+            // Update button states
+            document.querySelectorAll('.module-btn').forEach(btn => {
+                btn.classList.remove('bg-gray-700');
+            });
+            event.target.closest('.module-btn').classList.add('bg-gray-700');
+            
+            // Reinitialize charts for the selected module
+            if (moduleName === 'overview') {
+                initOverviewCharts();
+            }
+        }
+        
+        // Toggle AI Assistant Modal
+        function toggleAIAssistant() {
+            const modal = document.getElementById('aiAssistantModal');
+            modal.classList.toggle('hidden');
+        }
+        
+        // Export Session
+        function exportSession() {
+            alert('Exporting neural session data...');
+        }
+        
+        // Initialize Overview Charts
+        function initOverviewCharts() {
+            // Frequency Bands Chart
+            const freqCtx = document.getElementById('frequencyChart').getContext('2d');
+            new Chart(freqCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Delta', 'Theta', 'Alpha', 'Beta', 'Gamma'],
+                    datasets: [{
+                        label: 'Power Spectral Density',
+                        data: [12, 18, 45, 20, 5],
+                        backgroundColor: [
+                            'rgba(139, 92, 246, 0.5)',
+                            'rgba(59, 130, 246, 0.5)',
+                            'rgba(16, 185, 129, 0.5)',
+                            'rgba(245, 158, 11, 0.5)',
+                            'rgba(239, 68, 68, 0.5)'
+                        ],
+                        borderColor: [
+                            '#8b5cf6',
+                            '#3b82f6',
+                            '#10b981',
+                            '#f59e0b',
+                            '#ef4444'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        y: {
+                            grid: { color: '#374151' },
+                            ticks: { 
+                                color: '#9ca3af',
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Motor Commands Chart
+            const motorCtx = document.getElementById('motorChart').getContext('2d');
+            new Chart(motorCtx, {
+                type: 'line',
+                data: {
+                    labels: ['10s', '20s', '30s', '40s', '50s', '60s'],
+                    datasets: [{
+                        label: 'Left',
+                        data: [0, 1, 0, 0, 1, 0],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        stepped: true
+                    }, {
+                        label: 'Right',
+                        data: [1, 0, 0, 1, 0, 1],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        stepped: true
+                    }, {
+                        label: 'Forward',
+                        data: [0, 0, 1, 0, 0, 0],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        stepped: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#fff' }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        y: {
+                            grid: { color: '#374151' },
+                            ticks: { 
+                                color: '#9ca3af',
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Simulate real-time thought decoding
+        let thoughtTexts = [
+            "Hello, I am thinking this message...",
+            "Turn on the lights please...",
+            "Send email to team...",
+            "Open the application...",
+            "Navigate to settings..."
+        ];
+        let currentThought = 0;
+        
+        setInterval(() => {
+            const decodedText = document.getElementById('decodedText');
+            if (decodedText) {
+                decodedText.textContent = thoughtTexts[currentThought];
+                currentThought = (currentThought + 1) % thoughtTexts.length;
+            }
+        }, 3000);
+        
+        // Initialize charts on load
+        window.addEventListener('DOMContentLoaded', () => {
+            initOverviewCharts();
+        });
+    </script>
+</body>
+</html>

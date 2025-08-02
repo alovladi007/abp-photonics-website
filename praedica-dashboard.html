@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praedica CliniScope™ AI Dashboard - BioTensor Lab</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Praedica CliniScope AI Dashboard - Advanced clinical intelligence and predictive healthcare analytics with LLM integration">
+    <meta name="keywords" content="clinical intelligence, predictive analytics, healthcare AI, population health, clinical decision support">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- TensorFlow.js for AI Models -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    
+    <!-- Custom Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* Animations */
+        @keyframes pulse-green {
+            0%, 100% { 
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+            50% { 
+                opacity: 0.8;
+                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+            }
+        }
+        
+        .pulse-green {
+            animation: pulse-green 2s infinite;
+        }
+        
+        @keyframes data-stream {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(-100%); }
+        }
+        
+        .data-stream {
+            position: absolute;
+            width: 2px;
+            height: 200%;
+            background: linear-gradient(transparent, rgba(16, 185, 129, 0.8), transparent);
+            animation: data-stream 3s linear infinite;
+        }
+        
+        @keyframes rotate-slow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .rotate-slow {
+            animation: rotate-slow 20s linear infinite;
+        }
+        
+        /* Prediction visualization */
+        .prediction-glow {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5),
+                        0 0 40px rgba(59, 130, 246, 0.3),
+                        0 0 60px rgba(59, 130, 246, 0.1);
+        }
+        
+        /* Heatmap styles */
+        .heatmap-cell {
+            transition: all 0.3s ease;
+        }
+        
+        .heatmap-cell:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+        
+        /* Glass morphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Network visualization */
+        @keyframes network-pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .network-line {
+            stroke: #3b82f6;
+            stroke-width: 2;
+            opacity: 0.3;
+            animation: network-pulse 3s ease-in-out infinite;
+        }
+        
+        /* Alert animation */
+        @keyframes alert-flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .alert-flash {
+            animation: alert-flash 1s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-lg z-50 border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-8">
+                    <a href="biotensor.html" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                        Back to BioTensor Lab
+                    </a>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+                        Praedica CliniScope™ AI Dashboard
+                    </h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleAIAssistant()" class="px-4 py-2 bg-green-600 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2">
+                        <i data-lucide="brain" class="w-4 h-4"></i>
+                        AI Assistant
+                    </button>
+                    <button onclick="exportAnalytics()" class="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
+                        Export Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Container -->
+    <div class="flex h-screen pt-16">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-gray-800 border-r border-gray-700 overflow-y-auto">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold mb-4 text-green-400">Clinical Intelligence</h2>
+                <nav class="space-y-2">
+                    <button onclick="switchModule('overview')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3 bg-gray-700">
+                        <i data-lucide="activity" class="w-5 h-5 text-green-400"></i>
+                        <span>Overview</span>
+                    </button>
+                    <button onclick="switchModule('population')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="users" class="w-5 h-5 text-blue-400"></i>
+                        <span>Population Health</span>
+                    </button>
+                    <button onclick="switchModule('outbreak')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="alert-triangle" class="w-5 h-5 text-red-400"></i>
+                        <span>Outbreak Detection</span>
+                    </button>
+                    <button onclick="switchModule('predictions')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="trending-up" class="w-5 h-5 text-purple-400"></i>
+                        <span>Predictive Models</span>
+                    </button>
+                    <button onclick="switchModule('trials')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="flask" class="w-5 h-5 text-yellow-400"></i>
+                        <span>Clinical Trials</span>
+                    </button>
+                    <button onclick="switchModule('resources')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="package" class="w-5 h-5 text-cyan-400"></i>
+                        <span>Resource Optimization</span>
+                    </button>
+                    <button onclick="switchModule('evidence')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="book-open" class="w-5 h-5 text-pink-400"></i>
+                        <span>Evidence Base</span>
+                    </button>
+                    <button onclick="switchModule('llm-clinical')" class="module-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-3">
+                        <i data-lucide="message-square" class="w-5 h-5 text-indigo-400"></i>
+                        <span>LLM Consultation</span>
+                    </button>
+                </nav>
+                
+                <h2 class="text-lg font-semibold mb-4 mt-8 text-blue-400">Predictive Models</h2>
+                <div class="space-y-3">
+                    <div class="bg-gray-700 rounded-lg p-3">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm">Disease Predictor</span>
+                            <span class="text-xs text-green-400">Active</span>
+                        </div>
+                        <div class="w-full bg-gray-600 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-green-500 to-blue-500 h-2 rounded-full" style="width: 92%"></div>
+                        </div>
+                        <span class="text-xs text-gray-400">Accuracy: 92.8%</span>
+                    </div>
+                    <div class="bg-gray-700 rounded-lg p-3">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm">Readmission Risk</span>
+                            <span class="text-xs text-green-400">Active</span>
+                        </div>
+                        <div class="w-full bg-gray-600 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full" style="width: 89%"></div>
+                        </div>
+                        <span class="text-xs text-gray-400">AUC: 0.89</span>
+                    </div>
+                    <div class="bg-gray-700 rounded-lg p-3">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm">Clinical LLM</span>
+                            <span class="text-xs text-yellow-400">Updating</span>
+                        </div>
+                        <div class="w-full bg-gray-600 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-yellow-500 to-orange-500 h-2 rounded-full" style="width: 67%"></div>
+                        </div>
+                        <span class="text-xs text-gray-400">Progress: 67%</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- Overview Module -->
+            <div id="overview-module" class="module-content p-6">
+                <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+                    Healthcare Intelligence Command Center
+                </h2>
+                
+                <!-- Key Metrics Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-green-400">Active Patients</h3>
+                            <div class="pulse-green">
+                                <i data-lucide="users" class="w-6 h-6 text-green-400"></i>
+                            </div>
+                        </div>
+                        <p class="text-3xl font-bold">12,847</p>
+                        <p class="text-sm text-gray-400 mt-2">Across 5 facilities</p>
+                        <div class="mt-4 flex items-center gap-2 text-green-400 text-sm">
+                            <i data-lucide="trending-up" class="w-4 h-4"></i>
+                            <span>+3.2% this month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-blue-400">Risk Alerts</h3>
+                            <i data-lucide="alert-circle" class="w-6 h-6 text-yellow-400 alert-flash"></i>
+                        </div>
+                        <p class="text-3xl font-bold">47</p>
+                        <p class="text-sm text-gray-400 mt-2">High priority</p>
+                        <button class="mt-4 w-full px-4 py-2 bg-yellow-600/20 border border-yellow-600/50 rounded-lg hover:bg-yellow-600/30 transition-colors text-sm text-yellow-400">
+                            Review Alerts
+                        </button>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-purple-400">Predictions Made</h3>
+                            <i data-lucide="brain" class="w-6 h-6 text-purple-400"></i>
+                        </div>
+                        <p class="text-3xl font-bold">3,892</p>
+                        <p class="text-sm text-gray-400 mt-2">Today</p>
+                        <div class="mt-4 h-8 relative overflow-hidden rounded">
+                            <div class="data-stream"></div>
+                            <div class="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-cyan-400">Cost Saved</h3>
+                            <i data-lucide="dollar-sign" class="w-6 h-6 text-green-400"></i>
+                        </div>
+                        <p class="text-3xl font-bold">$2.4M</p>
+                        <p class="text-sm text-gray-400 mt-2">This quarter</p>
+                        <div class="mt-4 grid grid-cols-4 gap-1">
+                            <div class="h-8 bg-green-500 rounded"></div>
+                            <div class="h-8 bg-green-500 rounded"></div>
+                            <div class="h-8 bg-green-500 rounded"></div>
+                            <div class="h-8 bg-gray-700 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Population Health Overview -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mb-8">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                        <i data-lucide="activity" class="w-6 h-6 text-green-400"></i>
+                        Population Health Snapshot
+                    </h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="text-sm font-semibold mb-4 text-blue-300">Disease Prevalence</h4>
+                            <canvas id="diseaseChart" class="w-full h-64"></canvas>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-semibold mb-4 text-green-300">Risk Distribution</h4>
+                            <canvas id="riskChart" class="w-full h-64"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Predictive Insights -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">30-Day Predictions</h3>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-red-900/20 border border-red-600/50 rounded-lg">
+                                <div class="flex items-start gap-2">
+                                    <i data-lucide="trending-up" class="w-5 h-5 text-red-400 mt-0.5"></i>
+                                    <div>
+                                        <p class="font-medium text-red-400">Flu Outbreak Risk</p>
+                                        <p class="text-xs text-gray-400 mt-1">
+                                            78% probability in North District
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-3 bg-yellow-900/20 border border-yellow-600/50 rounded-lg">
+                                <div class="flex items-start gap-2">
+                                    <i data-lucide="users" class="w-5 h-5 text-yellow-400 mt-0.5"></i>
+                                    <div>
+                                        <p class="font-medium text-yellow-400">Bed Shortage</p>
+                                        <p class="text-xs text-gray-400 mt-1">
+                                            ICU capacity at 92% by week 3
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-3 bg-blue-900/20 border border-blue-600/50 rounded-lg">
+                                <div class="flex items-start gap-2">
+                                    <i data-lucide="activity" class="w-5 h-5 text-blue-400 mt-0.5"></i>
+                                    <div>
+                                        <p class="font-medium text-blue-400">Readmission Spike</p>
+                                        <p class="text-xs text-gray-400 mt-1">
+                                            +15% cardiac patients at risk
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">Resource Utilization</h3>
+                        <canvas id="resourceChart" class="w-full h-64"></canvas>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">Clinical Trials</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-gray-700/50 rounded-lg">
+                                <div>
+                                    <p class="font-medium">Active Trials</p>
+                                    <p class="text-xs text-gray-400">Across all sites</p>
+                                </div>
+                                <span class="text-2xl font-bold text-green-400">23</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-700/50 rounded-lg">
+                                <div>
+                                    <p class="font-medium">Enrolled Patients</p>
+                                    <p class="text-xs text-gray-400">Meeting criteria</p>
+                                </div>
+                                <span class="text-2xl font-bold text-blue-400">1,847</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-700/50 rounded-lg">
+                                <div>
+                                    <p class="font-medium">Match Rate</p>
+                                    <p class="text-xs text-gray-400">AI-assisted</p>
+                                </div>
+                                <span class="text-2xl font-bold text-purple-400">94%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Population Health Module -->
+            <div id="population-module" class="module-content p-6 hidden">
+                <h2 class="text-3xl font-bold mb-6">Population Health Analytics</h2>
+                
+                <!-- Demographics Overview -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mb-6">
+                    <h3 class="text-xl font-semibold mb-4">Patient Demographics</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="text-center">
+                            <canvas id="ageChart" class="w-full h-48"></canvas>
+                            <p class="text-sm text-gray-400 mt-2">Age Distribution</p>
+                        </div>
+                        <div class="text-center">
+                            <canvas id="genderChart" class="w-full h-48"></canvas>
+                            <p class="text-sm text-gray-400 mt-2">Gender Split</p>
+                        </div>
+                        <div class="text-center">
+                            <canvas id="ethnicityChart" class="w-full h-48"></canvas>
+                            <p class="text-sm text-gray-400 mt-2">Ethnicity</p>
+                        </div>
+                        <div class="text-center">
+                            <canvas id="insuranceChart" class="w-full h-48"></canvas>
+                            <p class="text-sm text-gray-400 mt-2">Insurance Type</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Health Conditions Heatmap -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mb-6">
+                    <h3 class="text-xl font-semibold mb-4">Chronic Conditions Heatmap</h3>
+                    <div class="grid grid-cols-7 gap-2">
+                        {['Diabetes', 'Hypertension', 'COPD', 'CHF', 'CKD', 'Cancer', 'Mental Health'].map((condition, i) => 
+                            ['0-20', '21-40', '41-60', '61-80', '80+'].map((age, j) => `
+                                <div class="heatmap-cell bg-gradient-to-br ${
+                                    (i + j) % 5 === 0 ? 'from-red-900 to-red-700' :
+                                    (i + j) % 5 === 1 ? 'from-orange-900 to-orange-700' :
+                                    (i + j) % 5 === 2 ? 'from-yellow-900 to-yellow-700' :
+                                    (i + j) % 5 === 3 ? 'from-green-900 to-green-700' :
+                                    'from-blue-900 to-blue-700'
+                                } rounded p-2 text-xs text-center cursor-pointer">
+                                    <p class="font-semibold">${Math.floor(Math.random() * 40 + 10)}%</p>
+                                    <p class="text-[10px] opacity-70">${condition}</p>
+                                    <p class="text-[10px] opacity-70">${age}</p>
+                                </div>
+                            `).join('')
+                        ).join('')}
+                    </div>
+                </div>
+                
+                <!-- Social Determinants -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">Social Determinants of Health</h3>
+                        <canvas id="socialChart" class="w-full h-64"></canvas>
+                    </div>
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">Health Outcomes by Region</h3>
+                        <div class="relative h-64 bg-black rounded-xl overflow-hidden">
+                            <svg class="w-full h-full">
+                                <!-- Simple network visualization -->
+                                <circle cx="50%" cy="30%" r="40" fill="#3b82f6" opacity="0.5"></circle>
+                                <circle cx="30%" cy="60%" r="30" fill="#10b981" opacity="0.5"></circle>
+                                <circle cx="70%" cy="60%" r="35" fill="#8b5cf6" opacity="0.5"></circle>
+                                <line x1="50%" y1="30%" x2="30%" y2="60%" class="network-line"></line>
+                                <line x1="50%" y1="30%" x2="70%" y2="60%" class="network-line"></line>
+                                <line x1="30%" y1="60%" x2="70%" y2="60%" class="network-line"></line>
+                            </svg>
+                            <div class="absolute top-4 left-4 text-xs space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                                    <span>North: 87% Health Score</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                                    <span>South: 92% Health Score</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-purple-500 rounded-full"></div>
+                                    <span>East: 85% Health Score</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Outbreak Detection Module -->
+            <div id="outbreak-module" class="module-content p-6 hidden">
+                <h2 class="text-3xl font-bold mb-6">Disease Outbreak Detection</h2>
+                
+                <!-- Alert Dashboard -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-semibold">Active Surveillance Alerts</h3>
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                            <span class="text-sm text-gray-400">Live Monitoring</span>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-red-900/20 border border-red-600/50 rounded-xl p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <h4 class="font-semibold text-red-400">Critical Alert</h4>
+                                <i data-lucide="alert-triangle" class="w-5 h-5 text-red-400 alert-flash"></i>
+                            </div>
+                            <p class="text-2xl font-bold mb-1">Influenza A</p>
+                            <p class="text-sm text-gray-400 mb-3">North District Hospital</p>
+                            <div class="space-y-1 text-xs">
+                                <p>Cases: 47 (+12 today)</p>
+                                <p>R₀: 2.3</p>
+                                <p>Trend: Exponential</p>
+                            </div>
+                            <button class="w-full mt-3 px-3 py-2 bg-red-600 rounded hover:bg-red-700 transition-colors text-sm">
+                                View Details
+                            </button>
+                        </div>
+                        
+                        <div class="bg-yellow-900/20 border border-yellow-600/50 rounded-xl p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <h4 class="font-semibold text-yellow-400">Warning</h4>
+                                <i data-lucide="alert-circle" class="w-5 h-5 text-yellow-400"></i>
+                            </div>
+                            <p class="text-2xl font-bold mb-1">Norovirus</p>
+                            <p class="text-sm text-gray-400 mb-3">East Wing Care Center</p>
+                            <div class="space-y-1 text-xs">
+                                <p>Cases: 23 (+5 today)</p>
+                                <p>R₀: 1.8</p>
+                                <p>Trend: Linear</p>
+                            </div>
+                            <button class="w-full mt-3 px-3 py-2 bg-yellow-600 rounded hover:bg-yellow-700 transition-colors text-sm">
+                                View Details
+                            </button>
+                        </div>
+                        
+                        <div class="bg-blue-900/20 border border-blue-600/50 rounded-xl p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <h4 class="font-semibold text-blue-400">Monitoring</h4>
+                                <i data-lucide="eye" class="w-5 h-5 text-blue-400"></i>
+                            </div>
+                            <p class="text-2xl font-bold mb-1">RSV</p>
+                            <p class="text-sm text-gray-400 mb-3">Pediatric Unit</p>
+                            <div class="space-y-1 text-xs">
+                                <p>Cases: 15 (+2 today)</p>
+                                <p>R₀: 1.2</p>
+                                <p>Trend: Stable</p>
+                            </div>
+                            <button class="w-full mt-3 px-3 py-2 bg-blue-600 rounded hover:bg-blue-700 transition-colors text-sm">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Epidemic Curve -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">Epidemic Curves</h3>
+                        <canvas id="epidemicChart" class="w-full h-64"></canvas>
+                    </div>
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">Geographic Spread</h3>
+                        <div class="relative h-64 bg-black rounded-xl overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="relative w-48 h-48">
+                                    <div class="absolute inset-0 bg-red-500/20 rounded-full animate-ping"></div>
+                                    <div class="absolute inset-4 bg-red-500/30 rounded-full animate-ping" style="animation-delay: 0.5s"></div>
+                                    <div class="absolute inset-8 bg-red-500/40 rounded-full animate-ping" style="animation-delay: 1s"></div>
+                                    <div class="absolute inset-12 bg-red-500 rounded-full"></div>
+                                </div>
+                            </div>
+                            <div class="absolute top-4 left-4 text-xs">
+                                <p class="text-red-400 font-semibold">Outbreak Center</p>
+                                <p>Radius: 15km</p>
+                                <p>Population at risk: 45,000</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Prediction Models -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-4">Outbreak Prediction Models</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-gray-700/50 rounded-lg p-4">
+                            <h4 class="font-semibold mb-3">7-Day Forecast</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span>Expected Cases</span>
+                                    <span class="text-red-400">127 (±15)</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span>Hospitalization Rate</span>
+                                    <span class="text-yellow-400">23%</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span>ICU Requirement</span>
+                                    <span class="text-orange-400">8 beds</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-700/50 rounded-lg p-4">
+                            <h4 class="font-semibold mb-3">Resource Needs</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span>PPE Stock</span>
+                                    <span class="text-green-400">Sufficient</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span>Antivirals</span>
+                                    <span class="text-yellow-400">78% stocked</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span>Staff Coverage</span>
+                                    <span class="text-red-400">Need +12</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-700/50 rounded-lg p-4">
+                            <h4 class="font-semibold mb-3">Intervention Impact</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span>Isolation Protocol</span>
+                                    <span class="text-green-400">-45% spread</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span>Vaccination Drive</span>
+                                    <span class="text-blue-400">-62% cases</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span>School Closure</span>
+                                    <span class="text-purple-400">-38% transmission</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Predictive Models Module -->
+            <div id="predictions-module" class="module-content p-6 hidden">
+                <h2 class="text-3xl font-bold mb-6">Predictive Healthcare Models</h2>
+                
+                <!-- Model Performance -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mb-6">
+                    <h3 class="text-xl font-semibold mb-4">Active Prediction Models</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-gradient-to-br from-green-900/50 to-blue-900/50 rounded-xl p-4 border border-green-600/30">
+                            <h4 class="font-semibold text-green-400 mb-2">Readmission Risk</h4>
+                            <div class="text-3xl font-bold mb-2">89.3%</div>
+                            <p class="text-xs text-gray-400 mb-3">AUC Score</p>
+                            <div class="space-y-1 text-xs">
+                                <p>Predictions today: 347</p>
+                                <p>High risk identified: 52</p>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-br from-blue-900/50 to-purple-900/50 rounded-xl p-4 border border-blue-600/30">
+                            <h4 class="font-semibold text-blue-400 mb-2">Sepsis Detection</h4>
+                            <div class="text-3xl font-bold mb-2">94.7%</div>
+                            <p class="text-xs text-gray-400 mb-3">Sensitivity</p>
+                            <div class="space-y-1 text-xs">
+                                <p>Early detections: 23</p>
+                                <p>Avg lead time: 6.2 hrs</p>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-900/50 to-pink-900/50 rounded-xl p-4 border border-purple-600/30">
+                            <h4 class="font-semibold text-purple-400 mb-2">Falls Risk</h4>
+                            <div class="text-3xl font-bold mb-2">91.2%</div>
+                            <p class="text-xs text-gray-400 mb-3">Precision</p>
+                            <div class="space-y-1 text-xs">
+                                <p>At-risk patients: 128</p>
+                                <p>Prevented falls: 17</p>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-br from-yellow-900/50 to-orange-900/50 rounded-xl p-4 border border-yellow-600/30">
+                            <h4 class="font-semibold text-yellow-400 mb-2">Length of Stay</h4>
+                            <div class="text-3xl font-bold mb-2">±1.2</div>
+                            <p class="text-xs text-gray-400 mb-3">Days RMSE</p>
+                            <div class="space-y-1 text-xs">
+                                <p>Avg prediction: 4.7 days</p>
+                                <p>Bed planning accuracy: 87%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Individual Risk Profiles -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">Patient Risk Stratification</h3>
+                        <canvas id="riskStratChart" class="w-full h-64"></canvas>
+                    </div>
+                    <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">Intervention Effectiveness</h3>
+                        <canvas id="interventionChart" class="w-full h-64"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Model Insights -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-4">AI Model Insights</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-green-400 mb-3">Top Risk Factors</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between text-sm">
+                                    <span>Previous admission</span>
+                                    <div class="w-24 bg-gray-700 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 87%"></div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span>Polypharmacy</span>
+                                    <div class="w-24 bg-gray-700 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 76%"></div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span>Age > 65</span>
+                                    <div class="w-24 bg-gray-700 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 68%"></div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span>Comorbidities</span>
+                                    <div class="w-24 bg-gray-700 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 62%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-blue-400 mb-3">Model Confidence</h4>
+                            <div class="flex items-center justify-center h-40">
+                                <div class="relative w-32 h-32">
+                                    <svg class="w-full h-full transform -rotate-90">
+                                        <circle cx="64" cy="64" r="60" stroke="#374151" stroke-width="8" fill="none"></circle>
+                                        <circle cx="64" cy="64" r="60" stroke="url(#confidence-gradient)" stroke-width="8" fill="none" 
+                                                stroke-dasharray="377" stroke-dashoffset="38"></circle>
+                                        <defs>
+                                            <linearGradient id="confidence-gradient">
+                                                <stop offset="0%" stop-color="#10b981"></stop>
+                                                <stop offset="100%" stop-color="#3b82f6"></stop>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <div class="text-center">
+                                            <p class="text-2xl font-bold">90%</p>
+                                            <p class="text-xs text-gray-400">Confidence</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-purple-400 mb-3">Recent Predictions</h4>
+                            <div class="space-y-2 max-h-40 overflow-y-auto">
+                                <div class="p-2 bg-gray-700/50 rounded text-xs">
+                                    <div class="flex justify-between mb-1">
+                                        <span>Patient #4821</span>
+                                        <span class="text-red-400">High Risk</span>
+                                    </div>
+                                    <p class="text-gray-400">Readmission: 78% probability</p>
+                                </div>
+                                <div class="p-2 bg-gray-700/50 rounded text-xs">
+                                    <div class="flex justify-between mb-1">
+                                        <span>Patient #4822</span>
+                                        <span class="text-yellow-400">Medium Risk</span>
+                                    </div>
+                                    <p class="text-gray-400">Falls: 45% probability</p>
+                                </div>
+                                <div class="p-2 bg-gray-700/50 rounded text-xs">
+                                    <div class="flex justify-between mb-1">
+                                        <span>Patient #4823</span>
+                                        <span class="text-green-400">Low Risk</span>
+                                    </div>
+                                    <p class="text-gray-400">All metrics normal</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- LLM Clinical Consultation Module -->
+            <div id="llm-clinical-module" class="module-content p-6 hidden">
+                <h2 class="text-3xl font-bold mb-6">Clinical AI Consultation</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Chat Interface -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-gray-800 rounded-2xl border border-gray-700 h-[600px] flex flex-col">
+                            <div class="p-4 border-b border-gray-700">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-blue-500 rounded-full flex items-center justify-center">
+                                            <i data-lucide="bot" class="w-6 h-6"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold">CliniScope AI</h3>
+                                            <p class="text-xs text-gray-400">Powered by Clinical-LLM v5.2</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                        <span class="text-xs text-gray-400">Online</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                                <!-- Sample Chat Messages -->
+                                <div class="flex gap-3">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-blue-500 rounded-full flex-shrink-0"></div>
+                                    <div class="bg-gray-700 rounded-2xl p-4 max-w-[80%]">
+                                        <p class="text-sm">Hello! I'm your clinical intelligence assistant. I can help with population health insights, predictive analytics, evidence-based recommendations, and clinical decision support. How can I assist you today?</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex gap-3 justify-end">
+                                    <div class="bg-green-600 rounded-2xl p-4 max-w-[80%]">
+                                        <p class="text-sm">What's the current risk profile for our diabetic population?</p>
+                                    </div>
+                                    <div class="w-8 h-8 bg-gray-600 rounded-full flex-shrink-0"></div>
+                                </div>
+                                
+                                <div class="flex gap-3">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-blue-500 rounded-full flex-shrink-0"></div>
+                                    <div class="bg-gray-700 rounded-2xl p-4 max-w-[80%]">
+                                        <p class="text-sm mb-3">Based on our current data analysis of 3,247 diabetic patients:</p>
+                                        <div class="bg-gray-800 rounded-lg p-3 space-y-2">
+                                            <div class="flex items-start gap-2">
+                                                <div class="w-2 h-2 bg-red-400 rounded-full mt-1.5"></div>
+                                                <div>
+                                                    <p class="text-sm font-medium">High Risk (23%)</p>
+                                                    <p class="text-xs text-gray-400">HbA1c > 9.0, multiple complications</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-start gap-2">
+                                                <div class="w-2 h-2 bg-yellow-400 rounded-full mt-1.5"></div>
+                                                <div>
+                                                    <p class="text-sm font-medium">Moderate Risk (45%)</p>
+                                                    <p class="text-xs text-gray-400">HbA1c 7.5-9.0, 1-2 complications</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-start gap-2">
+                                                <div class="w-2 h-2 bg-green-400 rounded-full mt-1.5"></div>
+                                                <div>
+                                                    <p class="text-sm font-medium">Low Risk (32%)</p>
+                                                    <p class="text-xs text-gray-400">HbA1c < 7.5, well-controlled</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm mt-3">Key insights: 
+                                        • 78% medication adherence rate
+                                        • 15% reduction in ER visits with care coordination
+                                        • Recommend targeted intervention for high-risk cohort</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 border-t border-gray-700">
+                                <div class="flex gap-2">
+                                    <button class="px-3 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                                        <i data-lucide="paperclip" class="w-5 h-5"></i>
+                                    </button>
+                                    <input type="text" placeholder="Ask about population health, predictions, or clinical insights..." class="flex-1 bg-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                    <button class="px-4 py-2 bg-green-600 rounded-lg hover:bg-green-700 transition-colors">
+                                        <i data-lucide="send" class="w-5 h-5"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Info Panel -->
+                    <div class="space-y-6">
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-lg font-semibold mb-4">AI Capabilities</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="users" class="w-5 h-5 text-green-400"></i>
+                                    <span class="text-sm">Population health analytics</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="trending-up" class="w-5 h-5 text-blue-400"></i>
+                                    <span class="text-sm">Predictive modeling</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="book-open" class="w-5 h-5 text-purple-400"></i>
+                                    <span class="text-sm">Evidence synthesis</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="shield" class="w-5 h-5 text-yellow-400"></i>
+                                    <span class="text-sm">HIPAA compliant</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                            <h3 class="text-lg font-semibold mb-4">Quick Queries</h3>
+                            <div class="space-y-2">
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Outbreak risk assessment
+                                </button>
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Resource optimization plan
+                                </button>
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Clinical trial matching
+                                </button>
+                                <button class="w-full px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm text-left">
+                                    Quality metrics analysis
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-green-900/20 to-blue-900/20 rounded-2xl p-6 border border-green-500/20">
+                            <h3 class="text-lg font-semibold mb-3">Knowledge Base</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>Clinical Guidelines</span>
+                                        <span>12,847</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-gradient-to-r from-green-500 to-blue-500 h-2 rounded-full" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-400">
+                                    Last updated: 2 hours ago<br>
+                                    Evidence quality: Level 1A
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Right Sidebar - System Stats -->
+        <aside class="w-80 bg-gray-800 border-l border-gray-700 overflow-y-auto hidden xl:block">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold mb-4">System Intelligence</h2>
+                
+                <!-- Real-time Metrics -->
+                <div class="bg-gray-700 rounded-lg p-4 mb-4">
+                    <h3 class="text-sm font-semibold mb-3 text-green-400">Live Metrics</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Predictions/min</span>
+                                <span>247</span>
+                            </div>
+                            <div class="w-full bg-gray-600 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full" style="width: 82%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Model Accuracy</span>
+                                <span>94.3%</span>
+                            </div>
+                            <div class="w-full bg-gray-600 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 94.3%"></div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-400 mt-2">
+                            Compute: 78% utilized<br>
+                            Queue: 12 pending
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Active Alerts Summary -->
+                <div class="bg-gray-700 rounded-lg p-4 mb-4">
+                    <h3 class="text-sm font-semibold mb-3 text-yellow-400">Alert Summary</h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Critical</span>
+                            <span class="text-red-400">3</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">High</span>
+                            <span class="text-orange-400">12</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Medium</span>
+                            <span class="text-yellow-400">28</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Low</span>
+                            <span class="text-blue-400">47</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cost Impact -->
+                <div class="bg-gray-700 rounded-lg p-4 mb-4">
+                    <h3 class="text-sm font-semibold mb-3 text-blue-400">Cost Impact</h3>
+                    <div class="space-y-3">
+                        <div class="text-center">
+                            <p class="text-2xl font-bold text-green-400">$2.4M</p>
+                            <p class="text-xs text-gray-400">Saved this quarter</p>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Readmissions</span>
+                                <span>-$1.2M</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Early Detection</span>
+                                <span>-$0.8M</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Resource Opt.</span>
+                                <span>-$0.4M</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="bg-gradient-to-br from-green-900/20 to-blue-900/20 rounded-lg p-4 border border-green-500/20">
+                    <h3 class="text-sm font-semibold mb-3">Quick Actions</h3>
+                    <div class="space-y-2">
+                        <button class="w-full px-3 py-2 bg-green-600 rounded-lg hover:bg-green-700 transition-colors text-sm">
+                            Run Population Analysis
+                        </button>
+                        <button class="w-full px-3 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                            Generate Predictions
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+    
+    <!-- AI Assistant Modal -->
+    <div id="aiAssistantModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-gray-800 rounded-2xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">Clinical AI Assistant</h3>
+                    <button onclick="toggleAIAssistant()" class="text-gray-400 hover:text-white">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                
+                <div class="bg-gray-700 rounded-xl p-4 mb-6">
+                    <p class="text-sm text-gray-300">
+                        I'm your AI-powered clinical intelligence assistant. I can help you analyze population health data, 
+                        predict outcomes, optimize resources, and provide evidence-based recommendations.
+                    </p>
+                </div>
+                
+                <div class="space-y-4">
+                    <button class="w-full px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-left">
+                        <h4 class="font-semibold mb-1">Population Health Analysis</h4>
+                        <p class="text-sm text-gray-400">Deep dive into demographic and health trends</p>
+                    </button>
+                    <button class="w-full px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-left">
+                        <h4 class="font-semibold mb-1">Predictive Model Insights</h4>
+                        <p class="text-sm text-gray-400">Understand risk factors and intervention opportunities</p>
+                    </button>
+                    <button class="w-full px-4 py-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-left">
+                        <h4 class="font-semibold mb-1">Resource Optimization</h4>
+                        <p class="text-sm text-gray-400">Maximize efficiency and reduce costs</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Module switching
+        function switchModule(moduleName) {
+            // Hide all modules
+            document.querySelectorAll('.module-content').forEach(module => {
+                module.classList.add('hidden');
+            });
+            
+            // Show selected module
+            const selectedModule = document.getElementById(`${moduleName}-module`);
+            if (selectedModule) {
+                selectedModule.classList.remove('hidden');
+            }
+            
+            // Update button states
+            document.querySelectorAll('.module-btn').forEach(btn => {
+                btn.classList.remove('bg-gray-700');
+            });
+            event.target.closest('.module-btn').classList.add('bg-gray-700');
+            
+            // Reinitialize charts for the selected module
+            if (moduleName === 'overview') {
+                initOverviewCharts();
+            } else if (moduleName === 'population') {
+                initPopulationCharts();
+            } else if (moduleName === 'outbreak') {
+                initOutbreakCharts();
+            } else if (moduleName === 'predictions') {
+                initPredictionCharts();
+            }
+        }
+        
+        // Toggle AI Assistant Modal
+        function toggleAIAssistant() {
+            const modal = document.getElementById('aiAssistantModal');
+            modal.classList.toggle('hidden');
+        }
+        
+        // Export Analytics
+        function exportAnalytics() {
+            alert('Generating comprehensive analytics report...');
+        }
+        
+        // Initialize Overview Charts
+        function initOverviewCharts() {
+            // Disease Prevalence Chart
+            const diseaseCtx = document.getElementById('diseaseChart').getContext('2d');
+            new Chart(diseaseCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Diabetes', 'Hypertension', 'COPD', 'CHF', 'CKD'],
+                    datasets: [{
+                        label: 'Prevalence %',
+                        data: [28, 45, 12, 8, 15],
+                        backgroundColor: [
+                            'rgba(239, 68, 68, 0.5)',
+                            'rgba(245, 158, 11, 0.5)',
+                            'rgba(59, 130, 246, 0.5)',
+                            'rgba(139, 92, 246, 0.5)',
+                            'rgba(16, 185, 129, 0.5)'
+                        ],
+                        borderColor: [
+                            '#ef4444',
+                            '#f59e0b',
+                            '#3b82f6',
+                            '#8b5cf6',
+                            '#10b981'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        y: {
+                            grid: { color: '#374151' },
+                            ticks: { 
+                                color: '#9ca3af',
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Risk Distribution Chart
+            const riskCtx = document.getElementById('riskChart').getContext('2d');
+            new Chart(riskCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Low Risk', 'Medium Risk', 'High Risk', 'Critical'],
+                    datasets: [{
+                        data: [45, 30, 20, 5],
+                        backgroundColor: [
+                            '#10b981',
+                            '#f59e0b',
+                            '#ef4444',
+                            '#7c3aed'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: { color: '#fff' }
+                        }
+                    }
+                }
+            });
+            
+            // Resource Utilization Chart
+            const resourceCtx = document.getElementById('resourceChart').getContext('2d');
+            new Chart(resourceCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['ICU Beds', 'Staff', 'Equipment', 'Medications', 'PPE', 'Lab Capacity'],
+                    datasets: [{
+                        label: 'Current',
+                        data: [85, 78, 92, 67, 88, 73],
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        borderColor: '#3b82f6',
+                        pointBackgroundColor: '#3b82f6'
+                    }, {
+                        label: 'Optimal',
+                        data: [75, 80, 85, 70, 80, 80],
+                        backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                        borderColor: '#10b981',
+                        pointBackgroundColor: '#10b981'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#fff' }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            grid: { color: '#374151' },
+                            angleLines: { color: '#374151' },
+                            pointLabels: { color: '#9ca3af' },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize Population Charts
+        function initPopulationCharts() {
+            // Age Distribution
+            const ageCtx = document.getElementById('ageChart').getContext('2d');
+            new Chart(ageCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['0-18', '19-35', '36-50', '51-65', '65+'],
+                    datasets: [{
+                        data: [15, 22, 28, 20, 15],
+                        backgroundColor: [
+                            '#3b82f6',
+                            '#10b981',
+                            '#f59e0b',
+                            '#8b5cf6',
+                            '#ef4444'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+            
+            // Social Determinants Chart
+            const socialCtx = document.getElementById('socialChart').getContext('2d');
+            new Chart(socialCtx, {
+                type: 'horizontalBar',
+                data: {
+                    labels: ['Housing Stability', 'Food Security', 'Transportation', 'Education', 'Employment'],
+                    datasets: [{
+                        label: 'Impact Score',
+                        data: [78, 65, 82, 71, 88],
+                        backgroundColor: 'rgba(16, 185, 129, 0.5)',
+                        borderColor: '#10b981',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        y: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize Outbreak Charts
+        function initOutbreakCharts() {
+            const epidemicCtx = document.getElementById('epidemicChart').getContext('2d');
+            new Chart(epidemicCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Day 1', 'Day 3', 'Day 5', 'Day 7', 'Day 9', 'Day 11', 'Day 13'],
+                    datasets: [{
+                        label: 'Confirmed Cases',
+                        data: [5, 8, 15, 28, 47, 68, 85],
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'Predicted (No Intervention)',
+                        data: [5, 8, 15, 28, 52, 96, 178],
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        borderDash: [5, 5],
+                        tension: 0.4
+                    }, {
+                        label: 'Predicted (With Intervention)',
+                        data: [5, 8, 15, 28, 42, 58, 72],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderDash: [5, 5],
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#fff' }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        y: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize Prediction Charts
+        function initPredictionCharts() {
+            // Risk Stratification
+            const stratCtx = document.getElementById('riskStratChart').getContext('2d');
+            new Chart(stratCtx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Low Risk',
+                        data: Array.from({length: 50}, () => ({
+                            x: Math.random() * 100,
+                            y: Math.random() * 30
+                        })),
+                        backgroundColor: 'rgba(16, 185, 129, 0.5)'
+                    }, {
+                        label: 'Medium Risk',
+                        data: Array.from({length: 30}, () => ({
+                            x: Math.random() * 100,
+                            y: 30 + Math.random() * 40
+                        })),
+                        backgroundColor: 'rgba(245, 158, 11, 0.5)'
+                    }, {
+                        label: 'High Risk',
+                        data: Array.from({length: 20}, () => ({
+                            x: Math.random() * 100,
+                            y: 70 + Math.random() * 30
+                        })),
+                        backgroundColor: 'rgba(239, 68, 68, 0.5)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#fff' }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' },
+                            title: {
+                                display: true,
+                                text: 'Age',
+                                color: '#9ca3af'
+                            }
+                        },
+                        y: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' },
+                            title: {
+                                display: true,
+                                text: 'Risk Score',
+                                color: '#9ca3af'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Intervention Effectiveness
+            const interventionCtx = document.getElementById('interventionChart').getContext('2d');
+            new Chart(interventionCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Care Coordination', 'Medication Mgmt', 'Remote Monitoring', 'Education', 'Social Support'],
+                    datasets: [{
+                        label: 'Readmission Reduction %',
+                        data: [32, 28, 24, 18, 22],
+                        backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                        borderColor: '#3b82f6',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        y: {
+                            grid: { color: '#374151' },
+                            ticks: { 
+                                color: '#9ca3af',
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize charts on load
+        window.addEventListener('DOMContentLoaded', () => {
+            initOverviewCharts();
+        });
+    </script>
+</body>
+</html>
