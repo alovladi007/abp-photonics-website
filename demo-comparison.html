@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Static vs Dynamic Comparison - ABP Photonics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-8">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8 text-center">See the Difference: Static vs Dynamic</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Static Version -->
+            <div class="bg-gray-800 p-6 rounded-lg border-2 border-gray-600">
+                <h2 class="text-xl font-semibold mb-4 text-red-400">❌ WITHOUT Backend (Static)</h2>
+                
+                <!-- Static Patent Search -->
+                <div class="mb-6">
+                    <h3 class="font-semibold mb-2">Patent Search:</h3>
+                    <input type="text" class="w-full p-2 bg-gray-700 rounded mb-2" placeholder="Search patents...">
+                    <button class="px-4 py-2 bg-blue-600 rounded" onclick="alert('Nothing happens - this is static!')">Search</button>
+                    <div class="mt-4 text-gray-400">
+                        <p>Results: Always shows same 3 patents</p>
+                        <ul class="text-sm mt-2">
+                            <li>• Patent US123 - Photonics Device</li>
+                            <li>• Patent US456 - Quantum System</li>
+                            <li>• Patent US789 - Laser Technology</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Static Threat Count -->
+                <div class="mb-6">
+                    <h3 class="font-semibold mb-2">Security Threats:</h3>
+                    <div class="bg-gray-700 p-4 rounded">
+                        <p class="text-2xl font-bold">15</p>
+                        <p class="text-sm text-gray-400">This number never changes</p>
+                    </div>
+                </div>
+                
+                <!-- Static Vital Signs -->
+                <div>
+                    <h3 class="font-semibold mb-2">Patient Vitals:</h3>
+                    <div class="bg-gray-700 p-4 rounded">
+                        <p>❤️ Heart Rate: <span class="font-bold">72 bpm</span></p>
+                        <p class="text-sm text-gray-400">Always shows 72</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dynamic Version -->
+            <div class="bg-gray-800 p-6 rounded-lg border-2 border-green-600">
+                <h2 class="text-xl font-semibold mb-4 text-green-400">✅ WITH Backend (Dynamic)</h2>
+                
+                <!-- Dynamic Patent Search -->
+                <div class="mb-6">
+                    <h3 class="font-semibold mb-2">Patent Search:</h3>
+                    <input type="text" id="dynamic-search" class="w-full p-2 bg-gray-700 rounded mb-2" placeholder="Search patents...">
+                    <button class="px-4 py-2 bg-blue-600 rounded" onclick="searchPatents()">Search</button>
+                    <div id="patent-results" class="mt-4 text-gray-400">
+                        <p>Results will appear here...</p>
+                    </div>
+                </div>
+                
+                <!-- Dynamic Threat Count -->
+                <div class="mb-6">
+                    <h3 class="font-semibold mb-2">Security Threats:</h3>
+                    <div class="bg-gray-700 p-4 rounded">
+                        <p class="text-2xl font-bold" id="threat-count">0</p>
+                        <p class="text-sm text-gray-400">Updates in real-time!</p>
+                    </div>
+                </div>
+                
+                <!-- Dynamic Vital Signs -->
+                <div>
+                    <h3 class="font-semibold mb-2">Patient Vitals:</h3>
+                    <div class="bg-gray-700 p-4 rounded">
+                        <p>❤️ Heart Rate: <span class="font-bold" id="heart-rate">--</span> bpm</p>
+                        <p class="text-sm text-gray-400">Changes every few seconds!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Status -->
+        <div class="mt-8 text-center">
+            <div id="backend-status" class="text-lg"></div>
+            <p class="text-sm text-gray-400 mt-2">
+                To see the dynamic version work: <code class="bg-gray-700 px-2 py-1 rounded">cd backend && npm run dev</code>
+            </p>
+        </div>
+    </div>
+
+    <script src="js/api-client.js"></script>
+    <script>
+        // Check backend status
+        async function checkBackend() {
+            try {
+                const response = await fetch('http://localhost:3001/api/health');
+                if (response.ok) {
+                    document.getElementById('backend-status').innerHTML = 
+                        '<span class="text-green-400">✅ Backend is running - Watch the right side update!</span>';
+                    startDynamicUpdates();
+                } else {
+                    throw new Error('Not running');
+                }
+            } catch (error) {
+                document.getElementById('backend-status').innerHTML = 
+                    '<span class="text-red-400">❌ Backend not running - Start it to see the magic!</span>';
+            }
+        }
+
+        // Search patents
+        async function searchPatents() {
+            const query = document.getElementById('dynamic-search').value;
+            const resultsDiv = document.getElementById('patent-results');
+            
+            try {
+                resultsDiv.innerHTML = '<p class="text-yellow-400">Searching...</p>';
+                const data = await window.abpAPI.searchPatents({ query, limit: 3 });
+                
+                if (data.patents && data.patents.length > 0) {
+                    resultsDiv.innerHTML = '<p>Found ' + data.patents.length + ' patents:</p>' +
+                        '<ul class="text-sm mt-2">' +
+                        data.patents.map(p => `<li>• ${p.id} - ${p.title}</li>`).join('') +
+                        '</ul>';
+                } else {
+                    resultsDiv.innerHTML = '<p>No patents found</p>';
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = '<p class="text-red-400">Backend not connected</p>';
+            }
+        }
+
+        // Start dynamic updates
+        function startDynamicUpdates() {
+            // Update threat count
+            updateThreatCount();
+            setInterval(updateThreatCount, 5000);
+            
+            // Update heart rate
+            updateHeartRate();
+            setInterval(updateHeartRate, 3000);
+            
+            // Connect WebSocket for real-time updates
+            window.abpAPI.connectWebSocket((message) => {
+                if (message.type === 'threat-detected') {
+                    const count = document.getElementById('threat-count');
+                    count.textContent = parseInt(count.textContent) + 1;
+                    count.classList.add('text-red-400');
+                    setTimeout(() => count.classList.remove('text-red-400'), 1000);
+                }
+            });
+        }
+
+        async function updateThreatCount() {
+            try {
+                const data = await window.abpAPI.getSecurityDashboard();
+                const count = document.getElementById('threat-count');
+                count.textContent = data.threatStats.total_threats || 0;
+            } catch (error) {
+                console.error('Failed to update threats');
+            }
+        }
+
+        function updateHeartRate() {
+            // Simulate heart rate changes
+            const hr = document.getElementById('heart-rate');
+            const rate = 60 + Math.floor(Math.random() * 20);
+            hr.textContent = rate;
+            
+            // Add pulse animation
+            hr.style.color = '#ef4444';
+            setTimeout(() => hr.style.color = '', 300);
+        }
+
+        // Check on load
+        checkBackend();
+    </script>
+</body>
+</html>
