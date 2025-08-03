@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Test - ABP Photonics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8">Backend Integration Test</h1>
+        
+        <div class="space-y-4">
+            <!-- API Status -->
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <h2 class="text-xl font-semibold mb-4">API Status</h2>
+                <div id="api-status" class="text-gray-400">Checking...</div>
+            </div>
+
+            <!-- Test Actions -->
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <h2 class="text-xl font-semibold mb-4">Test Actions</h2>
+                <div class="space-y-3">
+                    <button onclick="testHealth()" class="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700">
+                        Test API Health
+                    </button>
+                    <button onclick="testPatentSearch()" class="px-4 py-2 bg-green-600 rounded hover:bg-green-700">
+                        Test Patent Search
+                    </button>
+                    <button onclick="testLogin()" class="px-4 py-2 bg-purple-600 rounded hover:bg-purple-700">
+                        Test Login
+                    </button>
+                    <button onclick="testWebSocket()" class="px-4 py-2 bg-orange-600 rounded hover:bg-orange-700">
+                        Test WebSocket
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <h2 class="text-xl font-semibold mb-4">Results</h2>
+                <pre id="results" class="text-sm text-gray-300 whitespace-pre-wrap"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api-client.js"></script>
+    <script>
+        const resultsEl = document.getElementById('results');
+        const statusEl = document.getElementById('api-status');
+
+        // Check if backend is reachable
+        async function checkBackendStatus() {
+            try {
+                const response = await fetch('http://localhost:3001/api/health');
+                if (response.ok) {
+                    const data = await response.json();
+                    statusEl.innerHTML = '<span class="text-green-400">✅ Backend is running!</span>';
+                    resultsEl.textContent = 'Backend services:\n' + JSON.stringify(data.services, null, 2);
+                } else {
+                    statusEl.innerHTML = '<span class="text-red-400">❌ Backend is not responding</span>';
+                }
+            } catch (error) {
+                statusEl.innerHTML = '<span class="text-red-400">❌ Backend is not running. Start it with: cd backend && npm run dev</span>';
+                resultsEl.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function testHealth() {
+            try {
+                const response = await fetch('http://localhost:3001/api/health');
+                const data = await response.json();
+                resultsEl.textContent = 'Health Check:\n' + JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultsEl.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function testPatentSearch() {
+            try {
+                const data = await window.abpAPI.searchPatents({ query: 'photonics', limit: 5 });
+                resultsEl.textContent = 'Patent Search Results:\n' + JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultsEl.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function testLogin() {
+            try {
+                const data = await window.abpAPI.login('admin@abp.com', 'demo123');
+                resultsEl.textContent = 'Login Successful:\n' + JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultsEl.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function testWebSocket() {
+            try {
+                resultsEl.textContent = 'Connecting to WebSocket...\n';
+                
+                window.abpAPI.connectWebSocket((message) => {
+                    resultsEl.textContent += '\nReceived: ' + JSON.stringify(message);
+                }, (error) => {
+                    resultsEl.textContent += '\nWebSocket Error: ' + error;
+                });
+
+                // Subscribe to threats
+                setTimeout(() => {
+                    window.abpAPI.subscribeToThreats();
+                    resultsEl.textContent += '\nSubscribed to threat updates. Wait for real-time events...';
+                }, 1000);
+            } catch (error) {
+                resultsEl.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        // Check status on load
+        checkBackendStatus();
+    </script>
+</body>
+</html>
