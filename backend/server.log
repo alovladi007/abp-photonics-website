@@ -1,0 +1,7 @@
+🚀 ABP Backend Server running on port 3001
+📡 WebSocket server ready
+🔒 CORS enabled for: http://localhost:3000,http://127.0.0.1:3000,https://alovladi007.github.io
+🛡️  Rate limiting: 100 requests per 900000ms
+Connected to SQLite database
+[0mGET /api/health [32m200[0m 6.738 ms - 198[0m
+[0mGET /api/patent/search?query=photonics&limit=3 [32m200[0m 3.974 ms - 1337[0m

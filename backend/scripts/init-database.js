@@ -1,12 +1,12 @@
 require('dotenv').config();
-const { db } = require('../shared/database');
+const { db, runQuery } = require('../shared/database');
 
 const initDatabase = async () => {
   console.log('Initializing database...');
 
   try {
     // Users table
-    await db.run(`
+    await runQuery(`
       CREATE TABLE IF NOT EXISTS users (
         id TEXT PRIMARY KEY,
         email TEXT UNIQUE NOT NULL,
@@ -20,7 +20,7 @@ const initDatabase = async () => {
     `);
 
     // Patents table
-    await db.run(`
+    await runQuery(`
       CREATE TABLE IF NOT EXISTS patents (
         id TEXT PRIMARY KEY,
         title TEXT NOT NULL,
@@ -35,7 +35,7 @@ const initDatabase = async () => {
     `);
 
     // Inventors table
-    await db.run(`
+    await runQuery(`
       CREATE TABLE IF NOT EXISTS inventors (
         id TEXT PRIMARY KEY,
         name TEXT NOT NULL,
@@ -45,7 +45,7 @@ const initDatabase = async () => {
     `);
 
     // Patent-Inventors junction table
-    await db.run(`
+    await runQuery(`
       CREATE TABLE IF NOT EXISTS patent_inventors (
         patent_id TEXT,
         inventor_id TEXT,
@@ -56,7 +56,7 @@ const initDatabase = async () => {
     `);
 
     // Patent citations
-    await db.run(`
+    await runQuery(`
       CREATE TABLE IF NOT EXISTS patent_citations (
         id TEXT PRIMARY KEY,
         patent_id TEXT,
@@ -67,7 +67,7 @@ const initDatabase = async () => {
     `);
 
     // Patent analyses
-    await db.run(`
+    await runQuery(`
       CREATE TABLE IF NOT EXISTS patent_analyses (
         id TEXT PRIMARY KEY,
         patent_id TEXT,
@@ -81,7 +81,7 @@ const initDatabase = async () => {
     `);
 
     // Saved searches
-    await db.run(`
+    await runQuery(`
       CREATE TABLE IF NOT EXISTS saved_searches (
         id TEXT PRIMARY KEY,
         user_id TEXT,
@@ -94,7 +94,7 @@ const initDatabase = async () => {
     `);
 
     // Patients table
-    await db.run(`
+    await runQuery(`
       CREATE TABLE IF NOT EXISTS patients (
         id TEXT PRIMARY KEY,
         patient_id TEXT UNIQUE NOT NULL,
@@ -109,7 +109,7 @@ const initDatabase = async () => {
     `);
 
     // Patient vitals
-    await db.run(`
+    await runQuery(`
       CREATE TABLE IF NOT EXISTS patient_vitals (
         id TEXT PRIMARY KEY,
         patient_id TEXT,
@@ -128,7 +128,7 @@ const initDatabase = async () => {
     `);
 
     // Risk assessments
-    await db.run(`
+    await runQuery(`
       CREATE TABLE IF NOT EXISTS risk_assessments (
         id TEXT PRIMARY KEY,
         patient_id TEXT,
@@ -144,7 +144,7 @@ const initDatabase = async () => {
     `);
 
     // Appointments
-    await db.run(`
+    await runQuery(`
       CREATE TABLE IF NOT EXISTS appointments (
         id TEXT PRIMARY KEY,
         patient_id TEXT,
@@ -161,7 +161,7 @@ const initDatabase = async () => {
     `);
 
     // Security threats
-    await db.run(`
+    await runQuery(`
       CREATE TABLE IF NOT EXISTS security_threats (
         id TEXT PRIMARY KEY,
         title TEXT NOT NULL,
@@ -181,7 +181,7 @@ const initDatabase = async () => {
     `);
 
     // Security events
-    await db.run(`
+    await runQuery(`
       CREATE TABLE IF NOT EXISTS security_events (
         id TEXT PRIMARY KEY,
         event_type TEXT,
@@ -197,7 +197,7 @@ const initDatabase = async () => {
     `);
 
     // Vulnerabilities
-    await db.run(`
+    await runQuery(`
       CREATE TABLE IF NOT EXISTS vulnerabilities (
         id TEXT PRIMARY KEY,
         scan_id TEXT,
@@ -218,7 +218,7 @@ const initDatabase = async () => {
     `);
 
     // Alerts (general)
-    await db.run(`
+    await runQuery(`
       CREATE TABLE IF NOT EXISTS alerts (
         id TEXT PRIMARY KEY,
         type TEXT,
@@ -233,13 +233,13 @@ const initDatabase = async () => {
     `);
 
     // Create indexes for better performance
-    await db.run('CREATE INDEX IF NOT EXISTS idx_patents_status ON patents(status)');
-    await db.run('CREATE INDEX IF NOT EXISTS idx_patents_category ON patents(category)');
-    await db.run('CREATE INDEX IF NOT EXISTS idx_patients_status ON patients(status)');
-    await db.run('CREATE INDEX IF NOT EXISTS idx_patients_division ON patients(division)');
-    await db.run('CREATE INDEX IF NOT EXISTS idx_threats_status ON security_threats(status)');
-    await db.run('CREATE INDEX IF NOT EXISTS idx_threats_severity ON security_threats(severity)');
-    await db.run('CREATE INDEX IF NOT EXISTS idx_alerts_created ON alerts(created_at)');
+    await runQuery('CREATE INDEX IF NOT EXISTS idx_patents_status ON patents(status)');
+    await runQuery('CREATE INDEX IF NOT EXISTS idx_patents_category ON patents(category)');
+    await runQuery('CREATE INDEX IF NOT EXISTS idx_patients_status ON patients(status)');
+    await runQuery('CREATE INDEX IF NOT EXISTS idx_patients_division ON patients(division)');
+    await runQuery('CREATE INDEX IF NOT EXISTS idx_threats_status ON security_threats(status)');
+    await runQuery('CREATE INDEX IF NOT EXISTS idx_threats_severity ON security_threats(severity)');
+    await runQuery('CREATE INDEX IF NOT EXISTS idx_alerts_created ON alerts(created_at)');
 
     console.log('✅ Database initialized successfully');
   } catch (error) {
