@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ion Trap Systems - Scalable Quantum Computing | ABP Photonics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Ion Chain Animation */
+        .ion {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #06b6d4 0%, transparent 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 20px #06b6d4;
+        }
+        
+        .ion-oscillation {
+            animation: oscillate 2s ease-in-out infinite;
+        }
+        
+        @keyframes oscillate {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Laser Beam */
+        .laser-control {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+            animation: laser-sweep 3s linear infinite;
+        }
+        
+        @keyframes laser-sweep {
+            0% { opacity: 0; transform: translateX(-100%); }
+            50% { opacity: 1; }
+            100% { opacity: 0; transform: translateX(100%); }
+        }
+        
+        /* Trap Electrodes */
+        .electrode {
+            fill: #475569;
+            stroke: #64748b;
+            stroke-width: 1;
+        }
+        
+        /* Quantum Gate Pulse */
+        .gate-pulse {
+            animation: pulse-gate 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-gate {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="hardware.html" class="text-gray-400 hover:text-white transition">Hardware</a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold gradient-text">Ion Trap Systems</span>
+                </div>
+                <a href="#quote" class="px-4 py-2 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                    Request Information
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient pt-24 pb-16 overflow-hidden">
+        <div class="absolute inset-0 opacity-30">
+            <!-- Ion trap visualization -->
+            <div class="relative" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <!-- Ion chain -->
+                <div class="ion ion-oscillation" style="left: -60px; top: 0;"></div>
+                <div class="ion ion-oscillation" style="left: -30px; top: 0; animation-delay: 0.2s;"></div>
+                <div class="ion ion-oscillation" style="left: 0; top: 0; animation-delay: 0.4s;"></div>
+                <div class="ion ion-oscillation" style="left: 30px; top: 0; animation-delay: 0.6s;"></div>
+                <div class="ion ion-oscillation" style="left: 60px; top: 0; animation-delay: 0.8s;"></div>
+                
+                <!-- Laser control beams -->
+                <div class="laser-control" style="top: 0;"></div>
+                <div class="laser-control" style="top: 20px; animation-delay: 1s;"></div>
+            </div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">Ion Trap Quantum Computers</span>
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                    Scalable trapped-ion quantum processors with integrated photonic controls, 
+                    delivering industry-leading gate fidelities and all-to-all connectivity
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="#technology" class="px-6 py-3 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                        Technology Overview
+                    </a>
+                    <a href="#systems" class="px-6 py-3 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                        System Specifications
+                    </a>
+                    <a href="#performance" class="px-6 py-3 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                        Performance Metrics
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Specifications -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-microchip text-3xl text-cyan-400 mb-3"></i>
+                    <div class="text-2xl font-bold gradient-text">32 Qubits</div>
+                    <div class="text-gray-400">Current System</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-link text-3xl text-blue-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-blue-400">All-to-All</div>
+                    <div class="text-gray-400">Connectivity</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-percentage text-3xl text-purple-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-purple-400">99.9%</div>
+                    <div class="text-gray-400">2-Qubit Fidelity</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-clock text-3xl text-green-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-green-400">100 μs</div>
+                    <div class="text-gray-400">Gate Time</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Overview -->
+    <section id="technology" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Ion Trap Technology</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <!-- Trap Architecture -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">Surface Electrode Trap</h3>
+                    
+                    <!-- Trap Visualization -->
+                    <div class="bg-slate-800 rounded-lg p-6 mb-6">
+                        <svg viewBox="0 0 400 300" class="w-full h-auto">
+                            <!-- Electrode structure -->
+                            <rect x="50" y="100" width="300" height="20" class="electrode"/>
+                            <rect x="50" y="180" width="300" height="20" class="electrode"/>
+                            
+                            <!-- RF electrodes -->
+                            <rect x="100" y="120" width="50" height="60" class="electrode" fill="#3b82f6" opacity="0.6"/>
+                            <rect x="250" y="120" width="50" height="60" class="electrode" fill="#3b82f6" opacity="0.6"/>
+                            
+                            <!-- DC electrodes -->
+                            <rect x="160" y="120" width="30" height="60" class="electrode" fill="#8b5cf6" opacity="0.6"/>
+                            <rect x="210" y="120" width="30" height="60" class="electrode" fill="#8b5cf6" opacity="0.6"/>
+                            
+                            <!-- Ion positions -->
+                            <circle cx="125" cy="150" r="8" fill="#06b6d4" opacity="0.8" class="gate-pulse"/>
+                            <circle cx="175" cy="150" r="8" fill="#06b6d4" opacity="0.8" class="gate-pulse" style="animation-delay: 0.3s;"/>
+                            <circle cx="225" cy="150" r="8" fill="#06b6d4" opacity="0.8" class="gate-pulse" style="animation-delay: 0.6s;"/>
+                            <circle cx="275" cy="150" r="8" fill="#06b6d4" opacity="0.8" class="gate-pulse" style="animation-delay: 0.9s;"/>
+                            
+                            <!-- Labels -->
+                            <text x="125" y="90" fill="#3b82f6" text-anchor="middle" font-size="12">RF</text>
+                            <text x="275" y="90" fill="#3b82f6" text-anchor="middle" font-size="12">RF</text>
+                            <text x="175" y="90" fill="#8b5cf6" text-anchor="middle" font-size="12">DC</text>
+                            <text x="225" y="90" fill="#8b5cf6" text-anchor="middle" font-size="12">DC</text>
+                            
+                            <text x="200" y="250" fill="#888" text-anchor="middle" font-size="14">Microfabricated Ion Trap</text>
+                        </svg>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-check-circle text-cyan-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">Microfabricated Design</h4>
+                                <p class="text-sm text-gray-400">Scalable CMOS-compatible fabrication</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-check-circle text-blue-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">Integrated Photonics</h4>
+                                <p class="text-sm text-gray-400">On-chip waveguides for laser delivery</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-check-circle text-purple-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">Modular Architecture</h4>
+                                <p class="text-sm text-gray-400">Junction-based ion transport and routing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Control System -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">Photonic Control System</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Laser Systems</h4>
+                        <div class="space-y-2">
+                            <div class="bg-slate-800/50 p-3 rounded-lg flex justify-between">
+                                <span class="text-sm">Doppler Cooling</span>
+                                <span class="text-sm text-cyan-400">397nm, 866nm</span>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded-lg flex justify-between">
+                                <span class="text-sm">Qubit Control</span>
+                                <span class="text-sm text-blue-400">729nm</span>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded-lg flex justify-between">
+                                <span class="text-sm">State Detection</span>
+                                <span class="text-sm text-purple-400">397nm, 850nm</span>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded-lg flex justify-between">
+                                <span class="text-sm">Photoionization</span>
+                                <span class="text-sm text-green-400">375nm, 435nm</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold mb-3">Individual Addressing</h4>
+                        <p class="text-sm text-gray-400 mb-3">
+                            Advanced beam steering with acousto-optic deflectors and 
+                            integrated photonic switches for parallel gate operations.
+                        </p>
+                        <div class="grid grid-cols-2 gap-3 text-sm">
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <div class="text-gray-400">Addressing Speed</div>
+                                <div class="font-semibold">< 1 μs</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <div class="text-gray-400">Crosstalk</div>
+                                <div class="font-semibold">< 10⁻⁴</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quantum Gates -->
+            <div class="glass-effect p-8 rounded-2xl">
+                <h3 class="text-xl font-bold mb-6">High-Fidelity Quantum Gates</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="bg-slate-800 rounded-lg p-6 mb-4">
+                            <canvas id="gateChart" height="150"></canvas>
+                        </div>
+                        <h4 class="font-semibold mb-2">Single-Qubit Gates</h4>
+                        <p class="text-sm text-gray-400">
+                            Rabi flopping with shaped pulses achieving 99.99% fidelity
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-slate-800 rounded-lg p-6 mb-4">
+                            <i class="fas fa-link text-6xl text-blue-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Two-Qubit Gates</h4>
+                        <p class="text-sm text-gray-400">
+                            Mølmer-Sørensen gates with 99.9% fidelity across the chain
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-slate-800 rounded-lg p-6 mb-4">
+                            <i class="fas fa-project-diagram text-6xl text-purple-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Multi-Qubit Gates</h4>
+                        <p class="text-sm text-gray-400">
+                            Native three-qubit gates for efficient quantum algorithms
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Specifications -->
+    <section id="systems" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">System Portfolio</h2>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Research System -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-4">IonQ-Research</h3>
+                    <p class="text-gray-400 mb-6">
+                        Flexible research platform for quantum algorithm development and experimentation
+                    </p>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Qubits</span>
+                            <span class="font-semibold">8-16</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Gate Set</span>
+                            <span class="font-semibold">Universal</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Coherence Time</span>
+                            <span class="font-semibold">> 10s</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Operation Rate</span>
+                            <span class="font-semibold">10 kHz</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full px-4 py-2 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                        Learn More
+                    </button>
+                </div>
+                
+                <!-- Commercial System -->
+                <div class="glass-effect p-8 rounded-2xl border-2 border-blue-500">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-bold">IonQ-Pro</h3>
+                        <span class="px-3 py-1 bg-blue-600 rounded-full text-xs">FEATURED</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        Production-ready quantum computer for real-world applications
+                    </p>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Qubits</span>
+                            <span class="font-semibold">32</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Quantum Volume</span>
+                            <span class="font-semibold">4,096</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Error Rate</span>
+                            <span class="font-semibold">< 0.1%</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Cloud Access</span>
+                            <span class="font-semibold">24/7</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition">
+                        Request Access
+                    </button>
+                </div>
+                
+                <!-- Enterprise System -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-4">IonQ-Enterprise</h3>
+                    <p class="text-gray-400 mb-6">
+                        Next-generation system for quantum advantage applications
+                    </p>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Qubits</span>
+                            <span class="font-semibold">64+</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Architecture</span>
+                            <span class="font-semibold">Modular</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Error Correction</span>
+                            <span class="font-semibold">Built-in</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Availability</span>
+                            <span class="font-semibold">2025</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full px-4 py-2 bg-purple-600 rounded-lg hover:bg-purple-700 transition">
+                        Join Waitlist
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Metrics -->
+    <section id="performance" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Performance Benchmarks</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Fidelity Chart -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4">Gate Fidelities</h3>
+                    <canvas id="fidelityChart" height="300"></canvas>
+                </div>
+                
+                <!-- Coherence Times -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4">Coherence Properties</h3>
+                    <canvas id="coherenceChart" height="300"></canvas>
+                </div>
+            </div>
+            
+            <!-- Algorithm Performance -->
+            <div class="glass-effect p-8 rounded-2xl mt-8">
+                <h3 class="text-xl font-bold mb-6">Quantum Algorithm Performance</h3>
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <i class="fas fa-chart-line text-4xl text-cyan-400 mb-3"></i>
+                        <h4 class="font-semibold mb-2">VQE</h4>
+                        <p class="text-sm text-gray-400">
+                            H₂ ground state: 99.8% accuracy
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-search text-4xl text-blue-400 mb-3"></i>
+                        <h4 class="font-semibold mb-2">Grover Search</h4>
+                        <p class="text-sm text-gray-400">
+                            16-element database: 94% success
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-lock text-4xl text-purple-400 mb-3"></i>
+                        <h4 class="font-semibold mb-2">Shor's Algorithm</h4>
+                        <p class="text-sm text-gray-400">
+                            15 = 3×5 factorization demonstrated
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-random text-4xl text-green-400 mb-3"></i>
+                        <h4 class="font-semibold mb-2">QAOA</h4>
+                        <p class="text-sm text-gray-400">
+                            MaxCut: 96% approximation ratio
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Applications</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-flask text-3xl text-cyan-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Quantum Chemistry</h3>
+                    <p class="text-gray-400 text-sm">
+                        Molecular simulation for drug discovery and materials science
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-chart-bar text-3xl text-blue-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Optimization</h3>
+                    <p class="text-gray-400 text-sm">
+                        Portfolio optimization, logistics, and scheduling problems
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-brain text-3xl text-purple-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Machine Learning</h3>
+                    <p class="text-gray-400 text-sm">
+                        Quantum machine learning and neural network training
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-lock text-3xl text-green-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Cryptography</h3>
+                    <p class="text-gray-400 text-sm">
+                        Post-quantum cryptography development and testing
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-coins text-3xl text-yellow-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Finance</h3>
+                    <p class="text-gray-400 text-sm">
+                        Risk analysis, derivative pricing, and fraud detection
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-dna text-3xl text-red-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Genomics</h3>
+                    <p class="text-gray-400 text-sm">
+                        Protein folding and genetic sequence analysis
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="quote" class="py-16 px-4 bg-gradient-to-r from-cyan-900/20 to-blue-900/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Start Your Quantum Journey</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Access the world's most advanced trapped-ion quantum computers
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="px-8 py-3 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                    Request Information
+                </a>
+                <a href="hardware.html" class="px-8 py-3 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                    Back to Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400">
+            <p>© 2024 Aurora Borealis Photonics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Gate Fidelity Visualization
+        const gateCtx = document.getElementById('gateChart').getContext('2d');
+        new Chart(gateCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Fidelity', 'Error'],
+                datasets: [{
+                    data: [99.99, 0.01],
+                    backgroundColor: ['#06b6d4', '#1e293b'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Fidelity Comparison Chart
+        const fidelityCtx = document.getElementById('fidelityChart').getContext('2d');
+        new Chart(fidelityCtx, {
+            type: 'bar',
+            data: {
+                labels: ['State Prep', 'Single-Qubit', 'Two-Qubit', 'Measurement'],
+                datasets: [{
+                    label: 'Current System',
+                    data: [99.95, 99.99, 99.9, 99.8],
+                    backgroundColor: '#06b6d4'
+                }, {
+                    label: 'Industry Average',
+                    data: [99.5, 99.8, 99.0, 99.2],
+                    backgroundColor: '#64748b'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#fff' }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#888' }
+                    },
+                    y: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { 
+                            color: '#888',
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        },
+                        min: 98,
+                        max: 100
+                    }
+                }
+            }
+        });
+        
+        // Coherence Times Chart
+        const coherenceCtx = document.getElementById('coherenceChart').getContext('2d');
+        new Chart(coherenceCtx, {
+            type: 'line',
+            data: {
+                labels: ['2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'T1 (Relaxation)',
+                    data: [5, 8, 12, 18, 25],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    tension: 0.4
+                }, {
+                    label: 'T2 (Dephasing)',
+                    data: [2, 4, 7, 10, 15],
+                    borderColor: '#8b5cf6',
+                    backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#fff' }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Time (seconds)', color: '#888' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

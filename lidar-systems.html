@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiDAR Systems - Solid-State & Mechanical Scanning | ABP Photonics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/three@0.150.0/build/three.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #ff0066 0%, #ff6600 50%, #ffff00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #1a0a0a 0%, #2a1515 50%, #1a0a0a 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* LiDAR Scan Animation */
+        .lidar-scan {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff0066, transparent);
+            animation: scan-sweep 3s linear infinite;
+        }
+        
+        @keyframes scan-sweep {
+            0% { transform: translateY(-100px); }
+            100% { transform: translateY(100px); }
+        }
+        
+        /* Point Cloud Effect */
+        .point-cloud {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00ff88;
+            border-radius: 50%;
+            box-shadow: 0 0 4px #00ff88;
+            animation: point-fade 2s ease-out infinite;
+        }
+        
+        @keyframes point-fade {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0); }
+        }
+        
+        /* Rotating Mirror */
+        .mirror-rotate {
+            animation: rotate-mirror 2s linear infinite;
+        }
+        
+        @keyframes rotate-mirror {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Range Rings */
+        .range-ring {
+            position: absolute;
+            border: 1px solid rgba(255, 102, 0, 0.3);
+            border-radius: 50%;
+            animation: expand-ring 4s ease-out infinite;
+        }
+        
+        @keyframes expand-ring {
+            0% { width: 0; height: 0; opacity: 1; }
+            100% { width: 400px; height: 400px; opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="hardware.html" class="text-gray-400 hover:text-white transition">Hardware</a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold gradient-text">LiDAR Systems</span>
+                </div>
+                <a href="#quote" class="px-4 py-2 bg-orange-600 rounded-lg hover:bg-orange-700 transition">
+                    Get Specifications
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient pt-24 pb-16 overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <!-- Animated scan lines -->
+            <div class="lidar-scan"></div>
+            <div class="lidar-scan" style="animation-delay: 1s;"></div>
+            <div class="lidar-scan" style="animation-delay: 2s;"></div>
+        </div>
+        
+        <!-- Point cloud visualization -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="point-cloud" style="top: 20%; left: 10%;"></div>
+            <div class="point-cloud" style="top: 30%; left: 80%; animation-delay: 0.5s;"></div>
+            <div class="point-cloud" style="top: 60%; left: 30%; animation-delay: 1s;"></div>
+            <div class="point-cloud" style="top: 80%; left: 60%; animation-delay: 1.5s;"></div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">Advanced LiDAR Systems</span>
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                    High-resolution 3D sensing solutions for autonomous vehicles, robotics, 
+                    mapping, and industrial applications with unmatched range and accuracy
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="#solid-state" class="px-6 py-3 bg-orange-600 rounded-lg hover:bg-orange-700 transition">
+                        Solid-State LiDAR
+                    </a>
+                    <a href="#mechanical" class="px-6 py-3 border border-orange-600 rounded-lg hover:bg-orange-600/10 transition">
+                        Mechanical Scanning
+                    </a>
+                    <a href="#applications" class="px-6 py-3 border border-orange-600 rounded-lg hover:bg-orange-600/10 transition">
+                        Applications
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Metrics -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-ruler-combined text-3xl text-orange-400 mb-3"></i>
+                    <div class="text-2xl font-bold gradient-text">300m</div>
+                    <div class="text-gray-400">Max Range</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-crosshairs text-3xl text-red-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-red-400">±2cm</div>
+                    <div class="text-gray-400">Accuracy</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-eye text-3xl text-yellow-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-yellow-400">120°×25°</div>
+                    <div class="text-gray-400">Field of View</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-sync text-3xl text-green-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-green-400">20Hz</div>
+                    <div class="text-gray-400">Frame Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solid-State LiDAR -->
+    <section id="solid-state" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Solid-State LiDAR Technology</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <!-- Technology Overview -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">ABP-SolidScan Series</h3>
+                    <p class="text-gray-300 mb-6">
+                        Revolutionary solid-state LiDAR with no moving parts, utilizing optical phased arrays 
+                        and MEMS mirrors for reliable, automotive-grade 3D sensing.
+                    </p>
+                    
+                    <!-- OPA Visualization -->
+                    <div class="bg-slate-800 rounded-lg p-6 mb-6">
+                        <h4 class="text-lg font-semibold mb-4">Optical Phased Array Beam Steering</h4>
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <!-- OPA chip -->
+                            <rect x="50" y="80" width="100" height="40" fill="#1a1a2e" stroke="#666" stroke-width="2"/>
+                            
+                            <!-- Waveguides -->
+                            <g opacity="0.8">
+                                <line x1="150" y1="85" x2="350" y2="50" stroke="#ff0066" stroke-width="2"/>
+                                <line x1="150" y1="90" x2="350" y2="70" stroke="#ff3366" stroke-width="2"/>
+                                <line x1="150" y1="95" x2="350" y2="90" stroke="#ff6666" stroke-width="2"/>
+                                <line x1="150" y1="100" x2="350" y2="110" stroke="#ff9966" stroke-width="2"/>
+                                <line x1="150" y1="105" x2="350" y2="130" stroke="#ffcc66" stroke-width="2"/>
+                                <line x1="150" y1="110" x2="350" y2="150" stroke="#ffff66" stroke-width="2"/>
+                            </g>
+                            
+                            <!-- Phase shifters -->
+                            <g>
+                                <circle cx="100" cy="85" r="3" fill="#00ff88"/>
+                                <circle cx="100" cy="95" r="3" fill="#00ff88"/>
+                                <circle cx="100" cy="105" r="3" fill="#00ff88"/>
+                                <circle cx="100" cy="115" r="3" fill="#00ff88"/>
+                            </g>
+                            
+                            <text x="100" y="140" fill="#888" text-anchor="middle" font-size="12">OPA Chip</text>
+                            <text x="350" y="180" fill="#888" text-anchor="end" font-size="12">Steered Beam</text>
+                        </svg>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-400">Points/Second</div>
+                            <div class="font-semibold">2.4M pts/s</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-400">Angular Resolution</div>
+                            <div class="font-semibold">0.1° × 0.1°</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-400">Wavelength</div>
+                            <div class="font-semibold">1550nm</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-400">Eye Safety</div>
+                            <div class="font-semibold">Class 1</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Models -->
+                <div class="space-y-4">
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h4 class="text-xl font-bold mb-3">SolidScan-Auto</h4>
+                        <p class="text-gray-400 text-sm mb-3">
+                            Automotive-grade solid-state LiDAR for ADAS and autonomous driving
+                        </p>
+                        <div class="grid grid-cols-2 gap-3 text-sm">
+                            <div>
+                                <span class="text-gray-500">Range:</span>
+                                <span class="text-orange-400 ml-2">200m @ 10%</span>
+                            </div>
+                            <div>
+                                <span class="text-gray-500">Size:</span>
+                                <span class="text-orange-400 ml-2">10×7×5 cm</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h4 class="text-xl font-bold mb-3">SolidScan-Industrial</h4>
+                        <p class="text-gray-400 text-sm mb-3">
+                            High-precision scanning for robotics and industrial automation
+                        </p>
+                        <div class="grid grid-cols-2 gap-3 text-sm">
+                            <div>
+                                <span class="text-gray-500">Accuracy:</span>
+                                <span class="text-red-400 ml-2">±1cm @ 50m</span>
+                            </div>
+                            <div>
+                                <span class="text-gray-500">IP Rating:</span>
+                                <span class="text-red-400 ml-2">IP67</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h4 class="text-xl font-bold mb-3">SolidScan-Flash</h4>
+                        <p class="text-gray-400 text-sm mb-3">
+                            Flash LiDAR for area monitoring and gesture recognition
+                        </p>
+                        <div class="grid grid-cols-2 gap-3 text-sm">
+                            <div>
+                                <span class="text-gray-500">Resolution:</span>
+                                <span class="text-yellow-400 ml-2">320×240</span>
+                            </div>
+                            <div>
+                                <span class="text-gray-500">Frame Rate:</span>
+                                <span class="text-yellow-400 ml-2">30 fps</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 3D Point Cloud Visualization -->
+            <div class="glass-effect p-8 rounded-2xl">
+                <h3 class="text-xl font-bold mb-4">Real-Time Point Cloud</h3>
+                <div id="pointCloudContainer" style="height: 400px; position: relative;">
+                    <!-- Three.js canvas will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mechanical Scanning LiDAR -->
+    <section id="mechanical" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Mechanical Scanning LiDAR</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- 360° Rotating LiDAR -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">ABP-RotaScan 360°</h3>
+                    
+                    <!-- Rotating Scanner Visualization -->
+                    <div class="relative bg-slate-800 rounded-lg p-8 mb-6" style="height: 300px;">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <!-- Range rings -->
+                            <div class="range-ring" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+                            <div class="range-ring" style="top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: 1s;"></div>
+                            <div class="range-ring" style="top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: 2s;"></div>
+                            
+                            <!-- Scanner -->
+                            <svg width="200" height="200" viewBox="0 0 200 200" class="relative z-10">
+                                <!-- Base -->
+                                <circle cx="100" cy="100" r="40" fill="#1a1a2e" stroke="#666" stroke-width="2"/>
+                                
+                                <!-- Rotating head -->
+                                <g class="mirror-rotate" transform-origin="100 100">
+                                    <rect x="90" y="60" width="20" height="40" fill="#ff6600" rx="2"/>
+                                    <line x1="100" y1="60" x2="100" y2="20" stroke="#ff0066" stroke-width="3" opacity="0.8"/>
+                                </g>
+                                
+                                <!-- Laser channels -->
+                                <g opacity="0.6">
+                                    <circle cx="100" cy="80" r="3" fill="#ff0066"/>
+                                    <circle cx="100" cy="90" r="3" fill="#ff3366"/>
+                                    <circle cx="100" cy="100" r="3" fill="#ff6666"/>
+                                    <circle cx="100" cy="110" r="3" fill="#ff9966"/>
+                                    <circle cx="100" cy="120" r="3" fill="#ffcc66"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <h4 class="font-semibold text-orange-400 mb-2">Multi-Channel Design</h4>
+                            <ul class="text-sm text-gray-400 space-y-1">
+                                <li>• 16/32/64/128 channels</li>
+                                <li>• Vertical FOV: 40°</li>
+                                <li>• 360° horizontal scan</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-red-400 mb-2">Performance</h4>
+                            <ul class="text-sm text-gray-400 space-y-1">
+                                <li>• 1.3M points/sec</li>
+                                <li>• Dual return</li>
+                                <li>• 5-20 Hz rotation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full px-6 py-3 bg-orange-600 rounded-lg hover:bg-orange-700 transition">
+                        Download Specifications
+                    </button>
+                </div>
+                
+                <!-- MEMS Mirror LiDAR -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">ABP-MEMScan Pro</h3>
+                    
+                    <!-- MEMS Mirror Visualization -->
+                    <div class="bg-slate-800 rounded-lg p-8 mb-6">
+                        <canvas id="memsChart" height="250"></canvas>
+                    </div>
+                    
+                    <p class="text-gray-400 mb-6">
+                        High-speed MEMS mirror scanning with customizable scan patterns for 
+                        targeted region-of-interest sensing and adaptive resolution.
+                    </p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold">Scan Pattern</span>
+                                <span class="text-yellow-400">Programmable</span>
+                            </div>
+                            <div class="text-xs text-gray-500">Raster, Lissajous, or custom patterns</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold">Mirror Size</span>
+                                <span class="text-green-400">5mm diameter</span>
+                            </div>
+                            <div class="text-xs text-gray-500">Resonant frequency: 2.5 kHz</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Comparison -->
+    <section class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12">Technology Comparison</h2>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full glass-effect rounded-xl overflow-hidden">
+                    <thead>
+                        <tr class="bg-slate-800/50">
+                            <th class="p-4 text-left">Feature</th>
+                            <th class="p-4 text-center text-orange-400">Solid-State</th>
+                            <th class="p-4 text-center text-red-400">Rotating</th>
+                            <th class="p-4 text-center text-yellow-400">MEMS</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-700">
+                        <tr>
+                            <td class="p-4 font-semibold">Reliability</td>
+                            <td class="p-4 text-center text-green-400">Excellent</td>
+                            <td class="p-4 text-center text-orange-400">Good</td>
+                            <td class="p-4 text-center text-yellow-400">Very Good</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold">FOV</td>
+                            <td class="p-4 text-center">120° × 25°</td>
+                            <td class="p-4 text-center">360° × 40°</td>
+                            <td class="p-4 text-center">60° × 30°</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold">Resolution</td>
+                            <td class="p-4 text-center">0.1° × 0.1°</td>
+                            <td class="p-4 text-center">0.2° × 0.2°</td>
+                            <td class="p-4 text-center">0.05° × 0.05°</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold">Cost</td>
+                            <td class="p-4 text-center">$$</td>
+                            <td class="p-4 text-center">$$$</td>
+                            <td class="p-4 text-center">$$</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold">Size</td>
+                            <td class="p-4 text-center text-green-400">Compact</td>
+                            <td class="p-4 text-center text-orange-400">Large</td>
+                            <td class="p-4 text-center text-yellow-400">Small</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications -->
+    <section id="applications" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Applications</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-car text-3xl text-orange-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Autonomous Vehicles</h3>
+                    <p class="text-gray-400 text-sm">
+                        360° perception for self-driving cars with object detection, 
+                        classification, and tracking capabilities.
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-robot text-3xl text-red-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Robotics</h3>
+                    <p class="text-gray-400 text-sm">
+                        Navigation and obstacle avoidance for mobile robots, drones, 
+                        and industrial automation systems.
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-map text-3xl text-yellow-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Mapping & Surveying</h3>
+                    <p class="text-gray-400 text-sm">
+                        High-resolution 3D mapping for topography, urban planning, 
+                        and infrastructure inspection.
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-shield-alt text-3xl text-green-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Security & Surveillance</h3>
+                    <p class="text-gray-400 text-sm">
+                        Perimeter monitoring, intrusion detection, and crowd analysis 
+                        with real-time 3D tracking.
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-city text-3xl text-cyan-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Smart Cities</h3>
+                    <p class="text-gray-400 text-sm">
+                        Traffic monitoring, parking management, and infrastructure 
+                        maintenance with city-wide sensing.
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-industry text-3xl text-purple-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Industrial</h3>
+                    <p class="text-gray-400 text-sm">
+                        Volume measurement, quality inspection, and automated guided 
+                        vehicles in warehouses and factories.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="quote" class="py-16 px-4 bg-gradient-to-r from-orange-900/20 to-red-900/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">See the World in 3D</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Let our LiDAR experts help you select the perfect sensing solution for your application
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="px-8 py-3 bg-orange-600 rounded-lg hover:bg-orange-700 transition">
+                    Get Specifications
+                </a>
+                <a href="hardware.html" class="px-8 py-3 border border-orange-600 rounded-lg hover:bg-orange-600/10 transition">
+                    Back to Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400">
+            <p>© 2024 Aurora Borealis Photonics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Three.js Point Cloud Visualization
+        const container = document.getElementById('pointCloudContainer');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setClearColor(0x000000, 0);
+        container.appendChild(renderer.domElement);
+        
+        // Create point cloud
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        const colors = [];
+        
+        // Generate random points in a cone shape
+        for (let i = 0; i < 10000; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const radius = Math.random() * 50;
+            const height = Math.random() * 100 - 50;
+            const distance = Math.sqrt(radius * radius + height * height);
+            
+            vertices.push(
+                Math.cos(angle) * radius,
+                height,
+                Math.sin(angle) * radius
+            );
+            
+            // Color based on distance
+            const intensity = 1 - distance / 100;
+            colors.push(intensity, intensity * 0.5, 0);
+        }
+        
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+        
+        const material = new THREE.PointsMaterial({ size: 2, vertexColors: true });
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+        
+        camera.position.z = 150;
+        camera.position.y = 50;
+        camera.lookAt(0, 0, 0);
+        
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+            points.rotation.y += 0.005;
+            renderer.render(scene, camera);
+        }
+        animate();
+        
+        // Handle resize
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+        
+        // MEMS Scan Pattern Chart
+        const memsCtx = document.getElementById('memsChart').getContext('2d');
+        
+        // Generate Lissajous pattern
+        const lissajousData = [];
+        for (let t = 0; t < 100; t++) {
+            const x = Math.sin(3 * t / 10) * 50;
+            const y = Math.sin(4 * t / 10) * 30;
+            lissajousData.push({ x, y });
+        }
+        
+        new Chart(memsCtx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'MEMS Scan Pattern',
+                    data: lissajousData,
+                    backgroundColor: 'rgba(255, 102, 0, 0.5)',
+                    borderColor: '#ff6600',
+                    pointRadius: 1,
+                    showLine: true,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Lissajous Scan Pattern',
+                        color: '#fff'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Horizontal Angle (°)', color: '#888' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Vertical Angle (°)', color: '#888' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

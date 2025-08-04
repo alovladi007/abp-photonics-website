@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Optics - Single Photon Sources & Quantum State Generators | ABP Photonics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #9333ea 0%, #c084fc 50%, #e879f9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #1a0f1f 0%, #2a1f3a 50%, #1a0f1f 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Quantum State Animation */
+        .quantum-state {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #e879f9 0%, transparent 70%);
+            animation: quantum-superposition 4s ease-in-out infinite;
+        }
+        
+        @keyframes quantum-superposition {
+            0%, 100% { transform: scale(1) translateX(0); opacity: 0.8; }
+            25% { transform: scale(1.5) translateX(-30px); opacity: 0.4; }
+            50% { transform: scale(1) translateX(0); opacity: 0.8; }
+            75% { transform: scale(1.5) translateX(30px); opacity: 0.4; }
+        }
+        
+        /* Entanglement Visualization */
+        .entangled-photon {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #e879f9;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #e879f9;
+        }
+        
+        .entanglement-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #9333ea, transparent);
+            animation: entangle-pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes entangle-pulse {
+            0%, 100% { opacity: 0.3; transform: scaleX(0.8); }
+            50% { opacity: 1; transform: scaleX(1); }
+        }
+        
+        /* Bloch Sphere */
+        .bloch-sphere {
+            animation: rotate-sphere 10s linear infinite;
+        }
+        
+        @keyframes rotate-sphere {
+            0% { transform: rotateY(0deg) rotateX(20deg); }
+            100% { transform: rotateY(360deg) rotateX(20deg); }
+        }
+        
+        /* Quantum Circuit */
+        .quantum-gate {
+            fill: none;
+            stroke: #c084fc;
+            stroke-width: 2;
+        }
+        
+        .qubit-line {
+            stroke: #666;
+            stroke-width: 1;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="hardware.html" class="text-gray-400 hover:text-white transition">Hardware</a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold gradient-text">Quantum Optics</span>
+                </div>
+                <a href="#quote" class="px-4 py-2 bg-purple-600 rounded-lg hover:bg-purple-700 transition">
+                    Contact Experts
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient pt-24 pb-16 overflow-hidden">
+        <div class="absolute inset-0 opacity-30">
+            <!-- Quantum states visualization -->
+            <div class="quantum-state" style="top: 20%; left: 10%;"></div>
+            <div class="quantum-state" style="top: 60%; right: 15%; animation-delay: 1s;"></div>
+            <div class="quantum-state" style="bottom: 20%; left: 50%; animation-delay: 2s;"></div>
+            
+            <!-- Entangled photons -->
+            <div class="relative" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <div class="entangled-photon" style="left: -50px;"></div>
+                <div class="entangled-photon" style="right: -50px;"></div>
+                <div class="entanglement-line" style="width: 100px; left: -50px; top: 4px;"></div>
+            </div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">Quantum Optics Solutions</span>
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                    Advanced single photon sources and quantum state generators enabling 
+                    quantum computing, quantum communication, and fundamental quantum research
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="#single-photon" class="px-6 py-3 bg-purple-600 rounded-lg hover:bg-purple-700 transition">
+                        Single Photon Sources
+                    </a>
+                    <a href="#quantum-states" class="px-6 py-3 border border-purple-600 rounded-lg hover:bg-purple-600/10 transition">
+                        Quantum States
+                    </a>
+                    <a href="#applications" class="px-6 py-3 border border-purple-600 rounded-lg hover:bg-purple-600/10 transition">
+                        Applications
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-atom text-3xl text-purple-400 mb-3"></i>
+                    <div class="text-2xl font-bold gradient-text">> 99.9%</div>
+                    <div class="text-gray-400">Purity</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-bolt text-3xl text-pink-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-pink-400">80 MHz</div>
+                    <div class="text-gray-400">Rep Rate</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-percentage text-3xl text-cyan-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-cyan-400">> 95%</div>
+                    <div class="text-gray-400">Heralding Efficiency</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-thermometer-half text-3xl text-orange-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-orange-400">300K</div>
+                    <div class="text-gray-400">Operation Temp</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Single Photon Sources -->
+    <section id="single-photon" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Single Photon Sources</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <!-- Technology Overview -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">ABP-QuantumLight Series</h3>
+                    <p class="text-gray-300 mb-6">
+                        State-of-the-art single photon sources based on quantum dots, color centers, 
+                        and parametric down-conversion for quantum information applications.
+                    </p>
+                    
+                    <!-- Hong-Ou-Mandel Dip Visualization -->
+                    <div class="bg-slate-800 rounded-lg p-4 mb-6">
+                        <canvas id="homDip" height="200"></canvas>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-400">g²(0)</div>
+                            <div class="font-semibold">< 0.01</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-400">Wavelength</div>
+                            <div class="font-semibold">637-1550nm</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-400">Brightness</div>
+                            <div class="font-semibold">> 10⁶/s</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-400">Coherence</div>
+                            <div class="font-semibold">> 100μs</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Types -->
+                <div class="space-y-4">
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h4 class="text-xl font-bold mb-3">Quantum Dot Sources</h4>
+                        <p class="text-gray-400 text-sm mb-3">
+                            Deterministic single photon emission from InAs/GaAs quantum dots
+                        </p>
+                        <ul class="text-sm text-gray-500 space-y-1">
+                            <li>• On-demand generation</li>
+                            <li>• Transform-limited linewidth</li>
+                            <li>• Purcell enhancement available</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h4 class="text-xl font-bold mb-3">NV Center Sources</h4>
+                        <p class="text-gray-400 text-sm mb-3">
+                            Room-temperature single photons from nitrogen-vacancy centers in diamond
+                        </p>
+                        <ul class="text-sm text-gray-500 space-y-1">
+                            <li>• Spin-photon interface</li>
+                            <li>• Long spin coherence</li>
+                            <li>• Optical initialization</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h4 class="text-xl font-bold mb-3">SPDC Sources</h4>
+                        <p class="text-gray-400 text-sm mb-3">
+                            Heralded single photons via spontaneous parametric down-conversion
+                        </p>
+                        <ul class="text-sm text-gray-500 space-y-1">
+                            <li>• Wavelength tunability</li>
+                            <li>• High heralding efficiency</li>
+                            <li>• Fiber-coupled output</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Characterization -->
+            <div class="glass-effect p-8 rounded-2xl">
+                <h3 class="text-xl font-bold mb-6">Single Photon Characterization</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <i class="fas fa-chart-line text-4xl text-purple-400 mb-4"></i>
+                        <h4 class="font-semibold mb-2">Antibunching</h4>
+                        <p class="text-sm text-gray-400">
+                            Second-order correlation g²(0) < 0.5 confirms single photon emission
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-wave-square text-4xl text-pink-400 mb-4"></i>
+                        <h4 class="font-semibold mb-2">Indistinguishability</h4>
+                        <p class="text-sm text-gray-400">
+                            Hong-Ou-Mandel visibility > 90% for quantum interference
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-sync text-4xl text-cyan-400 mb-4"></i>
+                        <h4 class="font-semibold mb-2">Coherence</h4>
+                        <p class="text-sm text-gray-400">
+                            Transform-limited emission with coherence time > 100μs
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quantum State Generators -->
+    <section id="quantum-states" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Quantum State Generators</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Entangled Photon Sources -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">Entangled Photon Pairs</h3>
+                    
+                    <!-- Bell State Visualization -->
+                    <div class="bg-slate-800 rounded-lg p-6 mb-6">
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <!-- Nonlinear crystal -->
+                            <rect x="150" y="80" width="100" height="40" fill="#4a1d6b" stroke="#9333ea" stroke-width="2" rx="5"/>
+                            <text x="200" y="105" fill="#fff" text-anchor="middle" font-size="12">PPKTP</text>
+                            
+                            <!-- Pump beam -->
+                            <line x1="50" y1="100" x2="150" y2="100" stroke="#e879f9" stroke-width="3"/>
+                            <text x="100" y="90" fill="#e879f9" text-anchor="middle" font-size="10">Pump</text>
+                            
+                            <!-- Signal and idler -->
+                            <line x1="250" y1="90" x2="350" y2="60" stroke="#ff0066" stroke-width="2"/>
+                            <line x1="250" y1="110" x2="350" y2="140" stroke="#00d4ff" stroke-width="2"/>
+                            <text x="300" y="50" fill="#ff0066" font-size="10">Signal</text>
+                            <text x="300" y="155" fill="#00d4ff" font-size="10">Idler</text>
+                            
+                            <!-- Entanglement symbol -->
+                            <path d="M 290 90 Q 300 100 290 110" fill="none" stroke="#9333ea" stroke-width="1" stroke-dasharray="2,2"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-3">Bell States Available:</h4>
+                        <div class="grid grid-cols-2 gap-3 text-sm">
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <span class="font-mono text-purple-400">|Φ⁺⟩ = |HH⟩ + |VV⟩</span>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <span class="font-mono text-purple-400">|Φ⁻⟩ = |HH⟩ - |VV⟩</span>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <span class="font-mono text-pink-400">|Ψ⁺⟩ = |HV⟩ + |VH⟩</span>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <span class="font-mono text-pink-400">|Ψ⁻⟩ = |HV⟩ - |VH⟩</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Fidelity:</span>
+                            <span class="font-semibold">> 98%</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Generation Rate:</span>
+                            <span class="font-semibold">10⁶ pairs/s</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">CHSH Violation:</span>
+                            <span class="font-semibold">S = 2.8 ± 0.02</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Advanced Quantum States -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">Advanced Quantum States</h3>
+                    
+                    <!-- Bloch Sphere -->
+                    <div class="bg-slate-800 rounded-lg p-6 mb-6 flex justify-center">
+                        <div class="bloch-sphere" style="transform-style: preserve-3d;">
+                            <svg width="200" height="200" viewBox="-100 -100 200 200">
+                                <!-- Sphere -->
+                                <circle cx="0" cy="0" r="80" fill="none" stroke="#666" stroke-width="1" opacity="0.5"/>
+                                <ellipse cx="0" cy="0" rx="80" ry="20" fill="none" stroke="#666" stroke-width="1" opacity="0.5"/>
+                                
+                                <!-- Axes -->
+                                <line x1="-100" y1="0" x2="100" y2="0" stroke="#888" stroke-width="1" opacity="0.5"/>
+                                <line x1="0" y1="-100" x2="0" y2="100" stroke="#888" stroke-width="1" opacity="0.5"/>
+                                
+                                <!-- State vector -->
+                                <line x1="0" y1="0" x2="40" y2="-60" stroke="#e879f9" stroke-width="3"/>
+                                <circle cx="40" cy="-60" r="5" fill="#e879f9"/>
+                                
+                                <!-- Labels -->
+                                <text x="0" y="-90" fill="#fff" text-anchor="middle" font-size="12">|0⟩</text>
+                                <text x="0" y="95" fill="#fff" text-anchor="middle" font-size="12">|1⟩</text>
+                                <text x="90" y="5" fill="#fff" text-anchor="middle" font-size="12">|+⟩</text>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-purple-400 mb-2">Squeezed States</h4>
+                            <p class="text-sm text-gray-400">
+                                Reduced quantum noise below the vacuum level for enhanced sensitivity
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-pink-400 mb-2">Cluster States</h4>
+                            <p class="text-sm text-gray-400">
+                                Multi-photon entangled states for measurement-based quantum computing
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-cyan-400 mb-2">GHZ States</h4>
+                            <p class="text-sm text-gray-400">
+                                Three or more photon entanglement for quantum foundations tests
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quantum Circuits -->
+    <section class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12">Integrated Quantum Photonic Circuits</h2>
+            
+            <div class="glass-effect p-8 rounded-2xl">
+                <div class="grid lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Programmable Quantum Processors</h3>
+                        <p class="text-gray-400 mb-6">
+                            Silicon photonic chips with integrated single photon sources, 
+                            quantum gates, and detectors for scalable quantum computing.
+                        </p>
+                        
+                        <div class="space-y-3">
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <h4 class="font-semibold text-purple-400">On-chip Components</h4>
+                                <ul class="text-sm text-gray-400 mt-2 space-y-1">
+                                    <li>• Integrated quantum dot sources</li>
+                                    <li>• Reconfigurable beam splitters</li>
+                                    <li>• Phase shifters</li>
+                                    <li>• Superconducting nanowire detectors</li>
+                                </ul>
+                            </div>
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <h4 class="font-semibold text-pink-400">Performance Metrics</h4>
+                                <ul class="text-sm text-gray-400 mt-2 space-y-1">
+                                    <li>• Gate fidelity > 99%</li>
+                                    <li>• Loss < 0.1 dB/cm</li>
+                                    <li>• Crosstalk < -30 dB</li>
+                                    <li>• 100+ components on chip</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quantum Circuit Diagram -->
+                    <div class="bg-slate-800 rounded-lg p-6">
+                        <svg viewBox="0 0 400 300" class="w-full h-auto">
+                            <!-- Qubit lines -->
+                            <line x1="50" y1="80" x2="350" y2="80" class="qubit-line"/>
+                            <line x1="50" y1="140" x2="350" y2="140" class="qubit-line"/>
+                            <line x1="50" y1="200" x2="350" y2="200" class="qubit-line"/>
+                            
+                            <!-- Hadamard gates -->
+                            <rect x="80" y="65" width="30" height="30" class="quantum-gate"/>
+                            <text x="95" y="85" fill="#c084fc" text-anchor="middle" font-size="14">H</text>
+                            
+                            <rect x="80" y="125" width="30" height="30" class="quantum-gate"/>
+                            <text x="95" y="145" fill="#c084fc" text-anchor="middle" font-size="14">H</text>
+                            
+                            <!-- CNOT gates -->
+                            <circle cx="180" cy="80" r="5" fill="#c084fc"/>
+                            <line x1="180" y1="80" x2="180" y2="140" stroke="#c084fc" stroke-width="2"/>
+                            <circle cx="180" cy="140" r="15" fill="none" stroke="#c084fc" stroke-width="2"/>
+                            <line x1="165" y1="140" x2="195" y2="140" stroke="#c084fc" stroke-width="2"/>
+                            <line x1="180" y1="125" x2="180" y2="155" stroke="#c084fc" stroke-width="2"/>
+                            
+                            <!-- Phase gates -->
+                            <rect x="240" y="185" width="30" height="30" class="quantum-gate"/>
+                            <text x="255" y="205" fill="#c084fc" text-anchor="middle" font-size="14">φ</text>
+                            
+                            <!-- Measurement -->
+                            <path d="M 300 70 L 300 90 L 320 90" fill="none" stroke="#c084fc" stroke-width="2"/>
+                            <path d="M 310 75 A 10 10 0 0 1 310 85" fill="none" stroke="#c084fc" stroke-width="2"/>
+                            
+                            <!-- Labels -->
+                            <text x="30" y="85" fill="#888" text-anchor="end" font-size="12">|0⟩</text>
+                            <text x="30" y="145" fill="#888" text-anchor="end" font-size="12">|0⟩</text>
+                            <text x="30" y="205" fill="#888" text-anchor="end" font-size="12">|0⟩</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications -->
+    <section id="applications" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Quantum Applications</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-lock text-3xl text-purple-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Quantum Cryptography</h3>
+                    <p class="text-gray-400 text-sm">
+                        Quantum key distribution (QKD) for unconditionally secure communication 
+                        using BB84, E91, and other protocols.
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-microchip text-3xl text-pink-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Quantum Computing</h3>
+                    <p class="text-gray-400 text-sm">
+                        Linear optical quantum computing, boson sampling, and variational 
+                        quantum eigensolvers for computational advantage.
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-satellite-dish text-3xl text-cyan-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Quantum Sensing</h3>
+                    <p class="text-gray-400 text-sm">
+                        Enhanced precision measurements using quantum states for gravitational 
+                        wave detection, imaging, and metrology.
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-network-wired text-3xl text-green-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Quantum Networks</h3>
+                    <p class="text-gray-400 text-sm">
+                        Quantum repeaters and memories for long-distance entanglement 
+                        distribution and quantum internet.
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-atom text-3xl text-orange-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Quantum Simulation</h3>
+                    <p class="text-gray-400 text-sm">
+                        Simulation of complex quantum systems, molecular dynamics, and 
+                        many-body physics problems.
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-flask text-3xl text-red-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Fundamental Research</h3>
+                    <p class="text-gray-400 text-sm">
+                        Tests of quantum mechanics foundations, Bell inequality violations, 
+                        and quantum-to-classical transitions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="quote" class="py-16 px-4 bg-gradient-to-r from-purple-900/20 to-pink-900/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Enter the Quantum Era</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Partner with us to develop cutting-edge quantum optical solutions for your research or application
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="px-8 py-3 bg-purple-600 rounded-lg hover:bg-purple-700 transition">
+                    Contact Quantum Experts
+                </a>
+                <a href="hardware.html" class="px-8 py-3 border border-purple-600 rounded-lg hover:bg-purple-600/10 transition">
+                    Back to Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400">
+            <p>© 2024 Aurora Borealis Photonics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Hong-Ou-Mandel Dip Chart
+        const homCtx = document.getElementById('homDip').getContext('2d');
+        
+        // Generate HOM dip data
+        const homData = [];
+        for (let delay = -50; delay <= 50; delay++) {
+            const visibility = 0.95;
+            const width = 10;
+            const coincidences = 1 - visibility * Math.exp(-Math.pow(delay/width, 2));
+            homData.push({ x: delay, y: coincidences });
+        }
+        
+        new Chart(homCtx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Coincidence Rate',
+                    data: homData,
+                    backgroundColor: 'rgba(233, 121, 249, 0.5)',
+                    borderColor: '#e879f9',
+                    pointRadius: 2,
+                    showLine: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Hong-Ou-Mandel Interference',
+                        color: '#fff'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Time Delay (ps)', color: '#888' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Normalized Coincidences', color: '#888' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' },
+                        min: 0,
+                        max: 1
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

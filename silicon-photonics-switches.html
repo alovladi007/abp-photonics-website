@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optical Switches - Non-blocking MxN Matrices | ABP Photonics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 50%, #0066ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0a0e27 0%, #151933 50%, #0a0e27 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Switch Matrix Animation */
+        .switch-path {
+            stroke: #00d4ff;
+            stroke-width: 2;
+            fill: none;
+            opacity: 0;
+            animation: path-activate 3s ease-in-out infinite;
+        }
+        
+        @keyframes path-activate {
+            0%, 100% { opacity: 0; }
+            20%, 80% { opacity: 1; }
+        }
+        
+        .switch-node {
+            fill: #0066ff;
+            transition: all 0.3s;
+        }
+        
+        .switch-node.active {
+            fill: #00d4ff;
+            filter: drop-shadow(0 0 10px #00d4ff);
+        }
+        
+        /* Switching Time Visualization */
+        .timing-pulse {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff88, transparent);
+            animation: timing-sweep 2s linear infinite;
+        }
+        
+        @keyframes timing-sweep {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Matrix Grid */
+        .matrix-grid {
+            background-image: 
+                linear-gradient(rgba(0, 153, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 153, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="hardware.html" class="text-gray-400 hover:text-white transition">Hardware</a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold gradient-text">Optical Switches</span>
+                </div>
+                <a href="#quote" class="px-4 py-2 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                    Request Quote
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient pt-24 pb-16 overflow-hidden">
+        <div class="absolute inset-0 matrix-grid opacity-20"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">Non-blocking Optical Switch Matrices</span>
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                    Ultra-fast MxN optical switching with nanosecond reconfiguration time, 
+                    enabling dynamic optical networks and advanced photonic computing architectures
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="#products" class="px-6 py-3 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                        View Products
+                    </a>
+                    <a href="#technology" class="px-6 py-3 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                        Technology
+                    </a>
+                    <a href="#applications" class="px-6 py-3 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                        Applications
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-stopwatch text-3xl text-cyan-400 mb-3"></i>
+                    <div class="text-2xl font-bold gradient-text">< 10ns</div>
+                    <div class="text-gray-400">Switching Time</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-th text-3xl text-purple-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-purple-400">512×512</div>
+                    <div class="text-gray-400">Max Port Count</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-chart-line text-3xl text-green-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-green-400">< 0.5dB</div>
+                    <div class="text-gray-400">Insertion Loss</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-shield-alt text-3xl text-orange-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-orange-400">> 60dB</div>
+                    <div class="text-gray-400">Crosstalk Isolation</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Switch Matrix Demo -->
+    <section class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Interactive Switch Matrix</h2>
+            
+            <div class="glass-effect p-8 rounded-2xl">
+                <div class="grid lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">8×8 Non-blocking Architecture</h3>
+                        <p class="text-gray-300 mb-6">
+                            Click on input/output ports to see dynamic path routing through our 
+                            silicon photonic switch fabric. Each connection is established in under 10 nanoseconds.
+                        </p>
+                        
+                        <div class="space-y-4 mb-6">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-4 h-4 bg-cyan-500 rounded-full"></div>
+                                <span>Active optical path</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-4 h-4 bg-blue-600 rounded-full"></div>
+                                <span>Switch crosspoint</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-4 h-4 bg-gray-600 rounded-full"></div>
+                                <span>Inactive crosspoint</span>
+                            </div>
+                        </div>
+                        
+                        <button onclick="randomizeConnections()" class="px-6 py-2 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                            Randomize Connections
+                        </button>
+                    </div>
+                    
+                    <!-- Switch Matrix Visualization -->
+                    <div class="relative bg-slate-800/50 p-6 rounded-xl">
+                        <svg id="switchMatrix" viewBox="0 0 500 500" class="w-full h-auto">
+                            <!-- Will be populated by JavaScript -->
+                        </svg>
+                        <div class="timing-pulse" style="top: 50%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Portfolio -->
+    <section id="products" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Product Portfolio</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Small-Scale Switches -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-4">ABP-OSM Series</h3>
+                    <p class="text-gray-300 mb-6">
+                        Compact optical switch modules for edge applications and laboratory use
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold">OSM-16</h4>
+                                <span class="text-cyan-400">16×16 ports</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <span class="text-gray-400">Switching time:</span> 8ns
+                                </div>
+                                <div>
+                                    <span class="text-gray-400">Power:</span> 5W
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold">OSM-64</h4>
+                                <span class="text-cyan-400">64×64 ports</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <span class="text-gray-400">Switching time:</span> 10ns
+                                </div>
+                                <div>
+                                    <span class="text-gray-400">Power:</span> 15W
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold">OSM-128</h4>
+                                <span class="text-cyan-400">128×128 ports</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <span class="text-gray-400">Switching time:</span> 12ns
+                                </div>
+                                <div>
+                                    <span class="text-gray-400">Power:</span> 25W
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Large-Scale Switches -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-4">ABP-OSX Series</h3>
+                    <p class="text-gray-300 mb-6">
+                        High-radix optical cross-connects for data center and telecom applications
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold">OSX-256</h4>
+                                <span class="text-purple-400">256×256 ports</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <span class="text-gray-400">Architecture:</span> Beneš
+                                </div>
+                                <div>
+                                    <span class="text-gray-400">Stages:</span> 5
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold">OSX-512</h4>
+                                <span class="text-purple-400">512×512 ports</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <span class="text-gray-400">Architecture:</span> Clos
+                                </div>
+                                <div>
+                                    <span class="text-gray-400">Stages:</span> 7
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold">OSX-1024</h4>
+                                <span class="text-purple-400">1024×1024 ports</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <span class="text-gray-400">Architecture:</span> Hybrid
+                                </div>
+                                <div>
+                                    <span class="text-gray-400">Stages:</span> 9
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Deep Dive -->
+    <section id="technology" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Technology Deep Dive</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <!-- Switching Mechanism -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4">Silicon Photonic Switching</h3>
+                    <div class="bg-slate-800 rounded-lg p-4 mb-4">
+                        <canvas id="switchingChart" height="200"></canvas>
+                    </div>
+                    <p class="text-gray-400 text-sm">
+                        Our switches utilize carrier-injection-based silicon photonic Mach-Zehnder 
+                        interferometers for ultra-fast switching with minimal power consumption.
+                    </p>
+                </div>
+                
+                <!-- Performance Comparison -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4">Technology Comparison</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
+                            <span class="font-semibold">Silicon Photonics</span>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-32 bg-slate-700 rounded-full h-2">
+                                    <div class="bg-cyan-500 h-2 rounded-full" style="width: 95%"></div>
+                                </div>
+                                <span class="text-sm text-cyan-400">95%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
+                            <span class="font-semibold">MEMS</span>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-32 bg-slate-700 rounded-full h-2">
+                                    <div class="bg-orange-500 h-2 rounded-full" style="width: 60%"></div>
+                                </div>
+                                <span class="text-sm text-orange-400">60%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
+                            <span class="font-semibold">Liquid Crystal</span>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-32 bg-slate-700 rounded-full h-2">
+                                    <div class="bg-purple-500 h-2 rounded-full" style="width: 40%"></div>
+                                </div>
+                                <span class="text-sm text-purple-400">40%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
+                            <span class="font-semibold">Thermo-optic</span>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-32 bg-slate-700 rounded-full h-2">
+                                    <div class="bg-red-500 h-2 rounded-full" style="width: 30%"></div>
+                                </div>
+                                <span class="text-sm text-red-400">30%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Technical Specifications -->
+            <div class="glass-effect p-8 rounded-2xl">
+                <h3 class="text-2xl font-bold mb-6">Detailed Technical Specifications</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <h4 class="font-semibold text-cyan-400 mb-3">Optical Performance</h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li>• Wavelength range: 1260-1650nm</li>
+                            <li>• Insertion loss: < 0.5dB</li>
+                            <li>• Return loss: > 50dB</li>
+                            <li>• PDL: < 0.1dB</li>
+                            <li>• PMD: < 0.1ps</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-purple-400 mb-3">Switching Performance</h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li>• Rise/fall time: < 5ns</li>
+                            <li>• Settling time: < 10ns</li>
+                            <li>• Extinction ratio: > 40dB</li>
+                            <li>• Lifetime: > 10¹² cycles</li>
+                            <li>• Bit error rate: < 10⁻¹⁵</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-green-400 mb-3">Environmental</h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li>• Operating temp: -5 to 70°C</li>
+                            <li>• Storage temp: -40 to 85°C</li>
+                            <li>• Humidity: 5-95% RH</li>
+                            <li>• Vibration: GR-63-CORE</li>
+                            <li>• MTBF: > 1,000,000 hrs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications -->
+    <section id="applications" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Applications</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-server text-3xl text-cyan-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Data Center Switching</h3>
+                    <p class="text-gray-400 text-sm">
+                        Optical circuit switching for dynamic bandwidth allocation and 
+                        reduced power consumption in hyperscale data centers.
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-network-wired text-3xl text-purple-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Telecom OXC</h3>
+                    <p class="text-gray-400 text-sm">
+                        Optical cross-connects for ROADM applications, enabling flexible 
+                        wavelength routing in metro and long-haul networks.
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-brain text-3xl text-green-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">AI/ML Acceleration</h3>
+                    <p class="text-gray-400 text-sm">
+                        Photonic neural network implementations using programmable 
+                        optical interferometer meshes for matrix operations.
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-atom text-3xl text-orange-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Quantum Computing</h3>
+                    <p class="text-gray-400 text-sm">
+                        Reconfigurable photonic circuits for quantum information 
+                        processing and boson sampling experiments.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="quote" class="py-16 px-4 bg-gradient-to-r from-cyan-900/20 to-blue-900/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to Switch to the Future?</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Contact our photonic systems experts to design your custom optical switching solution
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="px-8 py-3 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                    Request Quote
+                </a>
+                <a href="hardware.html" class="px-8 py-3 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                    Back to Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400">
+            <p>© 2024 Aurora Borealis Photonics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Switch Matrix Visualization
+        function drawSwitchMatrix() {
+            const svg = document.getElementById('switchMatrix');
+            const size = 8;
+            const spacing = 50;
+            const offset = 50;
+            
+            // Clear existing content
+            svg.innerHTML = '';
+            
+            // Draw input ports
+            for (let i = 0; i < size; i++) {
+                const y = offset + i * spacing;
+                
+                // Input port
+                const inputPort = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                inputPort.setAttribute('cx', offset - 20);
+                inputPort.setAttribute('cy', y);
+                inputPort.setAttribute('r', 8);
+                inputPort.setAttribute('fill', '#00d4ff');
+                inputPort.setAttribute('class', 'cursor-pointer');
+                inputPort.setAttribute('id', `input-${i}`);
+                svg.appendChild(inputPort);
+                
+                // Input label
+                const inputLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                inputLabel.setAttribute('x', offset - 40);
+                inputLabel.setAttribute('y', y + 5);
+                inputLabel.setAttribute('text-anchor', 'end');
+                inputLabel.setAttribute('fill', '#888');
+                inputLabel.setAttribute('font-size', '12');
+                inputLabel.textContent = `In ${i + 1}`;
+                svg.appendChild(inputLabel);
+            }
+            
+            // Draw output ports
+            for (let i = 0; i < size; i++) {
+                const x = offset + (size - 1) * spacing + 20;
+                const y = offset + i * spacing;
+                
+                // Output port
+                const outputPort = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                outputPort.setAttribute('cx', x);
+                outputPort.setAttribute('cy', y);
+                outputPort.setAttribute('r', 8);
+                outputPort.setAttribute('fill', '#00ff88');
+                outputPort.setAttribute('class', 'cursor-pointer');
+                outputPort.setAttribute('id', `output-${i}`);
+                svg.appendChild(outputPort);
+                
+                // Output label
+                const outputLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                outputLabel.setAttribute('x', x + 20);
+                outputLabel.setAttribute('y', y + 5);
+                outputLabel.setAttribute('fill', '#888');
+                outputLabel.setAttribute('font-size', '12');
+                outputLabel.textContent = `Out ${i + 1}`;
+                svg.appendChild(outputLabel);
+            }
+            
+            // Draw switch crosspoints
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    const x = offset + j * spacing;
+                    const y = offset + i * spacing;
+                    
+                    const crosspoint = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    crosspoint.setAttribute('cx', x);
+                    crosspoint.setAttribute('cy', y);
+                    crosspoint.setAttribute('r', 6);
+                    crosspoint.setAttribute('fill', '#0066ff');
+                    crosspoint.setAttribute('class', 'switch-node');
+                    crosspoint.setAttribute('id', `node-${i}-${j}`);
+                    svg.appendChild(crosspoint);
+                }
+            }
+            
+            // Draw initial connections
+            randomizeConnections();
+        }
+        
+        function randomizeConnections() {
+            const svg = document.getElementById('switchMatrix');
+            const size = 8;
+            const spacing = 50;
+            const offset = 50;
+            
+            // Remove existing paths
+            const existingPaths = svg.querySelectorAll('.switch-path');
+            existingPaths.forEach(path => path.remove());
+            
+            // Reset all nodes
+            const nodes = svg.querySelectorAll('.switch-node');
+            nodes.forEach(node => node.classList.remove('active'));
+            
+            // Create random connections
+            const connections = [];
+            const usedOutputs = new Set();
+            
+            for (let i = 0; i < size; i++) {
+                let output;
+                do {
+                    output = Math.floor(Math.random() * size);
+                } while (usedOutputs.has(output));
+                
+                usedOutputs.add(output);
+                connections.push({ input: i, output: output });
+                
+                // Draw path
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                const inputY = offset + i * spacing;
+                const outputX = offset + (size - 1) * spacing + 20;
+                const outputY = offset + output * spacing;
+                
+                // Create smooth path through switch matrix
+                const pathData = `M ${offset - 20} ${inputY} 
+                                  L ${offset + output * spacing} ${inputY}
+                                  L ${offset + output * spacing} ${outputY}
+                                  L ${outputX} ${outputY}`;
+                
+                path.setAttribute('d', pathData);
+                path.setAttribute('class', 'switch-path');
+                path.style.animationDelay = `${i * 0.2}s`;
+                svg.appendChild(path);
+                
+                // Activate crosspoint
+                const node = svg.querySelector(`#node-${i}-${output}`);
+                if (node) {
+                    node.classList.add('active');
+                }
+            }
+        }
+        
+        // Initialize switch matrix
+        drawSwitchMatrix();
+        
+        // Switching time comparison chart
+        const switchingCtx = document.getElementById('switchingChart').getContext('2d');
+        new Chart(switchingCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Silicon Photonics', 'MEMS', 'Liquid Crystal', 'Thermo-optic', 'Electro-optic'],
+                datasets: [{
+                    label: 'Switching Time (log scale)',
+                    data: [10, 1000, 1000000, 100000, 100],
+                    backgroundColor: [
+                        'rgba(0, 212, 255, 0.5)',
+                        'rgba(255, 165, 0, 0.5)',
+                        'rgba(147, 51, 234, 0.5)',
+                        'rgba(239, 68, 68, 0.5)',
+                        'rgba(34, 197, 94, 0.5)'
+                    ],
+                    borderColor: [
+                        '#00d4ff',
+                        '#ffa500',
+                        '#9333ea',
+                        '#ef4444',
+                        '#22c55e'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.parsed.y;
+                                if (value >= 1000000) return value / 1000000 + ' ms';
+                                if (value >= 1000) return value / 1000 + ' μs';
+                                return value + ' ns';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'logarithmic',
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { 
+                            color: '#888',
+                            callback: function(value) {
+                                if (value >= 1000000) return value / 1000000 + 'ms';
+                                if (value >= 1000) return value / 1000 + 'μs';
+                                return value + 'ns';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#888' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

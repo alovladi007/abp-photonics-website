@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optical Transceivers - 400G/800G Coherent Solutions | ABP Photonics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 50%, #0066ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0a0e27 0%, #151933 50%, #0a0e27 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Optical Signal Animation */
+        .optical-signal {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00d4ff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00d4ff;
+            animation: signal-flow 2s linear infinite;
+        }
+        
+        @keyframes signal-flow {
+            0% { transform: translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(300px); opacity: 0; }
+        }
+        
+        /* Wavelength Spectrum */
+        .wavelength-bar {
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(to top, transparent, var(--color), transparent);
+            display: inline-block;
+            margin: 0 1px;
+        }
+        
+        /* Module Glow Effect */
+        .module-glow {
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 30px rgba(0, 212, 255, 0.3); }
+            50% { box-shadow: 0 0 50px rgba(0, 212, 255, 0.5); }
+        }
+        
+        /* Technical Grid */
+        .tech-grid {
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="hardware.html" class="text-gray-400 hover:text-white transition">Hardware</a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold gradient-text">Optical Transceivers</span>
+                </div>
+                <a href="#quote" class="px-4 py-2 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                    Request Quote
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient pt-24 pb-16 overflow-hidden">
+        <div class="absolute inset-0 tech-grid opacity-20"></div>
+        
+        <!-- Animated Optical Path -->
+        <div class="absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent">
+            <div class="optical-signal"></div>
+            <div class="optical-signal" style="animation-delay: 0.5s;"></div>
+            <div class="optical-signal" style="animation-delay: 1s;"></div>
+            <div class="optical-signal" style="animation-delay: 1.5s;"></div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">400G/800G Coherent Transceivers</span>
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                    Industry-leading coherent optical transceivers enabling ultra-high-speed data center interconnects 
+                    with unmatched power efficiency and signal integrity
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="#products" class="px-6 py-3 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                        View Products
+                    </a>
+                    <a href="#specs" class="px-6 py-3 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                        Technical Specs
+                    </a>
+                    <a href="#applications" class="px-6 py-3 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                        Applications
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-tachometer-alt text-3xl text-cyan-400 mb-3"></i>
+                    <div class="text-2xl font-bold gradient-text">800 Gb/s</div>
+                    <div class="text-gray-400">Max Data Rate</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-bolt text-3xl text-green-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-green-400">< 15W</div>
+                    <div class="text-gray-400">Power Consumption</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-ruler text-3xl text-purple-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-purple-400">120km</div>
+                    <div class="text-gray-400">Reach</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-thermometer-half text-3xl text-orange-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-orange-400">0-70°C</div>
+                    <div class="text-gray-400">Operating Temp</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Showcase -->
+    <section id="products" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Product Portfolio</h2>
+            
+            <!-- 400G Transceiver -->
+            <div class="glass-effect p-8 rounded-2xl mb-8">
+                <div class="grid lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-3xl font-bold mb-4">ABP-400G-DCO</h3>
+                        <p class="text-gray-300 mb-6">
+                            Digital Coherent Optics module delivering 400Gb/s transmission with advanced DSP 
+                            and FEC capabilities for metro and long-haul applications.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <div class="text-sm text-gray-400 mb-1">Form Factor</div>
+                                <div class="font-semibold">QSFP-DD</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <div class="text-sm text-gray-400 mb-1">Modulation</div>
+                                <div class="font-semibold">16QAM/QPSK</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <div class="text-sm text-gray-400 mb-1">Wavelength</div>
+                                <div class="font-semibold">C-Band</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <div class="text-sm text-gray-400 mb-1">BER</div>
+                                <div class="font-semibold">< 1E-15</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <button class="px-6 py-2 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                                Download Datasheet
+                            </button>
+                            <button class="px-6 py-2 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 3D Module Visualization -->
+                    <div class="relative">
+                        <div class="bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-xl module-glow">
+                            <svg viewBox="0 0 400 200" class="w-full h-auto">
+                                <!-- Transceiver Module -->
+                                <rect x="50" y="50" width="300" height="100" rx="5" fill="#1a1a2e" stroke="#333" stroke-width="2"/>
+                                
+                                <!-- Optical Ports -->
+                                <rect x="30" y="80" width="20" height="40" fill="#00d4ff" opacity="0.8" rx="2"/>
+                                <text x="40" y="105" fill="#00d4ff" font-size="10" text-anchor="middle">TX</text>
+                                
+                                <rect x="350" y="80" width="20" height="40" fill="#00ff88" opacity="0.8" rx="2"/>
+                                <text x="360" y="105" fill="#00ff88" font-size="10" text-anchor="middle">RX</text>
+                                
+                                <!-- Internal Components -->
+                                <rect x="80" y="70" width="60" height="60" fill="#2a2a3e" stroke="#444" stroke-width="1" rx="3"/>
+                                <text x="110" y="105" fill="#888" font-size="12" text-anchor="middle">DSP</text>
+                                
+                                <rect x="160" y="70" width="60" height="60" fill="#2a2a3e" stroke="#444" stroke-width="1" rx="3"/>
+                                <text x="190" y="105" fill="#888" font-size="12" text-anchor="middle">CDR</text>
+                                
+                                <rect x="240" y="70" width="60" height="60" fill="#2a2a3e" stroke="#444" stroke-width="1" rx="3"/>
+                                <text x="270" y="105" fill="#888" font-size="12" text-anchor="middle">TIA</text>
+                                
+                                <!-- Signal Flow -->
+                                <path d="M 50 100 L 80 100" stroke="#00d4ff" stroke-width="2" opacity="0.6"/>
+                                <path d="M 140 100 L 160 100" stroke="#00d4ff" stroke-width="2" opacity="0.6"/>
+                                <path d="M 220 100 L 240 100" stroke="#00d4ff" stroke-width="2" opacity="0.6"/>
+                                <path d="M 300 100 L 350 100" stroke="#00d4ff" stroke-width="2" opacity="0.6"/>
+                                
+                                <!-- Heat Sink -->
+                                <rect x="50" y="40" width="300" height="10" fill="#333" opacity="0.8"/>
+                                <line x1="70" y1="40" x2="70" y2="50" stroke="#555" stroke-width="1"/>
+                                <line x1="90" y1="40" x2="90" y2="50" stroke="#555" stroke-width="1"/>
+                                <line x1="110" y1="40" x2="110" y2="50" stroke="#555" stroke-width="1"/>
+                                <line x1="130" y1="40" x2="130" y2="50" stroke="#555" stroke-width="1"/>
+                                <line x1="150" y1="40" x2="150" y2="50" stroke="#555" stroke-width="1"/>
+                                <line x1="170" y1="40" x2="170" y2="50" stroke="#555" stroke-width="1"/>
+                                <line x1="190" y1="40" x2="190" y2="50" stroke="#555" stroke-width="1"/>
+                                <line x1="210" y1="40" x2="210" y2="50" stroke="#555" stroke-width="1"/>
+                                <line x1="230" y1="40" x2="230" y2="50" stroke="#555" stroke-width="1"/>
+                                <line x1="250" y1="40" x2="250" y2="50" stroke="#555" stroke-width="1"/>
+                                <line x1="270" y1="40" x2="270" y2="50" stroke="#555" stroke-width="1"/>
+                                <line x1="290" y1="40" x2="290" y2="50" stroke="#555" stroke-width="1"/>
+                                <line x1="310" y1="40" x2="310" y2="50" stroke="#555" stroke-width="1"/>
+                                <line x1="330" y1="40" x2="330" y2="50" stroke="#555" stroke-width="1"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 800G Transceiver -->
+            <div class="glass-effect p-8 rounded-2xl">
+                <div class="grid lg:grid-cols-2 gap-8 items-center">
+                    <div class="order-2 lg:order-1">
+                        <!-- Wavelength Spectrum Visualization -->
+                        <div class="bg-slate-800/50 p-6 rounded-xl">
+                            <h4 class="text-lg font-semibold mb-4">Wavelength Spectrum</h4>
+                            <div class="h-32 flex items-end justify-center space-x-1" id="spectrum">
+                                <!-- Spectrum bars will be generated by JavaScript -->
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-400 mt-2">
+                                <span>1530nm</span>
+                                <span>1550nm</span>
+                                <span>1570nm</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-1 lg:order-2">
+                        <h3 class="text-3xl font-bold mb-4">ABP-800G-ZR+</h3>
+                        <p class="text-gray-300 mb-6">
+                            Next-generation 800Gb/s coherent transceiver with enhanced FEC and probabilistic 
+                            constellation shaping for maximum reach and spectral efficiency.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <div class="text-sm text-gray-400 mb-1">Form Factor</div>
+                                <div class="font-semibold">OSFP</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <div class="text-sm text-gray-400 mb-1">Modulation</div>
+                                <div class="font-semibold">64QAM-PCS</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <div class="text-sm text-gray-400 mb-1">Channels</div>
+                                <div class="font-semibold">2 × 400G</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <div class="text-sm text-gray-400 mb-1">OSNR</div>
+                                <div class="font-semibold">> 35 dB</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <button class="px-6 py-2 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                                Download Datasheet
+                            </button>
+                            <button class="px-6 py-2 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Specifications -->
+    <section id="specs" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Technical Specifications</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Performance Chart -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-semibold mb-4">Performance Metrics</h3>
+                    <canvas id="performanceChart" height="300"></canvas>
+                </div>
+                
+                <!-- Detailed Specs Table -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-semibold mb-4">Detailed Specifications</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between py-2 border-b border-slate-700">
+                            <span class="text-gray-400">Bit Rate</span>
+                            <span class="font-semibold">400G / 800G</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b border-slate-700">
+                            <span class="text-gray-400">Wavelength Range</span>
+                            <span class="font-semibold">1528.77 - 1567.13 nm</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b border-slate-700">
+                            <span class="text-gray-400">Transmit Power</span>
+                            <span class="font-semibold">-10 to +5 dBm</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b border-slate-700">
+                            <span class="text-gray-400">Receiver Sensitivity</span>
+                            <span class="font-semibold">< -20 dBm</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b border-slate-700">
+                            <span class="text-gray-400">Chromatic Dispersion</span>
+                            <span class="font-semibold">±50,000 ps/nm</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b border-slate-700">
+                            <span class="text-gray-400">PMD Tolerance</span>
+                            <span class="font-semibold">25 ps</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b border-slate-700">
+                            <span class="text-gray-400">FEC Type</span>
+                            <span class="font-semibold">oFEC (15% OH)</span>
+                        </div>
+                        <div class="flex justify-between py-2">
+                            <span class="text-gray-400">MTBF</span>
+                            <span class="font-semibold">> 500,000 hours</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Eye Diagram -->
+            <div class="glass-effect p-6 rounded-xl mt-8">
+                <h3 class="text-xl font-semibold mb-4">Signal Quality - Eye Diagram</h3>
+                <div class="bg-slate-800 rounded-lg p-8">
+                    <canvas id="eyeDiagram" width="800" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications -->
+    <section id="applications" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Applications</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-server text-4xl text-cyan-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Data Center Interconnect</h3>
+                    <p class="text-gray-400 mb-4">
+                        High-capacity links between data centers for cloud services, content delivery, 
+                        and disaster recovery with minimal latency.
+                    </p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li>• Metro DCI up to 120km</li>
+                        <li>• Campus interconnects</li>
+                        <li>• Spine-leaf architectures</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-network-wired text-4xl text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Telecom Networks</h3>
+                    <p class="text-gray-400 mb-4">
+                        Carrier-grade solutions for metro and long-haul networks supporting 5G backhaul 
+                        and high-bandwidth services.
+                    </p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li>• DWDM transport</li>
+                        <li>• Metro aggregation</li>
+                        <li>• Mobile backhaul</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-cloud text-4xl text-green-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Cloud & Edge</h3>
+                    <p class="text-gray-400 mb-4">
+                        Enabling high-speed connectivity for cloud computing infrastructure and 
+                        edge computing deployments.
+                    </p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li>• Hyperscale connectivity</li>
+                        <li>• Edge data centers</li>
+                        <li>• AI/ML clusters</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="quote" class="py-16 px-4 bg-gradient-to-r from-cyan-900/20 to-blue-900/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to Upgrade Your Network?</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Contact our optical systems experts to discuss your high-speed interconnect requirements
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="px-8 py-3 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                    Request Quote
+                </a>
+                <a href="hardware.html" class="px-8 py-3 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                    Back to Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400">
+            <p>© 2024 Aurora Borealis Photonics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Generate wavelength spectrum
+        function generateSpectrum() {
+            const container = document.getElementById('spectrum');
+            const wavelengths = 80;
+            
+            for (let i = 0; i < wavelengths; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'wavelength-bar';
+                
+                // Create spectrum distribution
+                const center = wavelengths / 2;
+                const spread = 15;
+                let height = Math.exp(-Math.pow(i - center, 2) / (2 * spread * spread)) * 100;
+                
+                // Add channel peaks
+                if (i % 20 === 10) {
+                    height = 100;
+                }
+                
+                // Color based on wavelength
+                const hue = 180 + (i / wavelengths) * 60; // Cyan to blue
+                bar.style.setProperty('--color', `hsl(${hue}, 100%, 50%)`);
+                bar.style.height = height + '%';
+                
+                container.appendChild(bar);
+            }
+        }
+        
+        generateSpectrum();
+        
+        // Performance Chart
+        const perfCtx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(perfCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Power Efficiency', 'Reach', 'Spectral Efficiency', 'Latency', 'Reliability', 'Temperature Range'],
+                datasets: [{
+                    label: '400G DCO',
+                    data: [85, 80, 90, 95, 98, 85],
+                    borderColor: '#00d4ff',
+                    backgroundColor: 'rgba(0, 212, 255, 0.2)',
+                    pointBackgroundColor: '#00d4ff'
+                }, {
+                    label: '800G ZR+',
+                    data: [80, 95, 95, 90, 97, 80],
+                    borderColor: '#00ff88',
+                    backgroundColor: 'rgba(0, 255, 136, 0.2)',
+                    pointBackgroundColor: '#00ff88'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#fff' }
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        pointLabels: { color: '#888' },
+                        ticks: { 
+                            color: '#888',
+                            backdropColor: 'transparent',
+                            stepSize: 20
+                        },
+                        min: 0,
+                        max: 100
+                    }
+                }
+            }
+        });
+        
+        // Eye Diagram Simulation
+        const eyeCanvas = document.getElementById('eyeDiagram');
+        const eyeCtx = eyeCanvas.getContext('2d');
+        
+        function drawEyeDiagram() {
+            eyeCtx.clearRect(0, 0, eyeCanvas.width, eyeCanvas.height);
+            
+            // Grid
+            eyeCtx.strokeStyle = '#333';
+            eyeCtx.lineWidth = 1;
+            for (let i = 0; i <= 8; i++) {
+                const x = i * 100;
+                eyeCtx.beginPath();
+                eyeCtx.moveTo(x, 0);
+                eyeCtx.lineTo(x, 400);
+                eyeCtx.stroke();
+            }
+            for (let i = 0; i <= 4; i++) {
+                const y = i * 100;
+                eyeCtx.beginPath();
+                eyeCtx.moveTo(0, y);
+                eyeCtx.lineTo(800, y);
+                eyeCtx.stroke();
+            }
+            
+            // Eye pattern
+            eyeCtx.strokeStyle = '#00d4ff';
+            eyeCtx.lineWidth = 0.5;
+            eyeCtx.globalAlpha = 0.1;
+            
+            // Draw multiple traces
+            for (let trace = 0; trace < 100; trace++) {
+                eyeCtx.beginPath();
+                
+                for (let x = 0; x < 800; x += 2) {
+                    const t = x / 100;
+                    const bit = Math.floor(t / 2) % 2;
+                    const phase = (t % 2) / 2;
+                    
+                    let y;
+                    if (phase < 0.1 || phase > 0.9) {
+                        // Transition region
+                        y = 200 + (bit ? -1 : 1) * 150 * Math.sin(phase * Math.PI);
+                    } else {
+                        // Stable region
+                        y = bit ? 50 : 350;
+                    }
+                    
+                    // Add noise
+                    y += (Math.random() - 0.5) * 20;
+                    
+                    if (x === 0) {
+                        eyeCtx.moveTo(x, y);
+                    } else {
+                        eyeCtx.lineTo(x, y);
+                    }
+                }
+                
+                eyeCtx.stroke();
+            }
+            
+            // Eye opening measurement
+            eyeCtx.globalAlpha = 1;
+            eyeCtx.strokeStyle = '#00ff88';
+            eyeCtx.lineWidth = 2;
+            eyeCtx.setLineDash([5, 5]);
+            
+            // Vertical opening
+            eyeCtx.beginPath();
+            eyeCtx.moveTo(400, 100);
+            eyeCtx.lineTo(400, 300);
+            eyeCtx.stroke();
+            
+            // Horizontal opening
+            eyeCtx.beginPath();
+            eyeCtx.moveTo(300, 200);
+            eyeCtx.lineTo(500, 200);
+            eyeCtx.stroke();
+            
+            eyeCtx.setLineDash([]);
+            
+            // Labels
+            eyeCtx.fillStyle = '#888';
+            eyeCtx.font = '12px Inter';
+            eyeCtx.fillText('0', 10, 360);
+            eyeCtx.fillText('1', 10, 60);
+            eyeCtx.fillText('Eye Height: 85%', 420, 200);
+            eyeCtx.fillText('Eye Width: 75%', 350, 320);
+        }
+        
+        drawEyeDiagram();
+    </script>
+</body>
+</html>

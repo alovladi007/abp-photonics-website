@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photonic Sensors - Integrated Sensing Solutions | ABP Photonics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 50%, #0066ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0a0e27 0%, #151933 50%, #0a0e27 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Sensor Wave Animation */
+        .sensor-wave {
+            stroke: #00d4ff;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 5, 5;
+            animation: wave-propagation 2s linear infinite;
+        }
+        
+        @keyframes wave-propagation {
+            0% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -10; }
+        }
+        
+        /* Molecule Animation */
+        .molecule {
+            animation: float-rotate 6s ease-in-out infinite;
+        }
+        
+        @keyframes float-rotate {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(180deg); }
+        }
+        
+        /* Detection Pulse */
+        .detection-pulse {
+            animation: pulse-expand 2s ease-out infinite;
+        }
+        
+        @keyframes pulse-expand {
+            0% { r: 5; opacity: 1; }
+            100% { r: 30; opacity: 0; }
+        }
+        
+        /* Biosensor Grid */
+        .bio-grid {
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.05) 1px, transparent 1px);
+            background-size: 25px 25px;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="hardware.html" class="text-gray-400 hover:text-white transition">Hardware</a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold gradient-text">Photonic Sensors</span>
+                </div>
+                <a href="#quote" class="px-4 py-2 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                    Request Info
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient pt-24 pb-16 overflow-hidden">
+        <div class="absolute inset-0 bio-grid opacity-20"></div>
+        
+        <!-- Animated Sensor Visualization -->
+        <div class="absolute inset-0 flex items-center justify-center opacity-30">
+            <svg viewBox="0 0 600 400" class="w-full max-w-2xl h-auto">
+                <!-- Waveguide -->
+                <rect x="100" y="180" width="400" height="40" fill="#1a1a2e" stroke="#333" stroke-width="2"/>
+                
+                <!-- Light propagation -->
+                <path d="M 100 200 L 500 200" class="sensor-wave"/>
+                
+                <!-- Sensing region -->
+                <rect x="250" y="170" width="100" height="60" fill="#00ff8820" stroke="#00ff88" stroke-width="2" rx="5"/>
+                
+                <!-- Molecules -->
+                <g class="molecule">
+                    <circle cx="280" cy="150" r="8" fill="#ff0066" opacity="0.8"/>
+                    <circle cx="275" cy="145" r="5" fill="#ff0066" opacity="0.6"/>
+                    <circle cx="285" cy="145" r="5" fill="#ff0066" opacity="0.6"/>
+                </g>
+                
+                <g class="molecule" style="animation-delay: 2s;">
+                    <circle cx="320" cy="140" r="8" fill="#00d4ff" opacity="0.8"/>
+                    <circle cx="315" cy="135" r="5" fill="#00d4ff" opacity="0.6"/>
+                    <circle cx="325" cy="135" r="5" fill="#00d4ff" opacity="0.6"/>
+                </g>
+                
+                <!-- Detection signal -->
+                <circle cx="300" cy="200" r="5" fill="#00ff88" opacity="0">
+                    <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/>
+                    <animateTransform attributeName="transform" type="scale" values="1;2;1" dur="2s" repeatCount="indefinite" additive="sum"/>
+                </circle>
+            </svg>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">Integrated Photonic Sensors</span>
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                    Ultra-sensitive silicon photonic sensors for real-time biomedical diagnostics, 
+                    environmental monitoring, and chemical detection with lab-on-chip integration
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="#biomedical" class="px-6 py-3 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                        Biomedical Sensors
+                    </a>
+                    <a href="#environmental" class="px-6 py-3 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                        Environmental Monitoring
+                    </a>
+                    <a href="#technology" class="px-6 py-3 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                        Technology Platform
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Performance Metrics -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-microscope text-3xl text-cyan-400 mb-3"></i>
+                    <div class="text-2xl font-bold gradient-text">10⁻⁹ M</div>
+                    <div class="text-gray-400">Detection Limit</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-clock text-3xl text-green-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-green-400">< 1s</div>
+                    <div class="text-gray-400">Response Time</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-chart-line text-3xl text-purple-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-purple-400">10⁶</div>
+                    <div class="text-gray-400">Dynamic Range</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-temperature-low text-3xl text-orange-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-orange-400">±0.01°C</div>
+                    <div class="text-gray-400">Temperature Stability</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Biomedical Sensors -->
+    <section id="biomedical" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Biomedical Sensing Solutions</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <!-- Product Overview -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">ABP-BioSense Platform</h3>
+                    <p class="text-gray-300 mb-6">
+                        Our integrated photonic biosensors enable label-free, real-time detection of 
+                        biomolecules with unprecedented sensitivity and specificity.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-cyan-400 mb-2">Protein Detection</h4>
+                            <p class="text-sm text-gray-400">
+                                Antibody-functionalized microring resonators for cancer biomarker detection
+                            </p>
+                            <div class="mt-2 text-xs">
+                                <span class="text-green-400">• Sensitivity: 1 pg/mL</span>
+                                <span class="text-green-400 ml-4">• Multiplexing: 128 channels</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-purple-400 mb-2">DNA/RNA Analysis</h4>
+                            <p class="text-sm text-gray-400">
+                                Photonic crystal cavities for nucleic acid detection and sequencing
+                            </p>
+                            <div class="mt-2 text-xs">
+                                <span class="text-purple-400">• Single molecule detection</span>
+                                <span class="text-purple-400 ml-4">• Real-time PCR monitoring</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-orange-400 mb-2">Cell Analysis</h4>
+                            <p class="text-sm text-gray-400">
+                                Integrated flow cytometry with on-chip optics for point-of-care diagnostics
+                            </p>
+                            <div class="mt-2 text-xs">
+                                <span class="text-orange-400">• Single cell resolution</span>
+                                <span class="text-orange-400 ml-4">• Multi-parameter analysis</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Real-time Sensor Data -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-4">Live Sensor Response</h3>
+                    <canvas id="sensorResponse" height="300"></canvas>
+                    <div class="mt-4 grid grid-cols-3 gap-4 text-sm">
+                        <div class="text-center">
+                            <div class="text-gray-400">Baseline</div>
+                            <div class="font-semibold">1.4521 RIU</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-gray-400">Shift</div>
+                            <div class="font-semibold text-green-400">+12.3 nm</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-gray-400">Concentration</div>
+                            <div class="font-semibold text-cyan-400">24.6 ng/mL</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Applications Grid -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-virus text-3xl text-red-400 mb-4"></i>
+                    <h4 class="text-lg font-semibold mb-3">Infectious Disease</h4>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li>• COVID-19 antigen detection</li>
+                        <li>• Influenza strain identification</li>
+                        <li>• Bacterial pathogen screening</li>
+                        <li>• Antimicrobial resistance testing</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-dna text-3xl text-purple-400 mb-4"></i>
+                    <h4 class="text-lg font-semibold mb-3">Cancer Diagnostics</h4>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li>• Circulating tumor cell detection</li>
+                        <li>• Exosome analysis</li>
+                        <li>• Multi-biomarker panels</li>
+                        <li>• Treatment monitoring</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-heartbeat text-3xl text-green-400 mb-4"></i>
+                    <h4 class="text-lg font-semibold mb-3">Cardiac Markers</h4>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li>• Troponin I/T detection</li>
+                        <li>• BNP/NT-proBNP monitoring</li>
+                        <li>• CRP inflammation markers</li>
+                        <li>• Myoglobin levels</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Environmental Monitoring -->
+    <section id="environmental" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Environmental Monitoring Systems</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Water Quality Monitoring -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">
+                        <i class="fas fa-water text-blue-400 mr-3"></i>
+                        Water Quality Analysis
+                    </h3>
+                    
+                    <div class="bg-slate-800/50 p-6 rounded-xl mb-6">
+                        <h4 class="font-semibold mb-4">ABP-AquaSense Series</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm text-gray-400 mb-2">Detectable Parameters:</p>
+                                <ul class="text-xs text-gray-500 space-y-1">
+                                    <li>• Heavy metals (Pb, Hg, Cd, As)</li>
+                                    <li>• Nitrates/Nitrites</li>
+                                    <li>• Phosphates</li>
+                                    <li>• Dissolved oxygen</li>
+                                    <li>• pH levels</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400 mb-2">Performance:</p>
+                                <ul class="text-xs text-gray-500 space-y-1">
+                                    <li>• ppb-level detection</li>
+                                    <li>• Continuous monitoring</li>
+                                    <li>• Self-calibrating</li>
+                                    <li>• IoT connectivity</li>
+                                    <li>• 5-year lifetime</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full px-6 py-3 bg-blue-600 rounded-lg hover:bg-blue-700 transition">
+                        Download Water Quality Brochure
+                    </button>
+                </div>
+                
+                <!-- Air Quality Monitoring -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">
+                        <i class="fas fa-wind text-green-400 mr-3"></i>
+                        Air Quality Sensors
+                    </h3>
+                    
+                    <div class="bg-slate-800/50 p-6 rounded-xl mb-6">
+                        <h4 class="font-semibold mb-4">ABP-AeroSense Platform</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center p-3 bg-slate-700/50 rounded">
+                                <span class="text-sm">CO₂ Detection</span>
+                                <span class="text-sm text-green-400">0-5000 ppm</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-slate-700/50 rounded">
+                                <span class="text-sm">NOₓ Monitoring</span>
+                                <span class="text-sm text-yellow-400">0-500 ppb</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-slate-700/50 rounded">
+                                <span class="text-sm">VOC Analysis</span>
+                                <span class="text-sm text-orange-400">0-1000 ppb</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-slate-700/50 rounded">
+                                <span class="text-sm">PM2.5/PM10</span>
+                                <span class="text-sm text-red-400">0-500 μg/m³</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full px-6 py-3 bg-green-600 rounded-lg hover:bg-green-700 transition">
+                        Request Air Quality Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Platform -->
+    <section id="technology" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Sensing Technology Platform</h2>
+            
+            <!-- Core Technologies -->
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4">Microring Resonators</h3>
+                    <div class="bg-slate-800 rounded-lg p-4 mb-4">
+                        <svg viewBox="0 0 200 200" class="w-full h-auto">
+                            <!-- Microring -->
+                            <circle cx="100" cy="100" r="60" fill="none" stroke="#00d4ff" stroke-width="4"/>
+                            <!-- Bus waveguide -->
+                            <rect x="20" y="96" width="160" height="8" fill="#0066ff"/>
+                            <!-- Coupling region -->
+                            <rect x="36" y="90" width="30" height="20" fill="#00ff88" opacity="0.5" rx="5"/>
+                            <!-- Light path -->
+                            <circle cx="100" cy="100" r="60" fill="none" stroke="#00ff88" stroke-width="2" 
+                                    stroke-dasharray="5,5" opacity="0.8">
+                                <animateTransform attributeName="transform" type="rotate" 
+                                                from="0 100 100" to="360 100 100" dur="3s" repeatCount="indefinite"/>
+                            </circle>
+                        </svg>
+                    </div>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>• Q-factor > 10⁶</li>
+                        <li>• FSR: 1-20 nm</li>
+                        <li>• Sensitivity: 100 nm/RIU</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4">Photonic Crystals</h3>
+                    <div class="bg-slate-800 rounded-lg p-4 mb-4">
+                        <svg viewBox="0 0 200 200" class="w-full h-auto">
+                            <!-- Photonic crystal structure -->
+                            <defs>
+                                <pattern id="holes" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                                    <circle cx="10" cy="10" r="6" fill="#000"/>
+                                </pattern>
+                            </defs>
+                            <rect x="20" y="50" width="160" height="100" fill="#0066ff"/>
+                            <rect x="20" y="50" width="160" height="100" fill="url(#holes)" opacity="0.8"/>
+                            <!-- Defect cavity -->
+                            <rect x="85" y="90" width="30" height="20" fill="#ff0066" rx="10"/>
+                            <!-- Light confinement -->
+                            <ellipse cx="100" cy="100" rx="40" ry="20" fill="#00ff88" opacity="0.3">
+                                <animate attributeName="opacity" values="0.3;0.6;0.3" dur="2s" repeatCount="indefinite"/>
+                            </ellipse>
+                        </svg>
+                    </div>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>• Mode volume: λ³/100</li>
+                        <li>• Single molecule detection</li>
+                        <li>• Enhanced light-matter interaction</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4">Mach-Zehnder Interferometers</h3>
+                    <div class="bg-slate-800 rounded-lg p-4 mb-4">
+                        <svg viewBox="0 0 200 200" class="w-full h-auto">
+                            <!-- MZI structure -->
+                            <path d="M 20 100 L 60 100 L 80 80 L 120 80 L 140 100 L 180 100" 
+                                  fill="none" stroke="#0066ff" stroke-width="4"/>
+                            <path d="M 60 100 L 80 120 L 120 120 L 140 100" 
+                                  fill="none" stroke="#0066ff" stroke-width="4"/>
+                            <!-- Sensing arm -->
+                            <rect x="70" y="75" width="60" height="10" fill="#00ff88" opacity="0.5" rx="5"/>
+                            <!-- Phase shift visualization -->
+                            <circle cx="100" cy="80" r="15" fill="#ff0066" opacity="0.3">
+                                <animate attributeName="r" values="15;20;15" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                        </svg>
+                    </div>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>• Phase sensitivity: π/10000</li>
+                        <li>• Temperature compensated</li>
+                        <li>• Differential measurement</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Performance Comparison -->
+            <div class="glass-effect p-8 rounded-2xl">
+                <h3 class="text-2xl font-bold mb-6">Technology Comparison</h3>
+                <canvas id="comparisonChart" height="300"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications Showcase -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Industry Applications</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-hospital text-3xl text-cyan-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Healthcare</h3>
+                    <p class="text-gray-400 text-sm">
+                        Point-of-care diagnostics, continuous glucose monitoring, 
+                        and personalized medicine applications.
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-industry text-3xl text-purple-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Industrial</h3>
+                    <p class="text-gray-400 text-sm">
+                        Process monitoring, chemical detection, and quality control 
+                        in manufacturing environments.
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-shield-alt text-3xl text-red-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Security</h3>
+                    <p class="text-gray-400 text-sm">
+                        Explosive detection, chemical warfare agent identification, 
+                        and border security applications.
+                    </p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-seedling text-3xl text-green-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Agriculture</h3>
+                    <p class="text-gray-400 text-sm">
+                        Soil nutrient analysis, pesticide residue detection, 
+                        and crop health monitoring.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="quote" class="py-16 px-4 bg-gradient-to-r from-cyan-900/20 to-blue-900/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Transform Your Sensing Applications</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Partner with us to develop custom photonic sensing solutions for your specific needs
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="px-8 py-3 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                    Contact Our Experts
+                </a>
+                <a href="hardware.html" class="px-8 py-3 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                    Back to Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400">
+            <p>© 2024 Aurora Borealis Photonics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Sensor Response Chart
+        const responseCtx = document.getElementById('sensorResponse').getContext('2d');
+        const responseChart = new Chart(responseCtx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 100}, (_, i) => i),
+                datasets: [{
+                    label: 'Resonance Wavelength (nm)',
+                    data: Array.from({length: 100}, (_, i) => {
+                        if (i < 30) return 1550 + Math.random() * 0.1;
+                        if (i < 60) return 1550 + 12.3 * (1 - Math.exp(-(i-30)/10)) + Math.random() * 0.1;
+                        return 1562.3 + Math.random() * 0.1;
+                    }),
+                    borderColor: '#00d4ff',
+                    backgroundColor: 'rgba(0, 212, 255, 0.1)',
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    annotation: {
+                        annotations: {
+                            baseline: {
+                                type: 'line',
+                                yMin: 1550,
+                                yMax: 1550,
+                                borderColor: '#666',
+                                borderWidth: 1,
+                                borderDash: [5, 5]
+                            },
+                            detection: {
+                                type: 'line',
+                                yMin: 1562.3,
+                                yMax: 1562.3,
+                                borderColor: '#00ff88',
+                                borderWidth: 1,
+                                borderDash: [5, 5]
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Time (s)', color: '#888' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Wavelength (nm)', color: '#888' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' },
+                        min: 1548,
+                        max: 1565
+                    }
+                }
+            }
+        });
+        
+        // Update chart with animation
+        setInterval(() => {
+            responseChart.data.datasets[0].data.shift();
+            const lastValue = responseChart.data.datasets[0].data[responseChart.data.datasets[0].data.length - 1];
+            responseChart.data.datasets[0].data.push(lastValue + (Math.random() - 0.5) * 0.2);
+            responseChart.update('none');
+        }, 100);
+        
+        // Technology Comparison Chart
+        const comparisonCtx = document.getElementById('comparisonChart').getContext('2d');
+        new Chart(comparisonCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Sensitivity', 'Selectivity', 'Response Time', 'Stability', 'Cost-effectiveness', 'Multiplexing'],
+                datasets: [{
+                    label: 'Silicon Photonics',
+                    data: [95, 90, 98, 85, 80, 95],
+                    borderColor: '#00d4ff',
+                    backgroundColor: 'rgba(0, 212, 255, 0.2)',
+                    pointBackgroundColor: '#00d4ff'
+                }, {
+                    label: 'Fluorescence',
+                    data: [85, 95, 70, 60, 50, 40],
+                    borderColor: '#ff0066',
+                    backgroundColor: 'rgba(255, 0, 102, 0.2)',
+                    pointBackgroundColor: '#ff0066'
+                }, {
+                    label: 'Electrochemical',
+                    data: [80, 85, 90, 70, 90, 30],
+                    borderColor: '#00ff88',
+                    backgroundColor: 'rgba(0, 255, 136, 0.2)',
+                    pointBackgroundColor: '#00ff88'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#fff' }
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        pointLabels: { color: '#888' },
+                        ticks: { 
+                            color: '#888',
+                            backdropColor: 'transparent',
+                            stepSize: 20
+                        },
+                        min: 0,
+                        max: 100
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

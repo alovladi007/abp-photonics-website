@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imaging Systems - Hyperspectral & Computational Imaging | ABP Photonics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00ff88 0%, #00d4ff 50%, #0099ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0a1a1a 0%, #152a2a 50%, #0a1a1a 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Spectral Cube Animation */
+        .spectral-cube {
+            transform-style: preserve-3d;
+            animation: rotate-cube 10s linear infinite;
+        }
+        
+        @keyframes rotate-cube {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+        
+        .cube-face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            opacity: 0.8;
+        }
+        
+        /* Wavelength Scan Animation */
+        .wavelength-scan {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, #00ff88, transparent);
+            animation: scan-motion 3s linear infinite;
+        }
+        
+        @keyframes scan-motion {
+            0% { left: 0; }
+            100% { left: 100%; }
+        }
+        
+        /* Pixel Grid */
+        .pixel-grid {
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.1) 1px, transparent 1px);
+            background-size: 10px 10px;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="hardware.html" class="text-gray-400 hover:text-white transition">Hardware</a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold gradient-text">Imaging Systems</span>
+                </div>
+                <a href="#quote" class="px-4 py-2 bg-green-600 rounded-lg hover:bg-green-700 transition">
+                    Request Demo
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient pt-24 pb-16 overflow-hidden">
+        <div class="absolute inset-0 pixel-grid opacity-20"></div>
+        
+        <!-- Animated Spectral Cube -->
+        <div class="absolute right-10 top-1/2 transform -translate-y-1/2 opacity-30">
+            <div class="spectral-cube" style="width: 100px; height: 100px;">
+                <div class="cube-face" style="background: linear-gradient(45deg, #ff0066, #ff6600); transform: translateZ(50px);"></div>
+                <div class="cube-face" style="background: linear-gradient(45deg, #ff6600, #ffff00); transform: rotateY(90deg) translateZ(50px);"></div>
+                <div class="cube-face" style="background: linear-gradient(45deg, #ffff00, #00ff00); transform: rotateY(180deg) translateZ(50px);"></div>
+                <div class="cube-face" style="background: linear-gradient(45deg, #00ff00, #00ffff); transform: rotateY(-90deg) translateZ(50px);"></div>
+                <div class="cube-face" style="background: linear-gradient(45deg, #00ffff, #0066ff); transform: rotateX(90deg) translateZ(50px);"></div>
+                <div class="cube-face" style="background: linear-gradient(45deg, #0066ff, #ff0066); transform: rotateX(-90deg) translateZ(50px);"></div>
+            </div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">Advanced Imaging Systems</span>
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                    Hyperspectral imaging and computational photography solutions revealing 
+                    invisible information across scientific, industrial, and medical applications
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="#hyperspectral" class="px-6 py-3 bg-green-600 rounded-lg hover:bg-green-700 transition">
+                        Hyperspectral Imaging
+                    </a>
+                    <a href="#computational" class="px-6 py-3 border border-green-600 rounded-lg hover:bg-green-600/10 transition">
+                        Computational Imaging
+                    </a>
+                    <a href="#applications" class="px-6 py-3 border border-green-600 rounded-lg hover:bg-green-600/10 transition">
+                        Applications
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Specifications -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-layer-group text-3xl text-green-400 mb-3"></i>
+                    <div class="text-2xl font-bold gradient-text">1000+</div>
+                    <div class="text-gray-400">Spectral Bands</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-expand text-3xl text-cyan-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-cyan-400">4K×4K</div>
+                    <div class="text-gray-400">Spatial Resolution</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-tachometer-alt text-3xl text-purple-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-purple-400">1000 fps</div>
+                    <div class="text-gray-400">Frame Rate</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-signal text-3xl text-orange-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-orange-400">16-bit</div>
+                    <div class="text-gray-400">Dynamic Range</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hyperspectral Imaging -->
+    <section id="hyperspectral" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Hyperspectral Imaging Solutions</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <!-- Product Overview -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">ABP-HyperVision Series</h3>
+                    <p class="text-gray-300 mb-6">
+                        State-of-the-art hyperspectral cameras capturing complete spectral signatures 
+                        for every pixel, enabling material identification and quantitative analysis.
+                    </p>
+                    
+                    <!-- Spectral Response Visualization -->
+                    <div class="bg-slate-800 rounded-lg p-4 mb-6">
+                        <canvas id="spectralResponse" height="200"></canvas>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-400">Spectral Range</div>
+                            <div class="font-semibold">400-2500nm</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-400">Spectral Resolution</div>
+                            <div class="font-semibold">< 2nm FWHM</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-400">SNR</div>
+                            <div class="font-semibold">> 1000:1</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-400">Data Rate</div>
+                            <div class="font-semibold">10 GB/s</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Models -->
+                <div class="space-y-4">
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h4 class="text-xl font-bold mb-3">HyperVision-VNIR</h4>
+                        <p class="text-gray-400 text-sm mb-3">
+                            Visible to near-infrared imaging for agriculture, food inspection, and biomedical applications
+                        </p>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">400-1000nm</span>
+                            <span class="text-green-400">224 bands</span>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h4 class="text-xl font-bold mb-3">HyperVision-SWIR</h4>
+                        <p class="text-gray-400 text-sm mb-3">
+                            Short-wave infrared for moisture detection, plastic sorting, and semiconductor inspection
+                        </p>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">900-1700nm</span>
+                            <span class="text-cyan-400">288 bands</span>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h4 class="text-xl font-bold mb-3">HyperVision-Extended</h4>
+                        <p class="text-gray-400 text-sm mb-3">
+                            Full range coverage for comprehensive material analysis and remote sensing
+                        </p>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">400-2500nm</span>
+                            <span class="text-purple-400">1000+ bands</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Data Cube Visualization -->
+            <div class="glass-effect p-8 rounded-2xl">
+                <h3 class="text-xl font-bold mb-6">Hyperspectral Data Cube</h3>
+                <div class="grid lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <p class="text-gray-400 mb-4">
+                            Each hyperspectral image captures a complete spectrum for every spatial pixel, 
+                            creating a 3D data cube with two spatial dimensions and one spectral dimension.
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li>• Material identification through spectral signatures</li>
+                            <li>• Quantitative chemical composition analysis</li>
+                            <li>• Non-destructive testing and quality control</li>
+                            <li>• Real-time classification and sorting</li>
+                        </ul>
+                    </div>
+                    <div class="relative bg-slate-800 rounded-lg p-8">
+                        <div class="relative wavelength-scan" style="height: 200px;">
+                            <div class="wavelength-scan"></div>
+                        </div>
+                        <canvas id="dataCube" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Computational Imaging -->
+    <section id="computational" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Computational Imaging Platform</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <!-- Light Field Imaging -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-cube text-3xl text-cyan-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Light Field Cameras</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Capture complete 4D light field information enabling post-capture refocusing 
+                        and 3D reconstruction.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Depth from single shot</li>
+                        <li>• Synthetic aperture</li>
+                        <li>• Perspective shift</li>
+                    </ul>
+                </div>
+                
+                <!-- Compressive Sensing -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-compress text-3xl text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Compressive Sensing</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Acquire high-dimensional data with fewer measurements using computational 
+                        reconstruction algorithms.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Single-pixel cameras</li>
+                        <li>• Coded aperture imaging</li>
+                        <li>• Sparse sampling</li>
+                    </ul>
+                </div>
+                
+                <!-- Phase Imaging -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-wave-square text-3xl text-green-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Quantitative Phase</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Label-free imaging of transparent specimens by measuring optical path 
+                        length variations.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Digital holography</li>
+                        <li>• Phase contrast</li>
+                        <li>• Tomographic imaging</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- AI-Enhanced Processing -->
+            <div class="glass-effect p-8 rounded-2xl">
+                <h3 class="text-2xl font-bold mb-6">AI-Enhanced Image Processing</h3>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4 text-cyan-400">Deep Learning Pipeline</h4>
+                        <div class="space-y-3">
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-semibold">Super-Resolution</span>
+                                    <span class="text-green-400">4× enhancement</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-2">
+                                    <div class="bg-green-400 h-2 rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-semibold">Denoising</span>
+                                    <span class="text-cyan-400">40dB improvement</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-2">
+                                    <div class="bg-cyan-400 h-2 rounded-full" style="width: 92%"></div>
+                                </div>
+                            </div>
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-semibold">Segmentation</span>
+                                    <span class="text-purple-400">99.2% accuracy</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-2">
+                                    <div class="bg-purple-400 h-2 rounded-full" style="width: 99%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4 text-purple-400">Real-time Processing</h4>
+                        <canvas id="processingChart" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications -->
+    <section id="applications" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Industry Applications</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-seedling text-3xl text-green-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Agriculture</h3>
+                    <p class="text-gray-400 text-sm mb-3">
+                        Crop health monitoring, disease detection, and yield prediction
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• NDVI mapping</li>
+                        <li>• Water stress detection</li>
+                        <li>• Nutrient analysis</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-pills text-3xl text-red-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Pharmaceutical</h3>
+                    <p class="text-gray-400 text-sm mb-3">
+                        Quality control, contamination detection, and API distribution
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Tablet inspection</li>
+                        <li>• Chemical imaging</li>
+                        <li>• Coating uniformity</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-utensils text-3xl text-orange-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Food Industry</h3>
+                    <p class="text-gray-400 text-sm mb-3">
+                        Quality inspection, foreign object detection, and freshness assessment
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Contamination detection</li>
+                        <li>• Ripeness grading</li>
+                        <li>• Composition analysis</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-microscope text-3xl text-cyan-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Biomedical</h3>
+                    <p class="text-gray-400 text-sm mb-3">
+                        Tissue imaging, cancer detection, and surgical guidance
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Tumor margin detection</li>
+                        <li>• Blood oxygenation</li>
+                        <li>• Fluorescence imaging</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-satellite text-3xl text-purple-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Remote Sensing</h3>
+                    <p class="text-gray-400 text-sm mb-3">
+                        Environmental monitoring, mineral exploration, and surveillance
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Vegetation mapping</li>
+                        <li>• Water quality</li>
+                        <li>• Urban planning</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl hover:scale-105 transition">
+                    <i class="fas fa-industry text-3xl text-yellow-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Manufacturing</h3>
+                    <p class="text-gray-400 text-sm mb-3">
+                        Defect detection, material sorting, and process monitoring
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Surface inspection</li>
+                        <li>• Color matching</li>
+                        <li>• Assembly verification</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="quote" class="py-16 px-4 bg-gradient-to-r from-green-900/20 to-cyan-900/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">See Beyond the Visible</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Discover how our imaging solutions can reveal hidden information in your applications
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="px-8 py-3 bg-green-600 rounded-lg hover:bg-green-700 transition">
+                    Schedule Demo
+                </a>
+                <a href="hardware.html" class="px-8 py-3 border border-green-600 rounded-lg hover:bg-green-600/10 transition">
+                    Back to Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400">
+            <p>© 2024 Aurora Borealis Photonics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Spectral Response Chart
+        const spectralCtx = document.getElementById('spectralResponse').getContext('2d');
+        new Chart(spectralCtx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 50}, (_, i) => 400 + i * 40),
+                datasets: [{
+                    label: 'Vegetation',
+                    data: Array.from({length: 50}, (_, i) => {
+                        const wavelength = 400 + i * 40;
+                        if (wavelength < 500) return 0.1;
+                        if (wavelength < 600) return 0.15;
+                        if (wavelength < 700) return 0.08;
+                        if (wavelength < 750) return 0.5;
+                        return 0.45;
+                    }),
+                    borderColor: '#00ff88',
+                    backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                    borderWidth: 2,
+                    pointRadius: 0
+                }, {
+                    label: 'Water',
+                    data: Array.from({length: 50}, (_, i) => {
+                        const wavelength = 400 + i * 40;
+                        if (wavelength < 500) return 0.05;
+                        if (wavelength < 600) return 0.03;
+                        return 0.01;
+                    }),
+                    borderColor: '#00d4ff',
+                    backgroundColor: 'rgba(0, 212, 255, 0.1)',
+                    borderWidth: 2,
+                    pointRadius: 0
+                }, {
+                    label: 'Soil',
+                    data: Array.from({length: 50}, (_, i) => {
+                        const wavelength = 400 + i * 40;
+                        return 0.1 + (wavelength - 400) / 2000 * 0.3;
+                    }),
+                    borderColor: '#ff6600',
+                    backgroundColor: 'rgba(255, 102, 0, 0.1)',
+                    borderWidth: 2,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#fff' }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Wavelength (nm)', color: '#888' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Reflectance', color: '#888' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' }
+                    }
+                }
+            }
+        });
+        
+        // Data Cube Visualization
+        const cubeCanvas = document.getElementById('dataCube');
+        const cubeCtx = cubeCanvas.getContext('2d');
+        
+        function drawDataCube() {
+            cubeCtx.clearRect(0, 0, cubeCanvas.width, cubeCanvas.height);
+            
+            // Draw cube structure
+            const size = 150;
+            const offset = 50;
+            
+            // Back face
+            cubeCtx.strokeStyle = '#444';
+            cubeCtx.strokeRect(offset, offset, size, size);
+            
+            // Front face
+            cubeCtx.strokeStyle = '#00ff88';
+            cubeCtx.strokeRect(offset + 30, offset + 30, size, size);
+            
+            // Connecting lines
+            cubeCtx.beginPath();
+            cubeCtx.moveTo(offset, offset);
+            cubeCtx.lineTo(offset + 30, offset + 30);
+            cubeCtx.moveTo(offset + size, offset);
+            cubeCtx.lineTo(offset + size + 30, offset + 30);
+            cubeCtx.moveTo(offset, offset + size);
+            cubeCtx.lineTo(offset + 30, offset + size + 30);
+            cubeCtx.moveTo(offset + size, offset + size);
+            cubeCtx.lineTo(offset + size + 30, offset + size + 30);
+            cubeCtx.stroke();
+            
+            // Labels
+            cubeCtx.fillStyle = '#888';
+            cubeCtx.font = '12px Inter';
+            cubeCtx.fillText('X (Spatial)', offset + size + 40, offset + size + 40);
+            cubeCtx.fillText('Y (Spatial)', offset - 10, offset + size + 40);
+            cubeCtx.fillText('λ (Spectral)', offset + 15, offset - 10);
+            
+            // Draw spectral layers
+            for (let i = 0; i < 5; i++) {
+                const layerOffset = i * 6;
+                cubeCtx.globalAlpha = 0.3 - i * 0.05;
+                cubeCtx.fillStyle = `hsl(${120 + i * 30}, 100%, 50%)`;
+                cubeCtx.fillRect(offset + layerOffset, offset + layerOffset, size, size);
+            }
+            cubeCtx.globalAlpha = 1;
+        }
+        
+        drawDataCube();
+        
+        // Processing Performance Chart
+        const processingCtx = document.getElementById('processingChart').getContext('2d');
+        new Chart(processingCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Raw Capture', 'Preprocessing', 'AI Enhancement', 'Classification', 'Output'],
+                datasets: [{
+                    label: 'Processing Time (ms)',
+                    data: [10, 25, 45, 30, 15],
+                    backgroundColor: [
+                        'rgba(0, 255, 136, 0.5)',
+                        'rgba(0, 212, 255, 0.5)',
+                        'rgba(147, 51, 234, 0.5)',
+                        'rgba(255, 102, 0, 0.5)',
+                        'rgba(255, 0, 102, 0.5)'
+                    ],
+                    borderColor: [
+                        '#00ff88',
+                        '#00d4ff',
+                        '#9333ea',
+                        '#ff6600',
+                        '#ff0066'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#888' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Time (ms)', color: '#888' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
