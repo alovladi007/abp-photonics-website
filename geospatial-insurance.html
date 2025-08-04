@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoSense AI - Insurance Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #581c87 0%, #5b21b6 50%, #581c87 100%);
+        }
+        
+        .card-gradient {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            backdrop-filter: blur(10px);
+        }
+        
+        .damage-pulse {
+            animation: damagePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes damagePulse {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+        
+        .flood-wave {
+            animation: floodWave 3s ease-in-out infinite;
+        }
+        
+        @keyframes floodWave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .ai-scan {
+            animation: aiScan 2s linear infinite;
+        }
+        
+        @keyframes aiScan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        
+        .debris-float {
+            animation: debrisFloat 4s ease-in-out infinite;
+        }
+        
+        @keyframes debrisFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(5px, -5px) rotate(5deg); }
+            75% { transform: translate(-5px, 5px) rotate(-5deg); }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="geospatial.html" class="text-2xl font-bold">
+                        <span class="text-indigo-400">GeoSense AI</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold text-purple-400">Insurance</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#solutions" class="hover:text-purple-400 transition">Solutions</a>
+                    <a href="#ai-demo" class="hover:text-purple-400 transition">AI Demo</a>
+                    <a href="#case-studies" class="hover:text-purple-400 transition">Case Studies</a>
+                    <a href="#demo" class="px-4 py-2 bg-purple-600 rounded-lg hover:bg-purple-700 transition">Request Demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Damage Visualization -->
+    <section class="relative hero-gradient pt-24 pb-32 overflow-hidden">
+        <div class="absolute inset-0">
+            <!-- Damage assessment visualization -->
+            <div class="absolute inset-0 opacity-20">
+                <svg class="w-full h-full" viewBox="0 0 1200 600">
+                    <!-- Building outlines -->
+                    <rect x="100" y="200" width="150" height="200" fill="none" stroke="#8b5cf6" stroke-width="2" opacity="0.5"/>
+                    <rect x="300" y="250" width="120" height="150" fill="none" stroke="#8b5cf6" stroke-width="2" opacity="0.5"/>
+                    <rect x="500" y="180" width="180" height="220" fill="none" stroke="#8b5cf6" stroke-width="2" opacity="0.5"/>
+                    
+                    <!-- Damage indicators -->
+                    <circle cx="175" cy="300" r="30" fill="#ef4444" opacity="0.6" class="damage-pulse"/>
+                    <circle cx="360" cy="325" r="25" fill="#f59e0b" opacity="0.6" class="damage-pulse" style="animation-delay: 0.5s"/>
+                    <circle cx="590" cy="290" r="35" fill="#ef4444" opacity="0.6" class="damage-pulse" style="animation-delay: 1s"/>
+                    
+                    <!-- Flood line -->
+                    <path d="M 0 400 Q 200 380 400 390 T 800 380 T 1200 390" stroke="#3b82f6" stroke-width="3" fill="none" opacity="0.5" class="flood-wave"/>
+                </svg>
+            </div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    <span class="gradient-text">Insurance Intelligence</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                    AI-powered damage assessment, flood modeling, and risk analysis for faster, more accurate claims processing
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#ai-demo" class="px-8 py-4 bg-purple-600 rounded-lg hover:bg-purple-700 transition transform hover:scale-105">
+                        Try AI Assessment Demo
+                    </a>
+                    <a href="#solutions" class="px-8 py-4 border border-purple-600 rounded-lg hover:bg-purple-600/10 transition">
+                        View Solutions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics -->
+    <section class="py-20 px-4 -mt-16 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="card-gradient p-6 rounded-xl border border-purple-500/20">
+                    <div class="text-4xl font-bold text-purple-400 mb-2">95%</div>
+                    <div class="text-lg font-semibold mb-1">Accuracy Rate</div>
+                    <div class="text-gray-400 text-sm">AI damage assessment</div>
+                </div>
+                <div class="card-gradient p-6 rounded-xl border border-blue-500/20">
+                    <div class="text-4xl font-bold text-blue-400 mb-2">-72hrs</div>
+                    <div class="text-lg font-semibold mb-1">Claim Processing</div>
+                    <div class="text-gray-400 text-sm">Faster settlements</div>
+                </div>
+                <div class="card-gradient p-6 rounded-xl border border-green-500/20">
+                    <div class="text-4xl font-bold text-green-400 mb-2">$2.8M</div>
+                    <div class="text-lg font-semibold mb-1">Fraud Prevention</div>
+                    <div class="text-gray-400 text-sm">Annual savings</div>
+                </div>
+                <div class="card-gradient p-6 rounded-xl border border-orange-500/20">
+                    <div class="text-4xl font-bold text-orange-400 mb-2">24/7</div>
+                    <div class="text-lg font-semibold mb-1">Monitoring</div>
+                    <div class="text-gray-400 text-sm">Real-time alerts</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Assessment Demo -->
+    <section id="ai-demo" class="py-20 px-4 bg-slate-800/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">AI Damage Assessment Demo</h2>
+            
+            <div class="bg-slate-900 rounded-2xl p-6 border border-purple-500/20">
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <!-- Image Analysis View -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-black rounded-lg relative overflow-hidden h-96">
+                            <!-- Simulated aerial image with damage overlay -->
+                            <svg class="w-full h-full" viewBox="0 0 800 400">
+                                <!-- Background grid -->
+                                <defs>
+                                    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+                                        <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+                                    </pattern>
+                                </defs>
+                                <rect width="800" height="400" fill="url(#grid)"/>
+                                
+                                <!-- Buildings -->
+                                <rect x="100" y="100" width="120" height="100" fill="#374151" stroke="#4b5563" stroke-width="2"/>
+                                <rect x="250" y="80" width="100" height="120" fill="#374151" stroke="#4b5563" stroke-width="2"/>
+                                <rect x="380" y="110" width="140" height="90" fill="#374151" stroke="#4b5563" stroke-width="2"/>
+                                <rect x="550" y="90" width="110" height="110" fill="#374151" stroke="#4b5563" stroke-width="2"/>
+                                
+                                <!-- Damage overlays -->
+                                <rect x="100" y="100" width="120" height="100" fill="#ef4444" opacity="0.4"/>
+                                <text x="160" y="155" text-anchor="middle" fill="white" font-size="14" font-weight="bold">SEVERE</text>
+                                
+                                <rect x="250" y="80" width="100" height="120" fill="#f59e0b" opacity="0.4"/>
+                                <text x="300" y="145" text-anchor="middle" fill="white" font-size="14" font-weight="bold">MODERATE</text>
+                                
+                                <rect x="380" y="110" width="140" height="90" fill="#fbbf24" opacity="0.4"/>
+                                <text x="450" y="160" text-anchor="middle" fill="white" font-size="14" font-weight="bold">MINOR</text>
+                                
+                                <rect x="550" y="90" width="110" height="110" fill="#10b981" opacity="0.4"/>
+                                <text x="605" y="150" text-anchor="middle" fill="white" font-size="14" font-weight="bold">INTACT</text>
+                                
+                                <!-- Flood depth visualization -->
+                                <rect x="0" y="300" width="800" height="100" fill="url(#floodGradient)" opacity="0.5"/>
+                                <defs>
+                                    <linearGradient id="floodGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.2" />
+                                        <stop offset="100%" style="stop-color:#1e40af;stop-opacity:0.8" />
+                                    </linearGradient>
+                                </defs>
+                                <text x="400" y="350" text-anchor="middle" fill="white" font-size="16">Flood Depth: 1.2m</text>
+                                
+                                <!-- AI scan line -->
+                                <line x1="0" y1="50" x2="800" y2="50" stroke="#8b5cf6" stroke-width="2" opacity="0.8" class="ai-scan"/>
+                            </svg>
+                            
+                            <!-- Analysis overlay -->
+                            <div class="absolute top-4 left-4 bg-black/80 p-3 rounded">
+                                <div class="text-xs text-gray-400 mb-1">AI Analysis Mode</div>
+                                <div class="text-sm font-semibold">Post-Hurricane Assessment</div>
+                            </div>
+                            
+                            <!-- Legend -->
+                            <div class="absolute bottom-4 right-4 bg-black/80 p-3 rounded text-xs">
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <div class="w-3 h-3 bg-red-500"></div>
+                                    <span>Severe Damage</span>
+                                </div>
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <div class="w-3 h-3 bg-orange-500"></div>
+                                    <span>Moderate Damage</span>
+                                </div>
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <div class="w-3 h-3 bg-yellow-500"></div>
+                                    <span>Minor Damage</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-3 h-3 bg-green-500"></div>
+                                    <span>No Damage</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- AI Analysis Results -->
+                    <div class="space-y-4">
+                        <div class="bg-slate-800 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-3">Damage Assessment</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm text-gray-400">Properties Analyzed</span>
+                                        <span class="text-sm font-semibold">847</span>
+                                    </div>
+                                    <div class="w-full bg-slate-700 rounded-full h-2">
+                                        <div class="bg-purple-400 h-2 rounded-full" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm text-gray-400">Severe Damage</span>
+                                        <span class="text-sm font-semibold text-red-400">124 (15%)</span>
+                                    </div>
+                                    <div class="w-full bg-slate-700 rounded-full h-2">
+                                        <div class="bg-red-400 h-2 rounded-full" style="width: 15%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm text-gray-400">Moderate Damage</span>
+                                        <span class="text-sm font-semibold text-orange-400">287 (34%)</span>
+                                    </div>
+                                    <div class="w-full bg-slate-700 rounded-full h-2">
+                                        <div class="bg-orange-400 h-2 rounded-full" style="width: 34%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-3">AI Confidence</h4>
+                            <div class="text-center py-4">
+                                <div class="text-4xl font-bold text-purple-400 mb-2">96.8%</div>
+                                <div class="text-sm text-gray-400">Model Confidence Score</div>
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Training Data</span>
+                                    <span>2.3M images</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Model Version</span>
+                                    <span>v3.2.1</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-3">Estimated Claims</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-400">Total Exposure</span>
+                                    <span class="font-semibold">$124.5M</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-400">Severe Claims</span>
+                                    <span class="text-red-400">$67.2M</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-400">Moderate Claims</span>
+                                    <span class="text-orange-400">$42.8M</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-400">Minor Claims</span>
+                                    <span class="text-yellow-400">$14.5M</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Overview -->
+    <section id="solutions" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Insurance Solutions</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Post-Event Damage Assessment -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-purple-500/20 hover:border-purple-400/50 transition">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-black rounded-lg relative overflow-hidden">
+                            <!-- Damage grading visualization -->
+                            <div class="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-1 p-4">
+                                <div class="bg-red-600 rounded damage-pulse"></div>
+                                <div class="bg-orange-600 rounded damage-pulse" style="animation-delay: 0.2s"></div>
+                                <div class="bg-yellow-600 rounded damage-pulse" style="animation-delay: 0.4s"></div>
+                                <div class="bg-orange-600 rounded damage-pulse" style="animation-delay: 0.6s"></div>
+                                <div class="bg-green-600 rounded damage-pulse" style="animation-delay: 0.8s"></div>
+                                <div class="bg-yellow-600 rounded damage-pulse" style="animation-delay: 1s"></div>
+                                <div class="bg-green-600 rounded damage-pulse" style="animation-delay: 1.2s"></div>
+                                <div class="bg-green-600 rounded damage-pulse" style="animation-delay: 1.4s"></div>
+                                <div class="bg-yellow-600 rounded damage-pulse" style="animation-delay: 1.6s"></div>
+                            </div>
+                            <div class="absolute top-4 left-4 text-xs bg-black/50 px-2 py-1 rounded">
+                                DAMAGE GRID
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Post-Event Damage Grading</h3>
+                    <p class="text-gray-400 mb-4">Rapid AI assessment of property damage after natural disasters</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Satellite & drone imagery</li>
+                        <li>• ML damage classification</li>
+                        <li>• Automated report generation</li>
+                    </ul>
+                </div>
+
+                <!-- Flood Depth Analysis -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-blue-500/20 hover:border-blue-400/50 transition">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-black rounded-lg relative overflow-hidden">
+                            <!-- Flood depth visualization -->
+                            <div class="absolute inset-0">
+                                <div class="absolute bottom-0 w-full h-3/4 bg-gradient-to-t from-blue-600 to-blue-400 opacity-50 flood-wave"></div>
+                                <svg class="absolute inset-0 w-full h-full" viewBox="0 0 200 200">
+                                    <!-- Building silhouettes -->
+                                    <rect x="20" y="80" width="40" height="120" fill="#1f2937"/>
+                                    <rect x="80" y="60" width="40" height="140" fill="#1f2937"/>
+                                    <rect x="140" y="90" width="40" height="110" fill="#1f2937"/>
+                                    <!-- Depth markers -->
+                                    <line x1="0" y1="150" x2="200" y2="150" stroke="white" stroke-width="1" stroke-dasharray="2,2"/>
+                                    <text x="10" y="145" fill="white" font-size="10">1m</text>
+                                    <line x1="0" y1="120" x2="200" y2="120" stroke="white" stroke-width="1" stroke-dasharray="2,2"/>
+                                    <text x="10" y="115" fill="white" font-size="10">2m</text>
+                                </svg>
+                            </div>
+                            <div class="absolute top-4 left-4 text-xs bg-black/50 px-2 py-1 rounded">
+                                FLOOD MODEL
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Flood-Depth Rasters</h3>
+                    <p class="text-gray-400 mb-4">High-resolution flood extent and depth mapping for accurate claims</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• LiDAR terrain modeling</li>
+                        <li>• Hydraulic simulations</li>
+                        <li>• Historical flood validation</li>
+                    </ul>
+                </div>
+
+                <!-- Debris Detection -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-orange-500/20 hover:border-orange-400/50 transition">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-black rounded-lg relative overflow-hidden">
+                            <!-- Debris detection visualization -->
+                            <div class="absolute inset-0">
+                                <!-- Debris objects -->
+                                <div class="absolute top-1/4 left-1/4 w-8 h-8 bg-orange-600 rounded transform rotate-45 debris-float"></div>
+                                <div class="absolute top-1/2 right-1/3 w-6 h-6 bg-yellow-600 rounded debris-float" style="animation-delay: 0.5s"></div>
+                                <div class="absolute bottom-1/3 left-1/2 w-10 h-4 bg-red-600 rounded debris-float" style="animation-delay: 1s"></div>
+                                <div class="absolute top-1/3 right-1/4 w-5 h-8 bg-orange-500 rounded transform -rotate-12 debris-float" style="animation-delay: 1.5s"></div>
+                                <!-- Detection boxes -->
+                                <rect x="20%" y="20%" width="15%" height="15%" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="4,2" opacity="0.8"/>
+                                <rect x="60%" y="45%" width="12%" height="12%" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="4,2" opacity="0.8"/>
+                            </div>
+                            <div class="absolute top-4 left-4 text-xs bg-black/50 px-2 py-1 rounded">
+                                DEBRIS AI
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Debris AI Detection</h3>
+                    <p class="text-gray-400 mb-4">Automated identification and volume estimation of storm debris</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Object detection models</li>
+                        <li>• Volume estimation</li>
+                        <li>• Cleanup cost prediction</li>
+                    </ul>
+                </div>
+
+                <!-- Risk Modeling -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-green-500/20 hover:border-green-400/50 transition">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-black rounded-lg relative overflow-hidden">
+                            <!-- Risk heatmap -->
+                            <div class="absolute inset-0">
+                                <div class="absolute top-1/4 left-1/4 w-24 h-24 bg-red-500 rounded-full blur-2xl opacity-40"></div>
+                                <div class="absolute bottom-1/3 right-1/3 w-20 h-20 bg-yellow-500 rounded-full blur-2xl opacity-30"></div>
+                                <div class="absolute top-1/2 left-1/2 w-16 h-16 bg-green-500 rounded-full blur-xl opacity-50"></div>
+                            </div>
+                            <div class="absolute top-4 left-4 text-xs bg-black/50 px-2 py-1 rounded">
+                                RISK MAP
+                            </div>
+                            <div class="absolute bottom-4 right-4 text-xs">
+                                <div class="text-red-400">High Risk</div>
+                                <div class="text-yellow-400">Medium Risk</div>
+                                <div class="text-green-400">Low Risk</div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Predictive Risk Modeling</h3>
+                    <p class="text-gray-400 mb-4">AI-driven risk assessment for proactive underwriting</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Climate change projections</li>
+                        <li>• Historical loss analysis</li>
+                        <li>• Dynamic pricing models</li>
+                    </ul>
+                </div>
+
+                <!-- Fraud Detection -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-red-500/20 hover:border-red-400/50 transition">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-black rounded-lg relative overflow-hidden">
+                            <!-- Fraud detection visualization -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="relative">
+                                    <div class="w-32 h-32 border-4 border-red-500 rounded-full"></div>
+                                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                        <i class="fas fa-exclamation-triangle text-4xl text-red-500"></i>
+                                    </div>
+                                    <!-- Scan lines -->
+                                    <div class="absolute inset-0 border-2 border-red-400 rounded-full animate-ping"></div>
+                                </div>
+                            </div>
+                            <div class="absolute top-4 left-4 text-xs bg-black/50 px-2 py-1 rounded">
+                                FRAUD DETECT
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Fraud Detection System</h3>
+                    <p class="text-gray-400 mb-4">ML-powered anomaly detection for claim verification</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Pattern recognition</li>
+                        <li>• Image tampering detection</li>
+                        <li>• Behavioral analytics</li>
+                    </ul>
+                </div>
+
+                <!-- Real-time Monitoring -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-cyan-500/20 hover:border-cyan-400/50 transition">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-black rounded-lg relative overflow-hidden">
+                            <!-- Monitoring dashboard -->
+                            <div class="absolute inset-0 p-4">
+                                <div class="grid grid-cols-2 gap-2 h-full">
+                                    <div class="bg-slate-800 rounded p-2">
+                                        <div class="text-xs text-gray-400 mb-1">Active Alerts</div>
+                                        <div class="text-2xl font-bold text-cyan-400">24</div>
+                                    </div>
+                                    <div class="bg-slate-800 rounded p-2">
+                                        <div class="text-xs text-gray-400 mb-1">Properties</div>
+                                        <div class="text-2xl font-bold text-green-400">1.2K</div>
+                                    </div>
+                                    <div class="bg-slate-800 rounded p-2">
+                                        <div class="text-xs text-gray-400 mb-1">Risk Score</div>
+                                        <div class="text-2xl font-bold text-orange-400">73</div>
+                                    </div>
+                                    <div class="bg-slate-800 rounded p-2">
+                                        <div class="text-xs text-gray-400 mb-1">Coverage</div>
+                                        <div class="text-2xl font-bold text-purple-400">98%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute top-4 left-4 text-xs bg-black/50 px-2 py-1 rounded">
+                                LIVE MONITOR
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">24/7 Event Monitoring</h3>
+                    <p class="text-gray-400 mb-4">Real-time alerts for weather events and emerging risks</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Weather API integration</li>
+                        <li>• Automated notifications</li>
+                        <li>• Portfolio impact analysis</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator -->
+    <section class="py-20 px-4 bg-slate-800/50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">ROI Calculator</h2>
+            
+            <div class="bg-slate-900 rounded-2xl p-8 border border-purple-500/20">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-6">Input Parameters</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Annual Claims Volume</label>
+                                <input type="number" value="5000" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white" id="claimsVolume">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Average Claim Value ($)</label>
+                                <input type="number" value="25000" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white" id="claimValue">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Current Processing Time (days)</label>
+                                <input type="number" value="14" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white" id="processingTime">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-6">Estimated Savings</h3>
+                        <div class="space-y-4">
+                            <div class="bg-slate-800 p-4 rounded-lg">
+                                <div class="text-sm text-gray-400 mb-1">Processing Time Reduction</div>
+                                <div class="text-2xl font-bold text-green-400">72%</div>
+                            </div>
+                            <div class="bg-slate-800 p-4 rounded-lg">
+                                <div class="text-sm text-gray-400 mb-1">Annual Cost Savings</div>
+                                <div class="text-2xl font-bold text-purple-400">$3.2M</div>
+                            </div>
+                            <div class="bg-slate-800 p-4 rounded-lg">
+                                <div class="text-sm text-gray-400 mb-1">Fraud Prevention</div>
+                                <div class="text-2xl font-bold text-orange-400">$850K</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section id="case-studies" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Success Stories</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-slate-800 rounded-xl overflow-hidden">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%238b5cf6'/%3E%3Ctext x='200' y='100' text-anchor='middle' fill='white' font-size='24'%3EGlobal Insurance Corp%3C/text%3E%3C/svg%3E" 
+                         alt="Insurance Case Study" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Global Insurance Corp</h3>
+                        <p class="text-gray-400 mb-4">Hurricane damage assessment | North America</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Claims Processed:</span>
+                                <span class="text-green-400 font-semibold">24,000 in 72 hours</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Accuracy Rate:</span>
+                                <span class="text-blue-400 font-semibold">96.5%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Cost Reduction:</span>
+                                <span class="text-yellow-400 font-semibold">$4.2M saved</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl overflow-hidden">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%237c3aed'/%3E%3Ctext x='200' y='100' text-anchor='middle' fill='white' font-size='24'%3EEuropean Re-Insurance%3C/text%3E%3C/svg%3E" 
+                         alt="Reinsurance Case Study" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">European Re-Insurance</h3>
+                        <p class="text-gray-400 mb-4">Flood risk modeling | Europe</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Portfolio Coverage:</span>
+                                <span class="text-green-400 font-semibold">2.3M properties</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Risk Prediction:</span>
+                                <span class="text-blue-400 font-semibold">89% accuracy</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Premium Optimization:</span>
+                                <span class="text-yellow-400 font-semibold">+15% revenue</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4 bg-gradient-to-r from-purple-900/50 to-indigo-900/50">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-6">Transform Your Claims Process</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Join leading insurers using AI to process claims faster, more accurately, and at lower cost
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#demo" class="px-8 py-4 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition transform hover:scale-105">
+                    Schedule AI Demo
+                </a>
+                <a href="#" class="px-8 py-4 border border-white rounded-lg hover:bg-white/10 transition">
+                    Download Case Studies
+                </a>
+            </div>
+            <p class="text-sm text-gray-400 mt-6">Free consultation • Custom AI models • Proven ROI</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto text-center text-gray-400">
+            <p>&copy; 2024 GeoSense AI. Revolutionizing insurance with intelligent geospatial analytics.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // ROI Calculator
+        function calculateROI() {
+            const claimsVolume = parseInt(document.getElementById('claimsVolume').value) || 5000;
+            const claimValue = parseInt(document.getElementById('claimValue').value) || 25000;
+            const processingTime = parseInt(document.getElementById('processingTime').value) || 14;
+            
+            // Calculate savings
+            const timeReduction = 0.72;
+            const costPerClaim = 500; // Average processing cost
+            const annualSavings = claimsVolume * costPerClaim * timeReduction;
+            const fraudPrevention = claimsVolume * claimValue * 0.0068; // 0.68% fraud rate
+            
+            // Update display
+            document.querySelector('.text-green-400').textContent = Math.round(timeReduction * 100) + '%';
+            document.querySelector('.text-purple-400').textContent = '$' + (annualSavings / 1000000).toFixed(1) + 'M';
+            document.querySelector('.text-orange-400').textContent = '$' + Math.round(fraudPrevention / 1000) + 'K';
+        }
+        
+        // Add event listeners
+        document.getElementById('claimsVolume').addEventListener('input', calculateROI);
+        document.getElementById('claimValue').addEventListener('input', calculateROI);
+        document.getElementById('processingTime').addEventListener('input', calculateROI);
+        
+        // Initial calculation
+        calculateROI();
+    </script>
+</body>
+</html>

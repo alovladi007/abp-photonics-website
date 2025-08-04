@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoSense AI - Energy & Utilities Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #7c2d12 0%, #991b1b 50%, #7c2d12 100%);
+        }
+        
+        .card-gradient {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+            backdrop-filter: blur(10px);
+        }
+        
+        .thermal-gradient {
+            background: linear-gradient(to right, #000080, #0000FF, #00FFFF, #00FF00, #FFFF00, #FF0000, #800000);
+        }
+        
+        .pipeline-animation {
+            animation: flow 3s linear infinite;
+        }
+        
+        @keyframes flow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .drone-float {
+            animation: droneFloat 4s ease-in-out infinite;
+        }
+        
+        @keyframes droneFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(2deg); }
+            75% { transform: translateY(10px) rotate(-2deg); }
+        }
+        
+        .spark {
+            animation: spark 2s linear infinite;
+        }
+        
+        @keyframes spark {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="geospatial.html" class="text-2xl font-bold">
+                        <span class="text-indigo-400">GeoSense AI</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold text-orange-400">Energy & Utilities</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#solutions" class="hover:text-orange-400 transition">Solutions</a>
+                    <a href="#hardware" class="hover:text-orange-400 transition">Hardware</a>
+                    <a href="#case-studies" class="hover:text-orange-400 transition">Case Studies</a>
+                    <a href="#demo" class="px-4 py-2 bg-orange-600 rounded-lg hover:bg-orange-700 transition">Request Demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Animated Pipeline -->
+    <section class="relative hero-gradient pt-24 pb-32 overflow-hidden">
+        <div class="absolute inset-0">
+            <!-- Animated pipeline visualization -->
+            <svg class="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 1200 400">
+                <!-- Main pipeline -->
+                <rect x="0" y="180" width="1200" height="40" fill="#374151" rx="20"/>
+                <!-- Flow animation -->
+                <rect x="0" y="185" width="200" height="30" fill="url(#flowGradient)" rx="15" class="pipeline-animation"/>
+                <!-- Valves -->
+                <circle cx="300" cy="200" r="30" fill="#6b7280" stroke="#9ca3af" stroke-width="2"/>
+                <circle cx="600" cy="200" r="30" fill="#6b7280" stroke="#9ca3af" stroke-width="2"/>
+                <circle cx="900" cy="200" r="30" fill="#6b7280" stroke="#9ca3af" stroke-width="2"/>
+                <!-- Leak indicator -->
+                <circle cx="750" cy="200" r="15" fill="#ef4444" class="spark"/>
+                <defs>
+                    <linearGradient id="flowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    <span class="gradient-text">Energy & Utilities Intelligence</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                    Advanced thermal inspection, infrastructure monitoring, and predictive maintenance for the energy sector
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#demo" class="px-8 py-4 bg-orange-600 rounded-lg hover:bg-orange-700 transition transform hover:scale-105">
+                        Schedule Inspection
+                    </a>
+                    <a href="#roi" class="px-8 py-4 border border-orange-600 rounded-lg hover:bg-orange-600/10 transition">
+                        Calculate Savings
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics -->
+    <section class="py-20 px-4 -mt-16 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="card-gradient p-6 rounded-xl border border-orange-500/20">
+                    <div class="text-4xl font-bold text-orange-400 mb-2">99.7%</div>
+                    <div class="text-lg font-semibold mb-1">Leak Detection Rate</div>
+                    <div class="text-gray-400 text-sm">Using thermal & acoustic sensors</div>
+                </div>
+                <div class="card-gradient p-6 rounded-xl border border-red-500/20">
+                    <div class="text-4xl font-bold text-red-400 mb-2">72hrs</div>
+                    <div class="text-lg font-semibold mb-1">Early Warning</div>
+                    <div class="text-gray-400 text-sm">Before critical failures</div>
+                </div>
+                <div class="card-gradient p-6 rounded-xl border border-yellow-500/20">
+                    <div class="text-4xl font-bold text-yellow-400 mb-2">$2.4M</div>
+                    <div class="text-lg font-semibold mb-1">Annual Savings</div>
+                    <div class="text-gray-400 text-sm">Average per facility</div>
+                </div>
+                <div class="card-gradient p-6 rounded-xl border border-green-500/20">
+                    <div class="text-4xl font-bold text-green-400 mb-2">-68%</div>
+                    <div class="text-lg font-semibold mb-1">Downtime Reduction</div>
+                    <div class="text-gray-400 text-sm">Through predictive maintenance</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Overview -->
+    <section id="solutions" class="py-20 px-4 bg-slate-800/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Comprehensive Energy Solutions</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Thermal Leak Detection -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-orange-500/20 hover:border-orange-400/50 transition">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-black rounded-lg relative overflow-hidden">
+                            <!-- Thermal visualization -->
+                            <div class="absolute inset-0 thermal-gradient opacity-30"></div>
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                <div class="w-20 h-20 bg-red-600 rounded-full blur-xl animate-pulse"></div>
+                                <div class="absolute top-0 left-0 w-20 h-20 border-2 border-red-400 rounded-full animate-ping"></div>
+                            </div>
+                            <div class="absolute top-4 left-4 text-xs bg-black/50 px-2 py-1 rounded">
+                                THERMAL VIEW
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Thermal Leak Detection</h3>
+                    <p class="text-gray-400 mb-4">AI-powered thermal imaging identifies gas leaks, hot spots, and insulation failures</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• FLIR thermal cameras with 0.05°C sensitivity</li>
+                        <li>• Real-time anomaly detection</li>
+                        <li>• Automated report generation</li>
+                    </ul>
+                </div>
+
+                <!-- LiDAR Encroachment -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-blue-500/20 hover:border-blue-400/50 transition">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-black rounded-lg relative overflow-hidden">
+                            <!-- LiDAR point cloud visualization -->
+                            <svg class="w-full h-full" viewBox="0 0 200 200">
+                                <!-- Power lines -->
+                                <line x1="20" y1="50" x2="180" y2="50" stroke="#3b82f6" stroke-width="2"/>
+                                <line x1="20" y1="60" x2="180" y2="60" stroke="#3b82f6" stroke-width="2"/>
+                                <!-- Towers -->
+                                <rect x="15" y="40" width="10" height="100" fill="#6b7280"/>
+                                <rect x="175" y="40" width="10" height="100" fill="#6b7280"/>
+                                <!-- Vegetation encroachment -->
+                                <circle cx="100" cy="90" r="30" fill="#22c55e" opacity="0.5"/>
+                                <circle cx="120" cy="85" r="25" fill="#22c55e" opacity="0.5"/>
+                                <!-- Warning zone -->
+                                <rect x="70" y="30" width="80" height="50" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,5" opacity="0.8"/>
+                                <text x="100" y="120" text-anchor="middle" fill="#ef4444" font-size="12">ENCROACHMENT</text>
+                            </svg>
+                            <div class="absolute top-4 left-4 text-xs bg-black/50 px-2 py-1 rounded">
+                                LIDAR SCAN
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">LiDAR Encroachment Analysis</h3>
+                    <p class="text-gray-400 mb-4">Automated vegetation and structure monitoring near power lines</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• 5cm accuracy point clouds</li>
+                        <li>• Growth rate prediction</li>
+                        <li>• Clearance violation alerts</li>
+                    </ul>
+                </div>
+
+                <!-- Cable Monitoring -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-purple-500/20 hover:border-purple-400/50 transition">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-black rounded-lg relative overflow-hidden">
+                            <!-- Underground cable visualization -->
+                            <div class="absolute inset-0 bg-gradient-to-b from-sky-900/20 to-amber-900/40"></div>
+                            <svg class="w-full h-full" viewBox="0 0 200 200">
+                                <!-- Ground level -->
+                                <line x1="0" y1="80" x2="200" y2="80" stroke="#6b7280" stroke-width="2"/>
+                                <!-- Underground cables -->
+                                <path d="M 20 120 Q 100 100 180 120" stroke="#8b5cf6" stroke-width="4" fill="none"/>
+                                <path d="M 20 140 Q 100 120 180 140" stroke="#8b5cf6" stroke-width="4" fill="none"/>
+                                <!-- Fault location -->
+                                <circle cx="120" cy="130" r="10" fill="#ef4444" class="animate-pulse"/>
+                                <circle cx="120" cy="130" r="20" fill="none" stroke="#ef4444" stroke-width="2" opacity="0.5" class="animate-ping"/>
+                            </svg>
+                            <div class="absolute top-4 left-4 text-xs bg-black/50 px-2 py-1 rounded">
+                                CABLE MONITOR
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Underground Cable Monitoring</h3>
+                    <p class="text-gray-400 mb-4">Distributed fiber sensing for submarine and underground cables</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• DTS/DAS fiber optic sensing</li>
+                        <li>• Partial discharge detection</li>
+                        <li>• Third-party interference alerts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hardware Showcase -->
+    <section id="hardware" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Specialized Hardware Fleet</h2>
+            
+            <!-- Drone Systems -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-semibold mb-8 text-orange-400">Aerial Inspection Systems</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Thermal Inspection Drone -->
+                    <div class="bg-slate-800 rounded-xl p-6">
+                        <div class="relative h-64 mb-6 bg-gradient-to-br from-orange-900/20 to-red-900/20 rounded-lg">
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 drone-float">
+                                <svg width="200" height="150" viewBox="0 0 200 150">
+                                    <!-- Drone body -->
+                                    <rect x="70" y="60" width="60" height="30" fill="#1f2937" rx="5"/>
+                                    <!-- Arms -->
+                                    <rect x="40" y="72" width="120" height="6" fill="#374151"/>
+                                    <rect x="85" y="30" width="30" height="90" fill="#374151"/>
+                                    <!-- Rotors -->
+                                    <circle cx="50" cy="75" r="20" fill="none" stroke="#6b7280" stroke-width="2" opacity="0.5" class="animate-spin"/>
+                                    <circle cx="150" cy="75" r="20" fill="none" stroke="#6b7280" stroke-width="2" opacity="0.5" class="animate-spin"/>
+                                    <circle cx="100" cy="40" r="20" fill="none" stroke="#6b7280" stroke-width="2" opacity="0.5" class="animate-spin"/>
+                                    <circle cx="100" cy="110" r="20" fill="none" stroke="#6b7280" stroke-width="2" opacity="0.5" class="animate-spin"/>
+                                    <!-- Thermal camera -->
+                                    <rect x="85" y="85" width="30" height="20" fill="#ef4444" rx="3"/>
+                                    <circle cx="100" cy="95" r="8" fill="#991b1b"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-3">ThermalHawk Pro X8</h4>
+                        <p class="text-gray-400 mb-4">Heavy-lift thermal inspection platform with dual-sensor payload</p>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <p class="text-gray-500">Flight Time</p>
+                                <p class="font-semibold">55 minutes</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500">Thermal Resolution</p>
+                                <p class="font-semibold">640×512 @ 30Hz</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500">Detection Range</p>
+                                <p class="font-semibold">2.5 km</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500">AI Processing</p>
+                                <p class="font-semibold">Onboard Edge</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LiDAR Mapping Drone -->
+                    <div class="bg-slate-800 rounded-xl p-6">
+                        <div class="relative h-64 mb-6 bg-gradient-to-br from-blue-900/20 to-purple-900/20 rounded-lg">
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                <svg width="200" height="150" viewBox="0 0 200 150">
+                                    <!-- Fixed-wing body -->
+                                    <ellipse cx="100" cy="75" rx="80" ry="20" fill="#1f2937"/>
+                                    <rect x="90" y="65" width="20" height="20" fill="#374151"/>
+                                    <!-- Wings -->
+                                    <path d="M 20 75 L 100 70 L 100 80 L 20 75" fill="#374151"/>
+                                    <path d="M 180 75 L 100 70 L 100 80 L 180 75" fill="#374151"/>
+                                    <!-- LiDAR scanner -->
+                                    <rect x="85" y="80" width="30" height="15" fill="#3b82f6" rx="3"/>
+                                    <!-- Scan lines -->
+                                    <line x1="100" y1="95" x2="60" y2="130" stroke="#3b82f6" stroke-width="1" opacity="0.5" class="animate-pulse"/>
+                                    <line x1="100" y1="95" x2="80" y2="130" stroke="#3b82f6" stroke-width="1" opacity="0.5" class="animate-pulse" style="animation-delay: 0.2s"/>
+                                    <line x1="100" y1="95" x2="100" y2="130" stroke="#3b82f6" stroke-width="1" opacity="0.5" class="animate-pulse" style="animation-delay: 0.4s"/>
+                                    <line x1="100" y1="95" x2="120" y2="130" stroke="#3b82f6" stroke-width="1" opacity="0.5" class="animate-pulse" style="animation-delay: 0.6s"/>
+                                    <line x1="100" y1="95" x2="140" y2="130" stroke="#3b82f6" stroke-width="1" opacity="0.5" class="animate-pulse" style="animation-delay: 0.8s"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-3">ScanEagle LiDAR Max</h4>
+                        <p class="text-gray-400 mb-4">Long-range fixed-wing platform for corridor mapping</p>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <p class="text-gray-500">Coverage</p>
+                                <p class="font-semibold">500 km/flight</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500">Point Density</p>
+                                <p class="font-semibold">300 pts/m²</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500">Accuracy</p>
+                                <p class="font-semibold">±3 cm</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500">Swath Width</p>
+                                <p class="font-semibold">1.2 km</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sensor Systems -->
+            <div>
+                <h3 class="text-2xl font-semibold mb-8 text-blue-400">Advanced Sensor Packages</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Methane Detector -->
+                    <div class="bg-slate-800 rounded-xl p-6">
+                        <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-wind text-xl"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold mb-2">LaserMethane Mini</h4>
+                        <p class="text-gray-400 text-sm mb-3">Tunable diode laser absorption spectroscopy</p>
+                        <ul class="text-xs text-gray-300 space-y-1">
+                            <li>• Detection: 1 ppm·m @ 30m</li>
+                            <li>• Response: < 0.1 second</li>
+                            <li>• Weight: 600g</li>
+                        </ul>
+                    </div>
+
+                    <!-- Corona Camera -->
+                    <div class="bg-slate-800 rounded-xl p-6">
+                        <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-bolt text-xl"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold mb-2">CoroCAM 8HD</h4>
+                        <p class="text-gray-400 text-sm mb-3">UV corona discharge detection camera</p>
+                        <ul class="text-xs text-gray-300 space-y-1">
+                            <li>• UV Range: 240-280nm</li>
+                            <li>• Detection: 3pC @ 15m</li>
+                            <li>• Solar blind technology</li>
+                        </ul>
+                    </div>
+
+                    <!-- Acoustic Sensor -->
+                    <div class="bg-slate-800 rounded-xl p-6">
+                        <div class="w-12 h-12 bg-cyan-600 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-wave-square text-xl"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold mb-2">UltraSonic PD</h4>
+                        <p class="text-gray-400 text-sm mb-3">Partial discharge ultrasonic detector</p>
+                        <ul class="text-xs text-gray-300 space-y-1">
+                            <li>• Frequency: 20-100kHz</li>
+                            <li>• Sensitivity: -70dB</li>
+                            <li>• Pattern recognition AI</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Demo Section -->
+    <section class="py-20 px-4 bg-slate-800/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Live Infrastructure Monitoring</h2>
+            
+            <div class="bg-slate-900 rounded-2xl p-6 border border-orange-500/20">
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <!-- Map View -->
+                    <div class="lg:col-span-2">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold">Pipeline Network Monitor</h3>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                                <span class="text-sm text-gray-400">Live</span>
+                            </div>
+                        </div>
+                        <div id="pipeline-map" class="h-96 rounded-lg bg-black relative overflow-hidden">
+                            <!-- Simplified pipeline visualization -->
+                            <svg class="w-full h-full" viewBox="0 0 800 400">
+                                <!-- Grid -->
+                                <defs>
+                                    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+                                        <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#1f2937" stroke-width="1"/>
+                                    </pattern>
+                                </defs>
+                                <rect width="800" height="400" fill="url(#grid)"/>
+                                
+                                <!-- Main pipeline -->
+                                <path d="M 50 200 L 750 200" stroke="#3b82f6" stroke-width="8" fill="none"/>
+                                <path d="M 400 200 L 400 350" stroke="#3b82f6" stroke-width="8" fill="none"/>
+                                
+                                <!-- Stations -->
+                                <circle cx="50" cy="200" r="15" fill="#6b7280"/>
+                                <circle cx="400" cy="200" r="15" fill="#6b7280"/>
+                                <circle cx="750" cy="200" r="15" fill="#6b7280"/>
+                                <circle cx="400" cy="350" r="15" fill="#6b7280"/>
+                                
+                                <!-- Leak detection -->
+                                <circle cx="250" cy="200" r="20" fill="#ef4444" opacity="0.3" class="animate-pulse"/>
+                                <circle cx="250" cy="200" r="10" fill="#ef4444"/>
+                                <text x="250" y="170" text-anchor="middle" fill="#ef4444" font-size="12">LEAK DETECTED</text>
+                                
+                                <!-- Temperature anomaly -->
+                                <rect x="550" y="190" width="100" height="20" fill="#f59e0b" opacity="0.5" rx="10"/>
+                                <text x="600" y="230" text-anchor="middle" fill="#f59e0b" font-size="12">HIGH TEMP</text>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Real-time Metrics -->
+                    <div class="space-y-4">
+                        <div class="bg-slate-800 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-3">System Status</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm text-gray-400">Pipeline Pressure</span>
+                                        <span class="text-sm font-semibold text-green-400">72.3 PSI</span>
+                                    </div>
+                                    <div class="w-full bg-slate-700 rounded-full h-2">
+                                        <div class="bg-green-400 h-2 rounded-full" style="width: 72%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm text-gray-400">Flow Rate</span>
+                                        <span class="text-sm font-semibold text-blue-400">1,245 m³/h</span>
+                                    </div>
+                                    <div class="w-full bg-slate-700 rounded-full h-2">
+                                        <div class="bg-blue-400 h-2 rounded-full" style="width: 83%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm text-gray-400">Temperature</span>
+                                        <span class="text-sm font-semibold text-orange-400">67°C</span>
+                                    </div>
+                                    <div class="w-full bg-slate-700 rounded-full h-2">
+                                        <div class="bg-orange-400 h-2 rounded-full" style="width: 67%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-3">Active Alerts</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-2 h-2 bg-red-400 rounded-full mt-1.5"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium">Methane Leak Detected</p>
+                                        <p class="text-xs text-gray-400">Section B4 - 0.3% concentration</p>
+                                        <p class="text-xs text-gray-500">2 minutes ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-2 h-2 bg-yellow-400 rounded-full mt-1.5"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium">Temperature Anomaly</p>
+                                        <p class="text-xs text-gray-400">Junction J7 - 12°C above normal</p>
+                                        <p class="text-xs text-gray-500">15 minutes ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-3">Inspection Schedule</h4>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Next Drone Flight</span>
+                                    <span class="text-orange-400">In 2 hours</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">LiDAR Scan</span>
+                                    <span class="text-blue-400">Tomorrow</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Thermal Survey</span>
+                                    <span class="text-green-400">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section id="case-studies" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Success Stories</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-slate-800 rounded-xl overflow-hidden">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23dc2626'/%3E%3Ctext x='200' y='100' text-anchor='middle' fill='white' font-size='24'%3EGas Pipeline Network%3C/text%3E%3C/svg%3E" 
+                         alt="Gas Pipeline" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">TransGas Pipeline Network</h3>
+                        <p class="text-gray-400 mb-4">2,500 km pipeline system | North America</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Leak Detection Time:</span>
+                                <span class="text-green-400 font-semibold">-94% (from 6hrs to 20min)</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">False Positives:</span>
+                                <span class="text-blue-400 font-semibold">-87%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Annual Savings:</span>
+                                <span class="text-yellow-400 font-semibold">$3.2M</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl overflow-hidden">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%233b82f6'/%3E%3Ctext x='200' y='100' text-anchor='middle' fill='white' font-size='24'%3EPower Grid Infrastructure%3C/text%3E%3C/svg%3E" 
+                         alt="Power Grid" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">National Grid Corporation</h3>
+                        <p class="text-gray-400 mb-4">15,000 km transmission lines | Europe</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Vegetation Incidents:</span>
+                                <span class="text-green-400 font-semibold">-76%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Inspection Efficiency:</span>
+                                <span class="text-blue-400 font-semibold">+340%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Outage Prevention:</span>
+                                <span class="text-yellow-400 font-semibold">42 incidents/year</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4 bg-gradient-to-r from-orange-900/50 to-red-900/50">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-6">Protect Your Energy Infrastructure</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Join leading utilities using AI-powered inspection to prevent failures and optimize operations
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#demo" class="px-8 py-4 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition transform hover:scale-105">
+                    Schedule Infrastructure Audit
+                </a>
+                <a href="#" class="px-8 py-4 border border-white rounded-lg hover:bg-white/10 transition">
+                    Download Case Studies
+                </a>
+            </div>
+            <p class="text-sm text-gray-400 mt-6">Free consultation • ROI analysis included • No obligations</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto text-center text-gray-400">
+            <p>&copy; 2024 GeoSense AI. Powering the future of energy infrastructure monitoring.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Simulate real-time updates
+        setInterval(() => {
+            // Update random metrics
+            const pressure = document.querySelector('.text-green-400');
+            if (pressure && pressure.textContent.includes('PSI')) {
+                const newPressure = (70 + Math.random() * 5).toFixed(1);
+                pressure.textContent = newPressure + ' PSI';
+            }
+        }, 3000);
+    </script>
+</body>
+</html>

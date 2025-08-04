@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoSense AI - Smart Cities Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #14b8a6 0%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #134e4a 0%, #0c4a6e 50%, #134e4a 100%);
+        }
+        
+        .card-gradient {
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.1) 0%, rgba(14, 165, 233, 0.1) 100%);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* 3D City Animation */
+        .city-3d {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+        
+        .building {
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateX(5deg) rotateY(5deg); }
+            50% { transform: translateY(-10px) rotateX(5deg) rotateY(5deg); }
+        }
+        
+        .building-face {
+            position: absolute;
+            background: linear-gradient(to bottom, #1e40af 0%, #1e3a8a 100%);
+            border: 1px solid #3b82f6;
+        }
+        
+        .traffic-flow {
+            animation: traffic 3s linear infinite;
+        }
+        
+        @keyframes traffic {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(200%); }
+        }
+        
+        .pulse-ring {
+            animation: pulseRing 2s ease-out infinite;
+        }
+        
+        @keyframes pulseRing {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        .rotate-slow {
+            animation: rotateSlow 20s linear infinite;
+        }
+        
+        @keyframes rotateSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .ev-charge {
+            animation: charge 2s ease-in-out infinite;
+        }
+        
+        @keyframes charge {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="geospatial.html" class="text-2xl font-bold">
+                        <span class="text-indigo-400">GeoSense AI</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold text-teal-400">Smart Cities</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#solutions" class="hover:text-teal-400 transition">Solutions</a>
+                    <a href="#3d-demo" class="hover:text-teal-400 transition">3D Demo</a>
+                    <a href="#case-studies" class="hover:text-teal-400 transition">Case Studies</a>
+                    <a href="#demo" class="px-4 py-2 bg-teal-600 rounded-lg hover:bg-teal-700 transition">Request Demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with 3D City -->
+    <section class="relative hero-gradient pt-24 pb-32 overflow-hidden">
+        <div class="absolute inset-0">
+            <!-- 3D City Background -->
+            <div class="city-3d absolute inset-0 flex items-center justify-center opacity-30">
+                <div class="relative w-96 h-96">
+                    <!-- Building 1 -->
+                    <div class="building absolute" style="left: 20%; bottom: 0; width: 60px; height: 180px;">
+                        <div class="building-face" style="width: 60px; height: 180px; transform: translateZ(30px);"></div>
+                        <div class="building-face" style="width: 60px; height: 180px; transform: translateZ(-30px);"></div>
+                        <div class="building-face" style="width: 60px; height: 60px; transform: rotateX(90deg) translateZ(30px); top: -30px;"></div>
+                    </div>
+                    <!-- Building 2 -->
+                    <div class="building absolute" style="left: 40%; bottom: 0; width: 80px; height: 220px; animation-delay: 0.5s;">
+                        <div class="building-face" style="width: 80px; height: 220px; transform: translateZ(40px);"></div>
+                        <div class="building-face" style="width: 80px; height: 220px; transform: translateZ(-40px);"></div>
+                        <div class="building-face" style="width: 80px; height: 80px; transform: rotateX(90deg) translateZ(40px); top: -40px;"></div>
+                    </div>
+                    <!-- Building 3 -->
+                    <div class="building absolute" style="left: 65%; bottom: 0; width: 70px; height: 160px; animation-delay: 1s;">
+                        <div class="building-face" style="width: 70px; height: 160px; transform: translateZ(35px);"></div>
+                        <div class="building-face" style="width: 70px; height: 160px; transform: translateZ(-35px);"></div>
+                        <div class="building-face" style="width: 70px; height: 70px; transform: rotateX(90deg) translateZ(35px); top: -35px;"></div>
+                    </div>
+                    <!-- Traffic lines -->
+                    <div class="absolute bottom-0 w-full h-4 bg-gray-700">
+                        <div class="traffic-flow absolute w-8 h-2 bg-yellow-400 rounded" style="top: 1px;"></div>
+                        <div class="traffic-flow absolute w-8 h-2 bg-red-400 rounded" style="top: 1px; animation-delay: 1s;"></div>
+                        <div class="traffic-flow absolute w-8 h-2 bg-yellow-400 rounded" style="top: 1px; animation-delay: 2s;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    <span class="gradient-text">Smart Cities Intelligence</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                    Transform urban environments with AI-powered infrastructure monitoring, traffic optimization, and sustainable city planning
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#3d-demo" class="px-8 py-4 bg-teal-600 rounded-lg hover:bg-teal-700 transition transform hover:scale-105">
+                        Explore 3D City Model
+                    </a>
+                    <a href="#solutions" class="px-8 py-4 border border-teal-600 rounded-lg hover:bg-teal-600/10 transition">
+                        View Solutions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics -->
+    <section class="py-20 px-4 -mt-16 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="card-gradient p-6 rounded-xl border border-teal-500/20">
+                    <div class="text-4xl font-bold text-teal-400 mb-2">-42%</div>
+                    <div class="text-lg font-semibold mb-1">Traffic Congestion</div>
+                    <div class="text-gray-400 text-sm">AI-optimized traffic flow</div>
+                </div>
+                <div class="card-gradient p-6 rounded-xl border border-blue-500/20">
+                    <div class="text-4xl font-bold text-blue-400 mb-2">87%</div>
+                    <div class="text-lg font-semibold mb-1">Energy Efficiency</div>
+                    <div class="text-gray-400 text-sm">Smart grid optimization</div>
+                </div>
+                <div class="card-gradient p-6 rounded-xl border border-green-500/20">
+                    <div class="text-4xl font-bold text-green-400 mb-2">3.2M</div>
+                    <div class="text-lg font-semibold mb-1">Data Points/Day</div>
+                    <div class="text-gray-400 text-sm">IoT sensor network</div>
+                </div>
+                <div class="card-gradient p-6 rounded-xl border border-purple-500/20">
+                    <div class="text-4xl font-bold text-purple-400 mb-2">15min</div>
+                    <div class="text-lg font-semibold mb-1">Response Time</div>
+                    <div class="text-gray-400 text-sm">Emergency services</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D City Demo -->
+    <section id="3d-demo" class="py-20 px-4 bg-slate-800/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Interactive 3D City Digital Twin</h2>
+            
+            <div class="bg-slate-900 rounded-2xl p-6 border border-teal-500/20">
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <!-- 3D City Visualization -->
+                    <div class="lg:col-span-2">
+                        <div class="h-96 bg-black rounded-lg relative overflow-hidden">
+                            <!-- 3D City Grid -->
+                            <div class="absolute inset-0 city-3d p-8">
+                                <svg class="w-full h-full" viewBox="0 0 800 400">
+                                    <!-- City blocks -->
+                                    <defs>
+                                        <pattern id="cityGrid" width="100" height="100" patternUnits="userSpaceOnUse">
+                                            <rect width="100" height="100" fill="none" stroke="#1e293b" stroke-width="1"/>
+                                        </pattern>
+                                        <linearGradient id="buildingGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                            <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+                                        </linearGradient>
+                                    </defs>
+                                    
+                                    <!-- Base grid -->
+                                    <rect width="800" height="400" fill="url(#cityGrid)" opacity="0.3"/>
+                                    
+                                    <!-- Buildings with different heights -->
+                                    <g transform="skewX(-30) skewY(15)">
+                                        <!-- Commercial district -->
+                                        <rect x="100" y="200" width="60" height="120" fill="url(#buildingGradient)" opacity="0.8"/>
+                                        <rect x="180" y="180" width="80" height="140" fill="url(#buildingGradient)" opacity="0.8"/>
+                                        <rect x="280" y="220" width="70" height="100" fill="url(#buildingGradient)" opacity="0.8"/>
+                                        
+                                        <!-- Residential area -->
+                                        <rect x="400" y="250" width="50" height="70" fill="#10b981" opacity="0.7"/>
+                                        <rect x="470" y="240" width="50" height="80" fill="#10b981" opacity="0.7"/>
+                                        <rect x="540" y="260" width="50" height="60" fill="#10b981" opacity="0.7"/>
+                                        
+                                        <!-- Industrial zone -->
+                                        <rect x="100" y="50" width="100" height="60" fill="#f59e0b" opacity="0.6"/>
+                                        <rect x="220" y="60" width="80" height="50" fill="#f59e0b" opacity="0.6"/>
+                                    </g>
+                                    
+                                    <!-- Traffic flow visualization -->
+                                    <g opacity="0.8">
+                                        <!-- Main roads -->
+                                        <line x1="0" y1="320" x2="800" y2="320" stroke="#374151" stroke-width="8"/>
+                                        <line x1="370" y1="0" x2="370" y2="400" stroke="#374151" stroke-width="8"/>
+                                        
+                                        <!-- Traffic dots -->
+                                        <circle cx="100" cy="320" r="3" fill="#fbbf24" class="traffic-flow"/>
+                                        <circle cx="200" cy="320" r="3" fill="#ef4444" class="traffic-flow" style="animation-delay: 0.5s"/>
+                                        <circle cx="300" cy="320" r="3" fill="#fbbf24" class="traffic-flow" style="animation-delay: 1s"/>
+                                        <circle cx="370" cy="100" r="3" fill="#10b981" class="traffic-flow"/>
+                                        <circle cx="370" cy="200" r="3" fill="#10b981" class="traffic-flow" style="animation-delay: 0.7s"/>
+                                    </g>
+                                    
+                                    <!-- IoT sensors -->
+                                    <g>
+                                        <circle cx="150" cy="250" r="5" fill="#06b6d4" class="pulse-ring"/>
+                                        <circle cx="150" cy="250" r="3" fill="#06b6d4"/>
+                                        
+                                        <circle cx="450" cy="280" r="5" fill="#06b6d4" class="pulse-ring" style="animation-delay: 0.5s"/>
+                                        <circle cx="450" cy="280" r="3" fill="#06b6d4"/>
+                                        
+                                        <circle cx="600" cy="200" r="5" fill="#06b6d4" class="pulse-ring" style="animation-delay: 1s"/>
+                                        <circle cx="600" cy="200" r="3" fill="#06b6d4"/>
+                                    </g>
+                                    
+                                    <!-- EV Charging stations -->
+                                    <g>
+                                        <rect x="200" y="300" width="20" height="30" fill="#10b981" rx="2"/>
+                                        <text x="210" y="320" text-anchor="middle" fill="white" font-size="16">⚡</text>
+                                        
+                                        <rect x="500" y="300" width="20" height="30" fill="#10b981" rx="2"/>
+                                        <text x="510" y="320" text-anchor="middle" fill="white" font-size="16">⚡</text>
+                                    </g>
+                                </svg>
+                            </div>
+                            
+                            <!-- Layer controls -->
+                            <div class="absolute top-4 right-4 space-y-2">
+                                <button class="px-3 py-1 bg-slate-800/80 rounded text-xs hover:bg-slate-700/80 transition">
+                                    <i class="fas fa-layer-group mr-1"></i> Layers
+                                </button>
+                            </div>
+                            
+                            <!-- Legend -->
+                            <div class="absolute bottom-4 left-4 bg-slate-800/80 p-3 rounded text-xs">
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <div class="w-3 h-3 bg-blue-500"></div>
+                                    <span>Commercial</span>
+                                </div>
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <div class="w-3 h-3 bg-green-500"></div>
+                                    <span>Residential</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-3 h-3 bg-yellow-500"></div>
+                                    <span>Industrial</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- City Analytics -->
+                    <div class="space-y-4">
+                        <div class="bg-slate-800 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-3">Real-time City Metrics</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm text-gray-400">Traffic Flow</span>
+                                        <span class="text-sm font-semibold text-green-400">Optimal</span>
+                                    </div>
+                                    <div class="w-full bg-slate-700 rounded-full h-2">
+                                        <div class="bg-green-400 h-2 rounded-full" style="width: 78%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm text-gray-400">Air Quality</span>
+                                        <span class="text-sm font-semibold text-yellow-400">Moderate</span>
+                                    </div>
+                                    <div class="w-full bg-slate-700 rounded-full h-2">
+                                        <div class="bg-yellow-400 h-2 rounded-full" style="width: 65%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm text-gray-400">Energy Usage</span>
+                                        <span class="text-sm font-semibold text-blue-400">82%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-700 rounded-full h-2">
+                                        <div class="bg-blue-400 h-2 rounded-full" style="width: 82%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-3">Active Sensors</h4>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Traffic Cameras</span>
+                                    <span class="text-teal-400">248 active</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Air Quality</span>
+                                    <span class="text-green-400">47 active</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Noise Monitors</span>
+                                    <span class="text-blue-400">82 active</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Weather Stations</span>
+                                    <span class="text-purple-400">15 active</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-3">Smart Alerts</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-2 h-2 bg-yellow-400 rounded-full mt-1.5"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm">Traffic congestion on Main St</p>
+                                        <p class="text-xs text-gray-500">Rerouting suggested</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-2 h-2 bg-green-400 rounded-full mt-1.5"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm">EV charging demand surge</p>
+                                        <p class="text-xs text-gray-500">Zone 4 - 85% capacity</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Overview -->
+    <section id="solutions" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Smart City Solutions</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 3D City Modeling -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-teal-500/20 hover:border-teal-400/50 transition">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-black rounded-lg relative overflow-hidden">
+                            <!-- 3D mesh visualization -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-32 h-32 relative rotate-slow">
+                                    <div class="absolute inset-0 border-2 border-teal-400 transform rotate-45"></div>
+                                    <div class="absolute inset-4 border-2 border-blue-400 transform rotate-12"></div>
+                                    <div class="absolute inset-8 border-2 border-purple-400 transform -rotate-12"></div>
+                                </div>
+                            </div>
+                            <div class="absolute top-4 left-4 text-xs bg-black/50 px-2 py-1 rounded">
+                                3D MESH
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">3D City Meshes</h3>
+                    <p class="text-gray-400 mb-4">High-fidelity digital twins for urban planning and simulation</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Photogrammetry processing</li>
+                        <li>• LiDAR integration</li>
+                        <li>• Real-time updates</li>
+                    </ul>
+                </div>
+
+                <!-- Traffic Analytics -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-orange-500/20 hover:border-orange-400/50 transition">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-black rounded-lg relative overflow-hidden">
+                            <!-- Traffic flow visualization -->
+                            <svg class="w-full h-full" viewBox="0 0 200 200">
+                                <!-- Roads -->
+                                <line x1="0" y1="100" x2="200" y2="100" stroke="#374151" stroke-width="6"/>
+                                <line x1="100" y1="0" x2="100" y2="200" stroke="#374151" stroke-width="6"/>
+                                <!-- Traffic flow -->
+                                <circle cx="50" cy="100" r="4" fill="#10b981" class="traffic-flow"/>
+                                <circle cx="100" cy="100" r="4" fill="#f59e0b" class="traffic-flow" style="animation-delay: 0.5s"/>
+                                <circle cx="150" cy="100" r="4" fill="#ef4444" class="traffic-flow" style="animation-delay: 1s"/>
+                                <!-- Junction -->
+                                <circle cx="100" cy="100" r="20" fill="none" stroke="#6b7280" stroke-width="2"/>
+                                <!-- Traffic light -->
+                                <rect x="90" y="90" width="20" height="20" fill="#374151" rx="2"/>
+                                <circle cx="100" cy="100" r="3" fill="#10b981" class="ev-charge"/>
+                            </svg>
+                            <div class="absolute top-4 left-4 text-xs bg-black/50 px-2 py-1 rounded">
+                                TRAFFIC AI
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Traffic Analytics</h3>
+                    <p class="text-gray-400 mb-4">AI-powered traffic optimization and congestion prediction</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Real-time flow analysis</li>
+                        <li>• Predictive routing</li>
+                        <li>• Signal optimization</li>
+                    </ul>
+                </div>
+
+                <!-- EV Infrastructure -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-green-500/20 hover:border-green-400/50 transition">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-black rounded-lg relative overflow-hidden">
+                            <!-- EV charging visualization -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="relative">
+                                    <!-- Charging station -->
+                                    <div class="w-24 h-32 bg-gradient-to-b from-green-600 to-green-800 rounded-lg relative">
+                                        <div class="absolute top-4 left-1/2 transform -translate-x-1/2">
+                                            <div class="text-3xl text-white">⚡</div>
+                                        </div>
+                                        <!-- Charging indicator -->
+                                        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-16 h-2 bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-green-400 ev-charge" style="width: 70%"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Connection cable -->
+                                    <path d="M 60 80 Q 80 100 100 80" stroke="#10b981" stroke-width="3" fill="none" class="absolute -right-8 top-8"/>
+                                </div>
+                            </div>
+                            <div class="absolute top-4 left-4 text-xs bg-black/50 px-2 py-1 rounded">
+                                EV NETWORK
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">EV Charging Digital Twin</h3>
+                    <p class="text-gray-400 mb-4">Smart grid integration for electric vehicle infrastructure</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Demand forecasting</li>
+                        <li>• Dynamic pricing</li>
+                        <li>• Grid load balancing</li>
+                    </ul>
+                </div>
+
+                <!-- Environmental Monitoring -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-blue-500/20 hover:border-blue-400/50 transition">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-black rounded-lg relative overflow-hidden">
+                            <!-- Air quality visualization -->
+                            <div class="absolute inset-0">
+                                <div class="absolute top-1/4 left-1/4 w-16 h-16 bg-green-500 rounded-full blur-xl opacity-50"></div>
+                                <div class="absolute top-1/2 right-1/4 w-20 h-20 bg-yellow-500 rounded-full blur-xl opacity-40"></div>
+                                <div class="absolute bottom-1/4 left-1/2 w-12 h-12 bg-blue-500 rounded-full blur-xl opacity-60"></div>
+                            </div>
+                            <div class="absolute top-4 left-4 text-xs bg-black/50 px-2 py-1 rounded">
+                                AIR QUALITY
+                            </div>
+                            <div class="absolute bottom-4 right-4 text-xs">
+                                <div class="text-green-400">AQI: 42</div>
+                                <div class="text-gray-400">Good</div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Environmental Monitoring</h3>
+                    <p class="text-gray-400 mb-4">Comprehensive urban environmental health tracking</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Air quality sensors</li>
+                        <li>• Noise pollution mapping</li>
+                        <li>• Urban heat islands</li>
+                    </ul>
+                </div>
+
+                <!-- Emergency Response -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-red-500/20 hover:border-red-400/50 transition">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-black rounded-lg relative overflow-hidden">
+                            <!-- Emergency response visualization -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="relative">
+                                    <div class="w-32 h-32 border-4 border-red-500 rounded-full pulse-ring"></div>
+                                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                        <i class="fas fa-ambulance text-3xl text-red-500"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute top-4 left-4 text-xs bg-black/50 px-2 py-1 rounded">
+                                EMERGENCY
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Emergency Response</h3>
+                    <p class="text-gray-400 mb-4">AI-optimized emergency service dispatch and routing</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Incident prediction</li>
+                        <li>• Resource optimization</li>
+                        <li>• Response time analysis</li>
+                    </ul>
+                </div>
+
+                <!-- Smart Lighting -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-yellow-500/20 hover:border-yellow-400/50 transition">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-black rounded-lg relative overflow-hidden">
+                            <!-- Smart lighting visualization -->
+                            <svg class="w-full h-full" viewBox="0 0 200 200">
+                                <!-- Street -->
+                                <rect x="0" y="150" width="200" height="50" fill="#1f2937"/>
+                                <!-- Light poles -->
+                                <rect x="45" y="100" width="10" height="50" fill="#374151"/>
+                                <rect x="95" y="100" width="10" height="50" fill="#374151"/>
+                                <rect x="145" y="100" width="10" height="50" fill="#374151"/>
+                                <!-- Light beams -->
+                                <path d="M 50 100 L 30 150 L 70 150 Z" fill="#fbbf24" opacity="0.3" class="ev-charge"/>
+                                <path d="M 100 100 L 80 150 L 120 150 Z" fill="#fbbf24" opacity="0.5" class="ev-charge" style="animation-delay: 0.5s"/>
+                                <path d="M 150 100 L 130 150 L 170 150 Z" fill="#fbbf24" opacity="0.3" class="ev-charge" style="animation-delay: 1s"/>
+                                <!-- Sensors -->
+                                <circle cx="50" cy="95" r="3" fill="#06b6d4"/>
+                                <circle cx="100" cy="95" r="3" fill="#06b6d4"/>
+                                <circle cx="150" cy="95" r="3" fill="#06b6d4"/>
+                            </svg>
+                            <div class="absolute top-4 left-4 text-xs bg-black/50 px-2 py-1 rounded">
+                                SMART LIGHTS
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Smart Lighting</h3>
+                    <p class="text-gray-400 mb-4">Adaptive street lighting for safety and energy efficiency</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Motion-activated dimming</li>
+                        <li>• Energy consumption tracking</li>
+                        <li>• Maintenance prediction</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Dashboard Demo -->
+    <section class="py-20 px-4 bg-slate-800/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">City Operations Dashboard</h2>
+            
+            <div class="bg-slate-900 rounded-2xl p-6 border border-teal-500/20">
+                <div class="grid lg:grid-cols-4 gap-6">
+                    <!-- Traffic Flow Chart -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-slate-800 rounded-lg p-4">
+                            <h3 class="text-lg font-semibold mb-4">Traffic Flow Analysis</h3>
+                            <canvas id="trafficChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Energy Usage -->
+                    <div>
+                        <div class="bg-slate-800 rounded-lg p-4">
+                            <h3 class="text-lg font-semibold mb-4">Energy Grid</h3>
+                            <canvas id="energyChart" width="200" height="200"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- City Stats -->
+                    <div>
+                        <div class="bg-slate-800 rounded-lg p-4 h-full">
+                            <h3 class="text-lg font-semibold mb-4">Live Stats</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="text-2xl font-bold text-teal-400">324,567</div>
+                                    <div class="text-sm text-gray-400">Active Citizens</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-green-400">1,247</div>
+                                    <div class="text-sm text-gray-400">EV Charging</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-blue-400">42</div>
+                                    <div class="text-sm text-gray-400">Air Quality Index</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-orange-400">78%</div>
+                                    <div class="text-sm text-gray-400">Grid Efficiency</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section id="case-studies" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Success Stories</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-slate-800 rounded-xl overflow-hidden">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%2314b8a6'/%3E%3Ctext x='200' y='100' text-anchor='middle' fill='white' font-size='24'%3ESmart Singapore%3C/text%3E%3C/svg%3E" 
+                         alt="Smart Singapore" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Singapore Smart Nation</h3>
+                        <p class="text-gray-400 mb-4">5.6M population | Southeast Asia</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Traffic Efficiency:</span>
+                                <span class="text-green-400 font-semibold">+35% improvement</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Energy Savings:</span>
+                                <span class="text-blue-400 font-semibold">23% reduction</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Emergency Response:</span>
+                                <span class="text-yellow-400 font-semibold">-4 min average</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl overflow-hidden">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%230ea5e9'/%3E%3Ctext x='200' y='100' text-anchor='middle' fill='white' font-size='24'%3EBarcelona Smart City%3C/text%3E%3C/svg%3E" 
+                         alt="Barcelona Smart City" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Barcelona Smart City</h3>
+                        <p class="text-gray-400 mb-4">1.6M population | Europe</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Water Conservation:</span>
+                                <span class="text-green-400 font-semibold">42.5M liters/year</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Street Light Savings:</span>
+                                <span class="text-blue-400 font-semibold">€33M/year</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Air Quality:</span>
+                                <span class="text-yellow-400 font-semibold">27% improvement</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4 bg-gradient-to-r from-teal-900/50 to-blue-900/50">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-6">Build Your Smart City Future</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Transform your city with AI-powered infrastructure and data-driven decision making
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#demo" class="px-8 py-4 bg-teal-600 text-white font-semibold rounded-lg hover:bg-teal-700 transition transform hover:scale-105">
+                    Explore 3D City Demo
+                </a>
+                <a href="#" class="px-8 py-4 border border-white rounded-lg hover:bg-white/10 transition">
+                    Download Smart City Guide
+                </a>
+            </div>
+            <p class="text-sm text-gray-400 mt-6">Free consultation • Custom solutions • Proven ROI</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto text-center text-gray-400">
+            <p>&copy; 2024 GeoSense AI. Building smarter cities for a sustainable future.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Traffic Flow Chart
+        const trafficCtx = document.getElementById('trafficChart').getContext('2d');
+        const trafficChart = new Chart(trafficCtx, {
+            type: 'line',
+            data: {
+                labels: ['6AM', '9AM', '12PM', '3PM', '6PM', '9PM'],
+                datasets: [{
+                    label: 'Main Street',
+                    data: [30, 85, 65, 70, 90, 45],
+                    borderColor: '#14b8a6',
+                    backgroundColor: 'rgba(20, 184, 166, 0.1)',
+                    tension: 0.4
+                }, {
+                    label: 'Highway 101',
+                    data: [40, 95, 70, 75, 95, 50],
+                    borderColor: '#0ea5e9',
+                    backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#e5e7eb' }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: '#374151' },
+                        ticks: { color: '#9ca3af' }
+                    },
+                    y: {
+                        grid: { color: '#374151' },
+                        ticks: { color: '#9ca3af' }
+                    }
+                }
+            }
+        });
+        
+        // Energy Usage Chart
+        const energyCtx = document.getElementById('energyChart').getContext('2d');
+        const energyChart = new Chart(energyCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Residential', 'Commercial', 'Industrial', 'Public'],
+                datasets: [{
+                    data: [35, 28, 22, 15],
+                    backgroundColor: [
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(245, 158, 11, 0.8)',
+                        'rgba(139, 92, 246, 0.8)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#e5e7eb' }
+                    }
+                }
+            }
+        });
+        
+        // Animate city metrics
+        setInterval(() => {
+            // Update random city metrics
+            const citizens = document.querySelector('.text-teal-400');
+            if (citizens) {
+                const current = parseInt(citizens.textContent.replace(',', ''));
+                const change = Math.floor(Math.random() * 100) - 50;
+                citizens.textContent = (current + change).toLocaleString();
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
