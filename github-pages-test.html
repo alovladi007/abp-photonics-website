@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub Pages Test</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .status { 
+            padding: 20px; 
+            margin: 10px 0; 
+            border-radius: 5px; 
+        }
+        .success { background: #d4edda; color: #155724; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .warning { background: #fff3cd; color: #856404; }
+        h1 { color: #333; }
+        .timestamp { 
+            font-size: 0.9em; 
+            color: #666; 
+            margin-top: 10px;
+        }
+        ul { margin: 20px 0; }
+        li { margin: 10px 0; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>GitHub Pages Deployment Test</h1>
+    
+    <div class="status success">
+        <h2>✅ This page is working!</h2>
+        <p>If you can see this, GitHub Pages is deploying files correctly.</p>
+        <p class="timestamp">Page created: <strong>August 4, 2025 01:45 UTC</strong></p>
+    </div>
+    
+    <div class="status info">
+        <h2>📋 Files that should be available:</h2>
+        <ul>
+            <li><a href="index.html">Homepage (with GeoSense AI link)</a></li>
+            <li><a href="geospatial.html">GeoSense AI Main Page</a></li>
+            <li><a href="geospatial-dashboard.html">GeoSense AI Dashboard</a></li>
+            <li><a href="geospatial-agriculture.html">Agriculture Solution</a></li>
+        </ul>
+    </div>
+    
+    <div class="status warning">
+        <h2>⏰ If other pages show 404:</h2>
+        <ul>
+            <li>GitHub Pages can take up to 20 minutes to deploy new files</li>
+            <li>Try hard refresh: Ctrl+Shift+R (Windows) or Cmd+Shift+R (Mac)</li>
+            <li>Clear browser cache for this site</li>
+            <li>Check GitHub repository settings → Pages section for errors</li>
+        </ul>
+    </div>
+    
+    <div class="status info">
+        <h2>🔍 Quick Links:</h2>
+        <ul>
+            <li><a href="https://github.com/alovladi007/abp-photonics-website">Repository</a></li>
+            <li><a href="https://github.com/alovladi007/abp-photonics-website/settings/pages">GitHub Pages Settings</a></li>
+            <li><a href="https://github.com/alovladi007/abp-photonics-website/actions">GitHub Actions (if any)</a></li>
+        </ul>
+    </div>
+    
+    <script>
+        // Add current time
+        document.addEventListener('DOMContentLoaded', function() {
+            const now = new Date();
+            const timeString = now.toUTCString();
+            const localTime = now.toLocaleString();
+            
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'status info';
+            timeDiv.innerHTML = `
+                <h2>🕒 Current Time:</h2>
+                <p>UTC: ${timeString}</p>
+                <p>Local: ${localTime}</p>
+                <p><em>Compare with deployment time above to see how long ago this was deployed.</em></p>
+            `;
+            document.body.appendChild(timeDiv);
+        });
+    </script>
+</body>
+</html>
