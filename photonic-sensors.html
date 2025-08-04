@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photonic Sensors - Integrated Sensing Solutions | ABP Photonics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #064e3b 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Sensor Wave Animation */
+        .sensor-wave {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border: 2px solid #10b981;
+            border-radius: 50%;
+            opacity: 0;
+            animation: wave-expand 3s ease-out infinite;
+        }
+        
+        @keyframes wave-expand {
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        
+        /* Photonic Ring */
+        .photonic-ring {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 3px solid transparent;
+            border-top-color: #10b981;
+            border-radius: 50%;
+            animation: ring-rotate 2s linear infinite;
+        }
+        
+        @keyframes ring-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Bio Signal */
+        .bio-signal {
+            stroke: #10b981;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: signal-draw 3s ease-in-out infinite;
+        }
+        
+        @keyframes signal-draw {
+            0% { stroke-dashoffset: 1000; }
+            50% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -1000; }
+        }
+        
+        /* Molecule Float */
+        .molecule-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="hardware.html" class="text-gray-400 hover:text-white transition">Hardware</a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold gradient-text">Photonic Sensors</span>
+                </div>
+                <a href="#quote" class="px-4 py-2 bg-green-600 rounded-lg hover:bg-green-700 transition">
+                    Request Info
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient pt-24 pb-16 overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <!-- Sensor waves -->
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <div class="sensor-wave"></div>
+                <div class="sensor-wave" style="animation-delay: 1s;"></div>
+                <div class="sensor-wave" style="animation-delay: 2s;"></div>
+                <div class="photonic-ring"></div>
+            </div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">Integrated Photonic Sensors</span>
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                    Lab-on-chip photonic sensors for real-time biomedical diagnostics and environmental monitoring 
+                    with unprecedented sensitivity and selectivity
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="#biosensors" class="px-6 py-3 bg-green-600 rounded-lg hover:bg-green-700 transition">
+                        Biosensors
+                    </a>
+                    <a href="#environmental" class="px-6 py-3 border border-green-600 rounded-lg hover:bg-green-600/10 transition">
+                        Environmental
+                    </a>
+                    <a href="#technology" class="px-6 py-3 border border-green-600 rounded-lg hover:bg-green-600/10 transition">
+                        Technology
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-microscope text-3xl text-green-400 mb-3"></i>
+                    <div class="text-2xl font-bold gradient-text">fM</div>
+                    <div class="text-gray-400">Detection Limit</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-clock text-3xl text-blue-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-blue-400">< 1s</div>
+                    <div class="text-gray-400">Response Time</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-ruler text-3xl text-purple-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-purple-400">5mm²</div>
+                    <div class="text-gray-400">Chip Size</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-battery-full text-3xl text-orange-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-orange-400">< 10mW</div>
+                    <div class="text-gray-400">Power</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Biosensors Section -->
+    <section id="biosensors" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Biomedical Sensing Solutions</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <!-- Microring Resonator Biosensor -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">Microring Resonator Arrays</h3>
+                    
+                    <!-- Sensor Visualization -->
+                    <div class="bg-slate-800 rounded-lg p-6 mb-6">
+                        <svg viewBox="0 0 400 300" class="w-full h-auto">
+                            <!-- Microring array -->
+                            <g class="molecule-float">
+                                <!-- Ring 1 -->
+                                <circle cx="100" cy="150" r="30" fill="none" stroke="#10b981" stroke-width="2" opacity="0.8"/>
+                                <circle cx="100" cy="150" r="3" fill="#10b981" class="animate-pulse"/>
+                                
+                                <!-- Ring 2 -->
+                                <circle cx="200" cy="150" r="30" fill="none" stroke="#059669" stroke-width="2" opacity="0.8"/>
+                                <circle cx="200" cy="150" r="3" fill="#059669" class="animate-pulse" style="animation-delay: 0.5s"/>
+                                
+                                <!-- Ring 3 -->
+                                <circle cx="300" cy="150" r="30" fill="none" stroke="#047857" stroke-width="2" opacity="0.8"/>
+                                <circle cx="300" cy="150" r="3" fill="#047857" class="animate-pulse" style="animation-delay: 1s"/>
+                            </g>
+                            
+                            <!-- Waveguide -->
+                            <rect x="50" y="148" width="300" height="4" fill="#10b981" opacity="0.5"/>
+                            
+                            <!-- Bio molecules -->
+                            <g opacity="0.7">
+                                <circle cx="100" cy="120" r="5" fill="#ef4444"/>
+                                <circle cx="95" cy="125" r="3" fill="#f59e0b"/>
+                                <circle cx="105" cy="125" r="3" fill="#f59e0b"/>
+                                
+                                <circle cx="200" cy="120" r="5" fill="#3b82f6"/>
+                                <circle cx="195" cy="125" r="3" fill="#60a5fa"/>
+                                <circle cx="205" cy="125" r="3" fill="#60a5fa"/>
+                                
+                                <circle cx="300" cy="120" r="5" fill="#8b5cf6"/>
+                                <circle cx="295" cy="125" r="3" fill="#a78bfa"/>
+                                <circle cx="305" cy="125" r="3" fill="#a78bfa"/>
+                            </g>
+                            
+                            <!-- Labels -->
+                            <text x="100" y="200" fill="#888" text-anchor="middle" font-size="12">Protein</text>
+                            <text x="200" y="200" fill="#888" text-anchor="middle" font-size="12">DNA</text>
+                            <text x="300" y="200" fill="#888" text-anchor="middle" font-size="12">Virus</text>
+                        </svg>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-dna text-green-400"></i>
+                            <span>Label-free detection of biomolecules</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-vial text-green-400"></i>
+                            <span>Multiplexed analysis (100+ targets)</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-tint text-green-400"></i>
+                            <span>10 μL sample volume</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Applications -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">Clinical Applications</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-green-400 mb-2">Cancer Biomarkers</h4>
+                            <p class="text-sm text-gray-400 mb-2">
+                                Early detection of circulating tumor DNA and protein markers
+                            </p>
+                            <div class="flex items-center space-x-4 text-xs">
+                                <span class="bg-green-900/50 px-2 py-1 rounded">PSA</span>
+                                <span class="bg-green-900/50 px-2 py-1 rounded">CA-125</span>
+                                <span class="bg-green-900/50 px-2 py-1 rounded">CEA</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-400 mb-2">Infectious Disease</h4>
+                            <p class="text-sm text-gray-400 mb-2">
+                                Rapid pathogen identification and antibiotic resistance profiling
+                            </p>
+                            <div class="flex items-center space-x-4 text-xs">
+                                <span class="bg-blue-900/50 px-2 py-1 rounded">COVID-19</span>
+                                <span class="bg-blue-900/50 px-2 py-1 rounded">Influenza</span>
+                                <span class="bg-blue-900/50 px-2 py-1 rounded">MRSA</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-purple-400 mb-2">Cardiac Markers</h4>
+                            <p class="text-sm text-gray-400 mb-2">
+                                Point-of-care testing for acute myocardial infarction
+                            </p>
+                            <div class="flex items-center space-x-4 text-xs">
+                                <span class="bg-purple-900/50 px-2 py-1 rounded">Troponin</span>
+                                <span class="bg-purple-900/50 px-2 py-1 rounded">BNP</span>
+                                <span class="bg-purple-900/50 px-2 py-1 rounded">CK-MB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Chart -->
+            <div class="glass-effect p-6 rounded-xl">
+                <h3 class="text-xl font-bold mb-4">Sensor Performance Comparison</h3>
+                <canvas id="performanceChart" height="100"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Environmental Sensors -->
+    <section id="environmental" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Environmental Monitoring</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Water Quality -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-water text-4xl text-blue-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Water Quality Sensors</h3>
+                    <p class="text-gray-400 mb-4">
+                        Real-time monitoring of contaminants, pH, dissolved oxygen, and heavy metals
+                    </p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-blue-400"></i>
+                            <span>ppb-level detection</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-blue-400"></i>
+                            <span>Multi-parameter analysis</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-blue-400"></i>
+                            <span>Autonomous operation</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Air Quality -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-wind text-4xl text-cyan-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Air Quality Monitoring</h3>
+                    <p class="text-gray-400 mb-4">
+                        Detection of greenhouse gases, VOCs, particulates, and toxic compounds
+                    </p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-cyan-400"></i>
+                            <span>CO₂, CH₄, NOₓ sensing</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-cyan-400"></i>
+                            <span>Spectroscopic accuracy</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-cyan-400"></i>
+                            <span>IoT connectivity</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Industrial -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-industry text-4xl text-orange-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Industrial Process Control</h3>
+                    <p class="text-gray-400 mb-4">
+                        In-line monitoring for chemical processes, oil & gas, and manufacturing
+                    </p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-orange-400"></i>
+                            <span>Harsh environment rated</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-orange-400"></i>
+                            <span>Intrinsically safe</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-orange-400"></i>
+                            <span>Real-time analytics</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Deep Dive -->
+    <section id="technology" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Sensing Technologies</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Sensing Mechanisms -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-6">Detection Principles</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-green-400 mb-2">Refractive Index Sensing</h4>
+                            <p class="text-sm text-gray-400">
+                                Evanescent field interaction with analytes causes measurable spectral shifts
+                            </p>
+                            <div class="mt-2 text-xs">
+                                <span class="text-green-400">Sensitivity:</span> 10⁻⁷ RIU
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-400 mb-2">Absorption Spectroscopy</h4>
+                            <p class="text-sm text-gray-400">
+                                Mid-IR and NIR absorption fingerprinting for molecular identification
+                            </p>
+                            <div class="mt-2 text-xs">
+                                <span class="text-blue-400">Range:</span> 1-10 μm wavelength
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-purple-400 mb-2">Fluorescence Enhancement</h4>
+                            <p class="text-sm text-gray-400">
+                                Photonic crystal enhanced fluorescence for ultra-low concentration detection
+                            </p>
+                            <div class="mt-2 text-xs">
+                                <span class="text-purple-400">Enhancement:</span> 1000× signal
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chip Architecture -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-6">Integrated Chip Design</h3>
+                    
+                    <!-- Chip Layout SVG -->
+                    <div class="bg-slate-800 rounded-lg p-4 mb-4">
+                        <svg viewBox="0 0 400 250" class="w-full h-auto">
+                            <!-- Chip outline -->
+                            <rect x="50" y="50" width="300" height="150" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            
+                            <!-- Input coupler -->
+                            <rect x="30" y="115" width="40" height="20" fill="#10b981" opacity="0.8"/>
+                            <text x="50" y="130" fill="#fff" font-size="10" text-anchor="middle">IN</text>
+                            
+                            <!-- Splitter -->
+                            <path d="M 70 125 L 100 125 L 100 100 M 100 125 L 100 150" stroke="#10b981" stroke-width="2" fill="none"/>
+                            
+                            <!-- Sensing regions -->
+                            <rect x="120" y="90" width="60" height="20" fill="#059669" opacity="0.6" rx="10"/>
+                            <rect x="120" y="115" width="60" height="20" fill="#047857" opacity="0.6" rx="10"/>
+                            <rect x="120" y="140" width="60" height="20" fill="#065f46" opacity="0.6" rx="10"/>
+                            
+                            <!-- Reference arm -->
+                            <rect x="200" y="70" width="80" height="10" fill="#3b82f6" opacity="0.6"/>
+                            
+                            <!-- Combiner -->
+                            <path d="M 300 100 L 300 125 L 330 125 M 300 150 L 300 125" stroke="#10b981" stroke-width="2" fill="none"/>
+                            
+                            <!-- Output -->
+                            <rect x="330" y="115" width="40" height="20" fill="#10b981" opacity="0.8"/>
+                            <text x="350" y="130" fill="#fff" font-size="10" text-anchor="middle">OUT</text>
+                            
+                            <!-- Labels -->
+                            <text x="150" y="80" fill="#888" font-size="10" text-anchor="middle">Sensing Array</text>
+                            <text x="240" y="65" fill="#888" font-size="10" text-anchor="middle">Reference</text>
+                        </svg>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="text-green-400 font-semibold">Multiplexing</div>
+                            <div class="text-gray-400">128 channels/chip</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="text-blue-400 font-semibold">Integration</div>
+                            <div class="text-gray-400">Microfluidics + optics</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="text-purple-400 font-semibold">Readout</div>
+                            <div class="text-gray-400">Edge-coupled PD array</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="text-orange-400 font-semibold">Processing</div>
+                            <div class="text-gray-400">On-chip DSP</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Portfolio -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Product Portfolio</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- BioSense Pro -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-dna text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">BioSense Pro</h3>
+                            <p class="text-gray-400">Clinical Diagnostics Platform</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-300 mb-6">
+                        Fully integrated point-of-care diagnostic system with automated sample handling 
+                        and cloud connectivity for remote monitoring.
+                    </p>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Biomarkers</span>
+                            <span class="font-semibold">32 simultaneous</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Time to result</span>
+                            <span class="font-semibold">< 15 minutes</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Sample volume</span>
+                            <span class="font-semibold">50 μL blood</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Certifications</span>
+                            <span class="font-semibold">FDA 510(k), CE-IVD</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full py-2 bg-green-600 rounded-lg hover:bg-green-700 transition">
+                        Request Demo
+                    </button>
+                </div>
+
+                <!-- EnviroGuard -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-shield-alt text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">EnviroGuard</h3>
+                            <p class="text-gray-400">Environmental Monitoring Network</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-300 mb-6">
+                        Distributed sensor network for continuous environmental monitoring with 
+                        AI-powered predictive analytics and alert system.
+                    </p>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Parameters</span>
+                            <span class="font-semibold">15+ environmental</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Battery life</span>
+                            <span class="font-semibold">2 years</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Connectivity</span>
+                            <span class="font-semibold">LoRaWAN, 5G</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Rating</span>
+                            <span class="font-semibold">IP68, ATEX</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition">
+                        View Specifications
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="quote" class="py-16 px-4 bg-gradient-to-r from-green-900/20 to-emerald-900/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Sensing the Future, Today</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Partner with us to deploy next-generation photonic sensing solutions for your most demanding applications
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="px-8 py-3 bg-green-600 rounded-lg hover:bg-green-700 transition">
+                    Contact Sales
+                </a>
+                <a href="hardware.html" class="px-8 py-3 border border-green-600 rounded-lg hover:bg-green-600/10 transition">
+                    Back to Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400">
+            <p>© 2024 Aurora Borealis Photonics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Performance Comparison Chart
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Microring', 'MZI', 'PhC Cavity', 'SPR', 'Traditional ELISA'],
+                datasets: [{
+                    label: 'Limit of Detection (log scale)',
+                    data: [-15, -14, -16, -12, -9],
+                    backgroundColor: [
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(139, 92, 246, 0.8)',
+                        'rgba(245, 158, 11, 0.8)',
+                        'rgba(107, 114, 128, 0.8)'
+                    ],
+                    borderColor: [
+                        '#10b981',
+                        '#3b82f6',
+                        '#8b5cf6',
+                        '#f59e0b',
+                        '#6b7280'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Detection Sensitivity Comparison (Molar)',
+                        color: '#fff'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: -18,
+                        max: -6,
+                        ticks: {
+                            callback: function(value) {
+                                return '10^' + value + ' M';
+                            },
+                            color: '#888'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#888'
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

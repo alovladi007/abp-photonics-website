@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryogenic Electronics - Quantum Control Systems | ABP Photonics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0c1929 0%, #1e3a5f 50%, #0c1929 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Frost Effect */
+        .frost-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(96, 165, 250, 0.1) 50%, transparent 100%);
+            animation: frost-pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes frost-pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+        
+        /* Temperature Wave */
+        .temp-wave {
+            position: absolute;
+            width: 300px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #60a5fa, transparent);
+            animation: temp-flow 3s linear infinite;
+        }
+        
+        @keyframes temp-flow {
+            0% { transform: translateX(-300px); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Quantum State */
+        .quantum-state {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #3b82f6;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #3b82f6;
+            animation: quantum-float 6s ease-in-out infinite;
+        }
+        
+        @keyframes quantum-float {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(50px, -30px); }
+            50% { transform: translate(-30px, -50px); }
+            75% { transform: translate(-50px, 30px); }
+        }
+        
+        /* Noise Spectrum */
+        .noise-bar {
+            display: inline-block;
+            width: 2px;
+            background: #60a5fa;
+            margin: 0 1px;
+            animation: noise-flicker 0.5s ease-in-out infinite;
+        }
+        
+        @keyframes noise-flicker {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="hardware.html" class="text-gray-400 hover:text-white transition">Hardware</a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold gradient-text">Cryogenic Electronics</span>
+                </div>
+                <a href="#quote" class="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition">
+                    Get Specifications
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient pt-24 pb-16 overflow-hidden">
+        <div class="absolute inset-0">
+            <div class="frost-effect"></div>
+            <!-- Temperature waves -->
+            <div class="temp-wave" style="top: 20%;"></div>
+            <div class="temp-wave" style="top: 50%; animation-delay: 1s;"></div>
+            <div class="temp-wave" style="top: 80%; animation-delay: 2s;"></div>
+            
+            <!-- Quantum states -->
+            <div class="quantum-state" style="top: 30%; left: 20%;"></div>
+            <div class="quantum-state" style="top: 60%; right: 30%; animation-delay: 2s;"></div>
+            <div class="quantum-state" style="top: 40%; left: 70%; animation-delay: 4s;"></div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">Cryogenic Electronics</span>
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                    Ultra-low noise control electronics for quantum systems. Operating from 4K to room temperature 
+                    with quantum-limited performance and integrated DAC/ADC systems.
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="#controllers" class="px-6 py-3 bg-blue-600 rounded-lg hover:bg-blue-700 transition">
+                        4K Controllers
+                    </a>
+                    <a href="#amplifiers" class="px-6 py-3 border border-blue-600 rounded-lg hover:bg-blue-600/10 transition">
+                        Quantum Amplifiers
+                    </a>
+                    <a href="#systems" class="px-6 py-3 border border-blue-600 rounded-lg hover:bg-blue-600/10 transition">
+                        Integrated Systems
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Specifications -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-temperature-low text-3xl text-blue-400 mb-3"></i>
+                    <div class="text-2xl font-bold gradient-text">4K</div>
+                    <div class="text-gray-400">Min Temperature</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-wave-square text-3xl text-purple-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-purple-400">< 1nV/√Hz</div>
+                    <div class="text-gray-400">Noise Floor</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-bolt text-3xl text-green-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-green-400">< 10mW</div>
+                    <div class="text-gray-400">Power @ 4K</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-microchip text-3xl text-orange-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-orange-400">192</div>
+                    <div class="text-gray-400">Channels</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4K CMOS Controllers -->
+    <section id="controllers" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">4K CMOS Controllers</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <!-- Controller Architecture -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">Cryogenic CMOS Architecture</h3>
+                    
+                    <!-- Circuit diagram -->
+                    <div class="bg-slate-800 rounded-lg p-6 mb-6">
+                        <svg viewBox="0 0 400 300" class="w-full h-auto">
+                            <!-- Chip outline -->
+                            <rect x="100" y="50" width="200" height="200" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+                            
+                            <!-- Core blocks -->
+                            <rect x="120" y="70" width="60" height="40" fill="#2563eb" opacity="0.8"/>
+                            <text x="150" y="95" fill="#fff" text-anchor="middle" font-size="10">DAC Array</text>
+                            
+                            <rect x="220" y="70" width="60" height="40" fill="#2563eb" opacity="0.8"/>
+                            <text x="250" y="95" fill="#fff" text-anchor="middle" font-size="10">ADC Array</text>
+                            
+                            <rect x="120" y="130" width="60" height="40" fill="#7c3aed" opacity="0.8"/>
+                            <text x="150" y="155" fill="#fff" text-anchor="middle" font-size="10">Digital Core</text>
+                            
+                            <rect x="220" y="130" width="60" height="40" fill="#7c3aed" opacity="0.8"/>
+                            <text x="250" y="155" fill="#fff" text-anchor="middle" font-size="10">Memory</text>
+                            
+                            <rect x="170" y="190" width="60" height="40" fill="#10b981" opacity="0.8"/>
+                            <text x="200" y="215" fill="#fff" text-anchor="middle" font-size="10">I/O</text>
+                            
+                            <!-- Connections -->
+                            <line x1="150" y1="110" x2="150" y2="130" stroke="#60a5fa" stroke-width="2"/>
+                            <line x1="250" y1="110" x2="250" y2="130" stroke="#60a5fa" stroke-width="2"/>
+                            <line x1="180" y1="150" x2="220" y2="150" stroke="#60a5fa" stroke-width="2"/>
+                            <line x1="200" y1="170" x2="200" y2="190" stroke="#60a5fa" stroke-width="2"/>
+                            
+                            <!-- Temperature indicator -->
+                            <text x="350" y="150" fill="#60a5fa" font-size="12">4K</text>
+                            <circle cx="350" cy="160" r="15" fill="none" stroke="#60a5fa" stroke-width="2" opacity="0.5"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-snowflake text-blue-400"></i>
+                            <span>Optimized for 4K operation</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-memory text-purple-400"></i>
+                            <span>On-chip waveform memory</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-tachometer-alt text-green-400"></i>
+                            <span>1 GSPS update rate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Metrics -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">Performance at Cryogenic Temperatures</h3>
+                    
+                    <canvas id="tempPerformance" height="200"></canvas>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-6 text-sm">
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="text-blue-400 font-semibold">Resolution</div>
+                            <div class="text-gray-400">16-bit DAC/ADC</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="text-purple-400 font-semibold">Linearity</div>
+                            <div class="text-gray-400">< 0.1% INL</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="text-green-400 font-semibold">Crosstalk</div>
+                            <div class="text-gray-400">< -80 dB</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="text-orange-400 font-semibold">Latency</div>
+                            <div class="text-gray-400">< 100 ns</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Models -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-slate-800/50 p-6 rounded-xl">
+                    <h4 class="text-lg font-bold mb-3 text-blue-400">CryoControl-64</h4>
+                    <p class="text-gray-400 text-sm mb-4">
+                        64-channel integrated controller for quantum dot arrays
+                    </p>
+                    <ul class="space-y-2 text-sm">
+                        <li>• 64 DAC + 32 ADC channels</li>
+                        <li>• 10 mW total power @ 4K</li>
+                        <li>• SPI/I2C interface</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-slate-800/50 p-6 rounded-xl">
+                    <h4 class="text-lg font-bold mb-3 text-purple-400">CryoControl-128</h4>
+                    <p class="text-gray-400 text-sm mb-4">
+                        High-density controller for large-scale quantum processors
+                    </p>
+                    <ul class="space-y-2 text-sm">
+                        <li>• 128 DAC + 64 ADC channels</li>
+                        <li>• Multiplexed readout</li>
+                        <li>• Hardware sequencer</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-slate-800/50 p-6 rounded-xl">
+                    <h4 class="text-lg font-bold mb-3 text-green-400">CryoControl-RF</h4>
+                    <p class="text-gray-400 text-sm mb-4">
+                        RF-enabled controller for superconducting qubits
+                    </p>
+                    <ul class="space-y-2 text-sm">
+                        <li>• DC to 6 GHz operation</li>
+                        <li>• Integrated IQ mixers</li>
+                        <li>• Phase-coherent outputs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quantum-Limited Amplifiers -->
+    <section id="amplifiers" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Quantum-Limited Amplifiers</h2>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- HEMT Amplifiers -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-satellite-dish text-4xl text-blue-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Cryogenic HEMTs</h3>
+                    <p class="text-gray-400 mb-4">
+                        Ultra-low noise High Electron Mobility Transistor amplifiers
+                    </p>
+                    <div class="space-y-3 text-sm">
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Noise Temp</span>
+                                <span class="font-semibold">< 2K @ 4GHz</span>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Gain</span>
+                                <span class="font-semibold">35-40 dB</span>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Bandwidth</span>
+                                <span class="font-semibold">0.1-12 GHz</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parametric Amplifiers -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-infinity text-4xl text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Josephson Parametric Amplifiers</h3>
+                    <p class="text-gray-400 mb-4">
+                        Quantum-limited parametric amplifiers for qubit readout
+                    </p>
+                    <div class="space-y-3 text-sm">
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Added Noise</span>
+                                <span class="font-semibold">< 0.5 photons</span>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Gain</span>
+                                <span class="font-semibold">20-25 dB</span>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Bandwidth</span>
+                                <span class="font-semibold">10-500 MHz</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TWPAs -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <i class="fas fa-wave-square text-4xl text-green-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Traveling Wave Amplifiers</h3>
+                    <p class="text-gray-400 mb-4">
+                        Broadband quantum-limited amplification
+                    </p>
+                    <div class="space-y-3 text-sm">
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Bandwidth</span>
+                                <span class="font-semibold">3-9 GHz</span>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Gain</span>
+                                <span class="font-semibold">15-20 dB</span>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800/50 p-3 rounded">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Saturation</span>
+                                <span class="font-semibold">-95 dBm</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integrated Systems -->
+    <section id="systems" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Integrated DAC/ADC Systems</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <!-- System Architecture -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">Complete Signal Chain</h3>
+                    
+                    <!-- Signal flow diagram -->
+                    <div class="bg-slate-800 rounded-lg p-6 mb-6">
+                        <svg viewBox="0 0 400 250" class="w-full h-auto">
+                            <!-- Room temp section -->
+                            <rect x="20" y="50" width="100" height="150" fill="#1e293b" stroke="#60a5fa" stroke-width="1" stroke-dasharray="5,5"/>
+                            <text x="70" y="40" fill="#888" text-anchor="middle" font-size="10">300K</text>
+                            
+                            <!-- 4K section -->
+                            <rect x="140" y="50" width="100" height="150" fill="#1e3a5f" stroke="#3b82f6" stroke-width="2"/>
+                            <text x="190" y="40" fill="#60a5fa" text-anchor="middle" font-size="10">4K</text>
+                            
+                            <!-- mK section -->
+                            <rect x="260" y="50" width="100" height="150" fill="#0c1929" stroke="#2563eb" stroke-width="2"/>
+                            <text x="310" y="40" fill="#3b82f6" text-anchor="middle" font-size="10">10mK</text>
+                            
+                            <!-- Components -->
+                            <rect x="40" y="80" width="60" height="30" fill="#f59e0b" opacity="0.8"/>
+                            <text x="70" y="100" fill="#fff" text-anchor="middle" font-size="9">FPGA</text>
+                            
+                            <rect x="40" y="140" width="60" height="30" fill="#ef4444" opacity="0.8"/>
+                            <text x="70" y="160" fill="#fff" text-anchor="middle" font-size="9">AWG</text>
+                            
+                            <rect x="160" y="80" width="60" height="30" fill="#3b82f6" opacity="0.8"/>
+                            <text x="190" y="100" fill="#fff" text-anchor="middle" font-size="9">DAC/ADC</text>
+                            
+                            <rect x="160" y="140" width="60" height="30" fill="#7c3aed" opacity="0.8"/>
+                            <text x="190" y="160" fill="#fff" text-anchor="middle" font-size="9">Amplifier</text>
+                            
+                            <circle cx="310" cy="125" r="20" fill="#2563eb" opacity="0.8"/>
+                            <text x="310" y="130" fill="#fff" text-anchor="middle" font-size="9">Qubit</text>
+                            
+                            <!-- Connections -->
+                            <line x1="100" y1="95" x2="160" y2="95" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="100" y1="155" x2="160" y2="155" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="220" y1="95" x2="290" y2="125" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="220" y1="155" x2="290" y2="125" stroke="#3b82f6" stroke-width="2"/>
+                            
+                            <!-- Arrow marker -->
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#60a5fa"/>
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                    
+                    <p class="text-gray-400">
+                        Complete signal chain from room temperature control to quantum device, 
+                        with minimal heat load and quantum-limited noise performance.
+                    </p>
+                </div>
+
+                <!-- Specifications -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">System Specifications</h3>
+                    
+                    <!-- Noise spectrum visualization -->
+                    <div class="bg-slate-800 rounded-lg p-4 mb-6">
+                        <h4 class="text-sm text-gray-400 mb-3">Noise Spectral Density</h4>
+                        <div class="h-32 flex items-end justify-center" id="noiseSpectrum">
+                            <!-- Generated by JavaScript -->
+                        </div>
+                        <div class="flex justify-between text-xs text-gray-400 mt-2">
+                            <span>1Hz</span>
+                            <span>1kHz</span>
+                            <span>1MHz</span>
+                            <span>1GHz</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex justify-between py-2 border-b border-slate-700">
+                            <span class="text-gray-400">Total Channels</span>
+                            <span class="font-semibold">192 (128 DAC + 64 ADC)</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b border-slate-700">
+                            <span class="text-gray-400">Update Rate</span>
+                            <span class="font-semibold">1 GSPS</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b border-slate-700">
+                            <span class="text-gray-400">Resolution</span>
+                            <span class="font-semibold">16-bit</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b border-slate-700">
+                            <span class="text-gray-400">Heat Load @ 4K</span>
+                            <span class="font-semibold">< 50 mW</span>
+                        </div>
+                        <div class="flex justify-between py-2">
+                            <span class="text-gray-400">Wiring</span>
+                            <span class="font-semibold">Superconducting flex</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applications -->
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-atom text-2xl"></i>
+                    </div>
+                    <h4 class="font-semibold mb-2">Quantum Computing</h4>
+                    <p class="text-sm text-gray-400">Qubit control and readout</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-satellite text-2xl"></i>
+                    </div>
+                    <h4 class="font-semibold mb-2">Radio Astronomy</h4>
+                    <p class="text-sm text-gray-400">Low-noise receivers</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-lg flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-microscope text-2xl"></i>
+                    </div>
+                    <h4 class="font-semibold mb-2">Quantum Sensing</h4>
+                    <p class="text-sm text-gray-400">Single photon detection</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-flask text-2xl"></i>
+                    </div>
+                    <h4 class="font-semibold mb-2">Research</h4>
+                    <p class="text-sm text-gray-400">Low-temp experiments</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Portfolio -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Product Portfolio</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- QuantumCore System -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-microchip text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">QuantumCore-192</h3>
+                            <p class="text-gray-400">Complete Quantum Control System</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-300 mb-6">
+                        Fully integrated cryogenic control system for large-scale quantum processors 
+                        with room-temperature interface and real-time feedback capabilities.
+                    </p>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Architecture</span>
+                            <span class="font-semibold">Modular, scalable</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Software</span>
+                            <span class="font-semibold">Python SDK + LabVIEW</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Synchronization</span>
+                            <span class="font-semibold">< 10 ps jitter</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Warranty</span>
+                            <span class="font-semibold">3 years</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition">
+                        Request Quote
+                    </button>
+                </div>
+
+                <!-- CryoAmp Series -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-signal text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">CryoAmp Series</h3>
+                            <p class="text-gray-400">Quantum-Limited Amplification</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-300 mb-6">
+                        Ultra-low noise amplifier chain optimized for quantum measurements, 
+                        from DC to microwave frequencies with near quantum-limited performance.
+                    </p>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Models</span>
+                            <span class="font-semibold">HEMT, JPA, TWPA</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Frequency</span>
+                            <span class="font-semibold">DC to 12 GHz</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Installation</span>
+                            <span class="font-semibold">Turnkey solution</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Support</span>
+                            <span class="font-semibold">24/7 available</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full py-2 bg-purple-600 rounded-lg hover:bg-purple-700 transition">
+                        View Specifications
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="quote" class="py-16 px-4 bg-gradient-to-r from-blue-900/20 to-indigo-900/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Enabling Quantum Breakthroughs</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Partner with us for cutting-edge cryogenic electronics that push the boundaries of quantum control
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="px-8 py-3 bg-blue-600 rounded-lg hover:bg-blue-700 transition">
+                    Contact Sales
+                </a>
+                <a href="#" class="px-8 py-3 border border-blue-600 rounded-lg hover:bg-blue-600/10 transition">
+                    Download Datasheet
+                </a>
+                <a href="hardware.html" class="px-8 py-3 border border-blue-600 rounded-lg hover:bg-blue-600/10 transition">
+                    Back to Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400">
+            <p>© 2024 Aurora Borealis Photonics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Temperature Performance Chart
+        const tempCtx = document.getElementById('tempPerformance').getContext('2d');
+        new Chart(tempCtx, {
+            type: 'line',
+            data: {
+                labels: ['300K', '77K', '40K', '20K', '10K', '4K'],
+                datasets: [{
+                    label: 'Power Consumption (mW)',
+                    data: [500, 200, 100, 50, 20, 10],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    yAxisID: 'y',
+                    tension: 0.4
+                }, {
+                    label: 'Noise Figure (dB)',
+                    data: [3, 1.5, 0.8, 0.5, 0.3, 0.1],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    yAxisID: 'y1',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        labels: { color: '#fff' }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#888' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    y: {
+                        type: 'logarithmic',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Power (mW)',
+                            color: '#3b82f6'
+                        },
+                        ticks: { color: '#3b82f6' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Noise Figure (dB)',
+                            color: '#10b981'
+                        },
+                        ticks: { color: '#10b981' },
+                        grid: { drawOnChartArea: false }
+                    }
+                }
+            }
+        });
+        
+        // Generate noise spectrum visualization
+        const spectrumContainer = document.getElementById('noiseSpectrum');
+        for (let i = 0; i < 60; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'noise-bar';
+            
+            // Create logarithmic decay
+            const height = Math.max(5, 100 - i * 1.5 - Math.random() * 10);
+            bar.style.height = height + '%';
+            bar.style.animationDelay = (i * 0.02) + 's';
+            
+            spectrumContainer.appendChild(bar);
+        }
+    </script>
+</body>
+</html>
