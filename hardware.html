@@ -3,212 +3,1140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hardware - Aurora Borealis Photonics</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="ABP Optoelectronics Systems & Design - Advanced photonics and hardware engineering">
-    <meta name="keywords" content="photonics, optoelectronics, FPGA, microchips, optical systems, photolithography">
-    
+    <title>ABP Hardware & Photonics - Advanced Optoelectronics Systems</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <style>
-        body { font-family: 'Sora', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 50%, #0066ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0a0e27 0%, #151933 50%, #0a0e27 100%);
+        }
+        
+        .card-gradient {
+            background: linear-gradient(135deg, rgba(0, 153, 255, 0.1) 0%, rgba(0, 102, 255, 0.1) 100%);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Photonic Wave Animation */
+        .photonic-wave {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: wave-propagation 3s linear infinite;
+        }
+        
+        @keyframes wave-propagation {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Fiber Optic Animation */
+        .fiber-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: fiber-signal 4s linear infinite;
+        }
+        
+        @keyframes fiber-signal {
+            0% { stroke-dashoffset: 1000; }
+            100% { stroke-dashoffset: 0; }
+        }
+        
+        /* Quantum Particle Animation */
+        .quantum-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00d4ff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00d4ff;
+            animation: quantum-motion 6s ease-in-out infinite;
+        }
+        
+        @keyframes quantum-motion {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            25% { transform: translate(100px, -50px) scale(1.5); opacity: 1; }
+            50% { transform: translate(-50px, -100px) scale(1); opacity: 0.7; }
+            75% { transform: translate(-100px, 50px) scale(1.2); opacity: 0.9; }
+        }
+        
+        /* Silicon Wafer Grid */
+        .wafer-grid {
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: grid-shift 20s linear infinite;
+        }
+        
+        @keyframes grid-shift {
+            0% { background-position: 0 0; }
+            100% { background-position: 20px 20px; }
+        }
+        
+        /* Laser Beam Effect */
+        .laser-beam {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff0066, #ff0066, transparent);
+            filter: blur(1px);
+            animation: laser-sweep 2s ease-in-out infinite;
+        }
+        
+        @keyframes laser-sweep {
+            0%, 100% { width: 0; opacity: 0; }
+            50% { width: 200px; opacity: 1; }
+        }
+        
+        /* Chip Architecture Animation */
+        .chip-trace {
+            stroke: #00d4ff;
+            stroke-width: 1;
+            fill: none;
+            filter: drop-shadow(0 0 3px #00d4ff);
+        }
+        
+        .pulse-dot {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { r: 3; opacity: 0.3; }
+            50% { r: 5; opacity: 1; }
+        }
+        
+        /* Realistic Metal Gradient */
+        .metal-gradient {
+            background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 25%, #1a1a1a 50%, #2a2a2a 75%, #1a1a1a 100%);
+        }
+        
+        /* Glass Effect */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
-<body class="bg-black text-white">
+<body class="bg-slate-900 text-white">
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-black/90 backdrop-blur-lg z-50 border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="flex items-center space-x-8">
-                <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">ABP</a>
-                <div class="hidden md:flex items-center space-x-6">
-                    <a href="index.html" class="hover:text-cyan-400 transition-colors">Home</a>
-                    <a href="patents.html" class="hover:text-cyan-400 transition-colors">Patents</a>
-                    <a href="cybersecurity.html" class="hover:text-cyan-400 transition-colors">Cybersecurity</a>
-                    <a href="hardware.html" class="text-cyan-400">Hardware</a>
-                    <a href="biotensor.html" class="hover:text-cyan-400 transition-colors">BioTensor</a>
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-2xl font-bold gradient-text">Hardware & Photonics</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#silicon" class="hover:text-cyan-400 transition">Silicon Photonics</a>
+                    <a href="#quantum" class="hover:text-cyan-400 transition">Quantum Systems</a>
+                    <a href="#fabrication" class="hover:text-cyan-400 transition">Fabrication</a>
+                    <a href="#optical" class="hover:text-cyan-400 transition">Optical Systems</a>
+                    <a href="hardware-dashboard.html" class="px-4 py-2 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">Live Lab</a>
                 </div>
             </div>
-            <a href="ai-security-assistant/demo.html" class="hidden md:inline-block px-4 py-2 bg-cyan-400 text-black font-semibold rounded-full hover:bg-cyan-300 transition-colors">
-                AI Assistant
-            </a>
         </div>
     </nav>
 
-    <!-- Hardware Content -->
-    <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 pt-20">
-        <div class="max-w-7xl mx-auto px-6 py-20">
-            <div class="text-center mb-16">
-                <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">ABP Optoelectronics Systems & Design</h1>
-                <p class="text-xl text-blue-200 max-w-4xl mx-auto">Advanced photonics and hardware engineering for next-generation applications</p>
+    <!-- Hero Section with Photonic Animation -->
+    <section class="relative hero-gradient pt-24 pb-32 overflow-hidden">
+        <div class="absolute inset-0 wafer-grid opacity-20"></div>
+        
+        <!-- Central Photonic Chip Visualization -->
+        <div class="absolute inset-0 flex items-center justify-center">
+            <svg width="600" height="400" viewBox="0 0 600 400" class="opacity-30">
+                <!-- Silicon Chip Base -->
+                <rect x="150" y="100" width="300" height="200" fill="#1a1a2e" stroke="#00d4ff" stroke-width="2" rx="10"/>
+                
+                <!-- Photonic Waveguides -->
+                <path d="M 150 150 Q 300 150 450 150" class="fiber-path" stroke="#00ff88" stroke-width="3"/>
+                <path d="M 150 200 Q 300 200 450 200" class="fiber-path" stroke="#ff0066" stroke-width="3" style="animation-delay: 0.5s"/>
+                <path d="M 150 250 Q 300 250 450 250" class="fiber-path" stroke="#00d4ff" stroke-width="3" style="animation-delay: 1s"/>
+                
+                <!-- Quantum Dots -->
+                <circle cx="200" cy="150" r="3" fill="#00ff88" class="pulse-dot"/>
+                <circle cx="300" cy="200" r="3" fill="#ff0066" class="pulse-dot" style="animation-delay: 0.3s"/>
+                <circle cx="400" cy="250" r="3" fill="#00d4ff" class="pulse-dot" style="animation-delay: 0.6s"/>
+                
+                <!-- Grating Couplers -->
+                <g transform="translate(150, 150)">
+                    <rect x="-20" y="-10" width="40" height="20" fill="#0066ff" opacity="0.5"/>
+                    <line x1="-15" y1="-5" x2="-15" y2="5" stroke="#00d4ff" stroke-width="1"/>
+                    <line x1="-10" y1="-5" x2="-10" y2="5" stroke="#00d4ff" stroke-width="1"/>
+                    <line x1="-5" y1="-5" x2="-5" y2="5" stroke="#00d4ff" stroke-width="1"/>
+                    <line x1="0" y1="-5" x2="0" y2="5" stroke="#00d4ff" stroke-width="1"/>
+                    <line x1="5" y1="-5" x2="5" y2="5" stroke="#00d4ff" stroke-width="1"/>
+                    <line x1="10" y1="-5" x2="10" y2="5" stroke="#00d4ff" stroke-width="1"/>
+                    <line x1="15" y1="-5" x2="15" y2="5" stroke="#00d4ff" stroke-width="1"/>
+                </g>
+                
+                <g transform="translate(450, 150)">
+                    <rect x="-20" y="-10" width="40" height="20" fill="#0066ff" opacity="0.5"/>
+                    <line x1="-15" y1="-5" x2="-15" y2="5" stroke="#00d4ff" stroke-width="1"/>
+                    <line x1="-10" y1="-5" x2="-10" y2="5" stroke="#00d4ff" stroke-width="1"/>
+                    <line x1="-5" y1="-5" x2="-5" y2="5" stroke="#00d4ff" stroke-width="1"/>
+                    <line x1="0" y1="-5" x2="0" y2="5" stroke="#00d4ff" stroke-width="1"/>
+                    <line x1="5" y1="-5" x2="5" y2="5" stroke="#00d4ff" stroke-width="1"/>
+                    <line x1="10" y1="-5" x2="10" y2="5" stroke="#00d4ff" stroke-width="1"/>
+                    <line x1="15" y1="-5" x2="15" y2="5" stroke="#00d4ff" stroke-width="1"/>
+                </g>
+            </svg>
+        </div>
+        
+        <!-- Photonic waves -->
+        <div class="photonic-wave" style="top: 30%;"></div>
+        <div class="photonic-wave" style="top: 50%; animation-delay: 1s;"></div>
+        <div class="photonic-wave" style="top: 70%; animation-delay: 2s;"></div>
+        
+        <!-- Quantum particles -->
+        <div class="quantum-particle" style="top: 20%; left: 10%;"></div>
+        <div class="quantum-particle" style="top: 60%; left: 80%; animation-delay: 2s;"></div>
+        <div class="quantum-particle" style="top: 40%; left: 50%; animation-delay: 4s;"></div>
+        
+        <!-- Laser beams -->
+        <div class="laser-beam" style="top: 25%; left: 20%;"></div>
+        <div class="laser-beam" style="top: 65%; right: 20%; animation-delay: 1s;"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                <span class="gradient-text">Next-Generation Photonics</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                Silicon photonics, quantum computing hardware, and advanced optoelectronic systems pushing the boundaries of light-based technology
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#products" class="px-8 py-4 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition transform hover:scale-105">
+                    Explore Products
+                </a>
+                <a href="#capabilities" class="px-8 py-4 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                    View Capabilities
+                </a>
             </div>
+        </div>
+    </section>
 
-            <!-- Main Product Categories -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-                <!-- Electronics Section -->
-                <div class="bg-slate-800/40 p-8 rounded-2xl border border-blue-600/30 backdrop-blur-sm">
-                    <div class="flex items-center mb-6">
-                        <span class="text-4xl mr-4">⚡</span>
-                        <h2 class="text-3xl font-bold text-cyan-400">Electronics</h2>
-                    </div>
-                    <p class="text-blue-200 mb-8">Advanced semiconductor and electronic solutions for high-performance computing and embedded systems</p>
-                    <div class="grid grid-cols-1 gap-4">
-                        <a href="microchips-products.html" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group block">
-                            <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Advanced Microchips</h3>
-                            <p class="text-gray-400 text-sm mt-1">Silicon photonics integrated circuits for quantum computing</p>
-                            <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
-                        </a>
-                        <a href="fpga-products.html" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group block">
-                            <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">FPGA Solutions</h3>
-                            <p class="text-gray-400 text-sm mt-1">Programmable logic arrays for signal processing</p>
-                            <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
-                        </a>
-                        <a href="mcu-products.html" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group block">
-                            <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Microcontrollers</h3>
-                            <p class="text-gray-400 text-sm mt-1">ARM Cortex-M7 based MCUs with photonic interfaces</p>
-                            <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
-                        </a>
-                        <a href="electronics-catalog.html" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group block">
-                            <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">More Electronics →</h3>
-                            <p class="text-gray-400 text-sm mt-1">Power management, sensors, and custom ASICs</p>
-                            <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ Full Catalog</div>
-                        </a>
-                    </div>
+    <!-- Key Metrics -->
+    <section class="py-12 px-4 bg-slate-800/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold gradient-text">7nm</div>
+                    <div class="text-gray-400 mt-2">Process Node</div>
                 </div>
-
-                <!-- Optical Systems Section -->
-                <div class="bg-slate-800/40 p-8 rounded-2xl border border-blue-600/30 backdrop-blur-sm">
-                    <div class="flex items-center mb-6">
-                        <span class="text-4xl mr-4">🔬</span>
-                        <h2 class="text-3xl font-bold text-cyan-400">Optical Systems</h2>
-                    </div>
-                    <p class="text-blue-200 mb-8">Precision optical components and systems for telecommunications, sensing, and quantum applications</p>
-                    <div class="grid grid-cols-1 gap-4">
-                        <a href="polarizers-products.html" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group block">
-                            <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Optical Polarizers</h3>
-                            <p class="text-gray-400 text-sm mt-1">High-precision polarization control components</p>
-                            <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
-                        </a>
-                        <a href="lenses-mirrors-products.html" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group block">
-                            <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Lenses & Mirrors</h3>
-                            <p class="text-gray-400 text-sm mt-1">Ultra-low loss optical elements for photonic systems</p>
-                            <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
-                        </a>
-                        <a href="prisms-beamsplitters-products.html" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group block">
-                            <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Prisms & Beamsplitters</h3>
-                            <p class="text-gray-400 text-sm mt-1">Precision beam manipulation and splitting components</p>
-                            <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
-                        </a>
-                        <a href="laser-systems-products.html" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group block">
-                            <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Laser Systems</h3>
-                            <p class="text-gray-400 text-sm mt-1">Semiconductor and fiber laser solutions</p>
-                            <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
-                        </a>
-                    </div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold gradient-text">1.55μm</div>
+                    <div class="text-gray-400 mt-2">Wavelength Range</div>
                 </div>
-
-                <!-- Photolithography Section -->
-                <div class="bg-slate-800/40 p-8 rounded-2xl border border-blue-600/30 backdrop-blur-sm">
-                    <div class="flex items-center mb-6">
-                        <span class="text-4xl mr-4">🎯</span>
-                        <h2 class="text-3xl font-bold text-cyan-400">Photolithography</h2>
-                    </div>
-                    <p class="text-blue-200 mb-8">State-of-the-art lithography solutions for semiconductor manufacturing and photonic device fabrication</p>
-                    <div class="grid grid-cols-1 gap-4">
-                        <a href="photomask-products.html" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group block">
-                            <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Photomask Technology</h3>
-                            <p class="text-gray-400 text-sm mt-1">10nm process technology masks and reticles</p>
-                            <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
-                        </a>
-                        <a href="maskless-exposure-products.html" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group block">
-                            <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Maskless Exposure Systems</h3>
-                            <p class="text-gray-400 text-sm mt-1">Direct-write lithography for rapid prototyping</p>
-                            <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
-                        </a>
-                        <a href="immersion-lithography-products.html" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group block">
-                            <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Immersion Lithography</h3>
-                            <p class="text-gray-400 text-sm mt-1">193nm immersion lithography solutions</p>
-                            <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
-                        </a>
-                        <a href="nanoimprint-products.html" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group block">
-                            <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Nanoimprint Technology</h3>
-                            <p class="text-gray-400 text-sm mt-1">Sub-10nm patterning capabilities</p>
-                            <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
-                        </a>
-                    </div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold gradient-text">400G</div>
+                    <div class="text-gray-400 mt-2">Data Rate</div>
                 </div>
-
-                <!-- Deposition Technologies Section -->
-                <div class="bg-slate-800/40 p-8 rounded-2xl border border-blue-600/30 backdrop-blur-sm">
-                    <div class="flex items-center mb-6">
-                        <span class="text-4xl mr-4">💎</span>
-                        <h2 class="text-3xl font-bold text-cyan-400">Deposition Technologies</h2>
-                    </div>
-                    <p class="text-blue-200 mb-8">Advanced thin-film deposition systems for precision material engineering</p>
-                    <div class="grid grid-cols-1 gap-4">
-                        <a href="pvd-products.html" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group block">
-                            <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Physical Vapor Deposition (PVD)</h3>
-                            <p class="text-gray-400 text-sm mt-1">Sputtering and evaporation systems</p>
-                            <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
-                        </a>
-                        <a href="cvd-products.html" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group block">
-                            <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Chemical Vapor Deposition (CVD)</h3>
-                            <p class="text-gray-400 text-sm mt-1">PECVD, LPCVD, and MOCVD systems</p>
-                            <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
-                        </a>
-                        <a href="ald-products.html" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group block">
-                            <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Atomic Layer Deposition (ALD)</h3>
-                            <p class="text-gray-400 text-sm mt-1">Atomic-scale precision coating technology</p>
-                            <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
-                        </a>
-                        <a href="epitaxy-products.html" class="bg-blue-900/30 p-4 rounded-lg border border-blue-700/30 hover:border-cyan-400/50 hover:bg-blue-800/30 transition-all cursor-pointer group block">
-                            <h3 class="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">Epitaxial Growth</h3>
-                            <p class="text-gray-400 text-sm mt-1">MBE and MOVPE systems for crystal growth</p>
-                            <div class="mt-2 text-cyan-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity">→ View Products</div>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Additional Information -->
-            <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20">
-                <h2 class="text-3xl font-bold mb-6 text-center">Why Choose ABP Optoelectronics?</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="text-center">
-                        <div class="text-4xl mb-3">🏆</div>
-                        <h3 class="text-xl font-semibold mb-2">Industry Leadership</h3>
-                        <p class="text-blue-200">25+ years of experience in photonics and hardware design</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-4xl mb-3">🔧</div>
-                        <h3 class="text-xl font-semibold mb-2">Custom Solutions</h3>
-                        <p class="text-blue-200">Tailored designs to meet your specific requirements</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-4xl mb-3">🌍</div>
-                        <h3 class="text-xl font-semibold mb-2">Global Support</h3>
-                        <p class="text-blue-200">Worldwide technical support and rapid deployment</p>
-                    </div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold gradient-text">99.9%</div>
+                    <div class="text-gray-400 mt-2">Yield Rate</div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- CTA -->
-            <div class="mt-16 text-center">
-                <a href="mailto:hardware@auroraborealisphonics.com" class="inline-block px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold rounded-full hover:shadow-lg transform hover:scale-105 transition-all">
-                    Request a Quote
+    <!-- Silicon Photonics Section -->
+    <section id="silicon" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Silicon Photonics Platform</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Integrated Photonic Circuits</h3>
+                    <p class="text-gray-300 mb-6">
+                        Our silicon photonics platform enables the integration of optical components on a single chip, 
+                        revolutionizing data centers, telecommunications, and quantum computing applications.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-microchip text-cyan-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">Monolithic Integration</h4>
+                                <p class="text-gray-400 text-sm">Waveguides, modulators, and detectors on single chip</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-bolt text-cyan-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">Ultra-Low Power</h4>
+                                <p class="text-gray-400 text-sm">Sub-picojoule per bit energy efficiency</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-tachometer-alt text-cyan-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">High Bandwidth</h4>
+                                <p class="text-gray-400 text-sm">Terabit-scale data transmission capabilities</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Interactive Chip Diagram -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <svg viewBox="0 0 400 300" class="w-full h-auto">
+                        <!-- Chip substrate -->
+                        <rect x="50" y="50" width="300" height="200" fill="#1a1a2e" stroke="#333" stroke-width="2" rx="5"/>
+                        
+                        <!-- Waveguide network -->
+                        <g class="chip-trace">
+                            <path d="M 100 100 L 150 100 L 150 150 L 250 150 L 250 100 L 300 100"/>
+                            <path d="M 100 150 L 200 150 L 200 200 L 300 200"/>
+                            <path d="M 100 200 L 150 200 L 150 150"/>
+                            <path d="M 250 150 L 250 200 L 300 200"/>
+                        </g>
+                        
+                        <!-- Components -->
+                        <rect x="90" y="90" width="20" height="20" fill="#00ff88" opacity="0.8" rx="2"/>
+                        <rect x="290" y="90" width="20" height="20" fill="#ff0066" opacity="0.8" rx="2"/>
+                        <rect x="190" y="140" width="20" height="20" fill="#00d4ff" opacity="0.8" rx="2"/>
+                        <rect x="140" y="190" width="20" height="20" fill="#ffaa00" opacity="0.8" rx="2"/>
+                        
+                        <!-- Labels -->
+                        <text x="100" y="80" fill="#888" font-size="12" text-anchor="middle">Laser In</text>
+                        <text x="300" y="80" fill="#888" font-size="12" text-anchor="middle">Detector</text>
+                        <text x="200" y="130" fill="#888" font-size="12" text-anchor="middle">Modulator</text>
+                        <text x="150" y="230" fill="#888" font-size="12" text-anchor="middle">Coupler</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Product Showcase -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <a href="silicon-photonics-transceivers.html" class="card-gradient p-6 rounded-xl border border-slate-700 hover:border-cyan-500/50 transition group">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-ethernet text-3xl text-cyan-400 mr-3"></i>
+                        <h3 class="text-xl font-semibold">Optical Transceivers</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">400G/800G coherent transceivers for data center interconnects</p>
+                    <div class="text-cyan-400 group-hover:translate-x-2 transition">Learn more →</div>
+                </a>
+                
+                <a href="silicon-photonics-switches.html" class="card-gradient p-6 rounded-xl border border-slate-700 hover:border-cyan-500/50 transition group">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-network-wired text-3xl text-cyan-400 mr-3"></i>
+                        <h3 class="text-xl font-semibold">Optical Switches</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">Non-blocking MxN optical switch matrices with nanosecond switching</p>
+                    <div class="text-cyan-400 group-hover:translate-x-2 transition">Learn more →</div>
+                </a>
+                
+                <a href="silicon-photonics-sensors.html" class="card-gradient p-6 rounded-xl border border-slate-700 hover:border-cyan-500/50 transition group">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-satellite-dish text-3xl text-cyan-400 mr-3"></i>
+                        <h3 class="text-xl font-semibold">Photonic Sensors</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">Integrated photonic sensors for biomedical and environmental monitoring</p>
+                    <div class="text-cyan-400 group-hover:translate-x-2 transition">Learn more →</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quantum Computing Hardware -->
+    <section id="quantum" class="py-20 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Quantum Computing Hardware</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
+                <!-- Quantum System Visualization -->
+                <div class="order-2 lg:order-1">
+                    <div class="relative glass-effect p-8 rounded-2xl">
+                        <canvas id="quantumChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+                
+                <div class="order-1 lg:order-2">
+                    <h3 class="text-2xl font-bold mb-6">Photonic Quantum Processors</h3>
+                    <p class="text-gray-300 mb-6">
+                        Leveraging the unique properties of photons for quantum computation, our processors 
+                        operate at room temperature with unprecedented stability and scalability.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-slate-900/50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-cyan-400">1000+</div>
+                            <div class="text-gray-400 text-sm">Qubits</div>
+                        </div>
+                        <div class="bg-slate-900/50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-cyan-400">99.9%</div>
+                            <div class="text-gray-400 text-sm">Fidelity</div>
+                        </div>
+                        <div class="bg-slate-900/50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-cyan-400">300K</div>
+                            <div class="text-gray-400 text-sm">Operating Temp</div>
+                        </div>
+                        <div class="bg-slate-900/50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-cyan-400">μs</div>
+                            <div class="text-gray-400 text-sm">Gate Time</div>
+                        </div>
+                    </div>
+                    <a href="quantum-products.html" class="inline-flex items-center px-6 py-3 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                        Explore Quantum Systems
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quantum Products -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="metal-gradient p-6 rounded-xl border border-gray-700">
+                    <i class="fas fa-atom text-4xl text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Ion Trap Systems</h3>
+                    <p class="text-gray-400 mb-4">Scalable trapped-ion quantum computers with integrated photonic controls</p>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>• 32-qubit processors</li>
+                        <li>• All-to-all connectivity</li>
+                        <li>• 99.9% two-qubit gate fidelity</li>
+                    </ul>
+                </div>
+                
+                <div class="metal-gradient p-6 rounded-xl border border-gray-700">
+                    <i class="fas fa-wave-square text-4xl text-blue-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Photonic Qubits</h3>
+                    <p class="text-gray-400 mb-4">Linear optical quantum computing with deterministic photon sources</p>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>• Room temperature operation</li>
+                        <li>• MHz repetition rates</li>
+                        <li>• Integrated single-photon detectors</li>
+                    </ul>
+                </div>
+                
+                <div class="metal-gradient p-6 rounded-xl border border-gray-700">
+                    <i class="fas fa-snowflake text-4xl text-cyan-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Cryogenic Electronics</h3>
+                    <p class="text-gray-400 mb-4">Ultra-low noise control electronics for quantum systems</p>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>• 4K CMOS controllers</li>
+                        <li>• Quantum-limited amplifiers</li>
+                        <li>• Integrated DAC/ADC systems</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Fabrication -->
+    <section id="fabrication" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Advanced Fabrication Facilities</h2>
+            
+            <div class="mb-16">
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6 text-center">Cleanroom Capabilities</h3>
+                    <div class="grid md:grid-cols-4 gap-6">
+                        <div class="text-center">
+                            <i class="fas fa-microscope text-4xl text-cyan-400 mb-3"></i>
+                            <h4 class="font-semibold mb-2">E-Beam Lithography</h4>
+                            <p class="text-gray-400 text-sm">5nm resolution patterning</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-layer-group text-4xl text-purple-400 mb-3"></i>
+                            <h4 class="font-semibold mb-2">Multi-Layer Processing</h4>
+                            <p class="text-gray-400 text-sm">Up to 12 metal layers</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-fire text-4xl text-orange-400 mb-3"></i>
+                            <h4 class="font-semibold mb-2">Thermal Processing</h4>
+                            <p class="text-gray-400 text-sm">RTP & furnace annealing</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-shield-alt text-4xl text-green-400 mb-3"></i>
+                            <h4 class="font-semibold mb-2">Packaging</h4>
+                            <p class="text-gray-400 text-sm">Hermetic & optical packaging</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process Technologies -->
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="card-gradient p-6 rounded-xl border border-slate-700">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-microchip text-cyan-400 mr-3"></i>
+                        CMOS Integration
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        Monolithic integration of photonics with advanced CMOS nodes for complete system-on-chip solutions.
+                    </p>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Process Node:</span>
+                            <span class="text-cyan-400">7nm FinFET</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Wafer Size:</span>
+                            <span class="text-cyan-400">300mm</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Throughput:</span>
+                            <span class="text-cyan-400">10K wafers/month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-gradient p-6 rounded-xl border border-slate-700">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-gem text-purple-400 mr-3"></i>
+                        III-V Integration
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        Heterogeneous integration of III-V materials for active photonic components and high-performance lasers.
+                    </p>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Materials:</span>
+                            <span class="text-purple-400">InP, GaAs, InGaAs</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Bonding:</span>
+                            <span class="text-purple-400">Wafer-scale</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Yield:</span>
+                            <span class="text-purple-400">99.5%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-gradient p-6 rounded-xl border border-slate-700">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-cube text-green-400 mr-3"></i>
+                        3D Integration
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        Advanced 3D stacking and through-silicon via technology for ultra-dense photonic-electronic integration.
+                    </p>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">TSV Pitch:</span>
+                            <span class="text-green-400">10μm</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Stack Height:</span>
+                            <span class="text-green-400">Up to 8 dies</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Interconnect:</span>
+                            <span class="text-green-400">Cu pillars</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Optical Systems -->
+    <section id="optical" class="py-20 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Advanced Optical Systems</h2>
+            
+            <!-- Free-Space Optics -->
+            <div class="mb-16">
+                <h3 class="text-3xl font-bold mb-8 text-center">Free-Space Optical Solutions</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <a href="laser-systems.html" class="group">
+                        <div class="bg-gradient-to-br from-red-900/20 to-orange-900/20 p-6 rounded-xl border border-red-500/30 hover:border-red-500/50 transition">
+                            <i class="fas fa-radiation text-4xl text-red-400 mb-4"></i>
+                            <h4 class="text-lg font-semibold mb-2">Laser Systems</h4>
+                            <p class="text-gray-400 text-sm mb-3">Femtosecond to CW lasers across UV to IR spectrum</p>
+                            <div class="text-red-400 text-sm group-hover:translate-x-2 transition">Explore →</div>
+                        </div>
+                    </a>
+                    
+                    <a href="imaging-systems.html" class="group">
+                        <div class="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 p-6 rounded-xl border border-blue-500/30 hover:border-blue-500/50 transition">
+                            <i class="fas fa-camera text-4xl text-blue-400 mb-4"></i>
+                            <h4 class="text-lg font-semibold mb-2">Imaging Systems</h4>
+                            <p class="text-gray-400 text-sm mb-3">Hyperspectral and computational imaging platforms</p>
+                            <div class="text-blue-400 text-sm group-hover:translate-x-2 transition">Explore →</div>
+                        </div>
+                    </a>
+                    
+                    <a href="lidar-systems.html" class="group">
+                        <div class="bg-gradient-to-br from-green-900/20 to-emerald-900/20 p-6 rounded-xl border border-green-500/30 hover:border-green-500/50 transition">
+                            <i class="fas fa-broadcast-tower text-4xl text-green-400 mb-4"></i>
+                            <h4 class="text-lg font-semibold mb-2">LiDAR Systems</h4>
+                            <p class="text-gray-400 text-sm mb-3">Solid-state and mechanical scanning LiDAR</p>
+                            <div class="text-green-400 text-sm group-hover:translate-x-2 transition">Explore →</div>
+                        </div>
+                    </a>
+                    
+                    <a href="quantum-optics.html" class="group">
+                        <div class="bg-gradient-to-br from-purple-900/20 to-pink-900/20 p-6 rounded-xl border border-purple-500/30 hover:border-purple-500/50 transition">
+                            <i class="fas fa-atom text-4xl text-purple-400 mb-4"></i>
+                            <h4 class="text-lg font-semibold mb-2">Quantum Optics</h4>
+                            <p class="text-gray-400 text-sm mb-3">Single photon sources and quantum state generators</p>
+                            <div class="text-purple-400 text-sm group-hover:translate-x-2 transition">Explore →</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Fiber Optic Systems -->
+            <div>
+                <h3 class="text-3xl font-bold mb-8 text-center">Fiber Optic Components</h3>
+                <div class="glass-effect p-8 rounded-2xl">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h4 class="text-2xl font-semibold mb-4">Specialty Fiber Solutions</h4>
+                            <p class="text-gray-300 mb-6">
+                                Custom fiber designs for sensing, high-power delivery, and quantum applications 
+                                with industry-leading performance specifications.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <h5 class="font-semibold text-cyan-400 mb-2">Photonic Crystal Fibers</h5>
+                                    <ul class="text-sm text-gray-400 space-y-1">
+                                        <li>• Endlessly single-mode</li>
+                                        <li>• Supercontinuum generation</li>
+                                        <li>• Hollow-core designs</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-purple-400 mb-2">Specialty Coatings</h5>
+                                    <ul class="text-sm text-gray-400 space-y-1">
+                                        <li>• High-temperature polyimide</li>
+                                        <li>• Hermetic carbon coating</li>
+                                        <li>• Radiation-hard designs</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Fiber Cross-Section Visualization -->
+                        <div class="flex justify-center">
+                            <svg viewBox="0 0 300 300" class="w-64 h-64">
+                                <!-- Outer cladding -->
+                                <circle cx="150" cy="150" r="140" fill="#1a1a2e" stroke="#333" stroke-width="2"/>
+                                
+                                <!-- Inner cladding -->
+                                <circle cx="150" cy="150" r="100" fill="#2a2a3e" stroke="#444" stroke-width="1"/>
+                                
+                                <!-- Photonic crystal structure -->
+                                <g opacity="0.6">
+                                    <!-- Hexagonal air holes pattern -->
+                                    <circle cx="150" cy="120" r="8" fill="#000"/>
+                                    <circle cx="170" cy="135" r="8" fill="#000"/>
+                                    <circle cx="170" cy="165" r="8" fill="#000"/>
+                                    <circle cx="150" cy="180" r="8" fill="#000"/>
+                                    <circle cx="130" cy="165" r="8" fill="#000"/>
+                                    <circle cx="130" cy="135" r="8" fill="#000"/>
+                                    
+                                    <!-- Outer ring -->
+                                    <circle cx="150" cy="90" r="8" fill="#000"/>
+                                    <circle cx="180" cy="105" r="8" fill="#000"/>
+                                    <circle cx="195" cy="135" r="8" fill="#000"/>
+                                    <circle cx="195" cy="165" r="8" fill="#000"/>
+                                    <circle cx="180" cy="195" r="8" fill="#000"/>
+                                    <circle cx="150" cy="210" r="8" fill="#000"/>
+                                    <circle cx="120" cy="195" r="8" fill="#000"/>
+                                    <circle cx="105" cy="165" r="8" fill="#000"/>
+                                    <circle cx="105" cy="135" r="8" fill="#000"/>
+                                    <circle cx="120" cy="105" r="8" fill="#000"/>
+                                </g>
+                                
+                                <!-- Core -->
+                                <circle cx="150" cy="150" r="15" fill="#00d4ff" opacity="0.8">
+                                    <animate attributeName="r" values="15;18;15" dur="2s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                                
+                                <!-- Light propagation effect -->
+                                <circle cx="150" cy="150" r="25" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0">
+                                    <animate attributeName="r" values="15;35;15" dur="2s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" values="0;0.5;0" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Architecture -->
+    <section class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Technology Stack & Architecture</h2>
+            
+            <div class="grid lg:grid-cols-3 gap-8 mb-12">
+                <!-- Design & Simulation -->
+                <div class="bg-gradient-to-br from-blue-900/20 to-indigo-900/20 p-6 rounded-xl border border-blue-500/30">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-drafting-compass text-3xl text-blue-400 mr-3"></i>
+                        <h3 class="text-xl font-bold">Design & Simulation</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                            <div>
+                                <strong>Photonic EDA:</strong> Custom tools for waveguide routing and device optimization
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                            <div>
+                                <strong>FDTD Solvers:</strong> GPU-accelerated electromagnetic simulation
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                            <div>
+                                <strong>Process PDK:</strong> Comprehensive libraries with verified components
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Manufacturing -->
+                <div class="bg-gradient-to-br from-purple-900/20 to-pink-900/20 p-6 rounded-xl border border-purple-500/30">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-industry text-3xl text-purple-400 mr-3"></i>
+                        <h3 class="text-xl font-bold">Manufacturing Excellence</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                            <div>
+                                <strong>ISO 9001:</strong> Certified quality management systems
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                            <div>
+                                <strong>Statistical Control:</strong> Real-time SPC for critical dimensions
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                            <div>
+                                <strong>Automated Test:</strong> 100% optical and electrical testing
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Support & Services -->
+                <div class="bg-gradient-to-br from-green-900/20 to-emerald-900/20 p-6 rounded-xl border border-green-500/30">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-hands-helping text-3xl text-green-400 mr-3"></i>
+                        <h3 class="text-xl font-bold">Engineering Support</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                            <div>
+                                <strong>Design Services:</strong> Custom photonic IC design and optimization
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                            <div>
+                                <strong>Prototyping:</strong> Rapid turnaround multi-project wafer runs
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                            <div>
+                                <strong>Integration:</strong> System-level packaging and testing
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Interactive Demo -->
+            <div class="glass-effect p-8 rounded-2xl">
+                <h3 class="text-2xl font-bold mb-6 text-center">Live Production Metrics</h3>
+                <div class="grid md:grid-cols-4 gap-6 text-center">
+                    <div>
+                        <div class="text-3xl font-bold text-cyan-400" id="waferCount">2,847</div>
+                        <div class="text-gray-400 mt-2">Wafers Processed Today</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-green-400" id="yieldRate">99.7%</div>
+                        <div class="text-gray-400 mt-2">Current Yield Rate</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-purple-400" id="devicesTested">15,234</div>
+                        <div class="text-gray-400 mt-2">Devices Tested</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-orange-400" id="avgPower">0.8pJ/bit</div>
+                        <div class="text-gray-400 mt-2">Avg Power Efficiency</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications Showcase -->
+    <section class="py-20 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Industry Applications</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Data Centers -->
+                <div class="relative overflow-hidden rounded-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-cyan-600/20"></div>
+                    <div class="relative p-8">
+                        <i class="fas fa-server text-4xl text-cyan-400 mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4">Data Centers</h3>
+                        <p class="text-gray-300 mb-4">
+                            Optical interconnects enabling 100Tb/s rack-to-rack communication with 
+                            10x lower power consumption than electrical solutions.
+                        </p>
+                        <a href="datacenter-solutions.html" class="text-cyan-400 hover:text-cyan-300 transition">
+                            Learn more →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Telecommunications -->
+                <div class="relative overflow-hidden rounded-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-pink-600/20"></div>
+                    <div class="relative p-8">
+                        <i class="fas fa-satellite-dish text-4xl text-purple-400 mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4">Telecommunications</h3>
+                        <p class="text-gray-300 mb-4">
+                            Coherent transceivers and ROADMs for next-generation optical networks 
+                            supporting 400G to 1.6T wavelengths.
+                        </p>
+                        <a href="telecom-solutions.html" class="text-purple-400 hover:text-purple-300 transition">
+                            Learn more →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quantum Computing -->
+                <div class="relative overflow-hidden rounded-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-br from-green-600/20 to-emerald-600/20"></div>
+                    <div class="relative p-8">
+                        <i class="fas fa-atom text-4xl text-green-400 mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4">Quantum Computing</h3>
+                        <p class="text-gray-300 mb-4">
+                            Photonic quantum processors and control systems enabling fault-tolerant 
+                            quantum computation at scale.
+                        </p>
+                        <a href="quantum-solutions.html" class="text-green-400 hover:text-green-300 transition">
+                            Learn more →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- AI/ML Acceleration -->
+                <div class="relative overflow-hidden rounded-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-br from-orange-600/20 to-red-600/20"></div>
+                    <div class="relative p-8">
+                        <i class="fas fa-brain text-4xl text-orange-400 mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4">AI/ML Acceleration</h3>
+                        <p class="text-gray-300 mb-4">
+                            Optical neural networks performing matrix operations at the speed of light 
+                            for training and inference.
+                        </p>
+                        <a href="ai-acceleration.html" class="text-orange-400 hover:text-orange-300 transition">
+                            Learn more →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sensing & Metrology -->
+                <div class="relative overflow-hidden rounded-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-br from-yellow-600/20 to-amber-600/20"></div>
+                    <div class="relative p-8">
+                        <i class="fas fa-microscope text-4xl text-yellow-400 mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4">Sensing & Metrology</h3>
+                        <p class="text-gray-300 mb-4">
+                            Ultra-sensitive photonic sensors for biomedical diagnostics, environmental 
+                            monitoring, and precision measurement.
+                        </p>
+                        <a href="sensing-solutions.html" class="text-yellow-400 hover:text-yellow-300 transition">
+                            Learn more →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Defense & Aerospace -->
+                <div class="relative overflow-hidden rounded-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-br from-red-600/20 to-pink-600/20"></div>
+                    <div class="relative p-8">
+                        <i class="fas fa-fighter-jet text-4xl text-red-400 mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4">Defense & Aerospace</h3>
+                        <p class="text-gray-300 mb-4">
+                            Radiation-hardened photonic systems for satellite communications, 
+                            LIDAR, and electronic warfare applications.
+                        </p>
+                        <a href="defense-solutions.html" class="text-red-400 hover:text-red-300 transition">
+                            Learn more →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Innovation Lab -->
+    <section class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Innovation Lab & R&D</h2>
+            
+            <div class="glass-effect p-8 rounded-2xl mb-12">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6">Next-Generation Research</h3>
+                        <p class="text-gray-300 mb-6">
+                            Our innovation lab pushes the boundaries of photonic technology, exploring 
+                            novel materials, device architectures, and system integration approaches.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-dna text-cyan-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Neuromorphic Photonics</h4>
+                                    <p class="text-gray-400 text-sm">Brain-inspired optical computing architectures</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-cube text-purple-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Topological Photonics</h4>
+                                    <p class="text-gray-400 text-sm">Robust light propagation in disordered systems</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-solar-panel text-green-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Metasurfaces</h4>
+                                    <p class="text-gray-400 text-sm">Flat optics for beam shaping and holography</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Research Metrics -->
+                    <div>
+                        <canvas id="researchChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Patent Portfolio -->
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div class="bg-slate-800/50 p-6 rounded-xl">
+                    <div class="text-4xl font-bold gradient-text mb-2">500+</div>
+                    <div class="text-gray-400">Patents Filed</div>
+                </div>
+                <div class="bg-slate-800/50 p-6 rounded-xl">
+                    <div class="text-4xl font-bold gradient-text mb-2">50+</div>
+                    <div class="text-gray-400">PhD Researchers</div>
+                </div>
+                <div class="bg-slate-800/50 p-6 rounded-xl">
+                    <div class="text-4xl font-bold gradient-text mb-2">$100M+</div>
+                    <div class="text-gray-400">R&D Investment</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4 bg-gradient-to-r from-cyan-900/20 to-blue-900/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-6">Ready to Illuminate Your Next Project?</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Partner with ABP Photonics to leverage cutting-edge optical and photonic technologies 
+                for your most challenging applications.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="px-8 py-4 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition transform hover:scale-105">
+                    Contact Sales
+                </a>
+                <a href="hardware-dashboard.html" class="px-8 py-4 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                    Visit Virtual Lab
                 </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black py-12 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <p class="text-gray-400">© 2024 Aurora Borealis Photonics. All rights reserved.</p>
+    <footer class="bg-slate-950 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 gradient-text">ABP Hardware & Photonics</h3>
+                    <p class="text-gray-400 text-sm">
+                        Leading the photonic revolution with advanced optoelectronic systems and quantum technologies.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Products</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#silicon" class="hover:text-cyan-400 transition">Silicon Photonics</a></li>
+                        <li><a href="#quantum" class="hover:text-cyan-400 transition">Quantum Hardware</a></li>
+                        <li><a href="#optical" class="hover:text-cyan-400 transition">Optical Systems</a></li>
+                        <li><a href="#fabrication" class="hover:text-cyan-400 transition">Fabrication Services</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="documentation.html" class="hover:text-cyan-400 transition">Documentation</a></li>
+                        <li><a href="design-tools.html" class="hover:text-cyan-400 transition">Design Tools</a></li>
+                        <li><a href="support.html" class="hover:text-cyan-400 transition">Technical Support</a></li>
+                        <li><a href="publications.html" class="hover:text-cyan-400 transition">Publications</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-gray-400 hover:text-cyan-400 transition">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-cyan-400 transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-cyan-400 transition">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                    </div>
+                    <p class="text-gray-400 text-sm">
+                        hardware@auroraborealisphonics.com
+                    </p>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-slate-800 text-center text-gray-400 text-sm">
+                <p>© 2024 Aurora Borealis Photonics. All rights reserved.</p>
+            </div>
         </div>
     </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Quantum Chart
+        const quantumCtx = document.getElementById('quantumChart').getContext('2d');
+        new Chart(quantumCtx, {
+            type: 'line',
+            data: {
+                labels: ['0', '10', '20', '30', '40', '50', '60'],
+                datasets: [{
+                    label: 'Quantum State Fidelity',
+                    data: [0.99, 0.98, 0.97, 0.96, 0.95, 0.94, 0.93],
+                    borderColor: '#00d4ff',
+                    backgroundColor: 'rgba(0, 212, 255, 0.1)',
+                    tension: 0.4
+                }, {
+                    label: 'Gate Error Rate',
+                    data: [0.001, 0.002, 0.003, 0.004, 0.005, 0.006, 0.007],
+                    borderColor: '#ff0066',
+                    backgroundColor: 'rgba(255, 0, 102, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#fff' }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' }
+                    },
+                    y: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' }
+                    }
+                }
+            }
+        });
+        
+        // Research Chart
+        const researchCtx = document.getElementById('researchChart').getContext('2d');
+        new Chart(researchCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Neuromorphic', 'Quantum', 'Metasurfaces', 'Nonlinear', 'Topological', 'Integrated'],
+                datasets: [{
+                    label: 'Research Focus',
+                    data: [85, 95, 70, 80, 75, 90],
+                    borderColor: '#00d4ff',
+                    backgroundColor: 'rgba(0, 212, 255, 0.2)',
+                    pointBackgroundColor: '#00d4ff',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#00d4ff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#fff' }
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        pointLabels: { color: '#888' },
+                        ticks: { 
+                            color: '#888',
+                            backdropColor: 'transparent'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Animate production metrics
+        function animateMetrics() {
+            const waferCount = document.getElementById('waferCount');
+            const yieldRate = document.getElementById('yieldRate');
+            const devicesTested = document.getElementById('devicesTested');
+            
+            setInterval(() => {
+                waferCount.textContent = (2800 + Math.floor(Math.random() * 100)).toLocaleString();
+                yieldRate.textContent = (99.5 + Math.random() * 0.4).toFixed(1) + '%';
+                devicesTested.textContent = (15000 + Math.floor(Math.random() * 500)).toLocaleString();
+            }, 3000);
+        }
+        
+        animateMetrics();
+    </script>
 </body>
 </html>
