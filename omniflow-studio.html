@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniFlow Studio - Integrated Scientific Workflow & TCAD Platform | ABP Photonics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 25%, #0066ff 50%, #6b46c1 75%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Workflow Node Animation */
+        .workflow-node {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00d4ff, #0066ff);
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            animation: node-pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes node-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+        
+        /* Data Flow Animation */
+        .data-flow {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: flow 3s linear infinite;
+        }
+        
+        @keyframes flow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Hex Grid Pattern */
+        .hex-grid {
+            background-image: 
+                repeating-linear-gradient(30deg, transparent, transparent 35px, rgba(0, 212, 255, 0.05) 35px, rgba(0, 212, 255, 0.05) 70px),
+                repeating-linear-gradient(-30deg, transparent, transparent 35px, rgba(0, 153, 255, 0.05) 35px, rgba(0, 153, 255, 0.05) 70px);
+        }
+        
+        /* Terminal Effect */
+        .terminal {
+            background: #0a0e27;
+            border: 1px solid #1a2332;
+            font-family: 'JetBrains Mono', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .terminal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #00d4ff;
+            animation: scan 8s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(400px); }
+        }
+        
+        /* Feature Card Hover */
+        .feature-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00d4ff, #0066ff, #6b46c1, #ec4899);
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+        
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        /* Architecture Diagram */
+        .arch-layer {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .arch-layer:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: #00d4ff;
+            transform: scale(1.02);
+        }
+        
+        /* Code Block Enhancement */
+        .code-container {
+            position: relative;
+            margin: 1rem 0;
+        }
+        
+        .code-header {
+            background: #1a1f3a;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem 0.5rem 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: none;
+        }
+        
+        pre {
+            margin: 0 !important;
+            border-radius: 0 0 0.5rem 0.5rem !important;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="hardware.html" class="text-gray-400 hover:text-white transition">Hardware</a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold gradient-text">OmniFlow Studio</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#demo" class="px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-lg hover:from-cyan-700 hover:to-blue-700 transition">
+                        Request Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient pt-24 pb-16 overflow-hidden">
+        <div class="absolute inset-0 hex-grid opacity-20"></div>
+        
+        <!-- Animated Workflow Nodes -->
+        <div class="absolute inset-0">
+            <div class="workflow-node" style="top: 20%; left: 10%;"></div>
+            <div class="workflow-node" style="top: 50%; left: 30%; animation-delay: 0.5s;"></div>
+            <div class="workflow-node" style="top: 30%; right: 20%; animation-delay: 1s;"></div>
+            <div class="workflow-node" style="top: 70%; right: 10%; animation-delay: 1.5s;"></div>
+            
+            <!-- Data Flow Lines -->
+            <div class="data-flow" style="top: 25%; width: 200px; left: 15%;"></div>
+            <div class="data-flow" style="top: 55%; width: 300px; left: 35%; animation-delay: 1s;"></div>
+            <div class="data-flow" style="top: 35%; width: 250px; right: 25%; animation-delay: 2s;"></div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-cyan-900/30 to-blue-900/30 rounded-full border border-cyan-500/30 mb-6">
+                    <i class="fas fa-rocket text-cyan-400"></i>
+                    <span class="text-sm font-semibold">Next-Gen Scientific Platform</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    <span class="gradient-text">OmniFlow Studio</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-4 max-w-4xl mx-auto italic">
+                    "From benchtop signals to multi-physics fields, flow it all here."
+                </p>
+                <p class="text-lg text-gray-400 mb-8 max-w-3xl mx-auto">
+                    Unified platform for hardware-in-the-loop experiments and TCAD simulations. 
+                    One toolchain from lab bench to digital twin—powered by open-source solvers and AI assistance.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#features" class="px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-lg hover:from-cyan-700 hover:to-blue-700 transition transform hover:scale-105">
+                        Explore Features
+                    </a>
+                    <a href="#architecture" class="px-8 py-4 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                        View Architecture
+                    </a>
+                    <a href="#ai-copilot" class="px-8 py-4 border border-purple-600 rounded-lg hover:bg-purple-600/10 transition">
+                        <i class="fas fa-magic mr-2"></i>AI Co-Pilot
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Differentiators -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-link text-4xl text-cyan-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Unified Workflow</h3>
+                    <p class="text-gray-400">From data acquisition to multi-physics simulation in one platform</p>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-code-branch text-4xl text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Open Architecture</h3>
+                    <p class="text-gray-400">Built on OSS solvers with modern web tech, no vendor lock-in</p>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-brain text-4xl text-pink-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">AI-Assisted Design</h3>
+                    <p class="text-gray-400">Natural language to workflow graphs and simulation decks</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Pillars -->
+    <section id="features" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-4 gradient-text">Feature Pillars</h2>
+            <p class="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
+                Six core pillars that differentiate OmniFlow from traditional tools like LabVIEW® and Sentaurus®
+            </p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Graphical Workflow Builder -->
+                <div class="feature-card glass-effect p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-project-diagram text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Graphical Workflow Builder</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Node-based editor with React Flow to wire data sources, instruments, analysis blocks, and solver nodes.
+                    </p>
+                    <div class="bg-slate-800/50 rounded-lg p-3 text-sm">
+                        <p class="text-cyan-400 mb-2">Key Differentiator:</p>
+                        <p class="text-gray-300">JSON workflow spec & WebGL canvas with hex tiles—no proprietary G-language</p>
+                    </div>
+                </div>
+
+                <!-- Hardware Abstraction Layer -->
+                <div class="feature-card glass-effect p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-microchip text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Hardware Abstraction Layer</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Unified drivers via gRPC wrappers for SCPI, VISA, Modbus, OPC-UA, serial, CAN. Hot-swap devices seamlessly.
+                    </p>
+                    <div class="bg-slate-800/50 rounded-lg p-3 text-sm">
+                        <p class="text-purple-400 mb-2">Key Differentiator:</p>
+                        <p class="text-gray-300">Hardware graph separate from dataflow graph with sandboxed Zig/C plugins</p>
+                    </div>
+                </div>
+
+                <!-- Multi-Physics Simulation -->
+                <div class="feature-card glass-effect p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-500 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-atom text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Multi-Physics Simulation Core</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Plug-in solver engine with FEM, FDTD, Monte-Carlo kernels. Semiconductor device module with quantum corrections.
+                    </p>
+                    <div class="bg-slate-800/50 rounded-lg p-3 text-sm">
+                        <p class="text-green-400 mb-2">Key Differentiator:</p>
+                        <p class="text-gray-300">Open source kernels, YAML solver decks, XDMF mesh format</p>
+                    </div>
+                </div>
+
+                <!-- Scripting & API -->
+                <div class="feature-card glass-effect p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-code text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Scripting & API</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Python & Rust SDK to generate/modify workflows, instrument configs, simulation decks. REST & WebSocket APIs.
+                    </p>
+                    <div class="bg-slate-800/50 rounded-lg p-3 text-sm">
+                        <p class="text-orange-400 mb-2">Key Differentiator:</p>
+                        <p class="text-gray-300">API-first design, no proprietary TCL/Tcl or .tdr languages</p>
+                    </div>
+                </div>
+
+                <!-- Visualization & Reporting -->
+                <div class="feature-card glass-effect p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-chart-line text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Visualization & Reporting</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Built-in JupyterLab, Plotly Dash panels, VTK viewer for 3D fields, automated PDF report generation.
+                    </p>
+                    <div class="bg-slate-800/50 rounded-lg p-3 text-sm">
+                        <p class="text-indigo-400 mb-2">Key Differentiator:</p>
+                        <p class="text-gray-300">Web-native dashboards vs desktop-bound GUIs</p>
+                    </div>
+                </div>
+
+                <!-- AI Co-Pilot -->
+                <div class="feature-card glass-effect p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-robot text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">AI Co-Pilot</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        "LabSynapse" LLM agent translates natural language to JSON workflows or YAML solver decks with guardrails.
+                    </p>
+                    <div class="bg-slate-800/50 rounded-lg p-3 text-sm">
+                        <p class="text-pink-400 mb-2">Key Differentiator:</p>
+                        <p class="text-gray-300">Modern AI UX unavailable in incumbent platforms</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Overview -->
+    <section id="architecture" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-4 gradient-text">High-Level Architecture</h2>
+            <p class="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
+                Microservices architecture with Kubernetes orchestration, designed for scalability and extensibility
+            </p>
+            
+            <!-- Layered Architecture -->
+            <div class="space-y-4 mb-12">
+                <div class="arch-layer rounded-lg p-6">
+                    <h3 class="text-xl font-bold mb-3 text-cyan-400">Presentation Layer</h3>
+                    <div class="grid md:grid-cols-4 gap-4">
+                        <div class="bg-slate-800/50 rounded p-3">
+                            <i class="fas fa-desktop text-cyan-400 mb-2"></i>
+                            <p class="text-sm">React 19 + Vite</p>
+                        </div>
+                        <div class="bg-slate-800/50 rounded p-3">
+                            <i class="fas fa-window-restore text-cyan-400 mb-2"></i>
+                            <p class="text-sm">Electron Shell</p>
+                        </div>
+                        <div class="bg-slate-800/50 rounded p-3">
+                            <i class="fas fa-paint-brush text-cyan-400 mb-2"></i>
+                            <p class="text-sm">Tailwind + Radix</p>
+                        </div>
+                        <div class="bg-slate-800/50 rounded p-3">
+                            <i class="fas fa-plug text-cyan-400 mb-2"></i>
+                            <p class="text-sm">TRPC Client</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arch-layer rounded-lg p-6">
+                    <h3 class="text-xl font-bold mb-3 text-purple-400">API & Services Layer</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-slate-800/50 rounded p-4">
+                            <h4 class="font-semibold mb-2">API Gateway</h4>
+                            <p class="text-sm text-gray-400">Apollo Router, Envoy proxy, OpenTelemetry</p>
+                        </div>
+                        <div class="bg-slate-800/50 rounded p-4">
+                            <h4 class="font-semibold mb-2">Core Services</h4>
+                            <p class="text-sm text-gray-400">Workflow, HAL, Simulation Orchestrator</p>
+                        </div>
+                        <div class="bg-slate-800/50 rounded p-4">
+                            <h4 class="font-semibold mb-2">Auth & Policy</h4>
+                            <p class="text-sm text-gray-400">Keycloak OIDC, Open Policy Agent</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arch-layer rounded-lg p-6">
+                    <h3 class="text-xl font-bold mb-3 text-green-400">Runtime & Compute Layer</h3>
+                    <div class="grid md:grid-cols-4 gap-4">
+                        <div class="bg-slate-800/50 rounded p-3">
+                            <i class="fas fa-cube text-green-400 mb-2"></i>
+                            <p class="text-sm">FEM Pod</p>
+                        </div>
+                        <div class="bg-slate-800/50 rounded p-3">
+                            <i class="fas fa-wave-square text-green-400 mb-2"></i>
+                            <p class="text-sm">FDTD Pod</p>
+                        </div>
+                        <div class="bg-slate-800/50 rounded p-3">
+                            <i class="fas fa-dice text-green-400 mb-2"></i>
+                            <p class="text-sm">Monte Carlo Pod</p>
+                        </div>
+                        <div class="bg-slate-800/50 rounded p-3">
+                            <i class="fas fa-bolt text-green-400 mb-2"></i>
+                            <p class="text-sm">GPU Acceleration</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arch-layer rounded-lg p-6">
+                    <h3 class="text-xl font-bold mb-3 text-orange-400">Infrastructure Layer</h3>
+                    <div class="grid md:grid-cols-4 gap-4">
+                        <div class="bg-slate-800/50 rounded p-3">
+                            <i class="fas fa-stream text-orange-400 mb-2"></i>
+                            <p class="text-sm">NATS JetStream</p>
+                        </div>
+                        <div class="bg-slate-800/50 rounded p-3">
+                            <i class="fas fa-database text-orange-400 mb-2"></i>
+                            <p class="text-sm">PostgreSQL/Timescale</p>
+                        </div>
+                        <div class="bg-slate-800/50 rounded p-3">
+                            <i class="fas fa-hdd text-orange-400 mb-2"></i>
+                            <p class="text-sm">Ceph S3</p>
+                        </div>
+                        <div class="bg-slate-800/50 rounded p-3">
+                            <i class="fas fa-chart-area text-orange-400 mb-2"></i>
+                            <p class="text-sm">Grafana Stack</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Flow Diagram -->
+            <div class="glass-effect p-8 rounded-2xl">
+                <h3 class="text-2xl font-bold mb-6">Data Flow Example: User-Initiated Simulation</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Design Stage</h4>
+                            <p class="text-sm text-gray-400">User arranges nodes on React canvas; JSON spec sent via GraphQL</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Validation</h4>
+                            <p class="text-sm text-gray-400">Workflow Service performs schema checks and dependency ordering</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Orchestration</h4>
+                            <p class="text-sm text-gray-400">Orchestrator translates nodes to Argo templates with resource hints</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-sm font-bold">4</div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Execution</h4>
+                            <p class="text-sm text-gray-400">Solvers run in containers, stream progress via NATS</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-sm font-bold">5</div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Visualization</h4>
+                            <p class="text-sm text-gray-400">Results loaded in VTK.js viewer, AI generates report draft</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Technology Stack</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Frontend -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4 text-cyan-400">Frontend Suite</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-cyan-400 mr-2"></i>
+                            React 19 + Vite (HMR, code-splitting)
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-cyan-400 mr-2"></i>
+                            React Flow (custom node types)
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-cyan-400 mr-2"></i>
+                            TRPC (end-to-end typesafe RPC)
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-cyan-400 mr-2"></i>
+                            VTK.js & Plotly.js (3D viewers)
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Backend -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4 text-purple-400">Backend Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-400 mr-2"></i>
+                            Rust (Actix-Web, Tokio, Petgraph)
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-400 mr-2"></i>
+                            Python 3.12 (FastAPI, Argo SDK)
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-400 mr-2"></i>
+                            Zig/WASI (sandboxed drivers)
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-400 mr-2"></i>
+                            gRPC + protobuf messaging
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Solvers -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4 text-green-400">Simulation Kernels</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                            FEniCSx + PETSc (FEM)
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                            MEEP (FDTD optics)
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                            OpenMC (Monte Carlo)
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                            Xyce (circuit co-simulation)
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Infrastructure -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4 text-orange-400">Infrastructure</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-orange-400 mr-2"></i>
+                            Kubernetes + Argo Workflows
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-orange-400 mr-2"></i>
+                            NATS JetStream messaging
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-orange-400 mr-2"></i>
+                            Ceph S3 / MinIO storage
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-orange-400 mr-2"></i>
+                            Istio service mesh (mTLS)
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- AI/ML -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4 text-pink-400">AI Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-pink-400 mr-2"></i>
+                            LangChain orchestration
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-pink-400 mr-2"></i>
+                            OpenAI o3 fine-tuned model
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-pink-400 mr-2"></i>
+                            Guardrails AI safety
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-pink-400 mr-2"></i>
+                            Qdrant vector store (RAG)
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- DevOps -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4 text-indigo-400">DevSecOps</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-indigo-400 mr-2"></i>
+                            Bazel mono-repo builds
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-indigo-400 mr-2"></i>
+                            GitHub Actions + Argo CD
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-indigo-400 mr-2"></i>
+                            SBOM + vulnerability scanning
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-indigo-400 mr-2"></i>
+                            OpenTelemetry observability
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Co-Pilot Section -->
+    <section id="ai-copilot" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-4 gradient-text">LabSynapse AI Co-Pilot</h2>
+            <p class="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
+                Natural language to workflow generation, powered by fine-tuned LLMs with domain expertise
+            </p>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Workflow Builder Example -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4 text-cyan-400">Workflow Builder Assistant</h3>
+                    <div class="terminal rounded-lg p-4 mb-4">
+                        <div class="flex items-center mb-3">
+                            <div class="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        </div>
+                        <div class="space-y-3 text-sm">
+                            <div>
+                                <span class="text-purple-400">User:</span>
+                                <p class="text-gray-300 ml-4">"Set up a DAQ reading 4-ch oscilloscope at 1 MS/s, apply 20 Hz low-pass, then save HDF5."</p>
+                            </div>
+                            <div>
+                                <span class="text-cyan-400">LabSynapse:</span>
+                                <p class="text-gray-300 ml-4">Generating workflow with DataSource (Oscilloscope), Process (LowPassFilter), and Sink (HDF5Writer) nodes...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800/50 rounded-lg p-3">
+                        <p class="text-xs text-gray-400 mb-2">Generated JSON workflow spec:</p>
+                        <pre class="text-xs overflow-x-auto"><code class="language-json">{
+  "nodes": [
+    {
+      "id": "osc_1",
+      "type": "DataSource",
+      "config": {
+        "device": "oscilloscope",
+        "channels": 4,
+        "sampleRate": "1e6"
+      }
+    },
+    {
+      "id": "filter_1",
+      "type": "Process",
+      "config": {
+        "algorithm": "lowpass",
+        "cutoff": 20
+      }
+    }
+  ]
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Solver Deck Example -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4 text-purple-400">Solver Deck Composer</h3>
+                    <div class="terminal rounded-lg p-4 mb-4">
+                        <div class="flex items-center mb-3">
+                            <div class="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        </div>
+                        <div class="space-y-3 text-sm">
+                            <div>
+                                <span class="text-purple-400">User:</span>
+                                <p class="text-gray-300 ml-4">"p-n diode simulation: NA 1e17, ND 1e15, bias sweep 0-1V step 0.05V"</p>
+                            </div>
+                            <div>
+                                <span class="text-cyan-400">LabSynapse:</span>
+                                <p class="text-gray-300 ml-4">Composing YAML solver deck for drift-diffusion simulation at 300K...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800/50 rounded-lg p-3">
+                        <p class="text-xs text-gray-400 mb-2">Generated .synw solver deck:</p>
+                        <pre class="text-xs overflow-x-auto"><code class="language-yaml">version: "0.2"
+solver: fem_electrothermal
+mesh: diode2d.synmesh.h5
+material_models:
+  si: {mobility: arora, bandgap: varshni}
+doping:
+  p_region: {type: acceptor, conc: 1e17}
+  n_region: {type: donor, conc: 1e15}
+contacts:
+  anode: {bias: 0.0}
+  cathode: {bias_sweep: [0.0, 1.0, 0.05]}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Features -->
+            <div class="grid md:grid-cols-4 gap-6 mt-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-language text-2xl"></i>
+                    </div>
+                    <h4 class="font-semibold mb-2">Natural Language</h4>
+                    <p class="text-sm text-gray-400">Plain English to technical workflows</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-shield-alt text-2xl"></i>
+                    </div>
+                    <h4 class="font-semibold mb-2">Safety Guardrails</h4>
+                    <p class="text-sm text-gray-400">Schema validation & PII filtering</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <h4 class="font-semibold mb-2">Domain Expertise</h4>
+                    <p class="text-sm text-gray-400">Fine-tuned on 1k+ workflows</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-history text-2xl"></i>
+                    </div>
+                    <h4 class="font-semibold mb-2">Audit Trail</h4>
+                    <p class="text-sm text-gray-400">Complete prompt logging</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Examples -->
+    <section class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Developer Experience</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Python SDK -->
+                <div>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="text-sm font-semibold">Python SDK Example</span>
+                            <span class="text-xs text-gray-400">synapse_sdk.py</span>
+                        </div>
+                        <pre><code class="language-python"># OmniFlow Studio Python SDK
+from synapse_sdk import Workflow, DataSource, Process, Sink
+
+# Create workflow
+wf = Workflow("oscilloscope_analysis")
+
+# Add nodes
+osc = DataSource.Oscilloscope(
+    channels=4,
+    sample_rate="1MS/s"
+)
+filter = Process.LowPassFilter(cutoff=20)
+writer = Sink.HDF5Writer("data.h5")
+
+# Connect nodes
+wf.connect(osc >> filter >> writer)
+
+# Execute
+result = wf.run()</code></pre>
+                    </div>
+                </div>
+
+                <!-- Rust Driver -->
+                <div>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="text-sm font-semibold">Rust HAL Driver</span>
+                            <span class="text-xs text-gray-400">keysight_driver.rs</span>
+                        </div>
+                        <pre><code class="language-rust">// Rust HAL driver implementation
+use synapse_hal::{Device, Result};
+
+#[derive(Debug)]
+pub struct KeysightOscilloscope {
+    session: ScpiSession,
+}
+
+impl Device for KeysightOscilloscope {
+    async fn read_waveform(&mut self, ch: u8) -> Result<Vec<f64>> {
+        let data = self.session
+            .query(format!(":WAV:DATA? CHAN{}", ch))
+            .await?;
+        Ok(parse_binary(data))
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Development Roadmap</h2>
+            
+            <div class="relative">
+                <!-- Timeline line -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-cyan-500 to-purple-500"></div>
+                
+                <div class="space-y-12">
+                    <!-- Phase 0 -->
+                    <div class="relative flex items-center">
+                        <div class="flex-1 text-right pr-8">
+                            <h3 class="text-xl font-bold text-cyan-400">Alpha Release</h3>
+                            <p class="text-gray-400">0-6 months</p>
+                            <p class="text-sm mt-2">CLI workflow engine, HAL proof-of-concept, FEM solver prototype</p>
+                        </div>
+                        <div class="w-4 h-4 bg-cyan-400 rounded-full absolute left-1/2 transform -translate-x-1/2"></div>
+                        <div class="flex-1 pl-8"></div>
+                    </div>
+
+                    <!-- Phase 1 -->
+                    <div class="relative flex items-center">
+                        <div class="flex-1 pr-8"></div>
+                        <div class="w-4 h-4 bg-purple-400 rounded-full absolute left-1/2 transform -translate-x-1/2"></div>
+                        <div class="flex-1 pl-8">
+                            <h3 class="text-xl font-bold text-purple-400">Beta Release</h3>
+                            <p class="text-gray-400">6-12 months</p>
+                            <p class="text-sm mt-2">Full graphical editor, AI co-pilot v1, 20+ device drivers</p>
+                        </div>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div class="relative flex items-center">
+                        <div class="flex-1 text-right pr-8">
+                            <h3 class="text-xl font-bold text-green-400">1.0 GA</h3>
+                            <p class="text-gray-400">Year 2</p>
+                            <p class="text-sm mt-2">Desktop & cloud distributions, versioned API, plugin SDK</p>
+                        </div>
+                        <div class="w-4 h-4 bg-green-400 rounded-full absolute left-1/2 transform -translate-x-1/2"></div>
+                        <div class="flex-1 pl-8"></div>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div class="relative flex items-center">
+                        <div class="flex-1 pr-8"></div>
+                        <div class="w-4 h-4 bg-orange-400 rounded-full absolute left-1/2 transform -translate-x-1/2"></div>
+                        <div class="flex-1 pl-8">
+                            <h3 class="text-xl font-bold text-orange-400">Scale</h3>
+                            <p class="text-gray-400">Year 3-4</p>
+                            <p class="text-sm mt-2">Marketplace, GPU cloud service, certified device packs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Licensing -->
+    <section class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Licensing & Monetization</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-code-branch text-3xl text-cyan-400 mb-4"></i>
+                    <h3 class="text-lg font-bold mb-2">Core Engine</h3>
+                    <p class="text-sm text-gray-400 mb-4">AGPL-3 dual-licensed</p>
+                    <p class="text-xs text-gray-500">Commercial license removes copyleft</p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-building text-3xl text-purple-400 mb-4"></i>
+                    <h3 class="text-lg font-bold mb-2">Enterprise Add-Ons</h3>
+                    <p class="text-sm text-gray-400 mb-4">Per seat/cluster</p>
+                    <p class="text-xs text-gray-500">AI Co-pilot, advanced solvers</p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-plug text-3xl text-green-400 mb-4"></i>
+                    <h3 class="text-lg font-bold mb-2">Device Drivers</h3>
+                    <p class="text-sm text-gray-400 mb-4">Annual subscription</p>
+                    <p class="text-xs text-gray-500">Updates & support included</p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-cloud text-3xl text-orange-400 mb-4"></i>
+                    <h3 class="text-lg font-bold mb-2">Cloud Compute</h3>
+                    <p class="text-sm text-gray-400 mb-4">Pay-as-you-go</p>
+                    <p class="text-xs text-gray-500">GPU solver runtime credits</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="demo" class="py-16 px-4 bg-gradient-to-r from-cyan-900/20 to-purple-900/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to Transform Your Scientific Workflow?</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Join the beta program and experience the future of integrated experiment design and simulation
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#" class="px-8 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-lg hover:from-cyan-700 hover:to-blue-700 transition">
+                    Request Demo
+                </a>
+                <a href="#" class="px-8 py-3 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                    Download Whitepaper
+                </a>
+                <a href="hardware.html" class="px-8 py-3 border border-purple-600 rounded-lg hover:bg-purple-600/10 transition">
+                    Back to Hardware
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400">
+            <p>© 2024 Aurora Borealis Photonics. OmniFlow Studio™ - Patent Pending</p>
+            <p class="text-sm mt-2">LabVIEW® is a trademark of National Instruments. Sentaurus® is a trademark of Synopsys.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Initialize Prism for syntax highlighting
+        Prism.highlightAll();
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add hover effects to architecture layers
+        document.querySelectorAll('.arch-layer').forEach(layer => {
+            layer.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            layer.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
