@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoSense AI - Real-Time Geospatial Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
+    <script src="https://unpkg.com/@deck.gl/layers@latest/dist.min.js"></script>
+    <script src="https://unpkg.com/@deck.gl/geo-layers@latest/dist.min.js"></script>
+    <script src="https://unpkg.com/@loaders.gl/core@latest/dist.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .data-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            backdrop-filter: blur(10px);
+        }
+        
+        .pulse-dot {
+            animation: pulse-dot 2s infinite;
+        }
+        
+        @keyframes pulse-dot {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .data-stream {
+            animation: dataFlow 3s linear infinite;
+        }
+        
+        @keyframes dataFlow {
+            from { transform: translateY(100%); opacity: 0; }
+            50% { opacity: 1; }
+            to { transform: translateY(-100%); opacity: 0; }
+        }
+        
+        .rotate-slow {
+            animation: rotate 30s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .map-container {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #deckgl-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="geospatial.html" class="text-2xl font-bold gradient-text">GeoSense AI</a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold">Live Dashboard</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span class="text-sm text-gray-400">Live</span>
+                    </div>
+                    <button class="p-2 hover:bg-slate-800 rounded-lg transition">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard -->
+    <div class="pt-16 min-h-screen">
+        <div class="max-w-7xl mx-auto p-4">
+            <!-- Stats Overview -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div class="data-card p-6 rounded-xl border border-indigo-500/20">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-400">Active Sensors</span>
+                        <i class="fas fa-satellite text-indigo-400"></i>
+                    </div>
+                    <div class="text-3xl font-bold" id="active-sensors">2,847</div>
+                    <div class="text-sm text-green-400 mt-1">↑ 12% from last hour</div>
+                </div>
+                <div class="data-card p-6 rounded-xl border border-purple-500/20">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-400">Data Processed</span>
+                        <i class="fas fa-database text-purple-400"></i>
+                    </div>
+                    <div class="text-3xl font-bold" id="data-processed">1.2 TB</div>
+                    <div class="text-sm text-green-400 mt-1">↑ 8% from yesterday</div>
+                </div>
+                <div class="data-card p-6 rounded-xl border border-green-500/20">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-400">AI Models Running</span>
+                        <i class="fas fa-brain text-green-400"></i>
+                    </div>
+                    <div class="text-3xl font-bold" id="models-running">47</div>
+                    <div class="text-sm text-yellow-400 mt-1">3 pending</div>
+                </div>
+                <div class="data-card p-6 rounded-xl border border-orange-500/20">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-400">Alerts</span>
+                        <i class="fas fa-exclamation-triangle text-orange-400"></i>
+                    </div>
+                    <div class="text-3xl font-bold" id="alerts">8</div>
+                    <div class="text-sm text-red-400 mt-1">2 critical</div>
+                </div>
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left Column - Map -->
+                <div class="lg:col-span-2">
+                    <div class="bg-slate-800 rounded-xl p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-xl font-semibold">Global Sensor Network</h2>
+                            <div class="flex space-x-2">
+                                <button class="px-3 py-1 bg-indigo-600 rounded text-sm hover:bg-indigo-700 transition" onclick="switchLayer('satellite')">Satellite</button>
+                                <button class="px-3 py-1 bg-slate-700 rounded text-sm hover:bg-slate-600 transition" onclick="switchLayer('drone')">Drones</button>
+                                <button class="px-3 py-1 bg-slate-700 rounded text-sm hover:bg-slate-600 transition" onclick="switchLayer('ground')">Ground</button>
+                                <button class="px-3 py-1 bg-slate-700 rounded text-sm hover:bg-slate-600 transition" onclick="switchLayer('marine')">Marine</button>
+                            </div>
+                        </div>
+                        <div id="map" class="map-container rounded-lg"></div>
+                        <div id="deckgl-overlay"></div>
+                    </div>
+
+                    <!-- Data Streams -->
+                    <div class="mt-6 bg-slate-800 rounded-xl p-6">
+                        <h2 class="text-xl font-semibold mb-4">Live Data Streams</h2>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-2 h-2 bg-green-400 rounded-full pulse-dot"></div>
+                                    <span class="font-medium">DR-X Falcon UAV #127</span>
+                                    <span class="text-gray-400 text-sm">California Wildfire Zone</span>
+                                </div>
+                                <div class="flex items-center space-x-4 text-sm">
+                                    <span class="text-green-400">Thermal: Active</span>
+                                    <span class="text-blue-400">LiDAR: 82%</span>
+                                    <span class="text-yellow-400">Battery: 67%</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-2 h-2 bg-blue-400 rounded-full pulse-dot"></div>
+                                    <span class="font-medium">Nautilus-300 AUV #089</span>
+                                    <span class="text-gray-400 text-sm">Gulf of Mexico Pipeline</span>
+                                </div>
+                                <div class="flex items-center space-x-4 text-sm">
+                                    <span class="text-green-400">Sonar: Active</span>
+                                    <span class="text-purple-400">Depth: 187m</span>
+                                    <span class="text-cyan-400">Speed: 3.2kn</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full pulse-dot"></div>
+                                    <span class="font-medium">CubeSat Constellation</span>
+                                    <span class="text-gray-400 text-sm">Amazon Deforestation Monitor</span>
+                                </div>
+                                <div class="flex items-center space-x-4 text-sm">
+                                    <span class="text-green-400">Hyperspectral: Active</span>
+                                    <span class="text-orange-400">Coverage: 94%</span>
+                                    <span class="text-pink-400">Next Pass: 14min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Analytics -->
+                <div class="space-y-6">
+                    <!-- AI Analysis Queue -->
+                    <div class="bg-slate-800 rounded-xl p-6">
+                        <h2 class="text-xl font-semibold mb-4">AI Analysis Queue</h2>
+                        <div class="space-y-3">
+                            <div class="bg-slate-700/50 p-3 rounded-lg">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-medium text-sm">Crop Health Analysis</span>
+                                    <span class="text-xs text-gray-400">2min ago</span>
+                                </div>
+                                <div class="w-full bg-slate-600 rounded-full h-2">
+                                    <div class="bg-green-400 h-2 rounded-full" style="width: 78%"></div>
+                                </div>
+                                <div class="flex justify-between mt-2 text-xs text-gray-400">
+                                    <span>Processing NDVI</span>
+                                    <span>78%</span>
+                                </div>
+                            </div>
+                            <div class="bg-slate-700/50 p-3 rounded-lg">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-medium text-sm">Pipeline Leak Detection</span>
+                                    <span class="text-xs text-gray-400">5min ago</span>
+                                </div>
+                                <div class="w-full bg-slate-600 rounded-full h-2">
+                                    <div class="bg-blue-400 h-2 rounded-full" style="width: 45%"></div>
+                                </div>
+                                <div class="flex justify-between mt-2 text-xs text-gray-400">
+                                    <span>Thermal Analysis</span>
+                                    <span>45%</span>
+                                </div>
+                            </div>
+                            <div class="bg-slate-700/50 p-3 rounded-lg">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-medium text-sm">Seafloor Mapping</span>
+                                    <span class="text-xs text-gray-400">12min ago</span>
+                                </div>
+                                <div class="w-full bg-slate-600 rounded-full h-2">
+                                    <div class="bg-purple-400 h-2 rounded-full" style="width: 92%"></div>
+                                </div>
+                                <div class="flex justify-between mt-2 text-xs text-gray-400">
+                                    <span>Point Cloud Processing</span>
+                                    <span>92%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Performance -->
+                    <div class="bg-slate-800 rounded-xl p-6">
+                        <h2 class="text-xl font-semibold mb-4">System Performance</h2>
+                        <canvas id="performanceChart" width="400" height="200"></canvas>
+                    </div>
+
+                    <!-- Recent Alerts -->
+                    <div class="bg-slate-800 rounded-xl p-6">
+                        <h2 class="text-xl font-semibold mb-4">Recent Alerts</h2>
+                        <div class="space-y-3">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-2 h-2 bg-red-400 rounded-full mt-1.5"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium">Critical: Anomaly Detected</p>
+                                    <p class="text-xs text-gray-400">Unusual heat signature in Sector 7</p>
+                                    <p class="text-xs text-gray-500 mt-1">2 minutes ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-2 h-2 bg-yellow-400 rounded-full mt-1.5"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium">Warning: Low Battery</p>
+                                    <p class="text-xs text-gray-400">TR-Scout Rover #045 at 15%</p>
+                                    <p class="text-xs text-gray-500 mt-1">8 minutes ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-2 h-2 bg-blue-400 rounded-full mt-1.5"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium">Info: Scan Complete</p>
+                                    <p class="text-xs text-gray-400">Agricultural survey finished</p>
+                                    <p class="text-xs text-gray-500 mt-1">15 minutes ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section - Analytics -->
+            <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Data Processing Timeline -->
+                <div class="bg-slate-800 rounded-xl p-6">
+                    <h2 class="text-xl font-semibold mb-4">Processing Timeline</h2>
+                    <canvas id="timelineChart" width="400" height="200"></canvas>
+                </div>
+
+                <!-- Sensor Distribution -->
+                <div class="bg-slate-800 rounded-xl p-6">
+                    <h2 class="text-xl font-semibold mb-4">Sensor Distribution</h2>
+                    <canvas id="distributionChart" width="400" height="200"></canvas>
+                </div>
+
+                <!-- Model Performance -->
+                <div class="bg-slate-800 rounded-xl p-6">
+                    <h2 class="text-xl font-semibold mb-4">Model Accuracy</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm">Land Cover Classification</span>
+                                <span class="text-sm font-semibold text-green-400">94.2%</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2">
+                                <div class="bg-green-400 h-2 rounded-full" style="width: 94.2%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm">Object Detection</span>
+                                <span class="text-sm font-semibold text-blue-400">89.7%</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2">
+                                <div class="bg-blue-400 h-2 rounded-full" style="width: 89.7%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm">Anomaly Detection</span>
+                                <span class="text-sm font-semibold text-purple-400">91.5%</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2">
+                                <div class="bg-purple-400 h-2 rounded-full" style="width: 91.5%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm">Change Detection</span>
+                                <span class="text-sm font-semibold text-orange-400">87.3%</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2">
+                                <div class="bg-orange-400 h-2 rounded-full" style="width: 87.3%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GeoBot Assistant -->
+    <div class="fixed bottom-4 right-4">
+        <button onclick="toggleGeoBot()" class="bg-indigo-600 hover:bg-indigo-700 p-4 rounded-full shadow-lg transition">
+            <i class="fas fa-robot text-xl"></i>
+        </button>
+    </div>
+
+    <!-- GeoBot Chat Window -->
+    <div id="geobot-window" class="fixed bottom-20 right-4 w-96 bg-slate-800 rounded-xl shadow-2xl border border-indigo-500/20 hidden">
+        <div class="p-4 border-b border-slate-700">
+            <div class="flex items-center justify-between">
+                <h3 class="font-semibold">GeoBot AI Assistant</h3>
+                <button onclick="toggleGeoBot()" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="p-4 h-96 overflow-y-auto">
+            <div class="space-y-4">
+                <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center">
+                        <i class="fas fa-robot text-sm"></i>
+                    </div>
+                    <div class="flex-1 bg-slate-700 p-3 rounded-lg">
+                        <p class="text-sm">Hello! I'm GeoBot, your AI assistant. I can help you with:</p>
+                        <ul class="text-sm mt-2 space-y-1 text-gray-300">
+                            <li>• Generating PostGIS queries</li>
+                            <li>• Analyzing sensor data</li>
+                            <li>• Creating custom dashboards</li>
+                            <li>• Optimizing hardware configurations</li>
+                        </ul>
+                        <p class="text-sm mt-2">What would you like to know?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-4 border-t border-slate-700">
+            <div class="flex space-x-2">
+                <input type="text" placeholder="Ask GeoBot anything..." class="flex-1 bg-slate-700 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <button class="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg transition">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Leaflet Map
+        const map = L.map('map').setView([20, 0], 2);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '© OpenStreetMap contributors © CARTO'
+        }).addTo(map);
+
+        // Add sample markers
+        const sensorLocations = [
+            {lat: 37.7749, lng: -122.4194, type: 'drone', name: 'San Francisco UAV'},
+            {lat: 51.5074, lng: -0.1278, type: 'ground', name: 'London IoT Grid'},
+            {lat: 35.6762, lng: 139.6503, type: 'satellite', name: 'Tokyo Satellite'},
+            {lat: -33.8688, lng: 151.2093, type: 'marine', name: 'Sydney AUV'},
+            {lat: 40.7128, lng: -74.0060, type: 'drone', name: 'NYC Drone Fleet'},
+            {lat: 1.3521, lng: 103.8198, type: 'ground', name: 'Singapore Sensors'},
+            {lat: 25.2048, lng: 55.2708, type: 'satellite', name: 'Dubai CubeSat'},
+            {lat: -22.9068, lng: -43.1729, type: 'marine', name: 'Rio Marine Monitor'}
+        ];
+
+        sensorLocations.forEach(sensor => {
+            const color = {
+                drone: '#f59e0b',
+                ground: '#10b981',
+                satellite: '#6366f1',
+                marine: '#06b6d4'
+            }[sensor.type];
+
+            L.circleMarker([sensor.lat, sensor.lng], {
+                radius: 8,
+                fillColor: color,
+                color: '#fff',
+                weight: 2,
+                opacity: 1,
+                fillOpacity: 0.8
+            }).addTo(map).bindPopup(`<b>${sensor.name}</b><br>Type: ${sensor.type}`);
+        });
+
+        // Performance Chart
+        const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+        const performanceChart = new Chart(performanceCtx, {
+            type: 'line',
+            data: {
+                labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+                datasets: [{
+                    label: 'CPU Usage',
+                    data: [45, 52, 68, 72, 65, 58],
+                    borderColor: '#6366f1',
+                    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                    tension: 0.4
+                }, {
+                    label: 'GPU Usage',
+                    data: [38, 45, 82, 88, 78, 62],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#e5e7eb' }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: '#374151' },
+                        ticks: { color: '#9ca3af' }
+                    },
+                    y: {
+                        grid: { color: '#374151' },
+                        ticks: { color: '#9ca3af' }
+                    }
+                }
+            }
+        });
+
+        // Timeline Chart
+        const timelineCtx = document.getElementById('timelineChart').getContext('2d');
+        const timelineChart = new Chart(timelineCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Ingestion', 'Processing', 'Analysis', 'Storage', 'Delivery'],
+                datasets: [{
+                    label: 'Average Time (ms)',
+                    data: [120, 450, 380, 95, 65],
+                    backgroundColor: [
+                        'rgba(99, 102, 241, 0.8)',
+                        'rgba(139, 92, 246, 0.8)',
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(245, 158, 11, 0.8)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        grid: { color: '#374151' },
+                        ticks: { color: '#9ca3af' }
+                    },
+                    y: {
+                        grid: { color: '#374151' },
+                        ticks: { color: '#9ca3af' }
+                    }
+                }
+            }
+        });
+
+        // Distribution Chart
+        const distributionCtx = document.getElementById('distributionChart').getContext('2d');
+        const distributionChart = new Chart(distributionCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Satellites', 'Drones', 'Ground Sensors', 'Marine', 'Edge Devices'],
+                datasets: [{
+                    data: [23, 34, 28, 12, 18],
+                    backgroundColor: [
+                        'rgba(99, 102, 241, 0.8)',
+                        'rgba(245, 158, 11, 0.8)',
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(6, 182, 212, 0.8)',
+                        'rgba(239, 68, 68, 0.8)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: { color: '#e5e7eb' }
+                    }
+                }
+            }
+        });
+
+        // Real-time updates
+        setInterval(() => {
+            // Update sensor count
+            const sensorCount = document.getElementById('active-sensors');
+            const currentCount = parseInt(sensorCount.textContent.replace(',', ''));
+            const newCount = currentCount + Math.floor(Math.random() * 10) - 5;
+            sensorCount.textContent = newCount.toLocaleString();
+
+            // Update data processed
+            const dataProcessed = document.getElementById('data-processed');
+            const currentData = parseFloat(dataProcessed.textContent);
+            const newData = (currentData + Math.random() * 0.1).toFixed(1);
+            dataProcessed.textContent = newData + ' TB';
+
+            // Update models
+            const modelsRunning = document.getElementById('models-running');
+            const currentModels = parseInt(modelsRunning.textContent);
+            const newModels = Math.max(40, Math.min(55, currentModels + Math.floor(Math.random() * 5) - 2));
+            modelsRunning.textContent = newModels;
+        }, 5000);
+
+        // GeoBot toggle
+        function toggleGeoBot() {
+            const window = document.getElementById('geobot-window');
+            window.classList.toggle('hidden');
+        }
+
+        // Layer switching
+        function switchLayer(layer) {
+            // Update button styles
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(btn => {
+                if (btn.textContent.toLowerCase() === layer) {
+                    btn.className = 'px-3 py-1 bg-indigo-600 rounded text-sm hover:bg-indigo-700 transition';
+                } else if (['satellite', 'drones', 'ground', 'marine'].includes(btn.textContent.toLowerCase())) {
+                    btn.className = 'px-3 py-1 bg-slate-700 rounded text-sm hover:bg-slate-600 transition';
+                }
+            });
+        }
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

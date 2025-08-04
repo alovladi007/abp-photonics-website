@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoSense AI - Agriculture Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #064e3b 0%, #14532d 50%, #064e3b 100%);
+        }
+        
+        .card-gradient {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+            backdrop-filter: blur(10px);
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .crop-map {
+            height: 500px;
+            position: relative;
+        }
+        
+        .ndvi-gradient {
+            background: linear-gradient(to right, #8B0000, #FF0000, #FFFF00, #00FF00, #006400);
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="geospatial.html" class="text-2xl font-bold">
+                        <span class="gradient-text">GeoSense AI</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold text-green-400">Agriculture</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="geospatial.html" class="hover:text-green-400 transition">Home</a>
+                    <a href="#features" class="hover:text-green-400 transition">Features</a>
+                    <a href="#roi" class="hover:text-green-400 transition">ROI Calculator</a>
+                    <a href="#demo" class="px-4 py-2 bg-green-600 rounded-lg hover:bg-green-700 transition">Request Demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient pt-24 pb-32 overflow-hidden">
+        <div class="absolute inset-0">
+            <!-- Animated crop field visualization -->
+            <div class="absolute inset-0 opacity-20">
+                <div class="grid grid-cols-12 gap-2 h-full p-8">
+                    <div class="col-span-3 bg-green-600 rounded animate-pulse" style="animation-delay: 0s;"></div>
+                    <div class="col-span-2 bg-yellow-600 rounded animate-pulse" style="animation-delay: 0.5s;"></div>
+                    <div class="col-span-4 bg-green-500 rounded animate-pulse" style="animation-delay: 1s;"></div>
+                    <div class="col-span-3 bg-green-700 rounded animate-pulse" style="animation-delay: 1.5s;"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    <span class="gradient-text">Precision Agriculture</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                    Transform your farming operations with AI-powered crop monitoring, yield prediction, and resource optimization
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#demo" class="px-8 py-4 bg-green-600 rounded-lg hover:bg-green-700 transition transform hover:scale-105">
+                        Start Free Trial
+                    </a>
+                    <a href="#case-studies" class="px-8 py-4 border border-green-600 rounded-lg hover:bg-green-600/10 transition">
+                        View Case Studies
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics -->
+    <section class="py-20 px-4 -mt-16 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="card-gradient p-6 rounded-xl border border-green-500/20">
+                    <div class="text-4xl font-bold text-green-400 mb-2">+32%</div>
+                    <div class="text-lg font-semibold mb-1">Yield Increase</div>
+                    <div class="text-gray-400 text-sm">Average across all crop types</div>
+                </div>
+                <div class="card-gradient p-6 rounded-xl border border-blue-500/20">
+                    <div class="text-4xl font-bold text-blue-400 mb-2">-45%</div>
+                    <div class="text-lg font-semibold mb-1">Water Usage</div>
+                    <div class="text-gray-400 text-sm">Through precision irrigation</div>
+                </div>
+                <div class="card-gradient p-6 rounded-xl border border-yellow-500/20">
+                    <div class="text-4xl font-bold text-yellow-400 mb-2">-38%</div>
+                    <div class="text-lg font-semibold mb-1">Fertilizer Costs</div>
+                    <div class="text-gray-400 text-sm">With targeted application</div>
+                </div>
+                <div class="card-gradient p-6 rounded-xl border border-purple-500/20">
+                    <div class="text-4xl font-bold text-purple-400 mb-2">2hrs</div>
+                    <div class="text-lg font-semibold mb-1">Early Detection</div>
+                    <div class="text-gray-400 text-sm">Pest & disease warnings</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Crop Map -->
+    <section class="py-20 px-4 bg-slate-800/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Live Field Intelligence</h2>
+            
+            <div class="bg-slate-900 rounded-2xl p-6 border border-green-500/20">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-2xl font-semibold">Field Health Monitor - Demo Farm</h3>
+                    <div class="flex space-x-2">
+                        <button class="px-4 py-2 bg-green-600 rounded text-sm hover:bg-green-700 transition" onclick="showLayer('ndvi')">NDVI</button>
+                        <button class="px-4 py-2 bg-slate-700 rounded text-sm hover:bg-slate-600 transition" onclick="showLayer('moisture')">Moisture</button>
+                        <button class="px-4 py-2 bg-slate-700 rounded text-sm hover:bg-slate-600 transition" onclick="showLayer('stress')">Stress</button>
+                        <button class="px-4 py-2 bg-slate-700 rounded text-sm hover:bg-slate-600 transition" onclick="showLayer('yield')">Yield</button>
+                    </div>
+                </div>
+                
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2">
+                        <div id="crop-map" class="crop-map rounded-lg"></div>
+                        <div class="mt-4 flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <span class="text-sm text-gray-400">NDVI Scale:</span>
+                                <div class="ndvi-gradient h-4 w-32 rounded"></div>
+                                <span class="text-sm text-gray-400">0.0 - 1.0</span>
+                            </div>
+                            <div class="text-sm text-gray-400">
+                                Last Updated: <span class="text-green-400">2 minutes ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-slate-800 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-3">Field Statistics</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm text-gray-400">Average NDVI</span>
+                                        <span class="text-sm font-semibold text-green-400">0.78</span>
+                                    </div>
+                                    <div class="w-full bg-slate-700 rounded-full h-2">
+                                        <div class="bg-green-400 h-2 rounded-full" style="width: 78%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm text-gray-400">Soil Moisture</span>
+                                        <span class="text-sm font-semibold text-blue-400">62%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-700 rounded-full h-2">
+                                        <div class="bg-blue-400 h-2 rounded-full" style="width: 62%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm text-gray-400">Crop Health</span>
+                                        <span class="text-sm font-semibold text-green-400">Excellent</span>
+                                    </div>
+                                    <div class="w-full bg-slate-700 rounded-full h-2">
+                                        <div class="bg-gradient-to-r from-green-400 to-green-600 h-2 rounded-full" style="width: 92%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-3">AI Insights</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-2 h-2 bg-yellow-400 rounded-full mt-1.5"></div>
+                                    <div>
+                                        <p class="text-sm">Zone B3 showing early nitrogen deficiency</p>
+                                        <p class="text-xs text-gray-400 mt-1">Recommend 20kg/ha application</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-2 h-2 bg-green-400 rounded-full mt-1.5"></div>
+                                    <div>
+                                        <p class="text-sm">Optimal harvest window in 12-14 days</p>
+                                        <p class="text-xs text-gray-400 mt-1">Based on growth patterns</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-2 h-2 bg-blue-400 rounded-full mt-1.5"></div>
+                                    <div>
+                                        <p class="text-sm">Irrigation needed in Southeast corner</p>
+                                        <p class="text-xs text-gray-400 mt-1">Moisture below 45%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full px-4 py-3 bg-green-600 rounded-lg hover:bg-green-700 transition">
+                            Generate Full Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Complete Agriculture Suite</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-slate-800 p-6 rounded-xl hover:transform hover:scale-105 transition">
+                    <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-satellite text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Satellite Monitoring</h3>
+                    <p class="text-gray-400 mb-4">Daily multispectral imagery with 3m resolution for comprehensive field analysis</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• NDVI, NDRE, MSAVI indices</li>
+                        <li>• Cloud-free guaranteed imagery</li>
+                        <li>• Historical trend analysis</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800 p-6 rounded-xl hover:transform hover:scale-105 transition">
+                    <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-drone text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Drone Scouting</h3>
+                    <p class="text-gray-400 mb-4">Autonomous UAV flights with centimeter-level precision mapping</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Thermal stress detection</li>
+                        <li>• 3D crop height models</li>
+                        <li>• Weed identification AI</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800 p-6 rounded-xl hover:transform hover:scale-105 transition">
+                    <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-brain text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">AI Predictions</h3>
+                    <p class="text-gray-400 mb-4">Machine learning models trained on millions of acres of crop data</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Yield forecasting ±5% accuracy</li>
+                        <li>• Disease prediction 48hrs early</li>
+                        <li>• Optimal harvest timing</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800 p-6 rounded-xl hover:transform hover:scale-105 transition">
+                    <div class="w-12 h-12 bg-yellow-600 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-tint text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Smart Irrigation</h3>
+                    <p class="text-gray-400 mb-4">Precision water management with IoT soil sensors and weather data</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Variable rate irrigation maps</li>
+                        <li>• Soil moisture forecasting</li>
+                        <li>• Water usage optimization</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800 p-6 rounded-xl hover:transform hover:scale-105 transition">
+                    <div class="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-flask text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Nutrient Management</h3>
+                    <p class="text-gray-400 mb-4">Optimize fertilizer application with prescription maps and soil analysis</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Variable rate application</li>
+                        <li>• Nutrient deficiency detection</li>
+                        <li>• Cost optimization algorithms</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800 p-6 rounded-xl hover:transform hover:scale-105 transition">
+                    <div class="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-bug text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Pest & Disease</h3>
+                    <p class="text-gray-400 mb-4">Early detection system with automated alerts and treatment recommendations</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Computer vision identification</li>
+                        <li>• Spread prediction models</li>
+                        <li>• Integrated pest management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator -->
+    <section id="roi" class="py-20 px-4 bg-slate-800/50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Calculate Your ROI</h2>
+            
+            <div class="bg-slate-900 rounded-2xl p-8 border border-green-500/20">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-6">Your Farm Details</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Farm Size (acres)</label>
+                                <input type="number" id="farm-size" value="1000" class="w-full px-4 py-2 bg-slate-800 rounded-lg border border-slate-700 focus:border-green-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Primary Crop</label>
+                                <select id="crop-type" class="w-full px-4 py-2 bg-slate-800 rounded-lg border border-slate-700 focus:border-green-500 focus:outline-none">
+                                    <option>Corn</option>
+                                    <option>Wheat</option>
+                                    <option>Soybeans</option>
+                                    <option>Cotton</option>
+                                    <option>Rice</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Average Yield (bu/acre)</label>
+                                <input type="number" id="avg-yield" value="180" class="w-full px-4 py-2 bg-slate-800 rounded-lg border border-slate-700 focus:border-green-500 focus:outline-none">
+                            </div>
+                            <button onclick="calculateROI()" class="w-full px-6 py-3 bg-green-600 rounded-lg hover:bg-green-700 transition">
+                                Calculate Savings
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-6">Estimated Annual Savings</h3>
+                        <div class="space-y-4">
+                            <div class="bg-slate-800 p-4 rounded-lg">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-gray-400">Increased Yield Revenue</span>
+                                    <span class="text-2xl font-bold text-green-400" id="yield-savings">$64,800</span>
+                                </div>
+                                <div class="text-sm text-gray-500">+18% average yield increase</div>
+                            </div>
+                            <div class="bg-slate-800 p-4 rounded-lg">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-gray-400">Input Cost Reduction</span>
+                                    <span class="text-2xl font-bold text-blue-400" id="input-savings">$42,000</span>
+                                </div>
+                                <div class="text-sm text-gray-500">Optimized fertilizer & water</div>
+                            </div>
+                            <div class="bg-slate-800 p-4 rounded-lg">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-gray-400">Labor Efficiency</span>
+                                    <span class="text-2xl font-bold text-purple-400" id="labor-savings">$18,500</span>
+                                </div>
+                                <div class="text-sm text-gray-500">Automated monitoring & alerts</div>
+                            </div>
+                            <div class="border-t border-slate-700 pt-4 mt-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-semibold">Total Annual Savings</span>
+                                    <span class="text-3xl font-bold text-green-400" id="total-savings">$125,300</span>
+                                </div>
+                                <div class="text-sm text-gray-400 mt-2">ROI: <span class="text-green-400 font-semibold">312%</span> in first year</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section id="case-studies" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Success Stories</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-slate-800 rounded-xl overflow-hidden hover:transform hover:scale-105 transition">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23059669'/%3E%3Ctext x='200' y='100' text-anchor='middle' fill='white' font-size='24'%3EMidwest Corn Farm%3C/text%3E%3C/svg%3E" 
+                         alt="Midwest Corn Farm" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Johnson Family Farms</h3>
+                        <p class="text-gray-400 mb-4">5,000 acres | Iowa, USA</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Yield Increase:</span>
+                                <span class="text-green-400 font-semibold">+28%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Water Saved:</span>
+                                <span class="text-blue-400 font-semibold">1.2M gallons</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">ROI:</span>
+                                <span class="text-yellow-400 font-semibold">427%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl overflow-hidden hover:transform hover:scale-105 transition">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23ca8a04'/%3E%3Ctext x='200' y='100' text-anchor='middle' fill='white' font-size='24'%3EWheat Cooperative%3C/text%3E%3C/svg%3E" 
+                         alt="Wheat Cooperative" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Prairie Wheat Co-op</h3>
+                        <p class="text-gray-400 mb-4">12,000 acres | Kansas, USA</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Yield Increase:</span>
+                                <span class="text-green-400 font-semibold">+22%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Fertilizer Reduced:</span>
+                                <span class="text-blue-400 font-semibold">-35%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Annual Savings:</span>
+                                <span class="text-yellow-400 font-semibold">$380,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl overflow-hidden hover:transform hover:scale-105 transition">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%237c3aed'/%3E%3Ctext x='200' y='100' text-anchor='middle' fill='white' font-size='24'%3EVineyard Estate%3C/text%3E%3C/svg%3E" 
+                         alt="Vineyard Estate" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Sunset Valley Vineyard</h3>
+                        <p class="text-gray-400 mb-4">800 acres | California, USA</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Quality Score:</span>
+                                <span class="text-green-400 font-semibold">+15 pts</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Disease Reduction:</span>
+                                <span class="text-blue-400 font-semibold">-78%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Premium Increase:</span>
+                                <span class="text-yellow-400 font-semibold">+$12/bottle</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4 bg-gradient-to-r from-green-900/50 to-emerald-900/50">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-6">Ready to Transform Your Farm?</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Join thousands of farmers already using GeoSense AI to increase yields and reduce costs
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#demo" class="px-8 py-4 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition transform hover:scale-105">
+                    Start 30-Day Free Trial
+                </a>
+                <a href="#" class="px-8 py-4 border border-white rounded-lg hover:bg-white/10 transition">
+                    Schedule Consultation
+                </a>
+            </div>
+            <p class="text-sm text-gray-400 mt-6">No credit card required • Setup in 5 minutes • Cancel anytime</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto text-center text-gray-400">
+            <p>&copy; 2024 GeoSense AI. Transforming agriculture through geospatial intelligence.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Leaflet Map
+        const map = L.map('crop-map').setView([41.8781, -87.6298], 14);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '© OpenStreetMap contributors © CARTO'
+        }).addTo(map);
+
+        // Add field polygons with NDVI colors
+        const fields = [
+            {coords: [[41.885, -87.64], [41.885, -87.63], [41.88, -87.63], [41.88, -87.64]], ndvi: 0.85, name: 'Field A1'},
+            {coords: [[41.885, -87.63], [41.885, -87.62], [41.88, -87.62], [41.88, -87.63]], ndvi: 0.72, name: 'Field A2'},
+            {coords: [[41.88, -87.64], [41.88, -87.63], [41.875, -87.63], [41.875, -87.64]], ndvi: 0.68, name: 'Field B1'},
+            {coords: [[41.88, -87.63], [41.88, -87.62], [41.875, -87.62], [41.875, -87.63]], ndvi: 0.91, name: 'Field B2'},
+            {coords: [[41.875, -87.64], [41.875, -87.63], [41.87, -87.63], [41.87, -87.64]], ndvi: 0.78, name: 'Field C1'},
+            {coords: [[41.875, -87.63], [41.875, -87.62], [41.87, -87.62], [41.87, -87.63]], ndvi: 0.82, name: 'Field C2'}
+        ];
+
+        fields.forEach(field => {
+            const color = getNDVIColor(field.ndvi);
+            L.polygon(field.coords, {
+                color: color,
+                fillColor: color,
+                fillOpacity: 0.7,
+                weight: 2
+            }).addTo(map).bindPopup(`
+                <b>${field.name}</b><br>
+                NDVI: ${field.ndvi}<br>
+                Health: ${getHealthStatus(field.ndvi)}<br>
+                <small>Click for detailed analysis</small>
+            `);
+        });
+
+        // NDVI color scale
+        function getNDVIColor(ndvi) {
+            if (ndvi < 0.3) return '#8B0000';
+            if (ndvi < 0.5) return '#FF0000';
+            if (ndvi < 0.7) return '#FFFF00';
+            if (ndvi < 0.85) return '#90EE90';
+            return '#006400';
+        }
+
+        function getHealthStatus(ndvi) {
+            if (ndvi < 0.3) return 'Poor';
+            if (ndvi < 0.5) return 'Fair';
+            if (ndvi < 0.7) return 'Good';
+            if (ndvi < 0.85) return 'Very Good';
+            return 'Excellent';
+        }
+
+        // ROI Calculator
+        function calculateROI() {
+            const farmSize = parseInt(document.getElementById('farm-size').value);
+            const avgYield = parseInt(document.getElementById('avg-yield').value);
+            const cropType = document.getElementById('crop-type').value;
+            
+            // Simplified calculation - in reality would use more complex models
+            const yieldIncrease = avgYield * 0.18 * farmSize * 4.5; // $4.5/bu average
+            const inputSavings = farmSize * 42; // $42/acre average savings
+            const laborSavings = farmSize * 18.5; // $18.5/acre labor efficiency
+            
+            document.getElementById('yield-savings').textContent = '$' + yieldIncrease.toLocaleString();
+            document.getElementById('input-savings').textContent = '$' + inputSavings.toLocaleString();
+            document.getElementById('labor-savings').textContent = '$' + laborSavings.toLocaleString();
+            document.getElementById('total-savings').textContent = '$' + (yieldIncrease + inputSavings + laborSavings).toLocaleString();
+        }
+
+        // Layer switching
+        function showLayer(layer) {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(btn => {
+                if (btn.textContent.toLowerCase() === layer) {
+                    btn.className = 'px-4 py-2 bg-green-600 rounded text-sm hover:bg-green-700 transition';
+                } else if (['ndvi', 'moisture', 'stress', 'yield'].includes(btn.textContent.toLowerCase())) {
+                    btn.className = 'px-4 py-2 bg-slate-700 rounded text-sm hover:bg-slate-600 transition';
+                }
+            });
+            
+            // In a real implementation, this would switch map layers
+            console.log('Switching to', layer, 'layer');
+        }
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

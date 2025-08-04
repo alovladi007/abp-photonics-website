@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoSense AI - Full-Stack Geospatial Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+        }
+        
+        .card-gradient {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            backdrop-filter: blur(10px);
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        .globe-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+        }
+        
+        .orbit-ring {
+            position: absolute;
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .satellite {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #6366f1;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.8);
+        }
+        
+        .data-stream {
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, #6366f1, transparent);
+            animation: dataFlow 2s linear infinite;
+        }
+        
+        @keyframes dataFlow {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(100%); }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold gradient-text">GeoSense AI</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#products" class="hover:text-indigo-400 transition">Products</a>
+                    <a href="#solutions" class="hover:text-indigo-400 transition">Solutions</a>
+                    <a href="#technology" class="hover:text-indigo-400 transition">Technology</a>
+                    <a href="#platform" class="hover:text-indigo-400 transition">Platform</a>
+                    <a href="geospatial-dashboard.html" class="px-4 py-2 bg-indigo-600 rounded-lg hover:bg-indigo-700 transition">Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient pt-24 pb-32 overflow-hidden">
+        <div class="absolute inset-0">
+            <div class="globe-container">
+                <!-- Animated Globe Visualization -->
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div class="orbit-ring w-96 h-96" style="animation-duration: 30s;">
+                        <div class="satellite" style="top: 0; left: 50%; transform: translateX(-50%);"></div>
+                    </div>
+                    <div class="orbit-ring w-80 h-80" style="animation-duration: 25s; animation-direction: reverse;">
+                        <div class="satellite" style="bottom: 0; right: 0;"></div>
+                    </div>
+                    <div class="orbit-ring w-64 h-64" style="animation-duration: 20s;">
+                        <div class="satellite" style="top: 50%; right: 0; transform: translateY(-50%);"></div>
+                    </div>
+                </div>
+                <!-- Data streams -->
+                <div class="data-stream h-full" style="left: 20%;"></div>
+                <div class="data-stream h-full" style="left: 50%; animation-delay: 0.5s;"></div>
+                <div class="data-stream h-full" style="left: 80%; animation-delay: 1s;"></div>
+            </div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                <span class="gradient-text">Full-Stack Geospatial Intelligence</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                Real-time, multi-domain environmental intelligence across air, land, and underwater environments
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#demo" class="px-8 py-4 bg-indigo-600 rounded-lg hover:bg-indigo-700 transition transform hover:scale-105">
+                    Request Demo
+                </a>
+                <a href="#products" class="px-8 py-4 border border-indigo-600 rounded-lg hover:bg-indigo-600/10 transition">
+                    Explore Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="card-gradient p-8 rounded-2xl border border-indigo-500/20">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-rocket text-3xl text-indigo-400 mr-4"></i>
+                        <h2 class="text-3xl font-bold">Mission</h2>
+                    </div>
+                    <p class="text-gray-300 text-lg">
+                        Deliver real-time, multi-domain environmental intelligence that empowers industries and governments 
+                        to make data-driven decisions for a more sustainable, secure, and efficient planet.
+                    </p>
+                </div>
+                <div class="card-gradient p-8 rounded-2xl border border-purple-500/20">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-eye text-3xl text-purple-400 mr-4"></i>
+                        <h2 class="text-3xl font-bold">Vision</h2>
+                    </div>
+                    <p class="text-gray-300 text-lg">
+                        Become the world's most trusted end-to-end provider of geospatial sensing hardware, 
+                        AI analytics, and domain-specific solutions across air, land, and underwater environments.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Value Proposition -->
+    <section class="py-20 px-4 bg-slate-800/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Core Value Proposition</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700 hover:border-indigo-500/50 transition">
+                    <i class="fas fa-layer-group text-3xl text-indigo-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Full-Stack Offering</h3>
+                    <p class="text-gray-400">From bespoke drones to cloud-native ML platform and LLM assistant, everything under one roof</p>
+                </div>
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700 hover:border-indigo-500/50 transition">
+                    <i class="fas fa-bolt text-3xl text-yellow-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Rapid Insight</h3>
+                    <p class="text-gray-400">Edge-AI hardware processes data at capture point, slashing latency from hours to seconds</p>
+                </div>
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700 hover:border-indigo-500/50 transition">
+                    <i class="fas fa-puzzle-piece text-3xl text-green-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Modular & Scalable</h3>
+                    <p class="text-gray-400">Plug-and-play sensor pods, data pipelines, and AI models without vendor lock-in</p>
+                </div>
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700 hover:border-indigo-500/50 transition">
+                    <i class="fas fa-industry text-3xl text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Domain Expertise</h3>
+                    <p class="text-gray-400">Vertical teams translate raw geodata into industry-specific action plans</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Catalog -->
+    <section id="products" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Product & Service Catalog</h2>
+            
+            <!-- Data Capture Services -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-bold mb-8 text-indigo-400">Data-Capture Services</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="card-gradient p-6 rounded-xl border border-blue-500/20">
+                        <i class="fas fa-plane text-3xl text-blue-400 mb-4"></i>
+                        <h4 class="text-xl font-semibold mb-2">Air</h4>
+                        <ul class="text-gray-300 space-y-2">
+                            <li>• Tasked satellite imagery</li>
+                            <li>• Drone LiDAR mapping</li>
+                            <li>• Hyperspectral flights</li>
+                            <li>• CubeSats & VTOL drones</li>
+                        </ul>
+                    </div>
+                    <div class="card-gradient p-6 rounded-xl border border-green-500/20">
+                        <i class="fas fa-mountain text-3xl text-green-400 mb-4"></i>
+                        <h4 class="text-xl font-semibold mb-2">Land</h4>
+                        <ul class="text-gray-300 space-y-2">
+                            <li>• IoT ground-sensor grids</li>
+                            <li>• Mobile LiDAR mapping</li>
+                            <li>• Ground Penetrating Radar</li>
+                            <li>• LoRaWAN nodes & rovers</li>
+                        </ul>
+                    </div>
+                    <div class="card-gradient p-6 rounded-xl border border-cyan-500/20">
+                        <i class="fas fa-water text-3xl text-cyan-400 mb-4"></i>
+                        <h4 class="text-xl font-semibold mb-2">Underwater</h4>
+                        <ul class="text-gray-300 space-y-2">
+                            <li>• AUV multibeam bathymetry</li>
+                            <li>• Side-scan sonar</li>
+                            <li>• Sub-bottom profiling</li>
+                            <li>• ROVs & CTD sensors</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hardware Products -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-bold mb-8 text-purple-400">Hardware Products</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-slate-800 p-6 rounded-xl hover:transform hover:scale-105 transition">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%234c1d95'/%3E%3Ctext x='100' y='75' text-anchor='middle' fill='white' font-size='20'%3EDR-X Falcon%3C/text%3E%3C/svg%3E" 
+                             alt="DR-X Falcon UAV" class="w-full h-32 object-cover rounded mb-4">
+                        <h4 class="text-lg font-semibold mb-2">DR-X Falcon UAV</h4>
+                        <p class="text-gray-400 text-sm">45-min endurance, 5kg payload, swappable sensor bay</p>
+                    </div>
+                    <div class="bg-slate-800 p-6 rounded-xl hover:transform hover:scale-105 transition">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23059669'/%3E%3Ctext x='100' y='75' text-anchor='middle' fill='white' font-size='20'%3ETR-Scout%3C/text%3E%3C/svg%3E" 
+                             alt="TR-Scout Rover" class="w-full h-32 object-cover rounded mb-4">
+                        <h4 class="text-lg font-semibold mb-2">TR-Scout Rover</h4>
+                        <p class="text-gray-400 text-sm">Autonomous ground platform with 64-channel LiDAR</p>
+                    </div>
+                    <div class="bg-slate-800 p-6 rounded-xl hover:transform hover:scale-105 transition">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%230891b2'/%3E%3Ctext x='100' y='75' text-anchor='middle' fill='white' font-size='20'%3ENautilus-300%3C/text%3E%3C/svg%3E" 
+                             alt="Nautilus-300 AUV" class="w-full h-32 object-cover rounded mb-4">
+                        <h4 class="text-lg font-semibold mb-2">Nautilus-300 AUV</h4>
+                        <p class="text-gray-400 text-sm">300m depth, multibeam + imaging sonar, Jetson Orin</p>
+                    </div>
+                    <div class="bg-slate-800 p-6 rounded-xl hover:transform hover:scale-105 transition">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23dc2626'/%3E%3Ctext x='100' y='75' text-anchor='middle' fill='white' font-size='20'%3EEdgeBox-P67%3C/text%3E%3C/svg%3E" 
+                             alt="EdgeBox-P67" class="w-full h-32 object-cover rounded mb-4">
+                        <h4 class="text-lg font-semibold mb-2">EdgeBox-P67</h4>
+                        <p class="text-gray-400 text-sm">IP-67 fanless edge AI box, NVIDIA Orin, 5G/Starlink ready</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Software & Analytics -->
+    <section class="py-20 px-4 bg-slate-800/50">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-2xl font-bold mb-8 text-center text-indigo-400">Software & Analytics Platform</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-slate-900 p-6 rounded-xl border border-indigo-500/20">
+                    <i class="fas fa-cloud text-3xl text-indigo-400 mb-4"></i>
+                    <h4 class="text-xl font-semibold mb-2">GeoCloud Platform</h4>
+                    <p class="text-gray-400">PostGIS data lake, real-time ingestion, STAC catalogues</p>
+                </div>
+                <div class="bg-slate-900 p-6 rounded-xl border border-purple-500/20">
+                    <i class="fas fa-brain text-3xl text-purple-400 mb-4"></i>
+                    <h4 class="text-xl font-semibold mb-2">Model Zoo</h4>
+                    <p class="text-gray-400">Pre-trained CV & transformer models for land-cover, object detection</p>
+                </div>
+                <div class="bg-slate-900 p-6 rounded-xl border border-blue-500/20">
+                    <i class="fas fa-cube text-3xl text-blue-400 mb-4"></i>
+                    <h4 class="text-xl font-semibold mb-2">Digital Twin Engine</h4>
+                    <p class="text-gray-400">Spatiotemporal forecasting, scenario simulation, synthetic data</p>
+                </div>
+                <div class="bg-slate-900 p-6 rounded-xl border border-green-500/20">
+                    <i class="fas fa-robot text-3xl text-green-400 mb-4"></i>
+                    <h4 class="text-xl font-semibold mb-2">GeoBot LLM</h4>
+                    <p class="text-gray-400">Natural-language interface for PostGIS SQL and PyTorch inference</p>
+                </div>
+                <div class="bg-slate-900 p-6 rounded-xl border border-yellow-500/20">
+                    <i class="fas fa-chart-line text-3xl text-yellow-400 mb-4"></i>
+                    <h4 class="text-xl font-semibold mb-2">Dashboard Studio</h4>
+                    <p class="text-gray-400">Grafana/Deck.gl templates with autoscaling WebSocket feeds</p>
+                </div>
+                <div class="bg-slate-900 p-6 rounded-xl border border-red-500/20">
+                    <i class="fas fa-shield-alt text-3xl text-red-400 mb-4"></i>
+                    <h4 class="text-xl font-semibold mb-2">Security & Compliance</h4>
+                    <p class="text-gray-400">Zero-trust network, SBOM firmware, automated PII redaction</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vertical Solutions -->
+    <section id="solutions" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Industry Solutions</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="group cursor-pointer" onclick="window.location.href='geospatial-agriculture.html'">
+                    <div class="bg-gradient-to-br from-green-900/20 to-green-800/20 p-6 rounded-xl border border-green-500/20 group-hover:border-green-400/50 transition">
+                        <i class="fas fa-seedling text-3xl text-green-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Agriculture</h3>
+                        <p class="text-gray-400 mb-4">NDVI crop health maps, soil-moisture grids, pest-stress alerts</p>
+                        <span class="text-green-400 group-hover:translate-x-2 inline-block transition">Learn more →</span>
+                    </div>
+                </div>
+                <div class="group cursor-pointer" onclick="window.location.href='geospatial-energy.html'">
+                    <div class="bg-gradient-to-br from-orange-900/20 to-orange-800/20 p-6 rounded-xl border border-orange-500/20 group-hover:border-orange-400/50 transition">
+                        <i class="fas fa-bolt text-3xl text-orange-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Energy & Utilities</h3>
+                        <p class="text-gray-400 mb-4">Thermal leak inspection, LiDAR encroachment, cable monitoring</p>
+                        <span class="text-orange-400 group-hover:translate-x-2 inline-block transition">Learn more →</span>
+                    </div>
+                </div>
+                <div class="group cursor-pointer" onclick="window.location.href='geospatial-maritime.html'">
+                    <div class="bg-gradient-to-br from-blue-900/20 to-blue-800/20 p-6 rounded-xl border border-blue-500/20 group-hover:border-blue-400/50 transition">
+                        <i class="fas fa-ship text-3xl text-blue-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Maritime & Offshore</h3>
+                        <p class="text-gray-400 mb-4">Seafloor charts, UXO detection, metocean dashboards</p>
+                        <span class="text-blue-400 group-hover:translate-x-2 inline-block transition">Learn more →</span>
+                    </div>
+                </div>
+                <div class="group cursor-pointer" onclick="window.location.href='geospatial-insurance.html'">
+                    <div class="bg-gradient-to-br from-purple-900/20 to-purple-800/20 p-6 rounded-xl border border-purple-500/20 group-hover:border-purple-400/50 transition">
+                        <i class="fas fa-shield-alt text-3xl text-purple-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Insurance</h3>
+                        <p class="text-gray-400 mb-4">Post-event damage grading, flood-depth rasters, debris AI</p>
+                        <span class="text-purple-400 group-hover:translate-x-2 inline-block transition">Learn more →</span>
+                    </div>
+                </div>
+                <div class="group cursor-pointer" onclick="window.location.href='geospatial-smartcities.html'">
+                    <div class="bg-gradient-to-br from-cyan-900/20 to-cyan-800/20 p-6 rounded-xl border border-cyan-500/20 group-hover:border-cyan-400/50 transition">
+                        <i class="fas fa-city text-3xl text-cyan-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Smart Cities</h3>
+                        <p class="text-gray-400 mb-4">3D city meshes, traffic analytics, EV-charging digital twin</p>
+                        <span class="text-cyan-400 group-hover:translate-x-2 inline-block transition">Learn more →</span>
+                    </div>
+                </div>
+                <div class="group cursor-pointer" onclick="window.location.href='geospatial-defense.html'">
+                    <div class="bg-gradient-to-br from-red-900/20 to-red-800/20 p-6 rounded-xl border border-red-500/20 group-hover:border-red-400/50 transition">
+                        <i class="fas fa-fighter-jet text-3xl text-red-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Defense</h3>
+                        <p class="text-gray-400 mb-4">ISR integration, change detection, tactical mapping</p>
+                        <span class="text-red-400 group-hover:translate-x-2 inline-block transition">Learn more →</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Architecture -->
+    <section id="technology" class="py-20 px-4 bg-slate-800/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Technology Architecture</h2>
+            <div class="bg-slate-900 p-8 rounded-2xl border border-indigo-500/20">
+                <div class="space-y-6">
+                    <!-- Edge Layer -->
+                    <div class="flex items-center space-x-4">
+                        <div class="w-32 text-right">
+                            <span class="text-indigo-400 font-semibold">Edge Layer</span>
+                        </div>
+                        <div class="flex-1 bg-indigo-900/20 p-4 rounded-lg border border-indigo-500/30">
+                            <p class="text-gray-300">Sensors → EdgeBox-P67 (CUDA inference, MQTT publish) → 5G/Starlink</p>
+                        </div>
+                    </div>
+                    <!-- Ingestion Layer -->
+                    <div class="flex items-center space-x-4">
+                        <div class="w-32 text-right">
+                            <span class="text-purple-400 font-semibold">Ingestion</span>
+                        </div>
+                        <div class="flex-1 bg-purple-900/20 p-4 rounded-lg border border-purple-500/30">
+                            <p class="text-gray-300">Kafka / NATS Streaming → TemporalDB (Timescale) + Object Storage (S3)</p>
+                        </div>
+                    </div>
+                    <!-- Processing Layer -->
+                    <div class="flex items-center space-x-4">
+                        <div class="w-32 text-right">
+                            <span class="text-blue-400 font-semibold">Processing</span>
+                        </div>
+                        <div class="flex-1 bg-blue-900/20 p-4 rounded-lg border border-blue-500/30">
+                            <p class="text-gray-300">Spark / Dask for ETL; Ray Serve for distributed model inference</p>
+                        </div>
+                    </div>
+                    <!-- Storage Layer -->
+                    <div class="flex items-center space-x-4">
+                        <div class="w-32 text-right">
+                            <span class="text-green-400 font-semibold">Storage</span>
+                        </div>
+                        <div class="flex-1 bg-green-900/20 p-4 rounded-lg border border-green-500/30">
+                            <p class="text-gray-300">PostGIS for vectors, RasterDB for rasters, MinIO for point clouds</p>
+                        </div>
+                    </div>
+                    <!-- Service Layer -->
+                    <div class="flex items-center space-x-4">
+                        <div class="w-32 text-right">
+                            <span class="text-yellow-400 font-semibold">Service</span>
+                        </div>
+                        <div class="flex-1 bg-yellow-900/20 p-4 rounded-lg border border-yellow-500/30">
+                            <p class="text-gray-300">OGC WMS/WFS, GraphQL Gateway, REST & WebSocket API</p>
+                        </div>
+                    </div>
+                    <!-- LLM Layer -->
+                    <div class="flex items-center space-x-4">
+                        <div class="w-32 text-right">
+                            <span class="text-orange-400 font-semibold">LLM</span>
+                        </div>
+                        <div class="flex-1 bg-orange-900/20 p-4 rounded-lg border border-orange-500/30">
+                            <p class="text-gray-300">RAG pipeline (FAISS + PostGIS) feeding GeoBot (OpenAI o3 fine-tune)</p>
+                        </div>
+                    </div>
+                    <!-- Visualization Layer -->
+                    <div class="flex items-center space-x-4">
+                        <div class="w-32 text-right">
+                            <span class="text-red-400 font-semibold">Visualization</span>
+                        </div>
+                        <div class="flex-1 bg-red-900/20 p-4 rounded-lg border border-red-500/30">
+                            <p class="text-gray-300">Deck.gl, CesiumJS, Grafana dashboards</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ML & LLM Capabilities -->
+    <section class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">ML & LLM Capability Stack</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-semibold text-indigo-400 mb-4">Machine Learning Infrastructure</h3>
+                    <div class="bg-slate-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-yellow-400 mb-2">Feature Store</h4>
+                        <p class="text-gray-300">Feast + PostGIS for spatiotemporal features</p>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-green-400 mb-2">Training</h4>
+                        <p class="text-gray-300">PyTorch Lightning on GPU cluster (A100s) / cloud spot</p>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-400 mb-2">MLOps</h4>
+                        <p class="text-gray-300">MLflow + W&B tracking, GitHub Actions → Docker → KServe</p>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-purple-400 mb-2">Monitoring</h4>
+                        <p class="text-gray-300">Prometheus, Grafana, Evidently for drift detection</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-semibold text-purple-400 mb-4">LLM Prompt Engineering</h3>
+                    <div class="bg-slate-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-cyan-400 mb-2">Spatial SQL Generator</h4>
+                        <p class="text-gray-300 text-sm">Generate PostGIS queries from natural language</p>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-orange-400 mb-2">Sensor Anomaly Detector</h4>
+                        <p class="text-gray-300 text-sm">Analyze multivariate telemetry and flag outliers</p>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-pink-400 mb-2">Point-Cloud Segmenter</h4>
+                        <p class="text-gray-300 text-sm">Identify seabed, cable, and boulder classes</p>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-red-400 mb-2">Compliance Checker</h4>
+                        <p class="text-gray-300 text-sm">Map specs to IMO, Seabed 2030, MARPOL standards</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4 bg-gradient-to-r from-indigo-900/50 to-purple-900/50">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-6">Ready to Transform Your Geospatial Operations?</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Join industry leaders leveraging our full-stack platform for real-time environmental intelligence
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#demo" class="px-8 py-4 bg-white text-indigo-900 font-semibold rounded-lg hover:bg-gray-100 transition">
+                    Schedule Demo
+                </a>
+                <a href="geospatial-dashboard.html" class="px-8 py-4 border border-white rounded-lg hover:bg-white/10 transition">
+                    Try Live Dashboard
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold gradient-text mb-4">GeoSense AI</h3>
+                    <p class="text-gray-400">Full-stack geospatial intelligence for a sustainable future</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Products</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Hardware</a></li>
+                        <li><a href="#" class="hover:text-white">Software</a></li>
+                        <li><a href="#" class="hover:text-white">Platform</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Solutions</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Agriculture</a></li>
+                        <li><a href="#" class="hover:text-white">Energy</a></li>
+                        <li><a href="#" class="hover:text-white">Maritime</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">About</a></li>
+                        <li><a href="#" class="hover:text-white">Careers</a></li>
+                        <li><a href="#" class="hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-slate-800 text-center text-gray-400">
+                <p>&copy; 2024 GeoSense AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

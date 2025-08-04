@@ -84,7 +84,9 @@
         }
         
         .rotate-3d {
-            animation: rotate-3d 10s linear infinite;
+            animation: rotate-3d 20s linear infinite;
+            transform-style: preserve-3d;
+            will-change: transform;
         }
         
         /* Medical imaging styles */
@@ -542,9 +544,9 @@
                             <h3 class="text-xl font-semibold mb-4">3D Brain Visualization</h3>
                             <div class="bg-black rounded-xl h-96 relative overflow-hidden">
                                 <div class="absolute inset-0 flex items-center justify-center">
-                                    <div class="rotate-3d">
+                                    <div class="rotate-3d" style="transform-style: preserve-3d;">
                                         <div class="w-48 h-48 relative">
-                                            <div class="absolute inset-0 bg-gradient-to-br from-purple-600/30 to-pink-600/30 rounded-full blur-xl"></div>
+                                            <div class="absolute inset-0 bg-gradient-to-br from-purple-600/30 to-pink-600/30 rounded-full"></div>
                                             <div class="absolute inset-4 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full"></div>
                                             <div class="absolute inset-8 bg-gray-900 rounded-full"></div>
                                         </div>
