@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Intelligence - BioTensor Labs</title>
+    <meta name="description" content="Dynamic clinical intelligence platform for risk detection, trajectory understanding, and actionable insights">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+        
+        @keyframes data-flow {
+            0% { transform: translateX(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%); opacity: 0; }
+        }
+        
+        @keyframes neural-pulse {
+            0%, 100% { stroke-opacity: 0.3; }
+            50% { stroke-opacity: 1; }
+        }
+        
+        .pulse-dot {
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        
+        .data-flow-line {
+            animation: data-flow 3s linear infinite;
+        }
+        
+        .neural-connection {
+            animation: neural-pulse 2s ease-in-out infinite;
+        }
+        
+        .gradient-border {
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899);
+            padding: 2px;
+            border-radius: 0.5rem;
+        }
+        
+        .ai-glow {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-gray-800/50 backdrop-blur-md border-b border-gray-700 sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="biotensor.html" class="flex items-center space-x-2 text-gray-300 hover:text-white transition">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to BioTensor Labs</span>
+                </a>
+                <a href="cliniscope-dashboard.html" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition">
+                    Launch CliniScope™ Dashboard
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0">
+            <svg class="w-full h-full opacity-10" viewBox="0 0 1000 600">
+                <!-- Neural Network Background -->
+                <g class="neural-network">
+                    <circle cx="200" cy="150" r="4" fill="#3b82f6" class="pulse-dot"/>
+                    <circle cx="400" cy="100" r="4" fill="#8b5cf6" class="pulse-dot" style="animation-delay: 0.5s"/>
+                    <circle cx="600" cy="200" r="4" fill="#ec4899" class="pulse-dot" style="animation-delay: 1s"/>
+                    <circle cx="800" cy="150" r="4" fill="#3b82f6" class="pulse-dot" style="animation-delay: 1.5s"/>
+                    
+                    <line x1="200" y1="150" x2="400" y2="100" stroke="#3b82f6" stroke-width="1" class="neural-connection"/>
+                    <line x1="400" y1="100" x2="600" y2="200" stroke="#8b5cf6" stroke-width="1" class="neural-connection" style="animation-delay: 0.5s"/>
+                    <line x1="600" y1="200" x2="800" y2="150" stroke="#ec4899" stroke-width="1" class="neural-connection" style="animation-delay: 1s"/>
+                </g>
+                
+                <!-- Data Flow Lines -->
+                <rect x="0" y="300" width="100" height="2" fill="url(#dataGradient)" class="data-flow-line"/>
+                <rect x="0" y="350" width="100" height="2" fill="url(#dataGradient)" class="data-flow-line" style="animation-delay: 1s"/>
+                <rect x="0" y="400" width="100" height="2" fill="url(#dataGradient)" class="data-flow-line" style="animation-delay: 2s"/>
+                
+                <defs>
+                    <linearGradient id="dataGradient">
+                        <stop offset="0%" stop-color="#3b82f6" stop-opacity="0"/>
+                        <stop offset="50%" stop-color="#3b82f6" stop-opacity="1"/>
+                        <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="flex justify-center mb-6">
+                    <div class="gradient-border">
+                        <div class="bg-gray-900 px-6 py-3 rounded-lg">
+                            <i class="fas fa-brain text-3xl text-blue-500"></i>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Clinical Intelligence Platform
+                </h1>
+                <p class="text-xl text-gray-300 mb-8">
+                    Transform clinical data into actionable insights with AI-powered analytics, 
+                    predictive modeling, and real-time decision support
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <div class="bg-gray-800/50 backdrop-blur px-6 py-3 rounded-lg border border-gray-700">
+                        <i class="fas fa-chart-line text-blue-400 mr-2"></i>
+                        <span>Predictive Analytics</span>
+                    </div>
+                    <div class="bg-gray-800/50 backdrop-blur px-6 py-3 rounded-lg border border-gray-700">
+                        <i class="fas fa-shield-alt text-green-400 mr-2"></i>
+                        <span>Risk Detection</span>
+                    </div>
+                    <div class="bg-gray-800/50 backdrop-blur px-6 py-3 rounded-lg border border-gray-700">
+                        <i class="fas fa-robot text-purple-400 mr-2"></i>
+                        <span>AI-Driven Insights</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics -->
+    <section class="py-16 bg-gray-800/30">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="bg-gray-800/50 backdrop-blur rounded-lg p-6 border border-gray-700">
+                    <div class="text-3xl font-bold text-blue-400 mb-2">95%</div>
+                    <div class="text-gray-400">Prediction Accuracy</div>
+                    <div class="text-sm text-gray-500 mt-2">For 30-day readmission risk</div>
+                </div>
+                <div class="bg-gray-800/50 backdrop-blur rounded-lg p-6 border border-gray-700">
+                    <div class="text-3xl font-bold text-green-400 mb-2">< 100ms</div>
+                    <div class="text-gray-400">Response Time</div>
+                    <div class="text-sm text-gray-500 mt-2">Real-time clinical alerts</div>
+                </div>
+                <div class="bg-gray-800/50 backdrop-blur rounded-lg p-6 border border-gray-700">
+                    <div class="text-3xl font-bold text-purple-400 mb-2">50M+</div>
+                    <div class="text-gray-400">Patient Records</div>
+                    <div class="text-sm text-gray-500 mt-2">Analyzed daily</div>
+                </div>
+                <div class="bg-gray-800/50 backdrop-blur rounded-lg p-6 border border-gray-700">
+                    <div class="text-3xl font-bold text-pink-400 mb-2">24/7</div>
+                    <div class="text-gray-400">Monitoring</div>
+                    <div class="text-sm text-gray-500 mt-2">Continuous surveillance</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Capabilities -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Core Capabilities</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Risk Stratification -->
+                <div class="feature-card bg-gray-800/30 backdrop-blur rounded-lg p-8">
+                    <div class="text-4xl mb-4 text-blue-400">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Risk Stratification</h3>
+                    <p class="text-gray-400 mb-4">
+                        Advanced ML models identify high-risk patients across multiple conditions 
+                        with explainable AI providing clear reasoning.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Readmission risk</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Mortality prediction</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Deterioration alerts</li>
+                    </ul>
+                </div>
+
+                <!-- Clinical Pathways -->
+                <div class="feature-card bg-gray-800/30 backdrop-blur rounded-lg p-8">
+                    <div class="text-4xl mb-4 text-purple-400">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Clinical Pathways</h3>
+                    <p class="text-gray-400 mb-4">
+                        Evidence-based pathways with real-time adaptation based on patient 
+                        response and latest clinical guidelines.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Personalized protocols</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Outcome tracking</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Variance analysis</li>
+                    </ul>
+                </div>
+
+                <!-- Population Health -->
+                <div class="feature-card bg-gray-800/30 backdrop-blur rounded-lg p-8">
+                    <div class="text-4xl mb-4 text-pink-400">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Population Health</h3>
+                    <p class="text-gray-400 mb-4">
+                        Comprehensive analytics for population management, quality measures, 
+                        and care gap identification.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Cohort analysis</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Quality metrics</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Care coordination</li>
+                    </ul>
+                </div>
+
+                <!-- Predictive Analytics -->
+                <div class="feature-card bg-gray-800/30 backdrop-blur rounded-lg p-8">
+                    <div class="text-4xl mb-4 text-green-400">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Predictive Analytics</h3>
+                    <p class="text-gray-400 mb-4">
+                        Machine learning models trained on millions of patient records to 
+                        predict outcomes and optimize interventions.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Disease progression</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Treatment response</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Resource utilization</li>
+                    </ul>
+                </div>
+
+                <!-- Real-time Monitoring -->
+                <div class="feature-card bg-gray-800/30 backdrop-blur rounded-lg p-8">
+                    <div class="text-4xl mb-4 text-yellow-400">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Real-time Monitoring</h3>
+                    <p class="text-gray-400 mb-4">
+                        Continuous surveillance of patient data streams with intelligent 
+                        alerting and early warning systems.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Vital sign analysis</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Lab trend detection</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Sepsis surveillance</li>
+                    </ul>
+                </div>
+
+                <!-- Clinical Decision Support -->
+                <div class="feature-card bg-gray-800/30 backdrop-blur rounded-lg p-8">
+                    <div class="text-4xl mb-4 text-cyan-400">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Clinical Decision Support</h3>
+                    <p class="text-gray-400 mb-4">
+                        Evidence-based recommendations at the point of care with integrated 
+                        guidelines and best practices.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Drug interactions</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Diagnostic assistance</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Treatment optimization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CliniScope Platform -->
+    <section class="py-20 bg-gray-800/30">
+        <div class="container mx-auto px-6">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12">CliniScope™ Platform</h2>
+                
+                <div class="bg-gray-800/50 backdrop-blur rounded-lg p-8 mb-8 ai-glow">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-4 text-blue-400">
+                                Unified Clinical Intelligence
+                            </h3>
+                            <p class="text-gray-300 mb-6">
+                                CliniScope™ brings together all aspects of clinical intelligence into a 
+                                single, intuitive platform. From real-time monitoring to predictive analytics, 
+                                every tool you need is at your fingertips.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <i class="fas fa-database text-blue-400 mt-1 mr-3"></i>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Data Integration</h4>
+                                        <p class="text-sm text-gray-400">
+                                            Seamlessly connects with EHRs, labs, imaging, and devices
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="fas fa-brain text-purple-400 mt-1 mr-3"></i>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">AI-Powered Analytics</h4>
+                                        <p class="text-sm text-gray-400">
+                                            Advanced ML models trained on diverse clinical datasets
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="fas fa-shield-alt text-green-400 mt-1 mr-3"></i>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">HIPAA Compliant</h4>
+                                        <p class="text-sm text-gray-400">
+                                            Enterprise-grade security with full audit trails
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-900 rounded-lg p-6 border border-gray-700">
+                            <div class="mb-4">
+                                <canvas id="performanceChart" width="400" height="200"></canvas>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 text-center text-sm">
+                                <div>
+                                    <div class="text-blue-400 font-semibold">98.5%</div>
+                                    <div class="text-gray-500">Uptime</div>
+                                </div>
+                                <div>
+                                    <div class="text-green-400 font-semibold">< 50ms</div>
+                                    <div class="text-gray-500">Latency</div>
+                                </div>
+                                <div>
+                                    <div class="text-purple-400 font-semibold">10K+</div>
+                                    <div class="text-gray-500">Users</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Platform Features -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-800/30 backdrop-blur rounded-lg p-6 border border-gray-700">
+                        <h4 class="text-lg font-semibold mb-3 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-400 mr-3"></i>
+                            Advanced Dashboards
+                        </h4>
+                        <p class="text-gray-400 text-sm">
+                            Customizable dashboards with real-time updates, drill-down capabilities, 
+                            and role-based views for different clinical teams.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-800/30 backdrop-blur rounded-lg p-6 border border-gray-700">
+                        <h4 class="text-lg font-semibold mb-3 flex items-center">
+                            <i class="fas fa-bell text-yellow-400 mr-3"></i>
+                            Smart Alerts
+                        </h4>
+                        <p class="text-gray-400 text-sm">
+                            Intelligent alerting system that learns from user feedback to reduce 
+                            alert fatigue while ensuring critical issues are never missed.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-800/30 backdrop-blur rounded-lg p-6 border border-gray-700">
+                        <h4 class="text-lg font-semibold mb-3 flex items-center">
+                            <i class="fas fa-plug text-green-400 mr-3"></i>
+                            API Integration
+                        </h4>
+                        <p class="text-gray-400 text-sm">
+                            RESTful APIs and FHIR-compliant interfaces for seamless integration 
+                            with existing healthcare IT infrastructure.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-800/30 backdrop-blur rounded-lg p-6 border border-gray-700">
+                        <h4 class="text-lg font-semibold mb-3 flex items-center">
+                            <i class="fas fa-mobile-alt text-purple-400 mr-3"></i>
+                            Mobile Access
+                        </h4>
+                        <p class="text-gray-400 text-sm">
+                            Native mobile apps for iOS and Android enable clinicians to access 
+                            insights and respond to alerts from anywhere.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research & Publications -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Research & Clinical Impact</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-6">
+                    <div class="bg-gray-800/30 backdrop-blur rounded-lg p-6 border-l-4 border-blue-500">
+                        <h3 class="text-lg font-semibold mb-2">
+                            "Deep Learning for Early Sepsis Detection in ICU Patients"
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-2">
+                            Nature Medicine, 2024 - Achieved 94% sensitivity and 89% specificity 
+                            in detecting sepsis 6 hours before traditional methods.
+                        </p>
+                        <a href="#" class="text-blue-400 text-sm hover:underline">
+                            Read Full Paper <i class="fas fa-external-link-alt ml-1"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="bg-gray-800/30 backdrop-blur rounded-lg p-6 border-l-4 border-purple-500">
+                        <h3 class="text-lg font-semibold mb-2">
+                            "Reducing Hospital Readmissions with Predictive Analytics"
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-2">
+                            JAMA Network Open, 2024 - 32% reduction in 30-day readmissions 
+                            through targeted interventions based on AI predictions.
+                        </p>
+                        <a href="#" class="text-purple-400 text-sm hover:underline">
+                            Read Full Paper <i class="fas fa-external-link-alt ml-1"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="bg-gray-800/30 backdrop-blur rounded-lg p-6 border-l-4 border-green-500">
+                        <h3 class="text-lg font-semibold mb-2">
+                            "Federated Learning for Multi-Site Clinical Prediction"
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-2">
+                            Science Translational Medicine, 2024 - Privacy-preserving ML across 
+                            50 hospitals without sharing patient data.
+                        </p>
+                        <a href="#" class="text-green-400 text-sm hover:underline">
+                            Read Full Paper <i class="fas fa-external-link-alt ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div>
+                        <div class="text-3xl font-bold text-blue-400 mb-2">15+</div>
+                        <div class="text-gray-400">Peer-Reviewed Publications</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-purple-400 mb-2">200+</div>
+                        <div class="text-gray-400">Hospital Deployments</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-green-400 mb-2">5M+</div>
+                        <div class="text-gray-400">Patients Impacted</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-blue-900/20 to-purple-900/20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-6">Ready to Transform Clinical Care?</h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Join leading healthcare institutions using CliniScope™ to improve patient 
+                outcomes and operational efficiency.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="cliniscope-dashboard.html" class="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-lg font-semibold transition transform hover:scale-105">
+                    <i class="fas fa-rocket mr-2"></i>
+                    Launch Dashboard
+                </a>
+                <a href="#" class="bg-gray-700 hover:bg-gray-600 px-8 py-3 rounded-lg font-semibold transition">
+                    <i class="fas fa-calendar mr-2"></i>
+                    Schedule Demo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-8 border-t border-gray-700">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p>&copy; 2024 BioTensor Labs. All rights reserved.</p>
+            <p class="mt-2 text-sm">
+                Advancing healthcare through intelligent clinical analytics
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Performance Chart
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+                datasets: [{
+                    label: 'Predictions/Hour',
+                    data: [8500, 9200, 12000, 15000, 14000, 11000],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    tension: 0.4
+                }, {
+                    label: 'Alerts Generated',
+                    data: [120, 150, 280, 350, 320, 200],
+                    borderColor: '#8b5cf6',
+                    backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#9ca3af'
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: 'rgba(156, 163, 175, 0.1)'
+                        },
+                        ticks: {
+                            color: '#9ca3af'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            color: 'rgba(156, 163, 175, 0.1)'
+                        },
+                        ticks: {
+                            color: '#9ca3af'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

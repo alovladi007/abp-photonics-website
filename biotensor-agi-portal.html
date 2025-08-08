@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioTensor Labs Medical AGI - Clinical Intelligence Platform</title>
+    <meta name="description" content="Medicine-focused AGI system for clinicians, researchers, and medical students">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(59, 130, 246, 0.5),
+                           0 0 40px rgba(59, 130, 246, 0.3),
+                           0 0 60px rgba(59, 130, 246, 0.1);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(59, 130, 246, 0.7),
+                           0 0 60px rgba(59, 130, 246, 0.5),
+                           0 0 90px rgba(59, 130, 246, 0.3);
+            }
+        }
+        
+        @keyframes data-stream {
+            0% { transform: translateY(100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100%); opacity: 0; }
+        }
+        
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        
+        .data-stream {
+            animation: data-stream 4s linear infinite;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .glass-effect {
+            background: rgba(31, 41, 55, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(75, 85, 99, 0.3);
+        }
+        
+        .system-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .system-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899);
+            border-radius: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .system-card:hover::before {
+            opacity: 1;
+        }
+        
+        .system-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-gray-800/50 backdrop-blur-md border-b border-gray-700 sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <a href="biotensor.html" class="flex items-center space-x-2 text-gray-300 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Back to BioTensor Labs</span>
+                    </a>
+                    <div class="text-gray-500">|</div>
+                    <span class="text-xl font-semibold gradient-text">Medical AGI Platform</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg transition">
+                        <i class="fas fa-book mr-2"></i>Documentation
+                    </button>
+                    <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition">
+                        <i class="fas fa-play mr-2"></i>Launch Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0">
+            <div class="absolute top-20 left-20 w-72 h-72 bg-blue-500 rounded-full filter blur-3xl opacity-20 float-animation"></div>
+            <div class="absolute bottom-20 right-20 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl opacity-20 float-animation" style="animation-delay: 3s;"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-pink-500 rounded-full filter blur-3xl opacity-20 float-animation" style="animation-delay: 1.5s;"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="mb-8">
+                    <div class="inline-block p-4 bg-gray-800/50 backdrop-blur rounded-full pulse-glow">
+                        <i class="fas fa-brain text-5xl text-blue-500"></i>
+                    </div>
+                </div>
+                <h1 class="text-6xl font-bold mb-6 gradient-text">
+                    BioTensor Medical AGI
+                </h1>
+                <p class="text-2xl text-gray-300 mb-8">
+                    A comprehensive medicine-focused AGI built as a system of systems
+                </p>
+                <p class="text-lg text-gray-400 mb-12 max-w-3xl mx-auto">
+                    Transforming healthcare through secure, auditable, and clinically-validated AI assistance 
+                    across the entire care continuum. From emergency triage to complex diagnostics, 
+                    our platform empowers clinicians with evidence-based insights.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                    <div class="glass-effect rounded-lg p-6">
+                        <i class="fas fa-user-md text-3xl text-blue-400 mb-3"></i>
+                        <h3 class="text-lg font-semibold mb-2">For Clinicians</h3>
+                        <p class="text-sm text-gray-400">Real-time decision support at the point of care</p>
+                    </div>
+                    <div class="glass-effect rounded-lg p-6">
+                        <i class="fas fa-microscope text-3xl text-purple-400 mb-3"></i>
+                        <h3 class="text-lg font-semibold mb-2">For Researchers</h3>
+                        <p class="text-sm text-gray-400">Advanced analytics on de-identified datasets</p>
+                    </div>
+                    <div class="glass-effect rounded-lg p-6">
+                        <i class="fas fa-graduation-cap text-3xl text-pink-400 mb-3"></i>
+                        <h3 class="text-lg font-semibold mb-2">For Students</h3>
+                        <p class="text-sm text-gray-400">Interactive learning with synthetic cases</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Architecture -->
+    <section class="py-20 bg-gray-800/30">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">System of Systems Architecture</h2>
+            <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto">
+                Eight interconnected systems working in harmony to deliver comprehensive clinical intelligence
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- System 0: Secure Data & Compute Plane -->
+                <div class="system-card glass-effect rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gray-700 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-shield-alt text-gray-400"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs text-gray-500">SYSTEM 0</div>
+                            <h3 class="font-semibold">Secure Data Plane</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-3">
+                        Foundation layer providing PHI/PII-safe compute and storage
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Hybrid Kubernetes</li>
+                        <li>• Zero-trust networking</li>
+                        <li>• Encrypted storage</li>
+                        <li>• Full audit trails</li>
+                    </ul>
+                </div>
+
+                <!-- System 1: Clinical Data Ingestion -->
+                <div class="system-card glass-effect rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-database text-blue-400"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs text-blue-400">SYSTEM 1</div>
+                            <h3 class="font-semibold">Data Ingestion</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-3">
+                        Transform heterogeneous clinical data into AI-ready streams
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• HL7 v2/v3, FHIR R4/R5</li>
+                        <li>• DICOM, lab interfaces</li>
+                        <li>• Device integration</li>
+                        <li>• Terminology mapping</li>
+                    </ul>
+                </div>
+
+                <!-- System 2: Unified Clinical Knowledge Graph -->
+                <div class="system-card glass-effect rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-900 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-project-diagram text-purple-400"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs text-purple-400">SYSTEM 2</div>
+                            <h3 class="font-semibold">Knowledge Graph</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-3">
+                        Living knowledge base fusing patient data with medical ontologies
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Temporal patient graphs</li>
+                        <li>• Guideline encoding</li>
+                        <li>• Causal reasoning</li>
+                        <li>• Ontology mapping</li>
+                    </ul>
+                </div>
+
+                <!-- System 3: Foundation Model Stack -->
+                <div class="system-card glass-effect rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-pink-900 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-layer-group text-pink-400"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs text-pink-400">SYSTEM 3</div>
+                            <h3 class="font-semibold">Model Stack</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-3">
+                        Multimodal AI models with uncertainty quantification
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Clinical LLM</li>
+                        <li>• Medical imaging</li>
+                        <li>• Time-series analysis</li>
+                        <li>• Genomics models</li>
+                    </ul>
+                </div>
+
+                <!-- System 4: Clinical Tools & Services -->
+                <div class="system-card glass-effect rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-900 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-tools text-green-400"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs text-green-400">SYSTEM 4</div>
+                            <h3 class="font-semibold">Clinical Tools</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-3">
+                        Evidence-based calculators, guidelines, and decision support
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Risk calculators</li>
+                        <li>• Guideline engine</li>
+                        <li>• Trial matching</li>
+                        <li>• Drug interactions</li>
+                    </ul>
+                </div>
+
+                <!-- System 5: Cognition & Orchestration -->
+                <div class="system-card glass-effect rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-yellow-900 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-robot text-yellow-400"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs text-yellow-400">SYSTEM 5</div>
+                            <h3 class="font-semibold">Agent System</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-3">
+                        Specialized agents for clinical workflows and coordination
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Triage Agent</li>
+                        <li>• Diagnostic Agent</li>
+                        <li>• Therapy Planner</li>
+                        <li>• ICU Monitor</li>
+                    </ul>
+                </div>
+
+                <!-- System 6: Application Layer -->
+                <div class="system-card glass-effect rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-cyan-900 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-desktop text-cyan-400"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs text-cyan-400">SYSTEM 6</div>
+                            <h3 class="font-semibold">Applications</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-3">
+                        User interfaces and APIs for different stakeholders
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Clinician UI</li>
+                        <li>• Research Workbench</li>
+                        <li>• Education Portal</li>
+                        <li>• FHIR APIs</li>
+                    </ul>
+                </div>
+
+                <!-- System 7: Safety & Governance -->
+                <div class="system-card glass-effect rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-red-900 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-balance-scale text-red-400"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs text-red-400">SYSTEM 7</div>
+                            <h3 class="font-semibold">Safety & QA</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-3">
+                        Ensuring safe, ethical, and compliant AI operations
+                    </p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Policy engine</li>
+                        <li>• Bias monitoring</li>
+                        <li>• Provenance tracking</li>
+                        <li>• Clinical validation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Demo Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">Experience the Platform</h2>
+            
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4">Interactive Clinical Scenarios</h3>
+                        <p class="text-gray-400 mb-6">
+                            Explore how our AGI system handles real-world clinical scenarios with 
+                            evidence-based recommendations and full transparency.
+                        </p>
+                        
+                        <div class="space-y-4">
+                            <button class="w-full glass-effect rounded-lg p-4 text-left hover:bg-gray-700/50 transition group">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Chest Pain in Emergency</h4>
+                                        <p class="text-sm text-gray-400">Risk stratification with HEART score</p>
+                                    </div>
+                                    <i class="fas fa-chevron-right text-gray-500 group-hover:text-white transition"></i>
+                                </div>
+                            </button>
+                            
+                            <button class="w-full glass-effect rounded-lg p-4 text-left hover:bg-gray-700/50 transition group">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Atrial Fibrillation Management</h4>
+                                        <p class="text-sm text-gray-400">CHA₂DS₂-VASc guided anticoagulation</p>
+                                    </div>
+                                    <i class="fas fa-chevron-right text-gray-500 group-hover:text-white transition"></i>
+                                </div>
+                            </button>
+                            
+                            <button class="w-full glass-effect rounded-lg p-4 text-left hover:bg-gray-700/50 transition group">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Sepsis Early Detection</h4>
+                                        <p class="text-sm text-gray-400">Real-time monitoring with ML predictions</p>
+                                    </div>
+                                    <i class="fas fa-chevron-right text-gray-500 group-hover:text-white transition"></i>
+                                </div>
+                            </button>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <a href="#" class="inline-flex items-center bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-semibold transition">
+                                <i class="fas fa-play mr-2"></i>
+                                Launch Full Demo
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect rounded-lg p-6">
+                        <div class="bg-gray-900 rounded-lg p-4 mb-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-sm text-gray-400">Clinical Decision Support</span>
+                                <span class="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded">LIVE</span>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <div class="bg-gray-800 rounded p-3">
+                                    <div class="text-sm text-gray-300 mb-2">Patient: 71yo male with AF</div>
+                                    <div class="text-xs text-gray-500">CHA₂DS₂-VASc Score: 4 (High Risk)</div>
+                                </div>
+                                
+                                <div class="bg-blue-900/20 border border-blue-500/30 rounded p-3">
+                                    <div class="flex items-start">
+                                        <i class="fas fa-lightbulb text-blue-400 mt-1 mr-2"></i>
+                                        <div>
+                                            <div class="text-sm font-semibold mb-1">Recommendation</div>
+                                            <div class="text-xs text-gray-400">
+                                                Oral anticoagulation strongly recommended. Consider DOAC over warfarin.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-xs text-gray-500">
+                                    <i class="fas fa-book mr-1"></i>
+                                    Evidence: 2019 AHA/ACC/HRS Guidelines
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-4 text-center">
+                            <div>
+                                <div class="text-2xl font-bold text-blue-400">95%</div>
+                                <div class="text-xs text-gray-500">Confidence</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold text-green-400">Grade A</div>
+                                <div class="text-xs text-gray-500">Evidence</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold text-purple-400">< 100ms</div>
+                                <div class="text-xs text-gray-500">Response</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="py-20 bg-gray-800/30">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">Platform Capabilities</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-blue-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-lock text-3xl text-blue-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">HIPAA Compliant</h3>
+                    <p class="text-gray-400">
+                        Enterprise-grade security with zero-trust architecture, encrypted storage, 
+                        and comprehensive audit trails
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-purple-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-brain text-3xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Explainable AI</h3>
+                    <p class="text-gray-400">
+                        Every recommendation includes clear reasoning, evidence citations, 
+                        and confidence intervals
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-green-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-plug text-3xl text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">EHR Integration</h3>
+                    <p class="text-gray-400">
+                        Seamless integration with Epic, Cerner, and other major EHRs 
+                        via FHIR R4/R5 APIs
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-yellow-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-chart-line text-3xl text-yellow-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Real-time Analytics</h3>
+                    <p class="text-gray-400">
+                        Continuous monitoring with predictive alerts for deterioration, 
+                        sepsis, and adverse events
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-pink-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-users text-3xl text-pink-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Federated Learning</h3>
+                    <p class="text-gray-400">
+                        Train models across institutions without sharing patient data, 
+                        ensuring privacy and diversity
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-cyan-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-balance-scale text-3xl text-cyan-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Bias Monitoring</h3>
+                    <p class="text-gray-400">
+                        Continuous evaluation for algorithmic bias with demographic 
+                        parity and fairness metrics
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-blue-900/20 to-purple-900/20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-6">Ready to Transform Healthcare?</h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Join leading institutions using BioTensor Medical AGI to improve patient outcomes 
+                and advance clinical practice.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#" class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold transition transform hover:scale-105 inline-flex items-center">
+                    <i class="fas fa-calendar mr-2"></i>
+                    Schedule Demo
+                </a>
+                <a href="biotensor-agi/README.md" class="bg-gray-700 hover:bg-gray-600 px-8 py-4 rounded-lg font-semibold transition inline-flex items-center">
+                    <i class="fas fa-book mr-2"></i>
+                    View Documentation
+                </a>
+                <a href="https://github.com/biotensor-labs/medical-agi" class="bg-gray-700 hover:bg-gray-600 px-8 py-4 rounded-lg font-semibold transition inline-flex items-center">
+                    <i class="fab fa-github mr-2"></i>
+                    GitHub Repository
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-8 border-t border-gray-700">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p>&copy; 2024 BioTensor Labs. All rights reserved.</p>
+            <p class="mt-2 text-sm">
+                Advancing healthcare through secure, ethical, and clinically-validated AI
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Add interactive demo functionality
+        document.querySelectorAll('button').forEach(button => {
+            if (button.textContent.includes('Chest Pain') || 
+                button.textContent.includes('Atrial Fibrillation') || 
+                button.textContent.includes('Sepsis')) {
+                button.addEventListener('click', () => {
+                    // In production, this would launch the actual demo
+                    alert('Demo scenario would launch here. Full implementation available in the platform.');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
