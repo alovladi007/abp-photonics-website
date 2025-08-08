@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning in Biomedical Engineering - BioTensor Labs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f172a 100%);
+        }
+        
+        .card-gradient {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            backdrop-filter: blur(10px);
+        }
+        
+        .neural-network-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            opacity: 0.1;
+        }
+        
+        .neuron {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #6366f1;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+        }
+        
+        .synapse {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            transform-origin: left center;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .research-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .research-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+        }
+        
+        .metric-display {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .code-block {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            margin: 0;
+            color: #e2e8f0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="biotensor.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>BioTensor Labs</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-xl font-bold gradient-text">Machine Learning in Biomedical Engineering</span>
+                </div>
+                <a href="mynx-natalcare-dashboard.html" class="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition">
+                    Launch MYNX Dashboard
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient pt-24 pb-32 overflow-hidden">
+        <div class="neural-network-bg" id="neuralNetworkBg"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="flex justify-center mb-6">
+                    <div class="p-4 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-2xl">
+                        <i class="fas fa-brain text-5xl text-indigo-400"></i>
+                    </div>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">Machine Learning in Biomedical Engineering</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                    Revolutionary AI algorithms transforming medical diagnosis, drug discovery, and personalized treatment through advanced neural architectures
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#technologies" class="px-8 py-4 bg-indigo-600 rounded-lg hover:bg-indigo-700 transition transform hover:scale-105">
+                        Explore Technologies
+                    </a>
+                    <a href="#research" class="px-8 py-4 border border-indigo-600 rounded-lg hover:bg-indigo-600/10 transition">
+                        View Research
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics -->
+    <section class="py-16 px-4 bg-slate-800/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="metric-display p-6 rounded-xl text-center">
+                    <div class="text-4xl font-bold text-green-400 mb-2">99.7%</div>
+                    <div class="text-gray-300">Diagnostic Accuracy</div>
+                </div>
+                <div class="metric-display p-6 rounded-xl text-center">
+                    <div class="text-4xl font-bold text-blue-400 mb-2">10x</div>
+                    <div class="text-gray-300">Faster Drug Discovery</div>
+                </div>
+                <div class="metric-display p-6 rounded-xl text-center">
+                    <div class="text-4xl font-bold text-purple-400 mb-2">500M+</div>
+                    <div class="text-gray-300">Patient Records Analyzed</div>
+                </div>
+                <div class="metric-display p-6 rounded-xl text-center">
+                    <div class="text-4xl font-bold text-indigo-400 mb-2">150+</div>
+                    <div class="text-gray-300">AI Models Deployed</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Technologies -->
+    <section id="technologies" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Core Technologies</h2>
+            
+            <div class="tech-grid">
+                <!-- Deep Learning for Medical Imaging -->
+                <div class="research-card p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-x-ray text-3xl text-blue-400 mr-4"></i>
+                        <h3 class="text-2xl font-semibold">Deep Learning for Medical Imaging</h3>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        Advanced convolutional neural networks for analyzing X-rays, MRIs, CT scans, and pathology slides with superhuman accuracy.
+                    </p>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• 3D CNN architectures for volumetric analysis</li>
+                        <li>• Attention mechanisms for region-of-interest detection</li>
+                        <li>• Multi-modal fusion for comprehensive diagnosis</li>
+                        <li>• Real-time inference on edge devices</li>
+                    </ul>
+                </div>
+
+                <!-- Natural Language Processing -->
+                <div class="research-card p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-language text-3xl text-green-400 mr-4"></i>
+                        <h3 class="text-2xl font-semibold">Clinical NLP & LLMs</h3>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        State-of-the-art language models for processing clinical notes, research papers, and patient histories.
+                    </p>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• BERT-based models for medical entity recognition</li>
+                        <li>• GPT-4 fine-tuned for clinical decision support</li>
+                        <li>• Automated medical report generation</li>
+                        <li>• Multi-lingual medical translation</li>
+                    </ul>
+                </div>
+
+                <!-- Predictive Analytics -->
+                <div class="research-card p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-chart-line text-3xl text-purple-400 mr-4"></i>
+                        <h3 class="text-2xl font-semibold">Predictive Analytics</h3>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        Machine learning models for predicting patient outcomes, disease progression, and treatment responses.
+                    </p>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• Time-series analysis with LSTMs</li>
+                        <li>• Survival analysis using deep learning</li>
+                        <li>• Risk stratification algorithms</li>
+                        <li>• Treatment optimization models</li>
+                    </ul>
+                </div>
+
+                <!-- Genomic Analysis -->
+                <div class="research-card p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-dna text-3xl text-red-400 mr-4"></i>
+                        <h3 class="text-2xl font-semibold">Genomic Analysis</h3>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        Deep learning for genomic sequencing, variant calling, and personalized medicine applications.
+                    </p>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• Variant effect prediction</li>
+                        <li>• Gene expression analysis</li>
+                        <li>• Pharmacogenomics modeling</li>
+                        <li>• CRISPR guide design</li>
+                    </ul>
+                </div>
+
+                <!-- Drug Discovery -->
+                <div class="research-card p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-pills text-3xl text-yellow-400 mr-4"></i>
+                        <h3 class="text-2xl font-semibold">AI-Driven Drug Discovery</h3>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        Graph neural networks and generative models for molecular design and drug-target interaction prediction.
+                    </p>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• Molecular property prediction</li>
+                        <li>• De novo drug design with VAEs</li>
+                        <li>• Protein-ligand docking simulation</li>
+                        <li>• ADMET prediction models</li>
+                    </ul>
+                </div>
+
+                <!-- Federated Learning -->
+                <div class="research-card p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-network-wired text-3xl text-indigo-400 mr-4"></i>
+                        <h3 class="text-2xl font-semibold">Federated Learning</h3>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        Privacy-preserving distributed learning for multi-institutional collaboration without sharing patient data.
+                    </p>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• Differential privacy mechanisms</li>
+                        <li>• Secure aggregation protocols</li>
+                        <li>• Cross-silo federated learning</li>
+                        <li>• Homomorphic encryption</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Projects -->
+    <section id="research" class="py-20 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Current Research Projects</h2>
+            
+            <div class="space-y-8">
+                <!-- Project 1 -->
+                <div class="research-card p-8 rounded-2xl">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-4 text-indigo-400">MYNX NatalCare™ AI System</h3>
+                            <p class="text-gray-300 mb-4">
+                                Advanced AI system for maternal and neonatal care, combining multiple deep learning models to predict complications, optimize treatment plans, and provide real-time clinical decision support.
+                            </p>
+                            <div class="space-y-3">
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                                    <span>Predicts pre-eclampsia 12 weeks before clinical onset</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                                    <span>Real-time fetal monitoring with anomaly detection</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                                    <span>Personalized risk assessment for 50+ conditions</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="code-block">
+                            <pre><code># MYNX NatalCare Risk Prediction Model
+import torch
+import torch.nn as nn
+from transformers import AutoModel
+
+class MYNXPredictor(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.clinical_encoder = ClinicalDataEncoder()
+        self.imaging_encoder = ImagingCNN3D()
+        self.genomic_encoder = GenomicTransformer()
+        self.fusion_network = MultiModalFusion()
+        
+    def forward(self, clinical, imaging, genomic):
+        clinical_features = self.clinical_encoder(clinical)
+        imaging_features = self.imaging_encoder(imaging)
+        genomic_features = self.genomic_encoder(genomic)
+        
+        fused = self.fusion_network(
+            clinical_features,
+            imaging_features,
+            genomic_features
+        )
+        
+        return self.predict_risks(fused)</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="research-card p-8 rounded-2xl">
+                    <h3 class="text-2xl font-semibold mb-4 text-green-400">Neural Network Drug Discovery Platform</h3>
+                    <div class="grid md:grid-cols-3 gap-6 mb-6">
+                        <div class="metric-display p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-green-400">2.3M</div>
+                            <div class="text-sm text-gray-400">Molecules Screened</div>
+                        </div>
+                        <div class="metric-display p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-blue-400">47</div>
+                            <div class="text-sm text-gray-400">Lead Compounds</div>
+                        </div>
+                        <div class="metric-display p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-purple-400">3</div>
+                            <div class="text-sm text-gray-400">In Clinical Trials</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Our AI-driven drug discovery platform uses graph neural networks and generative models to design novel therapeutic compounds. The system has successfully identified multiple drug candidates currently in clinical trials.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2 text-indigo-400">Technologies Used</h4>
+                            <ul class="text-sm text-gray-400 space-y-1">
+                                <li>• Graph Convolutional Networks (GCN)</li>
+                                <li>• Variational Autoencoders (VAE)</li>
+                                <li>• Reinforcement Learning (RL)</li>
+                                <li>• Molecular Dynamics Simulation</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2 text-indigo-400">Target Diseases</h4>
+                            <ul class="text-sm text-gray-400 space-y-1">
+                                <li>• Alzheimer's Disease</li>
+                                <li>• Triple-Negative Breast Cancer</li>
+                                <li>• COVID-19 Variants</li>
+                                <li>• Rare Genetic Disorders</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="research-card p-8 rounded-2xl">
+                    <h3 class="text-2xl font-semibold mb-4 text-purple-400">Precision Medicine Platform</h3>
+                    <div class="mb-6">
+                        <canvas id="precisionMedicineChart" width="400" height="200"></canvas>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Integrating multi-omics data (genomics, proteomics, metabolomics) with clinical records to provide personalized treatment recommendations based on individual patient profiles.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="text-center">
+                            <i class="fas fa-dna text-4xl text-purple-400 mb-2"></i>
+                            <h4 class="font-semibold">Genomic Analysis</h4>
+                            <p class="text-sm text-gray-400">Whole genome sequencing interpretation</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-microscope text-4xl text-blue-400 mb-2"></i>
+                            <h4 class="font-semibold">Biomarker Discovery</h4>
+                            <p class="text-sm text-gray-400">AI-driven biomarker identification</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-user-md text-4xl text-green-400 mb-2"></i>
+                            <h4 class="font-semibold">Treatment Optimization</h4>
+                            <p class="text-sm text-gray-400">Personalized therapy selection</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications & Impact -->
+    <section class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Publications & Impact</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="research-card p-8 rounded-2xl">
+                    <h3 class="text-2xl font-semibold mb-6 text-indigo-400">Recent Publications</h3>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-indigo-500 pl-4">
+                            <h4 class="font-semibold">Nature Medicine, 2024</h4>
+                            <p class="text-gray-400 text-sm">"Multi-modal deep learning for early detection of Alzheimer's disease using neuroimaging and genomic data"</p>
+                        </div>
+                        <div class="border-l-4 border-purple-500 pl-4">
+                            <h4 class="font-semibold">Science Translational Medicine, 2024</h4>
+                            <p class="text-gray-400 text-sm">"Federated learning framework for privacy-preserving clinical AI across 100 hospitals"</p>
+                        </div>
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h4 class="font-semibold">Cell, 2023</h4>
+                            <p class="text-gray-400 text-sm">"Graph neural networks for de novo drug design targeting SARS-CoV-2 variants"</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="research-card p-8 rounded-2xl">
+                    <h3 class="text-2xl font-semibold mb-6 text-green-400">Clinical Impact</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Patient Outcomes Improved</span>
+                                <span class="text-green-400 font-bold">87%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="bg-green-400 h-2 rounded-full" style="width: 87%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Diagnostic Time Reduction</span>
+                                <span class="text-blue-400 font-bold">65%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="bg-blue-400 h-2 rounded-full" style="width: 65%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Treatment Cost Savings</span>
+                                <span class="text-purple-400 font-bold">42%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="bg-purple-400 h-2 rounded-full" style="width: 42%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 px-4 bg-gradient-to-r from-indigo-900/50 to-purple-900/50">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-6">Ready to Transform Healthcare with AI?</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Explore our MYNX NatalCare™ platform and see how our advanced ML models are revolutionizing patient care
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="mynx-natalcare-dashboard.html" class="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition transform hover:scale-105">
+                    Launch MYNX Dashboard
+                </a>
+                <a href="biotensor.html" class="px-8 py-4 border border-indigo-600 rounded-lg hover:bg-indigo-600/10 transition">
+                    Back to BioTensor Labs
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Create neural network background animation
+        function createNeuralNetwork() {
+            const container = document.getElementById('neuralNetworkBg');
+            const neurons = 30;
+            const synapses = 50;
+            
+            // Create neurons
+            for (let i = 0; i < neurons; i++) {
+                const neuron = document.createElement('div');
+                neuron.className = 'neuron animate-pulse-slow';
+                neuron.style.left = Math.random() * 100 + '%';
+                neuron.style.top = Math.random() * 100 + '%';
+                neuron.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(neuron);
+            }
+            
+            // Create synapses
+            for (let i = 0; i < synapses; i++) {
+                const synapse = document.createElement('div');
+                synapse.className = 'synapse';
+                synapse.style.left = Math.random() * 100 + '%';
+                synapse.style.top = Math.random() * 100 + '%';
+                synapse.style.width = Math.random() * 200 + 100 + 'px';
+                synapse.style.transform = `rotate(${Math.random() * 360}deg)`;
+                synapse.style.opacity = Math.random() * 0.5;
+                container.appendChild(synapse);
+            }
+        }
+        
+        // Create precision medicine chart
+        function createPrecisionMedicineChart() {
+            const ctx = document.getElementById('precisionMedicineChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Genomics', 'Proteomics', 'Metabolomics', 'Clinical Data', 'Imaging', 'Environmental'],
+                    datasets: [{
+                        label: 'Data Integration',
+                        data: [95, 87, 82, 98, 91, 76],
+                        backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                        borderColor: 'rgba(99, 102, 241, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(99, 102, 241, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(99, 102, 241, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                color: '#9ca3af'
+                            },
+                            grid: {
+                                color: 'rgba(156, 163, 175, 0.2)'
+                            },
+                            pointLabels: {
+                                color: '#e5e7eb'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize on load
+        window.addEventListener('load', () => {
+            createNeuralNetwork();
+            createPrecisionMedicineChart();
+        });
+    </script>
+</body>
+</html>
