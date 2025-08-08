@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuromorphic Photonics - Brain-Inspired Optical Computing | ABP Photonics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #ff6b00 0%, #ff8c00 50%, #ffa500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .neural-gradient {
+            background: linear-gradient(135deg, #1a0f1f 0%, #2a1f3f 50%, #1a0f1f 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Synaptic Animation */
+        .synapse {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, #ff6b00, transparent);
+            animation: synaptic-fire 3s ease-in-out infinite;
+        }
+        
+        @keyframes synaptic-fire {
+            0%, 100% { opacity: 0; transform: scaleY(0); }
+            50% { opacity: 1; transform: scaleY(1); }
+        }
+        
+        /* Neural Spike Animation */
+        .neural-spike {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff6b00;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ff6b00;
+            animation: spike-propagation 2s linear infinite;
+        }
+        
+        @keyframes spike-propagation {
+            0% { transform: translateX(0) scale(0); opacity: 0; }
+            10% { transform: translateX(20px) scale(1); opacity: 1; }
+            90% { transform: translateX(180px) scale(1); opacity: 1; }
+            100% { transform: translateX(200px) scale(0); opacity: 0; }
+        }
+        
+        /* Dendrite Animation */
+        .dendrite-path {
+            stroke: #ff8c00;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: dendrite-growth 4s ease-out infinite;
+        }
+        
+        @keyframes dendrite-growth {
+            0% { stroke-dashoffset: 200; opacity: 0.3; }
+            50% { stroke-dashoffset: 0; opacity: 1; }
+            100% { stroke-dashoffset: -200; opacity: 0.3; }
+        }
+        
+        /* Photonic Neuron Grid */
+        .neuron-grid {
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 107, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 140, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 165, 0, 0.1) 0%, transparent 50%);
+            animation: neuron-pulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes neuron-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        /* Code Block Enhancement */
+        .code-block {
+            background: #1a1a2e;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .code-header {
+            background: #0f0f1e;
+            padding: 8px 16px;
+            border-bottom: 1px solid #333;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="hardware.html" class="text-gray-400 hover:text-white transition">Hardware</a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold gradient-text">Neuromorphic Photonics</span>
+                </div>
+                <a href="#platform" class="px-4 py-2 bg-orange-600 rounded-lg hover:bg-orange-700 transition">
+                    Explore Platform
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative neural-gradient pt-24 pb-16 overflow-hidden">
+        <div class="absolute inset-0 neuron-grid"></div>
+        
+        <!-- Neural Network Animation -->
+        <div class="absolute inset-0 flex items-center justify-center">
+            <svg width="800" height="400" viewBox="0 0 800 400" class="opacity-20">
+                <!-- Neurons -->
+                <g id="neurons">
+                    <!-- Layer 1 -->
+                    <circle cx="100" cy="100" r="20" fill="#ff6b00" opacity="0.6"/>
+                    <circle cx="100" cy="200" r="20" fill="#ff6b00" opacity="0.6"/>
+                    <circle cx="100" cy="300" r="20" fill="#ff6b00" opacity="0.6"/>
+                    
+                    <!-- Layer 2 -->
+                    <circle cx="300" cy="80" r="25" fill="#ff8c00" opacity="0.7"/>
+                    <circle cx="300" cy="160" r="25" fill="#ff8c00" opacity="0.7"/>
+                    <circle cx="300" cy="240" r="25" fill="#ff8c00" opacity="0.7"/>
+                    <circle cx="300" cy="320" r="25" fill="#ff8c00" opacity="0.7"/>
+                    
+                    <!-- Layer 3 -->
+                    <circle cx="500" cy="120" r="25" fill="#ffa500" opacity="0.7"/>
+                    <circle cx="500" cy="200" r="25" fill="#ffa500" opacity="0.7"/>
+                    <circle cx="500" cy="280" r="25" fill="#ffa500" opacity="0.7"/>
+                    
+                    <!-- Output -->
+                    <circle cx="700" cy="200" r="30" fill="#ffb833" opacity="0.8"/>
+                </g>
+                
+                <!-- Synaptic Connections -->
+                <g id="synapses">
+                    <path d="M 120 100 Q 200 90 280 80" class="dendrite-path"/>
+                    <path d="M 120 100 Q 200 130 280 160" class="dendrite-path" style="animation-delay: 0.2s"/>
+                    <path d="M 120 100 Q 200 170 280 240" class="dendrite-path" style="animation-delay: 0.4s"/>
+                    <path d="M 120 100 Q 200 210 280 320" class="dendrite-path" style="animation-delay: 0.6s"/>
+                    
+                    <path d="M 120 200 Q 200 110 280 80" class="dendrite-path" style="animation-delay: 0.8s"/>
+                    <path d="M 120 200 Q 200 160 280 160" class="dendrite-path" style="animation-delay: 1s"/>
+                    <path d="M 120 200 Q 200 200 280 240" class="dendrite-path" style="animation-delay: 1.2s"/>
+                    <path d="M 120 200 Q 200 260 280 320" class="dendrite-path" style="animation-delay: 1.4s"/>
+                    
+                    <!-- More connections -->
+                    <path d="M 325 80 Q 400 100 475 120" class="dendrite-path" style="animation-delay: 1.6s"/>
+                    <path d="M 325 160 Q 400 180 475 200" class="dendrite-path" style="animation-delay: 1.8s"/>
+                    <path d="M 325 240 Q 400 240 475 280" class="dendrite-path" style="animation-delay: 2s"/>
+                    
+                    <path d="M 525 120 Q 600 160 670 200" class="dendrite-path" style="animation-delay: 2.2s"/>
+                    <path d="M 525 200 Q 600 200 670 200" class="dendrite-path" style="animation-delay: 2.4s"/>
+                    <path d="M 525 280 Q 600 240 670 200" class="dendrite-path" style="animation-delay: 2.6s"/>
+                </g>
+            </svg>
+        </div>
+        
+        <!-- Synaptic animations -->
+        <div class="synapse" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="synapse" style="top: 40%; left: 30%; animation-delay: 0.5s;"></div>
+        <div class="synapse" style="top: 60%; left: 50%; animation-delay: 1s;"></div>
+        <div class="synapse" style="top: 30%; left: 70%; animation-delay: 1.5s;"></div>
+        <div class="synapse" style="top: 50%; left: 90%; animation-delay: 2s;"></div>
+        
+        <!-- Neural spikes -->
+        <div class="neural-spike" style="top: 25%; left: 20%;"></div>
+        <div class="neural-spike" style="top: 50%; left: 40%; animation-delay: 0.7s;"></div>
+        <div class="neural-spike" style="top: 75%; left: 60%; animation-delay: 1.4s;"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                <span class="gradient-text">Neuromorphic Photonics</span>
+            </h1>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                Revolutionary brain-inspired optical computing architectures that mimic neural networks 
+                using light, achieving unprecedented energy efficiency and processing speed
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="#technology" class="px-6 py-3 bg-orange-600 rounded-lg hover:bg-orange-700 transition">
+                    Explore Technology
+                </a>
+                <a href="#platform" class="px-6 py-3 border border-orange-600 rounded-lg hover:bg-orange-600/10 transition">
+                    NeuroPhotonic Platform
+                </a>
+                <a href="#applications" class="px-6 py-3 border border-orange-600 rounded-lg hover:bg-orange-600/10 transition">
+                    Applications
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Advantages -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-brain text-3xl text-orange-400 mb-3"></i>
+                    <div class="text-2xl font-bold gradient-text">10¹⁵</div>
+                    <div class="text-gray-400">Synaptic Ops/s</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-bolt text-3xl text-yellow-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-yellow-400">1 fJ</div>
+                    <div class="text-gray-400">Per Operation</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-network-wired text-3xl text-purple-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-purple-400">10⁶</div>
+                    <div class="text-gray-400">Parallel Neurons</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-clock text-3xl text-cyan-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-cyan-400">< 1ns</div>
+                    <div class="text-gray-400">Spike Latency</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Overview -->
+    <section id="technology" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Brain-Inspired Photonic Computing</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Mimicking Neural Dynamics with Light</h3>
+                    <p class="text-gray-300 mb-6">
+                        Our neuromorphic photonic processors implement spiking neural networks directly in the optical domain, 
+                        leveraging the inherent parallelism and energy efficiency of photonic systems to achieve brain-like 
+                        computation at the speed of light.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-wave-square text-orange-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">Photonic Neurons</h4>
+                                <p class="text-gray-400 text-sm">Laser-based neurons with excitable dynamics and refractory periods</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-project-diagram text-orange-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">Optical Synapses</h4>
+                                <p class="text-gray-400 text-sm">Phase-change materials for non-volatile synaptic weights</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-sync-alt text-orange-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">Spike Encoding</h4>
+                                <p class="text-gray-400 text-sm">Temporal coding with picosecond precision</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-graduation-cap text-orange-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">Online Learning</h4>
+                                <p class="text-gray-400 text-sm">Spike-timing dependent plasticity in hardware</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Interactive Architecture Diagram -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h4 class="text-lg font-semibold mb-4 text-center">Photonic Neuron Architecture</h4>
+                    <svg viewBox="0 0 500 400" class="w-full h-auto">
+                        <!-- Photonic Neuron -->
+                        <g transform="translate(250, 200)">
+                            <!-- Soma -->
+                            <circle cx="0" cy="0" r="40" fill="#ff6b00" opacity="0.3" stroke="#ff6b00" stroke-width="2"/>
+                            <circle cx="0" cy="0" r="30" fill="#ff8c00" opacity="0.5"/>
+                            <circle cx="0" cy="0" r="20" fill="#ffa500" opacity="0.7"/>
+                            <circle cx="0" cy="0" r="10" fill="#ffb833" opacity="0.9"/>
+                            
+                            <!-- Dendrites -->
+                            <path d="M -40 0 L -80 -30 L -120 -40" stroke="#ff6b00" stroke-width="3" fill="none"/>
+                            <path d="M -40 -20 L -80 -50 L -120 -70" stroke="#ff6b00" stroke-width="2" fill="none"/>
+                            <path d="M -40 20 L -80 50 L -120 70" stroke="#ff6b00" stroke-width="2" fill="none"/>
+                            <path d="M -30 -30 L -60 -60 L -100 -90" stroke="#ff6b00" stroke-width="2" fill="none"/>
+                            <path d="M -30 30 L -60 60 L -100 90" stroke="#ff6b00" stroke-width="2" fill="none"/>
+                            
+                            <!-- Axon -->
+                            <path d="M 40 0 L 80 0 L 120 -20" stroke="#ffa500" stroke-width="4" fill="none"/>
+                            <path d="M 120 -20 L 140 -30" stroke="#ffa500" stroke-width="3" fill="none"/>
+                            <path d="M 120 -20 L 140 -10" stroke="#ffa500" stroke-width="3" fill="none"/>
+                            <path d="M 120 -20 L 130 0" stroke="#ffa500" stroke-width="3" fill="none"/>
+                            
+                            <!-- Synaptic terminals -->
+                            <circle cx="140" cy="-30" r="5" fill="#ffb833"/>
+                            <circle cx="140" cy="-10" r="5" fill="#ffb833"/>
+                            <circle cx="130" cy="0" r="5" fill="#ffb833"/>
+                        </g>
+                        
+                        <!-- Input signals -->
+                        <g opacity="0.7">
+                            <circle cx="50" cy="160" r="3" fill="#00ff88">
+                                <animate attributeName="r" values="3;6;3" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="50" cy="130" r="3" fill="#00ff88">
+                                <animate attributeName="r" values="3;6;3" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="70" cy="110" r="3" fill="#00ff88">
+                                <animate attributeName="r" values="3;6;3" dur="2s" begin="0.6s" repeatCount="indefinite"/>
+                            </circle>
+                        </g>
+                        
+                        <!-- Labels -->
+                        <text x="250" y="50" fill="#888" font-size="14" text-anchor="middle">Optical Integration</text>
+                        <text x="100" y="350" fill="#888" font-size="12">Dendritic Input</text>
+                        <text x="400" y="350" fill="#888" font-size="12">Axonal Output</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NeuroPhotonic Platform -->
+    <section id="platform" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">NeuroPhotonic Computing Platform</h2>
+            
+            <!-- Platform Architecture -->
+            <div class="glass-effect p-8 rounded-2xl mb-12">
+                <h3 class="text-2xl font-bold mb-6 text-center">Full-Stack Neuromorphic Solution</h3>
+                
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Hardware Layer -->
+                    <div class="bg-slate-800/50 p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-microchip text-3xl text-orange-400 mr-3"></i>
+                            <h4 class="text-xl font-bold">Hardware Layer</h4>
+                        </div>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Photonic Neurons:</strong> VCSEL-based spiking neurons with 100 GHz bandwidth
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Synaptic Arrays:</strong> PCM-based weights with 6-bit resolution
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Routing Fabric:</strong> Wavelength-division multiplexed interconnects
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Middleware Layer -->
+                    <div class="bg-slate-800/50 p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-layer-group text-3xl text-purple-400 mr-3"></i>
+                            <h4 class="text-xl font-bold">Middleware Layer</h4>
+                        </div>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Spike Router:</strong> Hardware-accelerated spike packet routing
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Learning Engine:</strong> Real-time STDP and homeostatic plasticity
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Resource Manager:</strong> Dynamic neuron and synapse allocation
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Software Layer -->
+                    <div class="bg-slate-800/50 p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-code text-3xl text-cyan-400 mr-3"></i>
+                            <h4 class="text-xl font-bold">Software Layer</h4>
+                        </div>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>NeuroFlow SDK:</strong> Python/C++ APIs for model development
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Model Zoo:</strong> Pre-trained neuromorphic models
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Visualization:</strong> Real-time spike raster and network analysis
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Development Environment -->
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold mb-6">NeuroFlow Development Environment</h3>
+                
+                <!-- Code Example -->
+                <div class="code-block mb-8">
+                    <div class="code-header">
+                        <i class="fas fa-code mr-2"></i>
+                        neuromorphic_vision.py
+                    </div>
+                    <pre class="p-4 overflow-x-auto"><code class="language-python">import neuroflow as nf
+from neuroflow.models import SpikingCNN
+from neuroflow.encoding import PoissonEncoder
+from neuroflow.learning import STDP
+
+# Initialize NeuroPhotonic hardware
+device = nf.PhotonicDevice('NPU-1000')
+device.configure(
+    wavelengths=[1550, 1560, 1570, 1580],  # WDM channels
+    spike_resolution='picosecond',
+    learning_rate=0.01
+)
+
+# Create spiking convolutional neural network
+model = SpikingCNN(
+    input_shape=(128, 128, 3),
+    architecture=[
+        nf.PhotonicConv2D(32, kernel_size=3, threshold=1.0),
+        nf.PhotonicPooling(pool_size=2),
+        nf.PhotonicConv2D(64, kernel_size=3, threshold=1.0),
+        nf.PhotonicPooling(pool_size=2),
+        nf.PhotonicDense(128, threshold=1.0),
+        nf.PhotonicDense(10, threshold=1.0)
+    ]
+)
+
+# Configure spike-timing dependent plasticity
+stdp = STDP(
+    tau_plus=20e-12,  # 20 ps
+    tau_minus=40e-12,  # 40 ps
+    a_plus=0.01,
+    a_minus=0.012
+)
+
+# Deploy to photonic hardware
+model.to(device)
+model.compile(
+    encoder=PoissonEncoder(rate=1000),  # 1 GHz max spike rate
+    learning_rule=stdp,
+    optimizer='photonic_gradient'
+)
+
+# Real-time training on spike streams
+spike_stream = device.camera_input(fps=1000)  # 1000 FPS neuromorphic camera
+for spikes, labels in spike_stream:
+    # Forward pass at light speed
+    output_spikes = model(spikes)
+    
+    # Photonic backpropagation
+    model.learn(output_spikes, labels)
+    
+    # Monitor performance
+    accuracy = model.evaluate(output_spikes, labels)
+    print(f"Accuracy: {accuracy:.2%}, Power: {device.power_consumption():.2f}mW")</code></pre>
+                </div>
+
+                <!-- API Documentation -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h4 class="text-xl font-bold mb-4">Core APIs</h4>
+                        <div class="space-y-3">
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <code class="text-orange-400">nf.PhotonicDevice</code>
+                                <p class="text-sm text-gray-400 mt-1">Hardware abstraction for photonic processors</p>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <code class="text-orange-400">nf.SpikingLayer</code>
+                                <p class="text-sm text-gray-400 mt-1">Base class for photonic neural layers</p>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <code class="text-orange-400">nf.SynapticMatrix</code>
+                                <p class="text-sm text-gray-400 mt-1">Optical synapse array management</p>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <code class="text-orange-400">nf.SpikeRouter</code>
+                                <p class="text-sm text-gray-400 mt-1">Wavelength-based spike routing</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h4 class="text-xl font-bold mb-4">Learning Algorithms</h4>
+                        <div class="space-y-3">
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <code class="text-purple-400">STDP</code>
+                                <p class="text-sm text-gray-400 mt-1">Spike-timing dependent plasticity</p>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <code class="text-purple-400">BCM</code>
+                                <p class="text-sm text-gray-400 mt-1">Bienenstock-Cooper-Munro learning</p>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <code class="text-purple-400">Homeostatic</code>
+                                <p class="text-sm text-gray-400 mt-1">Synaptic scaling and homeostasis</p>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <code class="text-purple-400">RewardModulated</code>
+                                <p class="text-sm text-gray-400 mt-1">Dopamine-modulated STDP</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hardware Specifications -->
+    <section class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Hardware Specifications</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- NPU-1000 Specs -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">NPU-1000 Neuromorphic Processor</h3>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-orange-400">1M</div>
+                            <div class="text-sm text-gray-400">Photonic Neurons</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-orange-400">1B</div>
+                            <div class="text-sm text-gray-400">Optical Synapses</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-orange-400">100 GHz</div>
+                            <div class="text-sm text-gray-400">Spike Rate</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-orange-400">10W</div>
+                            <div class="text-sm text-gray-400">Power</div>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-semibold mb-3">Technical Details</h4>
+                    <dl class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Neuron Type</dt>
+                            <dd>VCSEL-based LIF neurons</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Synapse Technology</dt>
+                            <dd>GST phase-change memory</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Interconnect</dt>
+                            <dd>64-channel DWDM</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Process Node</dt>
+                            <dd>220nm Silicon Photonics</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Die Size</dt>
+                            <dd>25mm × 25mm</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">I/O Bandwidth</dt>
+                            <dd>10 Tbps optical I/O</dd>
+                        </div>
+                    </dl>
+                </div>
+                
+                <!-- Performance Metrics -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">Performance Benchmarks</h3>
+                    <canvas id="performanceChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications -->
+    <section id="applications" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Neuromorphic Applications</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Sensory Processing -->
+                <div class="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 p-6 rounded-xl border border-blue-500/30">
+                    <i class="fas fa-eye text-4xl text-blue-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Sensory Processing</h3>
+                    <p class="text-gray-400 mb-4">
+                        Real-time vision and auditory processing with bio-inspired algorithms for 
+                        ultra-low latency perception.
+                    </p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li>• Event-based vision (DVS cameras)</li>
+                        <li>• Cochlear signal processing</li>
+                        <li>• Tactile sensor arrays</li>
+                        <li>• Olfactory pattern recognition</li>
+                    </ul>
+                </div>
+                
+                <!-- Cognitive Computing -->
+                <div class="bg-gradient-to-br from-purple-900/20 to-pink-900/20 p-6 rounded-xl border border-purple-500/30">
+                    <i class="fas fa-brain text-4xl text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Cognitive Computing</h3>
+                    <p class="text-gray-400 mb-4">
+                        Brain-like information processing for pattern recognition, decision making, 
+                        and associative memory.
+                    </p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li>• Associative memory networks</li>
+                        <li>• Attention mechanisms</li>
+                        <li>• Temporal sequence learning</li>
+                        <li>• Cognitive architectures</li>
+                    </ul>
+                </div>
+                
+                <!-- Adaptive Control -->
+                <div class="bg-gradient-to-br from-green-900/20 to-emerald-900/20 p-6 rounded-xl border border-green-500/30">
+                    <i class="fas fa-robot text-4xl text-green-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Adaptive Control</h3>
+                    <p class="text-gray-400 mb-4">
+                        Learning-based control systems for robotics and autonomous systems with 
+                        real-time adaptation.
+                    </p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li>• Motor control & planning</li>
+                        <li>• Sensorimotor integration</li>
+                        <li>• Adaptive locomotion</li>
+                        <li>• Predictive control</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Use Cases -->
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold mb-8 text-center">Real-World Implementations</h3>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="glass-effect p-6 rounded-xl">
+                        <div class="flex items-start space-x-4">
+                            <i class="fas fa-car text-3xl text-orange-400 mt-1"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-2">Autonomous Vehicles</h4>
+                                <p class="text-gray-400 text-sm mb-3">
+                                    Ultra-fast object detection and tracking with 1000x lower power than GPUs, 
+                                    enabling always-on perception systems.
+                                </p>
+                                <div class="flex items-center space-x-4 text-sm">
+                                    <span class="text-green-400">• < 1ms latency</span>
+                                    <span class="text-green-400">• 360° coverage</span>
+                                    <span class="text-green-400">• 10W total power</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl">
+                        <div class="flex items-start space-x-4">
+                            <i class="fas fa-heartbeat text-3xl text-red-400 mt-1"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-2">Brain-Computer Interfaces</h4>
+                                <p class="text-gray-400 text-sm mb-3">
+                                    Real-time neural signal processing for prosthetics and medical devices 
+                                    with minimal power consumption.
+                                </p>
+                                <div class="flex items-center space-x-4 text-sm">
+                                    <span class="text-green-400">• 100k channels</span>
+                                    <span class="text-green-400">• Online learning</span>
+                                    <span class="text-green-400">• < 100mW</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl">
+                        <div class="flex items-start space-x-4">
+                            <i class="fas fa-satellite text-3xl text-blue-400 mt-1"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-2">Edge AI Satellites</h4>
+                                <p class="text-gray-400 text-sm mb-3">
+                                    On-board neuromorphic processing for Earth observation with extreme 
+                                    power efficiency in space environments.
+                                </p>
+                                <div class="flex items-center space-x-4 text-sm">
+                                    <span class="text-green-400">• Radiation hard</span>
+                                    <span class="text-green-400">• Self-learning</span>
+                                    <span class="text-green-400">• 5W operation</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl">
+                        <div class="flex items-start space-x-4">
+                            <i class="fas fa-industry text-3xl text-yellow-400 mt-1"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-2">Smart Manufacturing</h4>
+                                <p class="text-gray-400 text-sm mb-3">
+                                    Anomaly detection and predictive maintenance using spike-based 
+                                    processing of sensor streams.
+                                </p>
+                                <div class="flex items-center space-x-4 text-sm">
+                                    <span class="text-green-400">• 24/7 monitoring</span>
+                                    <span class="text-green-400">• Adaptive thresholds</span>
+                                    <span class="text-green-400">• Edge deployment</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research & Development -->
+    <section class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Research & Innovation</h2>
+            
+            <div class="glass-effect p-8 rounded-2xl mb-12">
+                <h3 class="text-2xl font-bold mb-6">Active Research Areas</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-dna text-2xl text-orange-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Photonic STDP</h4>
+                        <p class="text-sm text-gray-400">All-optical spike-timing dependent plasticity mechanisms</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-project-diagram text-2xl text-purple-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Reservoir Computing</h4>
+                        <p class="text-sm text-gray-400">Photonic reservoirs for temporal processing</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-infinity text-2xl text-cyan-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Quantum Integration</h4>
+                        <p class="text-sm text-gray-400">Quantum-enhanced neuromorphic computing</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-microchip text-2xl text-green-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">3D Integration</h4>
+                        <p class="text-sm text-gray-400">Volumetric photonic neural networks</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Publications -->
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-slate-800/50 p-6 rounded-xl">
+                    <h4 class="text-xl font-bold mb-4">Recent Publications</h4>
+                    <ul class="space-y-3">
+                        <li class="text-sm">
+                            <div class="font-semibold text-orange-400">Nature Photonics 2024</div>
+                            <div class="text-gray-400">"Ultrafast photonic spiking neural networks with femtojoule energy consumption"</div>
+                        </li>
+                        <li class="text-sm">
+                            <div class="font-semibold text-orange-400">Science Advances 2024</div>
+                            <div class="text-gray-400">"All-optical implementation of spike-timing dependent plasticity"</div>
+                        </li>
+                        <li class="text-sm">
+                            <div class="font-semibold text-orange-400">Nature Communications 2023</div>
+                            <div class="text-gray-400">"Scalable photonic neural networks for brain-inspired computing"</div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-slate-800/50 p-6 rounded-xl">
+                    <h4 class="text-xl font-bold mb-4">Collaborations</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-university text-purple-400"></i>
+                            <div>
+                                <div class="font-semibold">MIT Photonics Lab</div>
+                                <div class="text-sm text-gray-400">Advanced photonic neuron architectures</div>
+                            </div>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-university text-blue-400"></i>
+                            <div>
+                                <div class="font-semibold">Stanford NeuroAI</div>
+                                <div class="text-sm text-gray-400">Brain-inspired learning algorithms</div>
+                            </div>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-building text-green-400"></i>
+                            <div>
+                                <div class="font-semibold">IBM Research</div>
+                                <div class="text-sm text-gray-400">Neuromorphic system integration</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 px-4 bg-gradient-to-r from-orange-900/20 to-red-900/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to Explore Brain-Inspired Computing?</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Join the neuromorphic revolution with our photonic neural processors and 
+                comprehensive development platform.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="px-8 py-3 bg-orange-600 rounded-lg hover:bg-orange-700 transition">
+                    Request Access
+                </a>
+                <a href="#platform" class="px-8 py-3 border border-orange-600 rounded-lg hover:bg-orange-600/10 transition">
+                    Download SDK
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400">
+            <p>© 2024 Aurora Borealis Photonics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Performance Chart
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Energy/Op', 'Latency', 'Throughput', 'Learning Speed', 'Scalability', 'Accuracy'],
+                datasets: [{
+                    label: 'Photonic Neuromorphic',
+                    data: [95, 98, 92, 90, 88, 94],
+                    borderColor: '#ff6b00',
+                    backgroundColor: 'rgba(255, 107, 0, 0.2)',
+                    pointBackgroundColor: '#ff6b00',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#ff6b00'
+                }, {
+                    label: 'Digital Neuromorphic',
+                    data: [70, 75, 80, 85, 75, 92],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    pointBackgroundColor: '#3b82f6',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#3b82f6'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#fff' }
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        pointLabels: { color: '#888' },
+                        ticks: { 
+                            color: '#888',
+                            backdropColor: 'transparent',
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Initialize Prism for syntax highlighting
+        Prism.highlightAll();
+    </script>
+</body>
+</html>

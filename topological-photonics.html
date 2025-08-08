@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topological Photonics - Robust Light Propagation | ABP Photonics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00ff88 0%, #00d4ff 50%, #0099ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .topological-gradient {
+            background: linear-gradient(135deg, #0a1628 0%, #1a2f4e 50%, #0a1628 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Edge State Animation */
+        .edge-state {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #00ff88;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ff88;
+            animation: edge-propagation 4s linear infinite;
+        }
+        
+        @keyframes edge-propagation {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(400px) translateY(0);
+                opacity: 0;
+            }
+        }
+        
+        /* Vortex Animation */
+        .vortex {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 2px solid #00d4ff;
+            border-radius: 50%;
+            animation: vortex-spin 6s linear infinite;
+        }
+        
+        .vortex::before {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 2px solid #00ff88;
+            border-radius: 50%;
+            animation: vortex-spin-reverse 4s linear infinite;
+        }
+        
+        @keyframes vortex-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes vortex-spin-reverse {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+        
+        /* Lattice Grid */
+        .lattice-grid {
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+            position: relative;
+        }
+        
+        .lattice-grid::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: lattice-shift 10s linear infinite;
+        }
+        
+        @keyframes lattice-shift {
+            from { transform: translate(0, 0); }
+            to { transform: translate(30px, 30px); }
+        }
+        
+        /* Band Structure Visualization */
+        .band-curve {
+            stroke: #00ff88;
+            stroke-width: 2;
+            fill: none;
+            filter: drop-shadow(0 0 5px #00ff88);
+        }
+        
+        /* Chern Number Display */
+        .chern-number {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: chern-pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes chern-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="hardware.html" class="text-gray-400 hover:text-white transition">Hardware</a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold gradient-text">Topological Photonics</span>
+                </div>
+                <a href="#platform" class="px-4 py-2 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                    Explore TopoFlow
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative topological-gradient pt-24 pb-16 overflow-hidden">
+        <div class="absolute inset-0 lattice-grid"></div>
+        
+        <!-- Topological Visualization -->
+        <div class="absolute inset-0 flex items-center justify-center">
+            <svg width="600" height="400" viewBox="0 0 600 400" class="opacity-30">
+                <!-- Honeycomb Lattice -->
+                <g id="honeycomb-lattice">
+                    <!-- Unit cells -->
+                    <g stroke="#00ff88" stroke-width="1" fill="none" opacity="0.6">
+                        <!-- Row 1 -->
+                        <polygon points="100,100 130,85 160,100 160,130 130,145 100,130"/>
+                        <polygon points="160,100 190,85 220,100 220,130 190,145 160,130"/>
+                        <polygon points="220,100 250,85 280,100 280,130 250,145 220,130"/>
+                        <polygon points="280,100 310,85 340,100 340,130 310,145 280,130"/>
+                        <polygon points="340,100 370,85 400,100 400,130 370,145 340,130"/>
+                        <polygon points="400,100 430,85 460,100 460,130 430,145 400,130"/>
+                        
+                        <!-- Row 2 (offset) -->
+                        <polygon points="130,145 160,130 190,145 190,175 160,190 130,175"/>
+                        <polygon points="190,145 220,130 250,145 250,175 220,190 190,175"/>
+                        <polygon points="250,145 280,130 310,145 310,175 280,190 250,175"/>
+                        <polygon points="310,145 340,130 370,145 370,175 340,190 310,175"/>
+                        <polygon points="370,145 400,130 430,145 430,175 400,190 370,175"/>
+                        
+                        <!-- Row 3 -->
+                        <polygon points="100,190 130,175 160,190 160,220 130,235 100,220"/>
+                        <polygon points="160,190 190,175 220,190 220,220 190,235 160,220"/>
+                        <polygon points="220,190 250,175 280,190 280,220 250,235 220,220"/>
+                        <polygon points="280,190 310,175 340,190 340,220 310,235 280,220"/>
+                        <polygon points="340,190 370,175 400,190 400,220 370,235 340,220"/>
+                        <polygon points="400,190 430,175 460,190 460,220 430,235 400,220"/>
+                    </g>
+                    
+                    <!-- Edge states (highlighted path) -->
+                    <path d="M 50 150 L 500 150" stroke="#00d4ff" stroke-width="4" opacity="0.8" stroke-dasharray="10,5">
+                        <animate attributeName="stroke-dashoffset" from="0" to="15" dur="1s" repeatCount="indefinite"/>
+                    </path>
+                    
+                    <!-- Nodes at vertices -->
+                    <g fill="#00ff88">
+                        <circle cx="130" cy="85" r="3" opacity="0.8"/>
+                        <circle cx="190" cy="85" r="3" opacity="0.8"/>
+                        <circle cx="250" cy="85" r="3" opacity="0.8"/>
+                        <circle cx="310" cy="85" r="3" opacity="0.8"/>
+                        <circle cx="370" cy="85" r="3" opacity="0.8"/>
+                        <circle cx="430" cy="85" r="3" opacity="0.8"/>
+                    </g>
+                </g>
+                
+                <!-- Dirac Cones -->
+                <g transform="translate(300, 300)">
+                    <path d="M -50 0 L 0 -50 L 50 0" stroke="#00d4ff" stroke-width="2" fill="none" opacity="0.6"/>
+                    <path d="M -50 0 L 0 50 L 50 0" stroke="#00ff88" stroke-width="2" fill="none" opacity="0.6"/>
+                    <circle cx="0" cy="0" r="3" fill="#fff" opacity="0.8"/>
+                    <text x="60" y="5" fill="#888" font-size="12">K point</text>
+                </g>
+            </svg>
+        </div>
+        
+        <!-- Vortex animations -->
+        <div class="vortex" style="top: 20%; left: 10%;"></div>
+        <div class="vortex" style="top: 60%; right: 15%; animation-delay: 2s;"></div>
+        
+        <!-- Edge state particles -->
+        <div class="edge-state" style="top: 50%; left: 0;"></div>
+        <div class="edge-state" style="top: 50%; left: 0; animation-delay: 1s;"></div>
+        <div class="edge-state" style="top: 50%; left: 0; animation-delay: 2s;"></div>
+        <div class="edge-state" style="top: 50%; left: 0; animation-delay: 3s;"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                <span class="gradient-text">Topological Photonics</span>
+            </h1>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                Harnessing topological protection for robust light propagation immune to disorder, 
+                defects, and perturbations - enabling unprecedented photonic device reliability
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="#technology" class="px-6 py-3 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                    Discover Physics
+                </a>
+                <a href="#platform" class="px-6 py-3 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                    TopoFlow Platform
+                </a>
+                <a href="#applications" class="px-6 py-3 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                    Applications
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-shield-alt text-3xl text-green-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-green-400">100%</div>
+                    <div class="text-gray-400">Backscatter-Free</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-random text-3xl text-cyan-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-cyan-400">±1</div>
+                    <div class="text-gray-400">Chern Number</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-temperature-high text-3xl text-orange-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-orange-400">300K</div>
+                    <div class="text-gray-400">Operation Temp</div>
+                </div>
+                <div class="glass-effect p-6 rounded-xl text-center">
+                    <i class="fas fa-wave-square text-3xl text-purple-400 mb-3"></i>
+                    <div class="text-2xl font-bold text-purple-400">THz</div>
+                    <div class="text-gray-400">Bandwidth</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Overview -->
+    <section id="technology" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Topological Protection in Photonics</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Robust Light Transport Through Topology</h3>
+                    <p class="text-gray-300 mb-6">
+                        Topological photonics exploits concepts from condensed matter physics to create optical 
+                        states that are inherently protected against disorder and perturbations. By engineering 
+                        photonic band structures with non-trivial topology, we achieve unidirectional edge states 
+                        that propagate without backscattering.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-circle-notch text-cyan-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">Topological Edge States</h4>
+                                <p class="text-gray-400 text-sm">Unidirectional propagation immune to sharp bends and defects</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-atom text-cyan-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">Photonic Band Gaps</h4>
+                                <p class="text-gray-400 text-sm">Engineered band structures with topological invariants</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-sync-alt text-cyan-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">Time-Reversal Breaking</h4>
+                                <p class="text-gray-400 text-sm">Magneto-optic effects for non-reciprocal propagation</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-cube text-cyan-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">3D Topological States</h4>
+                                <p class="text-gray-400 text-sm">Weyl points and nodal lines in photonic crystals</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Band Structure Visualization -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h4 class="text-lg font-semibold mb-4 text-center">Topological Band Structure</h4>
+                    <svg viewBox="0 0 500 400" class="w-full h-auto">
+                        <!-- Axes -->
+                        <line x1="50" y1="350" x2="450" y2="350" stroke="#666" stroke-width="2"/>
+                        <line x1="50" y1="350" x2="50" y2="50" stroke="#666" stroke-width="2"/>
+                        
+                        <!-- Labels -->
+                        <text x="250" y="380" fill="#888" font-size="14" text-anchor="middle">Wave Vector (k)</text>
+                        <text x="20" y="200" fill="#888" font-size="14" text-anchor="middle" transform="rotate(-90 20 200)">Energy (ω)</text>
+                        
+                        <!-- Band structure -->
+                        <g>
+                            <!-- Lower band -->
+                            <path d="M 100 300 Q 150 280 200 270 T 300 270 Q 350 280 400 300" 
+                                  class="band-curve" stroke="#00ff88"/>
+                            
+                            <!-- Upper band -->
+                            <path d="M 100 150 Q 150 170 200 180 T 300 180 Q 350 170 400 150" 
+                                  class="band-curve" stroke="#00d4ff"/>
+                            
+                            <!-- Band gap -->
+                            <rect x="50" y="180" width="400" height="90" fill="url(#bandGapGradient)" opacity="0.2"/>
+                            
+                            <!-- Edge states -->
+                            <line x1="200" y1="270" x2="200" y2="180" stroke="#ff6b00" stroke-width="3" opacity="0.8"/>
+                            <line x1="300" y1="270" x2="300" y2="180" stroke="#ff6b00" stroke-width="3" opacity="0.8"/>
+                            
+                            <!-- Dirac points -->
+                            <circle cx="200" cy="225" r="5" fill="#fff" opacity="0.8"/>
+                            <circle cx="300" cy="225" r="5" fill="#fff" opacity="0.8"/>
+                        </g>
+                        
+                        <!-- Gradient definition -->
+                        <defs>
+                            <linearGradient id="bandGapGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.3"/>
+                                <stop offset="50%" style="stop-color:#00ff88;stop-opacity:0.1"/>
+                                <stop offset="100%" style="stop-color:#00ff88;stop-opacity:0.3"/>
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Annotations -->
+                        <text x="250" y="225" fill="#ff6b00" font-size="12" text-anchor="middle">Edge States</text>
+                        <text x="350" y="100" fill="#888" font-size="12">Topological Gap</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TopoFlow Platform -->
+    <section id="platform" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">TopoFlow: Topological Photonics Platform</h2>
+            
+            <!-- Platform Overview -->
+            <div class="glass-effect p-8 rounded-2xl mb-12">
+                <h3 class="text-2xl font-bold mb-6 text-center">Comprehensive Design & Simulation Suite</h3>
+                
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Design Tools -->
+                    <div class="bg-slate-800/50 p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-drafting-compass text-3xl text-cyan-400 mr-3"></i>
+                            <h4 class="text-xl font-bold">Design Tools</h4>
+                        </div>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Crystal Designer:</strong> Photonic crystal structure generator with symmetry analysis
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Band Engineer:</strong> Topological band structure optimization
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Edge State Router:</strong> Automatic routing of topological waveguides
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Simulation Engine -->
+                    <div class="bg-slate-800/50 p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-calculator text-3xl text-purple-400 mr-3"></i>
+                            <h4 class="text-xl font-bold">Simulation Engine</h4>
+                        </div>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>FDTD Solver:</strong> GPU-accelerated electromagnetic simulations
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Tight-Binding:</strong> Efficient topological invariant calculations
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Disorder Analysis:</strong> Robustness testing with random perturbations
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Analysis Tools -->
+                    <div class="bg-slate-800/50 p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-chart-line text-3xl text-green-400 mr-3"></i>
+                            <h4 class="text-xl font-bold">Analysis Tools</h4>
+                        </div>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Berry Phase:</strong> Automated topological invariant extraction
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Mode Analyzer:</strong> Edge state identification and classification
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Transmission:</strong> S-parameter and loss characterization
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Examples -->
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold mb-6">TopoFlow Development Environment</h3>
+                
+                <!-- Main Example -->
+                <div class="code-block mb-8">
+                    <div class="code-header">
+                        <i class="fas fa-code mr-2"></i>
+                        topological_waveguide.py
+                    </div>
+                    <pre class="p-4 overflow-x-auto"><code class="language-python">import topoflow as tf
+from topoflow.crystals import HoneycombLattice
+from topoflow.materials import MagnetoOptic
+from topoflow.solvers import TopologicalFDTD
+
+# Create honeycomb photonic crystal with broken time-reversal symmetry
+lattice = HoneycombLattice(
+    lattice_constant=500e-9,  # 500 nm
+    radius=0.3,              # r/a ratio
+    material=MagnetoOptic(
+        epsilon=12.0,
+        gyration=0.1,        # Magneto-optic coefficient
+        loss=0.001
+    )
+)
+
+# Design topological interface
+interface = tf.TopologicalInterface(
+    crystal_A=lattice.with_gyration(+0.1),  # Positive gyration
+    crystal_B=lattice.with_gyration(-0.1),  # Negative gyration
+    interface_type='zigzag'
+)
+
+# Calculate band structure and topological invariants
+bands = interface.calculate_bands(
+    k_path=['Γ', 'K', 'M', 'Γ'],
+    num_bands=20
+)
+
+# Extract Chern numbers
+chern_numbers = bands.calculate_chern_numbers()
+print(f"Band gap Chern number: {chern_numbers[8] - chern_numbers[7]}")
+
+# Simulate edge state propagation
+solver = TopologicalFDTD(
+    structure=interface,
+    resolution=20,  # Points per lattice constant
+    boundary_conditions='PML'
+)
+
+# Launch edge state
+source = tf.EdgeStateSource(
+    wavelength=1550e-9,
+    position='interface',
+    direction='+x'
+)
+
+# Run simulation with disorder
+solver.add_disorder(
+    type='positional',
+    strength=0.1  # 10% random displacement
+)
+
+fields = solver.run(
+    source=source,
+    time_steps=5000,
+    monitors=[
+        tf.PowerMonitor('transmission'),
+        tf.FieldMonitor('edge_propagation')
+    ]
+)
+
+# Analyze robustness
+transmission = fields.monitors['transmission'].get_transmission()
+print(f"Transmission through disordered region: {transmission:.2%}")
+
+# Visualize edge state confinement
+edge_field = fields.monitors['edge_propagation'].get_intensity()
+tf.visualize.plot_edge_state(edge_field, interface)</code></pre>
+                </div>
+
+                <!-- API Components -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h4 class="text-xl font-bold mb-4">Core Components</h4>
+                        <div class="space-y-3">
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <code class="text-cyan-400">tf.PhotonicCrystal</code>
+                                <p class="text-sm text-gray-400 mt-1">Base class for topological photonic structures</p>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <code class="text-cyan-400">tf.BandStructure</code>
+                                <p class="text-sm text-gray-400 mt-1">Band diagram calculation and analysis</p>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <code class="text-cyan-400">tf.TopologicalInvariant</code>
+                                <p class="text-sm text-gray-400 mt-1">Chern number and Z2 invariant computation</p>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <code class="text-cyan-400">tf.EdgeStateRouter</code>
+                                <p class="text-sm text-gray-400 mt-1">Automatic topological waveguide routing</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h4 class="text-xl font-bold mb-4">Advanced Features</h4>
+                        <div class="space-y-3">
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <code class="text-purple-400">HigherOrderTopo</code>
+                                <p class="text-sm text-gray-400 mt-1">Corner and hinge states in 3D</p>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <code class="text-purple-400">NonHermitian</code>
+                                <p class="text-sm text-gray-400 mt-1">PT-symmetric and exceptional points</p>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <code class="text-purple-400">FloquetTopology</code>
+                                <p class="text-sm text-gray-400 mt-1">Time-modulated topological systems</p>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded">
+                                <code class="text-purple-400">QuantumSimulator</code>
+                                <p class="text-sm text-gray-400 mt-1">Topological quantum walk simulation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hardware Implementation -->
+    <section class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Topological Photonic Devices</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Device Specifications -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">TPU-1000 Topological Processor</h3>
+                    <div class="mb-6">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHJlY3QgeD0iNTAiIHk9IjUwIiB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzFhMWEyZSIgc3Ryb2tlPSIjMDA5OWZmIiBzdHJva2Utd2lkdGg9IjIiIHJ4PSI1Ii8+CiAgCiAgPCEtLSBUb3BvbG9naWNhbCB3YXZlZ3VpZGVzIC0tPgogIDxwYXRoIGQ9Ik0gMTAwIDEwMCBMIDMwMCAxMDAiIHN0cm9rZT0iIzAwZmY4OCIgc3Ryb2tlLXdpZHRoPSI0IiBmaWxsPSJub25lIi8+CiAgPHBhdGggZD0iTSAxMDAgMTUwIEwgMTUwIDE1MCBMIDE1MCAyMDAgTCAzMDAgMjAwIiBzdHJva2U9IiMwMGQ0ZmYiIHN0cm9rZS13aWR0aD0iNCIgZmlsbD0ibm9uZSIvPgogIDxwYXRoIGQ9Ik0gMTAwIDIwMCBMIDIwMCAyMDAgTCAyMDAgMTAwIEwgMzAwIDEwMCIgc3Ryb2tlPSIjZmY2YjAwIiBzdHJva2Utd2lkdGg9IjQiIGZpbGw9Im5vbmUiLz4KICAKICA8IS0tIElucHV0L091dHB1dCBwb3J0cyAtLT4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9IjgiIGZpbGw9IiMwMGZmODgiLz4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxNTAiIHI9IjgiIGZpbGw9IiMwMGQ0ZmYiLz4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIyMDAiIHI9IjgiIGZpbGw9IiNmZjZiMDAiLz4KICA8Y2lyY2xlIGN4PSIzMDAiIGN5PSIxMDAiIHI9IjgiIGZpbGw9IiNmZjZiMDAiLz4KICA8Y2lyY2xlIGN4PSIzMDAiIGN5PSIyMDAiIHI9IjgiIGZpbGw9IiMwMGQ0ZmYiLz4KPC9zdmc+" alt="Topological Router" class="w-full h-auto rounded-lg mb-4"/>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-cyan-400">64</div>
+                            <div class="text-sm text-gray-400">I/O Channels</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-cyan-400">< 0.1 dB</div>
+                            <div class="text-sm text-gray-400">Bend Loss</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-cyan-400">40 GHz</div>
+                            <div class="text-sm text-gray-400">Bandwidth</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-cyan-400">99.9%</div>
+                            <div class="text-sm text-gray-400">Isolation</div>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-semibold mb-3">Device Features</h4>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Backscatter-immune routing through sharp bends</li>
+                        <li>• Disorder-tolerant operation up to 20% perturbation</li>
+                        <li>• Non-reciprocal signal flow with > 40 dB isolation</li>
+                        <li>• Integrated with silicon photonics platform</li>
+                    </ul>
+                </div>
+                
+                <!-- Performance Metrics -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">Performance Comparison</h3>
+                    <canvas id="performanceChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications -->
+    <section id="applications" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Revolutionary Applications</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Quantum Computing -->
+                <div class="bg-gradient-to-br from-purple-900/20 to-pink-900/20 p-6 rounded-xl border border-purple-500/30">
+                    <i class="fas fa-atom text-4xl text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Quantum Photonics</h3>
+                    <p class="text-gray-400 mb-4">
+                        Topologically protected quantum states for fault-tolerant quantum computing and communication.
+                    </p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li>• Protected qubit encoding</li>
+                        <li>• Topological quantum gates</li>
+                        <li>• Decoherence-free subspaces</li>
+                        <li>• Quantum error correction</li>
+                    </ul>
+                </div>
+                
+                <!-- Optical Isolation -->
+                <div class="bg-gradient-to-br from-green-900/20 to-emerald-900/20 p-6 rounded-xl border border-green-500/30">
+                    <i class="fas fa-shield-alt text-4xl text-green-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Optical Isolation</h3>
+                    <p class="text-gray-400 mb-4">
+                        Non-reciprocal light propagation for laser protection and signal routing without magnets.
+                    </p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li>• Magnet-free optical isolators</li>
+                        <li>• Integrated circulators</li>
+                        <li>• Reflection immunity</li>
+                        <li>• Broadband operation</li>
+                    </ul>
+                </div>
+                
+                <!-- Robust Communications -->
+                <div class="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 p-6 rounded-xl border border-blue-500/30">
+                    <i class="fas fa-satellite-dish text-4xl text-blue-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3">Robust Communications</h3>
+                    <p class="text-gray-400 mb-4">
+                        Disorder-immune optical networks for harsh environments and flexible photonic circuits.
+                    </p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li>• Flexible optical interconnects</li>
+                        <li>• Underwater communications</li>
+                        <li>• Space-qualified systems</li>
+                        <li>• Reconfigurable networks</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Use Cases -->
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold mb-8 text-center">Real-World Implementations</h3>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="glass-effect p-6 rounded-xl">
+                        <div class="flex items-start space-x-4">
+                            <i class="fas fa-network-wired text-3xl text-cyan-400 mt-1"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-2">Data Center Interconnects</h4>
+                                <p class="text-gray-400 text-sm mb-3">
+                                    Topological routers enabling arbitrary network topologies without signal degradation, 
+                                    supporting 400G+ data rates through complex routing paths.
+                                </p>
+                                <div class="flex items-center space-x-4 text-sm">
+                                    <span class="text-green-400">• Zero bend loss</span>
+                                    <span class="text-green-400">• 64×64 routing</span>
+                                    <span class="text-green-400">• < 50 ns switching</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl">
+                        <div class="flex items-start space-x-4">
+                            <i class="fas fa-microscope text-3xl text-purple-400 mt-1"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-2">Quantum Simulators</h4>
+                                <p class="text-gray-400 text-sm mb-3">
+                                    Photonic platforms for simulating topological phases of matter, enabling 
+                                    exploration of exotic quantum phenomena at room temperature.
+                                </p>
+                                <div class="flex items-center space-x-4 text-sm">
+                                    <span class="text-green-400">• 1000+ sites</span>
+                                    <span class="text-green-400">• Programmable</span>
+                                    <span class="text-green-400">• Real-time control</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl">
+                        <div class="flex items-start space-x-4">
+                            <i class="fas fa-satellite text-3xl text-orange-400 mt-1"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-2">Satellite Communications</h4>
+                                <p class="text-gray-400 text-sm mb-3">
+                                    Radiation-hardened topological photonic circuits maintaining performance 
+                                    in extreme space environments with cosmic ray bombardment.
+                                </p>
+                                <div class="flex items-center space-x-4 text-sm">
+                                    <span class="text-green-400">• Rad-hard design</span>
+                                    <span class="text-green-400">• Self-healing</span>
+                                    <span class="text-green-400">• 20-year lifetime</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl">
+                        <div class="flex items-start space-x-4">
+                            <i class="fas fa-heartbeat text-3xl text-red-400 mt-1"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-2">Biomedical Sensing</h4>
+                                <p class="text-gray-400 text-sm mb-3">
+                                    Flexible topological waveguides for in-vivo sensing maintaining signal 
+                                    integrity despite tissue movement and deformation.
+                                </p>
+                                <div class="flex items-center space-x-4 text-sm">
+                                    <span class="text-green-400">• Bend-insensitive</span>
+                                    <span class="text-green-400">• Biocompatible</span>
+                                    <span class="text-green-400">• Multiplexed sensing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research & Innovation -->
+    <section class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Cutting-Edge Research</h2>
+            
+            <div class="glass-effect p-8 rounded-2xl mb-12">
+                <h3 class="text-2xl font-bold mb-6">Research Frontiers</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-cube text-2xl text-cyan-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">3D Topological States</h4>
+                        <p class="text-sm text-gray-400">Weyl photons and nodal line semimetals</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-clock text-2xl text-purple-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Floquet Engineering</h4>
+                        <p class="text-sm text-gray-400">Time-modulated topological phases</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-layer-group text-2xl text-green-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Higher-Order Topology</h4>
+                        <p class="text-sm text-gray-400">Corner states and hinge modes</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-infinity text-2xl text-orange-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Non-Hermitian Topology</h4>
+                        <p class="text-sm text-gray-400">Exceptional points and skin effects</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive 3D Visualization -->
+            <div class="glass-effect p-8 rounded-2xl">
+                <h3 class="text-2xl font-bold mb-6 text-center">3D Topological Photonic Crystal</h3>
+                <div id="threejs-container" class="w-full h-96 bg-slate-800/50 rounded-lg flex items-center justify-center">
+                    <p class="text-gray-400">Interactive 3D visualization loads here</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 px-4 bg-gradient-to-r from-cyan-900/20 to-blue-900/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Harness the Power of Topology</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Join the topological photonics revolution with our comprehensive platform and 
+                cutting-edge photonic devices.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="px-8 py-3 bg-cyan-600 rounded-lg hover:bg-cyan-700 transition">
+                    Get Started
+                </a>
+                <a href="#platform" class="px-8 py-3 border border-cyan-600 rounded-lg hover:bg-cyan-600/10 transition">
+                    Download TopoFlow
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400">
+            <p>© 2024 Aurora Borealis Photonics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Performance Chart
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Transmission', 'Isolation', 'Bandwidth', 'Bend Tolerance', 'Disorder Immunity'],
+                datasets: [{
+                    label: 'Topological Photonics',
+                    data: [99.5, 45, 40, 100, 95],
+                    backgroundColor: 'rgba(0, 212, 255, 0.5)',
+                    borderColor: '#00d4ff',
+                    borderWidth: 1
+                }, {
+                    label: 'Conventional Photonics',
+                    data: [95, 30, 35, 20, 10],
+                    backgroundColor: 'rgba(255, 107, 0, 0.5)',
+                    borderColor: '#ff6b00',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#fff' }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' }
+                    },
+                    y: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' },
+                        title: {
+                            display: true,
+                            text: 'Performance (%)',
+                            color: '#888'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Initialize Prism for syntax highlighting
+        Prism.highlightAll();
+        
+        // Simple 3D visualization placeholder
+        // In production, this would be a full Three.js implementation
+        const container = document.getElementById('threejs-container');
+        container.innerHTML = `
+            <div class="text-center">
+                <i class="fas fa-cube text-6xl text-cyan-400 mb-4 animate-pulse"></i>
+                <p class="text-gray-400">3D Topological Crystal Viewer</p>
+                <p class="text-sm text-gray-500">Click and drag to rotate</p>
+            </div>
+        `;
+    </script>
+</body>
+</html>
