@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photonic AI Accelerators - Technical Specifications | ABP Photonics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #ff6b00 0%, #ff8c00 50%, #ffa500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1533 50%, #0a0e27 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Photonic Circuit Animation */
+        .photon-path {
+            stroke: #ff6b00;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: photon-flow 3s linear infinite;
+        }
+        
+        @keyframes photon-flow {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        /* Heat Map Visualization */
+        .heat-cell {
+            transition: all 0.3s;
+        }
+        
+        .heat-cell:hover {
+            transform: scale(1.2);
+            filter: brightness(1.5);
+        }
+        
+        /* Tech Grid */
+        .tech-grid {
+            background-image: 
+                linear-gradient(rgba(255, 107, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 107, 0, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="hidden sm:inline">ABP Photonics</span>
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <a href="hardware.html" class="text-gray-400 hover:text-white transition">Hardware</a>
+                    <span class="text-gray-400">|</span>
+                    <a href="optical-neural-networks.html" class="text-gray-400 hover:text-white transition">Optical Neural Networks</a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-lg font-semibold gradient-text">AI Accelerators</span>
+                </div>
+                <a href="#contact" class="px-4 py-2 bg-orange-600 rounded-lg hover:bg-orange-700 transition">
+                    Get Specifications
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient pt-24 pb-16 overflow-hidden">
+        <div class="absolute inset-0 tech-grid opacity-20"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                <span class="gradient-text">Photonic AI Accelerators</span>
+            </h1>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                Deep technical specifications and implementation details for our revolutionary 
+                optical computing hardware designed for next-generation AI workloads
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="#edge" class="px-6 py-3 bg-orange-600 rounded-lg hover:bg-orange-700 transition">
+                    Edge Solutions
+                </a>
+                <a href="#cloud" class="px-6 py-3 border border-orange-600 rounded-lg hover:bg-orange-600/10 transition">
+                    Cloud Solutions
+                </a>
+                <a href="#benchmarks" class="px-6 py-3 border border-orange-600 rounded-lg hover:bg-orange-600/10 transition">
+                    Benchmarks
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Overview -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Photonic Computing Architecture</h2>
+            
+            <div class="glass-effect p-8 rounded-2xl">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <!-- Circuit Diagram -->
+                    <div>
+                        <svg viewBox="0 0 600 400" class="w-full h-auto bg-slate-800/50 rounded-lg p-4">
+                            <!-- Input Waveguides -->
+                            <g>
+                                <path d="M 50 100 L 150 100" class="photon-path"/>
+                                <path d="M 50 150 L 150 150" class="photon-path" style="animation-delay: 0.5s"/>
+                                <path d="M 50 200 L 150 200" class="photon-path" style="animation-delay: 1s"/>
+                                <path d="M 50 250 L 150 250" class="photon-path" style="animation-delay: 1.5s"/>
+                            </g>
+                            
+                            <!-- MZI Mesh -->
+                            <g transform="translate(150, 50)">
+                                <!-- First Stage -->
+                                <rect x="0" y="50" width="80" height="30" fill="#ff6b00" opacity="0.3" stroke="#ff6b00" rx="5"/>
+                                <rect x="0" y="100" width="80" height="30" fill="#ff6b00" opacity="0.3" stroke="#ff6b00" rx="5"/>
+                                <rect x="0" y="150" width="80" height="30" fill="#ff6b00" opacity="0.3" stroke="#ff6b00" rx="5"/>
+                                <rect x="0" y="200" width="80" height="30" fill="#ff6b00" opacity="0.3" stroke="#ff6b00" rx="5"/>
+                                
+                                <!-- Crossings -->
+                                <path d="M 80 65 L 120 115" stroke="#ff8c00" stroke-width="2"/>
+                                <path d="M 80 115 L 120 65" stroke="#ff8c00" stroke-width="2"/>
+                                <path d="M 80 165 L 120 215" stroke="#ff8c00" stroke-width="2"/>
+                                <path d="M 80 215 L 120 165" stroke="#ff8c00" stroke-width="2"/>
+                                
+                                <!-- Second Stage -->
+                                <rect x="120" y="50" width="80" height="30" fill="#ff8c00" opacity="0.3" stroke="#ff8c00" rx="5"/>
+                                <rect x="120" y="100" width="80" height="30" fill="#ff8c00" opacity="0.3" stroke="#ff8c00" rx="5"/>
+                                <rect x="120" y="150" width="80" height="30" fill="#ff8c00" opacity="0.3" stroke="#ff8c00" rx="5"/>
+                                <rect x="120" y="200" width="80" height="30" fill="#ff8c00" opacity="0.3" stroke="#ff8c00" rx="5"/>
+                                
+                                <!-- Labels -->
+                                <text x="40" y="35" fill="#ff6b00" font-size="12" text-anchor="middle">MZI Stage 1</text>
+                                <text x="160" y="35" fill="#ff8c00" font-size="12" text-anchor="middle">MZI Stage 2</text>
+                            </g>
+                            
+                            <!-- Phase Shifters -->
+                            <g transform="translate(380, 100)">
+                                <rect x="0" y="0" width="60" height="200" fill="#ffa500" opacity="0.2" stroke="#ffa500" rx="5"/>
+                                <text x="30" y="-10" fill="#ffa500" font-size="12" text-anchor="middle">Phase Array</text>
+                                <circle cx="30" cy="30" r="5" fill="#ffa500"/>
+                                <circle cx="30" cy="70" r="5" fill="#ffa500"/>
+                                <circle cx="30" cy="110" r="5" fill="#ffa500"/>
+                                <circle cx="30" cy="150" r="5" fill="#ffa500"/>
+                            </g>
+                            
+                            <!-- Output -->
+                            <g>
+                                <path d="M 440 100 L 540 100" class="photon-path" style="animation-delay: 2s"/>
+                                <path d="M 440 150 L 540 150" class="photon-path" style="animation-delay: 2.5s"/>
+                                <path d="M 440 200 L 540 200" class="photon-path" style="animation-delay: 3s"/>
+                                <path d="M 440 250 L 540 250" class="photon-path" style="animation-delay: 3.5s"/>
+                            </g>
+                            
+                            <!-- Labels -->
+                            <text x="50" y="50" fill="#888" font-size="14">Optical Input</text>
+                            <text x="540" y="50" fill="#888" font-size="14" text-anchor="end">Optical Output</text>
+                        </svg>
+                    </div>
+                    
+                    <!-- Technical Details -->
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6">Core Technology Stack</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-orange-400 mb-2">Photonic Processing Unit (PPU)</h4>
+                                <ul class="text-sm text-gray-400 space-y-1">
+                                    <li>• 4096 programmable Mach-Zehnder interferometers</li>
+                                    <li>• 8-bit phase precision with thermal tuning</li>
+                                    <li>• Integrated germanium photodetectors</li>
+                                    <li>• Silicon nitride low-loss waveguides</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-orange-400 mb-2">Control Electronics</h4>
+                                <ul class="text-sm text-gray-400 space-y-1">
+                                    <li>• Custom ASIC for phase control</li>
+                                    <li>• 16-bit DACs with 1MHz update rate</li>
+                                    <li>• Integrated temperature stabilization</li>
+                                    <li>• Real-time calibration engine</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-orange-400 mb-2">I/O Architecture</h4>
+                                <ul class="text-sm text-gray-400 space-y-1">
+                                    <li>• 64-channel fiber array coupling</li>
+                                    <li>• Integrated mode-locked laser source</li>
+                                    <li>• High-speed ADC/DAC arrays</li>
+                                    <li>• PCIe 5.0 host interface</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Edge Computing Solutions -->
+    <section id="edge" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Edge AI Accelerators</h2>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- ONN-Edge-Nano -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <div class="bg-gradient-to-br from-orange-600/20 to-red-600/20 p-4 rounded-lg mb-4">
+                        <h3 class="text-xl font-bold mb-2">ONN-Edge-Nano</h3>
+                        <p class="text-sm text-gray-400">Ultra-compact edge inference</p>
+                    </div>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Compute Power</span>
+                            <span class="font-semibold">1 TOPS</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Power Consumption</span>
+                            <span class="font-semibold">0.5W</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Form Factor</span>
+                            <span class="font-semibold">M.2 2280</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Model Support</span>
+                            <span class="font-semibold">Up to 1M params</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 p-3 rounded">
+                        <p class="text-xs text-gray-400">Ideal for: IoT sensors, smart cameras, edge analytics</p>
+                    </div>
+                </div>
+                
+                <!-- ONN-Edge-Pro -->
+                <div class="glass-effect p-6 rounded-xl border border-orange-500/30">
+                    <div class="bg-gradient-to-br from-orange-600/20 to-yellow-600/20 p-4 rounded-lg mb-4">
+                        <h3 class="text-xl font-bold mb-2">ONN-Edge-Pro</h3>
+                        <p class="text-sm text-gray-400">Professional edge computing</p>
+                    </div>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Compute Power</span>
+                            <span class="font-semibold">10 TOPS</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Power Consumption</span>
+                            <span class="font-semibold">5W</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Form Factor</span>
+                            <span class="font-semibold">PCIe x4</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Model Support</span>
+                            <span class="font-semibold">Up to 10M params</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 p-3 rounded">
+                        <p class="text-xs text-gray-400">Ideal for: Autonomous vehicles, robotics, medical devices</p>
+                    </div>
+                </div>
+                
+                <!-- ONN-Edge-Max -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <div class="bg-gradient-to-br from-orange-600/20 to-purple-600/20 p-4 rounded-lg mb-4">
+                        <h3 class="text-xl font-bold mb-2">ONN-Edge-Max</h3>
+                        <p class="text-sm text-gray-400">Maximum edge performance</p>
+                    </div>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Compute Power</span>
+                            <span class="font-semibold">100 TOPS</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Power Consumption</span>
+                            <span class="font-semibold">25W</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Form Factor</span>
+                            <span class="font-semibold">PCIe x16</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Model Support</span>
+                            <span class="font-semibold">Up to 100M params</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 p-3 rounded">
+                        <p class="text-xs text-gray-400">Ideal for: Edge servers, 5G base stations, industrial AI</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cloud Computing Solutions -->
+    <section id="cloud" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Cloud-Scale AI Processors</h2>
+            
+            <!-- ONN-Cloud-1000 -->
+            <div class="glass-effect p-8 rounded-2xl mb-8">
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-3xl font-bold mb-4">ONN-Cloud-1000</h3>
+                        <p class="text-gray-300 mb-6">
+                            Our flagship datacenter accelerator designed for training and inference of 
+                            large-scale neural networks with unprecedented efficiency.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <div class="text-3xl font-bold text-orange-400 mb-1">1 PFLOPS</div>
+                                <div class="text-sm text-gray-400">Peak Performance</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <div class="text-3xl font-bold text-green-400 mb-1">100W</div>
+                                <div class="text-sm text-gray-400">TDP</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <div class="text-3xl font-bold text-purple-400 mb-1">8192</div>
+                                <div class="text-sm text-gray-400">Optical Cores</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-4 rounded-lg">
+                                <div class="text-3xl font-bold text-cyan-400 mb-1">400 GB/s</div>
+                                <div class="text-sm text-gray-400">Memory BW</div>
+                            </div>
+                        </div>
+                        
+                        <button class="px-6 py-3 bg-orange-600 rounded-lg hover:bg-orange-700 transition">
+                            Download Whitepaper
+                        </button>
+                    </div>
+                    
+                    <!-- Performance Heat Map -->
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Performance Heat Map</h4>
+                        <div class="bg-slate-800/50 p-4 rounded-lg">
+                            <svg viewBox="0 0 400 300" class="w-full h-auto">
+                                <!-- Heat map grid -->
+                                <g>
+                                    <!-- Generate 8x6 grid of heat cells -->
+                                    <rect x="10" y="10" width="45" height="45" fill="#ff0000" opacity="0.9" class="heat-cell" rx="3"/>
+                                    <rect x="60" y="10" width="45" height="45" fill="#ff3300" opacity="0.8" class="heat-cell" rx="3"/>
+                                    <rect x="110" y="10" width="45" height="45" fill="#ff6600" opacity="0.7" class="heat-cell" rx="3"/>
+                                    <rect x="160" y="10" width="45" height="45" fill="#ff9900" opacity="0.6" class="heat-cell" rx="3"/>
+                                    <rect x="210" y="10" width="45" height="45" fill="#ffcc00" opacity="0.5" class="heat-cell" rx="3"/>
+                                    <rect x="260" y="10" width="45" height="45" fill="#ffff00" opacity="0.4" class="heat-cell" rx="3"/>
+                                    <rect x="310" y="10" width="45" height="45" fill="#ccff00" opacity="0.3" class="heat-cell" rx="3"/>
+                                    <rect x="360" y="10" width="45" height="45" fill="#99ff00" opacity="0.2" class="heat-cell" rx="3"/>
+                                    
+                                    <!-- Row 2 -->
+                                    <rect x="10" y="60" width="45" height="45" fill="#ff3300" opacity="0.8" class="heat-cell" rx="3"/>
+                                    <rect x="60" y="60" width="45" height="45" fill="#ff0000" opacity="0.9" class="heat-cell" rx="3"/>
+                                    <rect x="110" y="60" width="45" height="45" fill="#ff3300" opacity="0.8" class="heat-cell" rx="3"/>
+                                    <rect x="160" y="60" width="45" height="45" fill="#ff6600" opacity="0.7" class="heat-cell" rx="3"/>
+                                    <rect x="210" y="60" width="45" height="45" fill="#ff9900" opacity="0.6" class="heat-cell" rx="3"/>
+                                    <rect x="260" y="60" width="45" height="45" fill="#ffcc00" opacity="0.5" class="heat-cell" rx="3"/>
+                                    <rect x="310" y="60" width="45" height="45" fill="#ffff00" opacity="0.4" class="heat-cell" rx="3"/>
+                                    <rect x="360" y="60" width="45" height="45" fill="#ccff00" opacity="0.3" class="heat-cell" rx="3"/>
+                                    
+                                    <!-- Additional rows omitted for brevity -->
+                                </g>
+                                
+                                <!-- Labels -->
+                                <text x="200" y="280" fill="#888" font-size="12" text-anchor="middle">Optical Core Array Utilization</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Rack-Scale Solution -->
+            <div class="glass-effect p-8 rounded-2xl">
+                <h3 class="text-2xl font-bold mb-6">ONN-Rack: Composable AI Infrastructure</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-slate-800/50 p-6 rounded-lg">
+                        <i class="fas fa-server text-4xl text-orange-400 mb-4"></i>
+                        <h4 class="font-semibold mb-2">Modular Design</h4>
+                        <p class="text-sm text-gray-400">
+                            Stack up to 8 ONN-Cloud units in a standard 42U rack for 8 PFLOPS total
+                        </p>
+                    </div>
+                    <div class="bg-slate-800/50 p-6 rounded-lg">
+                        <i class="fas fa-network-wired text-4xl text-purple-400 mb-4"></i>
+                        <h4 class="font-semibold mb-2">Optical Interconnect</h4>
+                        <p class="text-sm text-gray-400">
+                            Direct optical chip-to-chip communication with 1.6 Tbps bandwidth
+                        </p>
+                    </div>
+                    <div class="bg-slate-800/50 p-6 rounded-lg">
+                        <i class="fas fa-snowflake text-4xl text-cyan-400 mb-4"></i>
+                        <h4 class="font-semibold mb-2">Passive Cooling</h4>
+                        <p class="text-sm text-gray-400">
+                            No active cooling required - operates at standard datacenter temperatures
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benchmarks -->
+    <section id="benchmarks" class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Performance Benchmarks</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- MLPerf Results -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4">MLPerf Inference v3.0</h3>
+                    <canvas id="mlperfChart" width="400" height="300"></canvas>
+                </div>
+                
+                <!-- Energy Efficiency -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4">Energy Efficiency Comparison</h3>
+                    <canvas id="efficiencyChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+            
+            <!-- Detailed Benchmark Table -->
+            <div class="glass-effect p-6 rounded-xl mt-8">
+                <h3 class="text-xl font-bold mb-4">Detailed Performance Metrics</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-slate-700">
+                                <th class="text-left py-3 px-4">Model</th>
+                                <th class="text-center py-3 px-4">GPU A100</th>
+                                <th class="text-center py-3 px-4">TPU v4</th>
+                                <th class="text-center py-3 px-4 text-orange-400">ONN-Cloud</th>
+                                <th class="text-center py-3 px-4">Speedup</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-slate-800">
+                                <td class="py-3 px-4">BERT-Large</td>
+                                <td class="text-center">2.5 ms</td>
+                                <td class="text-center">1.8 ms</td>
+                                <td class="text-center text-orange-400 font-semibold">0.025 ms</td>
+                                <td class="text-center text-green-400">100x</td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="py-3 px-4">GPT-3 175B</td>
+                                <td class="text-center">250 ms</td>
+                                <td class="text-center">180 ms</td>
+                                <td class="text-center text-orange-400 font-semibold">2.5 ms</td>
+                                <td class="text-center text-green-400">100x</td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="py-3 px-4">ResNet-152</td>
+                                <td class="text-center">5.2 ms</td>
+                                <td class="text-center">3.8 ms</td>
+                                <td class="text-center text-orange-400 font-semibold">0.052 ms</td>
+                                <td class="text-center text-green-400">100x</td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="py-3 px-4">Stable Diffusion</td>
+                                <td class="text-center">2.8 s</td>
+                                <td class="text-center">2.1 s</td>
+                                <td class="text-center text-orange-400 font-semibold">28 ms</td>
+                                <td class="text-center text-green-400">100x</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Specifications -->
+    <section class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Hardware Specifications</h2>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Optical Specifications -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4 text-orange-400">Optical Subsystem</h3>
+                    <dl class="space-y-3 text-sm">
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Wavelength</dt>
+                            <dd>1550 nm (C-band)</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Insertion Loss</dt>
+                            <dd>< 0.05 dB/component</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Extinction Ratio</dt>
+                            <dd>> 30 dB</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Phase Precision</dt>
+                            <dd>8-bit (256 levels)</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Switching Speed</dt>
+                            <dd>< 1 μs</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Crosstalk</dt>
+                            <dd>< -40 dB</dd>
+                        </div>
+                    </dl>
+                </div>
+                
+                <!-- Electronic Specifications -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4 text-purple-400">Electronic Control</h3>
+                    <dl class="space-y-3 text-sm">
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Control ASIC</dt>
+                            <dd>7nm FinFET</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">DAC Resolution</dt>
+                            <dd>16-bit</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">ADC Sample Rate</dt>
+                            <dd>10 GSPS</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Memory</dt>
+                            <dd>32 GB HBM3</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Host Interface</dt>
+                            <dd>PCIe 5.0 x16</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Network</dt>
+                            <dd>4x 100GbE</dd>
+                        </div>
+                    </dl>
+                </div>
+                
+                <!-- System Specifications -->
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4 text-green-400">System Specs</h3>
+                    <dl class="space-y-3 text-sm">
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Dimensions</dt>
+                            <dd>Full-height, dual-slot</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Power Input</dt>
+                            <dd>12V + 3.3V aux</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Operating Temp</dt>
+                            <dd>0°C to 70°C</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Humidity</dt>
+                            <dd>5% to 95% non-condensing</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">MTBF</dt>
+                            <dd>> 200,000 hours</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-gray-400">Certifications</dt>
+                            <dd>CE, FCC, RoHS</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration Guide -->
+    <section class="py-16 px-4 bg-slate-800/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">System Integration</h2>
+            
+            <div class="glass-effect p-8 rounded-2xl">
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Hardware Requirements</h3>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                                <div>
+                                    <strong>Server Platform:</strong> Any x86_64 server with PCIe 5.0 support
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                                <div>
+                                    <strong>Power Supply:</strong> Minimum 850W with dual 8-pin PCIe power
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                                <div>
+                                    <strong>Cooling:</strong> Standard airflow, no special requirements
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                                <div>
+                                    <strong>OS Support:</strong> Linux kernel 5.15+, Windows Server 2022+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Quick Start Code</h3>
+                        <pre class="bg-slate-900 p-4 rounded-lg text-sm overflow-x-auto">
+<code class="text-orange-300"># Install PhotonFlow runtime
+pip install photonflow-runtime
+
+# Initialize device
+import photonflow as pf
+device = pf.Device('ONN-Cloud-1000')
+
+# Load pre-trained model
+model = pf.load_model('bert-large-optical')
+model.to(device)
+
+# Run inference
+output = model(input_data)
+print(f"Latency: {model.last_latency_ms:.3f} ms")</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="py-16 px-4 bg-gradient-to-r from-orange-900/20 to-red-900/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to Deploy Optical AI?</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Contact our technical team for detailed specifications, evaluation units, 
+                and integration support.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="px-8 py-3 bg-orange-600 rounded-lg hover:bg-orange-700 transition">
+                    Request Evaluation Kit
+                </a>
+                <a href="optical-neural-networks.html" class="px-8 py-3 border border-orange-600 rounded-lg hover:bg-orange-600/10 transition">
+                    Back to Overview
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-400">
+            <p>© 2024 Aurora Borealis Photonics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // MLPerf Benchmark Chart
+        const mlperfCtx = document.getElementById('mlperfChart').getContext('2d');
+        new Chart(mlperfCtx, {
+            type: 'horizontalBar',
+            data: {
+                labels: ['Image Classification', 'Object Detection', 'Speech Recognition', 'NLP', 'Recommendation'],
+                datasets: [{
+                    label: 'Queries/Second',
+                    data: [125000, 85000, 95000, 110000, 150000],
+                    backgroundColor: 'rgba(255, 107, 0, 0.5)',
+                    borderColor: '#ff6b00',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' },
+                        title: {
+                            display: true,
+                            text: 'Queries/Second',
+                            color: '#888'
+                        }
+                    },
+                    y: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' }
+                    }
+                }
+            }
+        });
+        
+        // Energy Efficiency Chart
+        const effCtx = document.getElementById('efficiencyChart').getContext('2d');
+        new Chart(effCtx, {
+            type: 'line',
+            data: {
+                labels: ['1', '10', '100', '1000', '10000'],
+                datasets: [{
+                    label: 'GPU',
+                    data: [0.5, 0.4, 0.3, 0.2, 0.1],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    tension: 0.4
+                }, {
+                    label: 'ONN',
+                    data: [10, 10, 10, 10, 10],
+                    borderColor: '#ff6b00',
+                    backgroundColor: 'rgba(255, 107, 0, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#fff' }
+                    }
+                },
+                scales: {
+                    x: {
+                        type: 'logarithmic',
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' },
+                        title: {
+                            display: true,
+                            text: 'Model Size (Million Parameters)',
+                            color: '#888'
+                        }
+                    },
+                    y: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#888' },
+                        title: {
+                            display: true,
+                            text: 'TOPS/Watt',
+                            color: '#888'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
