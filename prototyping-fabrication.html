@@ -5,300 +5,303 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prototyping & Fabrication - O.R.I.O.N | M.Y. Engineering and Technologies</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #00ffff 0%, #0080ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .tech-bg {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
+        }
+    </style>
 </head>
 <body class="bg-black text-white">
     <!-- Navigation -->
-    <nav class="fixed w-full bg-black/90 backdrop-blur-sm z-50 border-b border-cyan-400/20">
+    <nav class="bg-black/90 backdrop-blur-sm fixed w-full z-50 border-b border-gray-800">
         <div class="container mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <div>
-                    <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                        M.Y. Engineering and Technologies
-                    </a>
-                    <span class="text-cyan-400 ml-2">| O.R.I.O.N - Prototyping & Fabrication</span>
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-8">
+                    <a href="index.html" class="text-2xl font-bold">M.Y. Engineering and Technologies</a>
+                    <span class="text-gray-400">|</span>
+                    <a href="orion.html" class="text-xl text-cyan-400">O.R.I.O.N</a>
                 </div>
-                <a href="orion.html" class="text-cyan-400 hover:text-cyan-300 transition-colors">
-                    ← Back to O.R.I.O.N
-                </a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="orion.html#services" class="hover:text-cyan-400 transition-colors">Services</a>
+                    <a href="orion.html#technologies" class="hover:text-cyan-400 transition-colors">Technologies</a>
+                    <a href="orion.html#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="pt-32 pb-20 bg-gradient-to-b from-gray-900 to-black">
+    <section class="pt-32 pb-20 tech-bg">
         <div class="container mx-auto px-6">
-            <h1 class="text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                Prototyping & Fabrication Services
-            </h1>
-            <p class="text-xl text-gray-300 max-w-3xl">
-                State-of-the-art epitaxy, wafer processing, and nano-fabrication capabilities for rapid innovation
-            </p>
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">Prototyping & Fabrication</span>
+                </h1>
+                <p class="text-xl text-gray-300 mb-8">
+                    Complete epitaxy, wafer processing, and nano-fabrication services for rapid device development
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <span class="px-4 py-2 bg-cyan-400/20 border border-cyan-400/50 rounded-full text-cyan-400">Epitaxial Growth</span>
+                    <span class="px-4 py-2 bg-cyan-400/20 border border-cyan-400/50 rounded-full text-cyan-400">Nanofabrication</span>
+                    <span class="px-4 py-2 bg-cyan-400/20 border border-cyan-400/50 rounded-full text-cyan-400">Rapid Prototyping</span>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Service Overview Section -->
+    <!-- Overview Section -->
     <section class="py-20 bg-gray-900">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold mb-12 text-center">Comprehensive Fabrication Solutions</h2>
-            
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8 text-center">Service Overview</h2>
+                <div class="prose prose-lg prose-invert mx-auto">
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Our prototyping and fabrication services provide researchers and companies with access to state-of-the-art facilities and expertise for developing next-generation devices. From initial concept to functional prototype, we offer comprehensive support throughout the development cycle.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        With advanced epitaxial growth systems, cutting-edge nanofabrication tools, and experienced process engineers, we accelerate the path from laboratory discovery to commercial reality.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Services -->
+    <section class="py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Core Fabrication Services</h2>
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Epitaxy Services -->
-                <div class="bg-gray-800 rounded-lg p-6 border border-cyan-400/20">
-                    <div class="w-16 h-16 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-4">
+                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
+                    <div class="w-16 h-16 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold mb-4 text-cyan-400">Epitaxial Growth</h3>
-                    <ul class="space-y-2 text-gray-300 text-sm">
-                        <li>• MOCVD for III-V materials</li>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>• MOCVD systems (4x6" multi-wafer)</li>
                         <li>• MBE for quantum structures</li>
-                        <li>• HVPE for thick layers</li>
-                        <li>• In-situ monitoring</li>
+                        <li>• III-V, II-VI materials</li>
+                        <li>• In-situ monitoring (RAS, pyrometry)</li>
                         <li>• Custom heterostructures</li>
+                        <li>• Selective area growth</li>
                     </ul>
                 </div>
 
                 <!-- Wafer Processing -->
-                <div class="bg-gray-800 rounded-lg p-6 border border-cyan-400/20">
-                    <div class="w-16 h-16 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-4">
+                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
+                    <div class="w-16 h-16 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold mb-4 text-cyan-400">Wafer Processing</h3>
-                    <ul class="space-y-2 text-gray-300 text-sm">
+                    <ul class="space-y-2 text-gray-300">
                         <li>• DUV/EUV lithography</li>
-                        <li>• Plasma etching (ICP-RIE)</li>
-                        <li>• Thin film deposition</li>
-                        <li>• Wafer bonding</li>
-                        <li>• CMP and thinning</li>
+                        <li>• E-beam lithography (sub-10nm)</li>
+                        <li>• ICP-RIE plasma etching</li>
+                        <li>• Metal deposition (E-beam/sputter)</li>
+                        <li>• Atomic layer deposition (ALD)</li>
+                        <li>• Wafer bonding & thinning</li>
                     </ul>
                 </div>
 
                 <!-- Nano-fabrication -->
-                <div class="bg-gray-800 rounded-lg p-6 border border-cyan-400/20">
-                    <div class="w-16 h-16 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-4">
+                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
+                    <div class="w-16 h-16 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold mb-4 text-cyan-400">Nano-fabrication</h3>
-                    <ul class="space-y-2 text-gray-300 text-sm">
-                        <li>• E-beam lithography</li>
+                    <ul class="space-y-2 text-gray-300">
                         <li>• Nanoimprint lithography</li>
                         <li>• Focused ion beam (FIB)</li>
-                        <li>• Atomic layer deposition</li>
+                        <li>• Nanowire/quantum dot arrays</li>
+                        <li>• 2D material transfer</li>
                         <li>• Self-assembly techniques</li>
+                        <li>• 3D nanostructures</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Capabilities Detail Section -->
-    <section class="py-20 bg-black">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold mb-12 text-center">Advanced Capabilities</h2>
-            
-            <div class="space-y-16">
-                <!-- Epitaxy Detail -->
-                <div class="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-8 border border-cyan-400/30">
-                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">Epitaxial Growth Systems</h3>
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <h4 class="font-semibold mb-4">MOCVD Capabilities</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li>• Multi-wafer reactors (up to 6x6")</li>
-                                <li>• III-V materials: GaN, InP, GaAs, AlN</li>
-                                <li>• Precise composition control (±0.1%)</li>
-                                <li>• Growth rates: 0.1-10 μm/hr</li>
-                                <li>• In-situ reflectometry and pyrometry</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold mb-4">MBE Systems</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li>• Ultra-high vacuum (10⁻¹¹ Torr)</li>
-                                <li>• Atomic layer precision</li>
-                                <li>• RHEED for real-time monitoring</li>
-                                <li>• Quantum wells and superlattices</li>
-                                <li>• Research and low-volume production</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Processing Detail -->
-                <div class="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-8 border border-cyan-400/30">
-                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">Wafer Processing Suite</h3>
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <div class="bg-gray-700/50 rounded-lg p-4">
-                            <h4 class="font-semibold mb-3 text-cyan-300">Lithography</h4>
-                            <ul class="text-sm text-gray-300 space-y-1">
-                                <li>• 193nm DUV stepper</li>
-                                <li>• E-beam writer (10nm resolution)</li>
-                                <li>• Mask aligners</li>
-                                <li>• Resist processing</li>
-                            </ul>
-                        </div>
-                        <div class="bg-gray-700/50 rounded-lg p-4">
-                            <h4 class="font-semibold mb-3 text-cyan-300">Etching</h4>
-                            <ul class="text-sm text-gray-300 space-y-1">
-                                <li>• ICP-RIE systems</li>
-                                <li>• Deep silicon etching</li>
-                                <li>• Atomic layer etching</li>
-                                <li>• Wet chemical stations</li>
-                            </ul>
-                        </div>
-                        <div class="bg-gray-700/50 rounded-lg p-4">
-                            <h4 class="font-semibold mb-3 text-cyan-300">Deposition</h4>
-                            <ul class="text-sm text-gray-300 space-y-1">
-                                <li>• E-beam evaporation</li>
-                                <li>• Sputter deposition</li>
-                                <li>• PECVD systems</li>
-                                <li>• ALD for conformal films</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Nano-fab Detail -->
-                <div class="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-8 border border-cyan-400/30">
-                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">Nanoscale Fabrication</h3>
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <h4 class="font-semibold mb-4">Pattern Generation</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li>• E-beam lithography: 10nm features</li>
-                                <li>• Nanoimprint: <50nm patterns</li>
-                                <li>• Block copolymer self-assembly</li>
-                                <li>• Grayscale lithography for 3D structures</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold mb-4">Nanostructure Processing</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li>• FIB milling and deposition</li>
-                                <li>• Selective area growth</li>
-                                <li>• Nanowire and quantum dot fabrication</li>
-                                <li>• Plasmonic structure arrays</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Applications Section -->
+    <!-- Process Capabilities -->
     <section class="py-20 bg-gray-900">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold mb-12 text-center">Application Areas</h2>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="text-center">
-                    <div class="w-20 h-20 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-10 h-10 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                        </svg>
+            <h2 class="text-3xl font-bold mb-12 text-center">Process Capabilities</h2>
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Materials -->
+                <div class="bg-black rounded-lg p-8 border border-gray-800">
+                    <h3 class="text-xl font-semibold mb-6 text-cyan-400">Material Systems</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-medium text-gray-300 mb-2">III-V Compounds</h4>
+                            <ul class="text-sm text-gray-400 space-y-1">
+                                <li>• GaAs/AlGaAs</li>
+                                <li>• InP/InGaAs</li>
+                                <li>• GaN/AlGaN</li>
+                                <li>• GaSb/InAs</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-300 mb-2">Other Materials</h4>
+                            <ul class="text-sm text-gray-400 space-y-1">
+                                <li>• SiC epitaxy</li>
+                                <li>• 2D materials</li>
+                                <li>• Oxide heterostructures</li>
+                                <li>• Organic semiconductors</li>
+                            </ul>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Photonics</h3>
-                    <p class="text-gray-400 text-sm">Lasers, LEDs, photodetectors, waveguides</p>
                 </div>
-                
-                <div class="text-center">
-                    <div class="w-20 h-20 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-10 h-10 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
+
+                <!-- Specifications -->
+                <div class="bg-black rounded-lg p-8 border border-gray-800">
+                    <h3 class="text-xl font-semibold mb-6 text-cyan-400">Technical Specifications</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Wafer Size:</span>
+                            <span class="text-white">2" - 8" diameter</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Feature Size:</span>
+                            <span class="text-white">Down to 7nm</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Layer Uniformity:</span>
+                            <span class="text-white">< 1% variation</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Throughput:</span>
+                            <span class="text-white">Up to 100 wafers/day</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Clean Room:</span>
+                            <span class="text-white">Class 10/100</span>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Power Electronics</h3>
-                    <p class="text-gray-400 text-sm">GaN HEMTs, SiC devices, power modules</p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="w-20 h-20 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-10 h-10 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">MEMS/NEMS</h3>
-                    <p class="text-gray-400 text-sm">Sensors, actuators, resonators, filters</p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="w-20 h-20 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-10 h-10 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">Quantum Devices</h3>
-                    <p class="text-gray-400 text-sm">Qubits, single photon sources, detectors</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Process Flow Section -->
+    <!-- Device Types -->
     <section class="py-20 bg-black">
         <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Supported Device Types</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Photonic Devices -->
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
+                    <h3 class="text-lg font-semibold mb-3 text-cyan-400">Photonic Devices</h3>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li>• Laser diodes</li>
+                        <li>• LEDs & μLEDs</li>
+                        <li>• Photodetectors</li>
+                        <li>• Modulators</li>
+                        <li>• Waveguides</li>
+                        <li>• Photonic crystals</li>
+                    </ul>
+                </div>
+
+                <!-- Electronic Devices -->
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
+                    <h3 class="text-lg font-semibold mb-3 text-cyan-400">Electronic Devices</h3>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li>• HEMTs</li>
+                        <li>• HBTs</li>
+                        <li>• Power transistors</li>
+                        <li>• RF devices</li>
+                        <li>• Memory devices</li>
+                        <li>• Logic circuits</li>
+                    </ul>
+                </div>
+
+                <!-- Quantum Devices -->
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
+                    <h3 class="text-lg font-semibold mb-3 text-cyan-400">Quantum Devices</h3>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li>• Quantum dots</li>
+                        <li>• Single photon sources</li>
+                        <li>• Quantum wells</li>
+                        <li>• Superconducting qubits</li>
+                        <li>• Quantum sensors</li>
+                        <li>• Spin devices</li>
+                    </ul>
+                </div>
+
+                <!-- MEMS/NEMS -->
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
+                    <h3 class="text-lg font-semibold mb-3 text-cyan-400">MEMS/NEMS</h3>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li>• Accelerometers</li>
+                        <li>• Pressure sensors</li>
+                        <li>• Resonators</li>
+                        <li>• Actuators</li>
+                        <li>• Microfluidics</li>
+                        <li>• Bio-MEMS</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prototyping Process -->
+    <section class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
             <h2 class="text-3xl font-bold mb-12 text-center">Prototyping Process</h2>
-            
             <div class="max-w-4xl mx-auto">
                 <div class="space-y-8">
                     <!-- Step 1 -->
                     <div class="flex items-start">
-                        <div class="w-12 h-12 bg-cyan-400 rounded-full flex items-center justify-center flex-shrink-0">
-                            <span class="font-bold">1</span>
-                        </div>
-                        <div class="ml-6">
+                        <div class="bg-cyan-400 text-black rounded-full w-10 h-10 flex items-center justify-center font-bold mr-6 flex-shrink-0">1</div>
+                        <div>
                             <h3 class="text-xl font-semibold mb-2">Design Consultation</h3>
-                            <p class="text-gray-300">Work with our engineers to optimize your design for manufacturability and performance</p>
+                            <p class="text-gray-300">Work with our engineers to optimize your device design for manufacturability and performance</p>
                         </div>
                     </div>
 
                     <!-- Step 2 -->
                     <div class="flex items-start">
-                        <div class="w-12 h-12 bg-cyan-400 rounded-full flex items-center justify-center flex-shrink-0">
-                            <span class="font-bold">2</span>
-                        </div>
-                        <div class="ml-6">
+                        <div class="bg-cyan-400 text-black rounded-full w-10 h-10 flex items-center justify-center font-bold mr-6 flex-shrink-0">2</div>
+                        <div>
                             <h3 class="text-xl font-semibold mb-2">Process Development</h3>
-                            <p class="text-gray-300">Create custom process flows tailored to your specific requirements</p>
+                            <p class="text-gray-300">Develop custom process flows tailored to your specific requirements and materials</p>
                         </div>
                     </div>
 
                     <!-- Step 3 -->
                     <div class="flex items-start">
-                        <div class="w-12 h-12 bg-cyan-400 rounded-full flex items-center justify-center flex-shrink-0">
-                            <span class="font-bold">3</span>
-                        </div>
-                        <div class="ml-6">
+                        <div class="bg-cyan-400 text-black rounded-full w-10 h-10 flex items-center justify-center font-bold mr-6 flex-shrink-0">3</div>
+                        <div>
                             <h3 class="text-xl font-semibold mb-2">Fabrication</h3>
-                            <p class="text-gray-300">Execute fabrication with rigorous process control and in-line monitoring</p>
+                            <p class="text-gray-300">Execute the fabrication process with real-time monitoring and quality control</p>
                         </div>
                     </div>
 
                     <!-- Step 4 -->
                     <div class="flex items-start">
-                        <div class="w-12 h-12 bg-cyan-400 rounded-full flex items-center justify-center flex-shrink-0">
-                            <span class="font-bold">4</span>
-                        </div>
-                        <div class="ml-6">
+                        <div class="bg-cyan-400 text-black rounded-full w-10 h-10 flex items-center justify-center font-bold mr-6 flex-shrink-0">4</div>
+                        <div>
                             <h3 class="text-xl font-semibold mb-2">Characterization</h3>
-                            <p class="text-gray-300">Comprehensive testing and analysis to verify device performance</p>
+                            <p class="text-gray-300">Comprehensive testing and characterization to verify device performance</p>
                         </div>
                     </div>
 
                     <!-- Step 5 -->
                     <div class="flex items-start">
-                        <div class="w-12 h-12 bg-cyan-400 rounded-full flex items-center justify-center flex-shrink-0">
-                            <span class="font-bold">5</span>
-                        </div>
-                        <div class="ml-6">
-                            <h3 class="text-xl font-semibold mb-2">Iteration & Scale-up</h3>
-                            <p class="text-gray-300">Rapid design iterations and path to volume production</p>
+                        <div class="bg-cyan-400 text-black rounded-full w-10 h-10 flex items-center justify-center font-bold mr-6 flex-shrink-0">5</div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Iteration & Optimization</h3>
+                            <p class="text-gray-300">Rapid design iterations based on test results to achieve optimal performance</p>
                         </div>
                     </div>
                 </div>
@@ -306,40 +309,90 @@
         </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- Equipment & Facilities -->
+    <section class="py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Equipment & Facilities</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Growth Systems -->
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
+                    <h3 class="text-lg font-semibold mb-4 text-cyan-400">Growth Systems</h3>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li>• Aixtron CCS MOCVD</li>
+                        <li>• Veeco GEN2000 MBE</li>
+                        <li>• CVD systems</li>
+                        <li>• ALD reactors</li>
+                        <li>• PVD/sputtering</li>
+                    </ul>
+                </div>
+
+                <!-- Lithography -->
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
+                    <h3 class="text-lg font-semibold mb-4 text-cyan-400">Lithography</h3>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li>• ASML DUV scanner</li>
+                        <li>• Raith EBPG5200</li>
+                        <li>• Heidelberg μPG</li>
+                        <li>• Nanoimprint tools</li>
+                        <li>• Mask aligners</li>
+                    </ul>
+                </div>
+
+                <!-- Characterization -->
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
+                    <h3 class="text-lg font-semibold mb-4 text-cyan-400">Characterization</h3>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li>• HR-XRD</li>
+                        <li>• AFM/STM</li>
+                        <li>• SEM/TEM</li>
+                        <li>• Ellipsometry</li>
+                        <li>• Probe stations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
     <section class="py-20 bg-gray-900">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold mb-12 text-center">Why Choose O.R.I.O.N</h2>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg p-6 border border-cyan-400/30">
-                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Rapid Turnaround</h3>
-                    <p class="text-gray-300">2-4 week typical cycle time from design to prototype delivery</p>
+            <h2 class="text-3xl font-bold mb-12 text-center">Why Choose Our Services</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Rapid Turnaround</h3>
+                    <p class="text-gray-400 text-sm">2-4 week typical cycle time from design to prototype</p>
                 </div>
-                
-                <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg p-6 border border-cyan-400/30">
-                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Expert Support</h3>
-                    <p class="text-gray-300">PhD-level engineers guide your project from concept to completion</p>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Expert Support</h3>
+                    <p class="text-gray-400 text-sm">Dedicated process engineers throughout your project</p>
                 </div>
-                
-                <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg p-6 border border-cyan-400/30">
-                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Flexible Volumes</h3>
-                    <p class="text-gray-300">From single devices to pilot production runs up to 1000 units</p>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Cost Effective</h3>
+                    <p class="text-gray-400 text-sm">Shared facility model reduces development costs</p>
                 </div>
-                
-                <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg p-6 border border-cyan-400/30">
-                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">IP Protection</h3>
-                    <p class="text-gray-300">Strict confidentiality with comprehensive NDAs and secure facilities</p>
-                </div>
-                
-                <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg p-6 border border-cyan-400/30">
-                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Quality Assurance</h3>
-                    <p class="text-gray-300">ISO 9001 certified processes with full traceability</p>
-                </div>
-                
-                <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg p-6 border border-cyan-400/30">
-                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Technology Transfer</h3>
-                    <p class="text-gray-300">Seamless transition from prototype to production fab</p>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">IP Protection</h3>
+                    <p class="text-gray-400 text-sm">Strict confidentiality and secure facilities</p>
                 </div>
             </div>
         </div>
@@ -348,16 +401,18 @@
     <!-- CTA Section -->
     <section class="py-20 bg-gradient-to-r from-cyan-600 to-blue-600">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold mb-4">Accelerate Your Innovation</h2>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                Accelerate Your Device Development
+            </h2>
             <p class="text-xl mb-8 max-w-2xl mx-auto">
-                Partner with O.R.I.O.N for world-class prototyping and fabrication services
+                Partner with us to transform your innovative designs into functional prototypes with our comprehensive fabrication services
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="mailto:prototyping@orion.com" class="bg-white text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
                     Start Your Project
                 </a>
-                <a href="#" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors">
-                    Capability Overview
+                <a href="orion.html" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors">
+                    Back to O.R.I.O.N
                 </a>
             </div>
         </div>

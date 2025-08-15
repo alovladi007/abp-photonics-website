@@ -6,56 +6,35 @@
     <title>AI/LLM-Assisted Design - O.R.I.O.N | M.Y. Engineering and Technologies</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .constellation-bg {
-            background-image: url('Nanotechnology.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
+        .gradient-text {
+            background: linear-gradient(135deg, #00ffff 0%, #0080ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .constellation-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 1;
+        .tech-bg {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
         }
-        .constellation-bg > * {
-            position: relative;
-            z-index: 2;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        .animate-pulse-slow {
-            animation: pulse 2s ease-in-out infinite;
-        }
-        .code-block {
-            background-color: #1a1a1a;
+        .code-bg {
+            background-color: #1e1e1e;
             border: 1px solid #333;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            overflow-x: auto;
-            font-family: 'Courier New', monospace;
-            font-size: 0.875rem;
+        }
+        .module-flow {
+            background: linear-gradient(90deg, #1a1a2e 0%, #0f0f1e 100%);
         }
     </style>
 </head>
 <body class="bg-black text-white">
     <!-- Navigation -->
-    <nav class="bg-black/90 backdrop-blur-sm fixed w-full z-50">
+    <nav class="bg-black/90 backdrop-blur-sm fixed w-full z-50 border-b border-gray-800">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-8">
                     <a href="index.html" class="text-2xl font-bold">M.Y. Engineering and Technologies</a>
                     <span class="text-gray-400">|</span>
                     <a href="orion.html" class="text-xl text-cyan-400">O.R.I.O.N</a>
                 </div>
-                <div class="hidden md:flex space-x-8">
+                <div class="hidden md:flex items-center space-x-6">
                     <a href="orion.html#services" class="hover:text-cyan-400 transition-colors">Services</a>
                     <a href="orion.html#technologies" class="hover:text-cyan-400 transition-colors">Technologies</a>
                     <a href="orion.html#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
@@ -65,43 +44,42 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="constellation-bg min-h-[60vh] flex items-center justify-center">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                AI/LLM-Assisted Materials Design
-            </h1>
-            <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                Advanced LLM-powered platform for accelerated materials discovery and device optimization
-            </p>
+    <section class="pt-32 pb-20 tech-bg">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">AI/LLM-Assisted Design</span>
+                </h1>
+                <p class="text-xl text-gray-300 mb-8">
+                    Advanced material design platform accelerating discovery and device optimization through cutting-edge AI
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <span class="px-4 py-2 bg-cyan-400/20 border border-cyan-400/50 rounded-full text-cyan-400">Knowledge Graphs</span>
+                    <span class="px-4 py-2 bg-cyan-400/20 border border-cyan-400/50 rounded-full text-cyan-400">LLM Reasoning</span>
+                    <span class="px-4 py-2 bg-cyan-400/20 border border-cyan-400/50 rounded-full text-cyan-400">Predictive Models</span>
+                    <span class="px-4 py-2 bg-cyan-400/20 border border-cyan-400/50 rounded-full text-cyan-400">Inverse Design</span>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Overview Section -->
-    <section class="py-20">
+    <section class="py-20 bg-gray-900">
         <div class="container mx-auto px-6">
             <div class="max-w-4xl mx-auto">
-                <h2 class="text-4xl font-bold mb-8 text-center">Revolutionary Materials Design Platform</h2>
-                <p class="text-xl text-gray-300 mb-8">
-                    Our AI/LLM-Assisted Design platform represents the cutting edge of materials science, combining advanced 
-                    language models with domain-specific knowledge to accelerate discovery and optimization of novel materials. 
-                    This platform integrates literature mining, property prediction, and inverse design capabilities to transform 
-                    how materials are discovered and developed.
-                </p>
-                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
-                    <h3 class="text-2xl font-semibold mb-4 text-cyan-400">Platform Highlights</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <ul class="space-y-2 text-gray-300">
-                            <li>• Literature-driven knowledge extraction</li>
-                            <li>• AI-powered property prediction</li>
-                            <li>• Automated synthesis planning</li>
-                            <li>• Multi-modal data integration</li>
-                        </ul>
-                        <ul class="space-y-2 text-gray-300">
-                            <li>• Inverse design capabilities</li>
-                            <li>• Real-time safety validation</li>
-                            <li>• Seamless lab integration</li>
-                            <li>• 81% accuracy in morphology prediction</li>
-                        </ul>
+                <h2 class="text-3xl font-bold mb-8 text-center">Platform Overview</h2>
+                <div class="prose prose-lg prose-invert mx-auto">
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Our AI/LLM-Assisted Design platform represents a paradigm shift in materials discovery and device optimization. By combining state-of-the-art language models with domain-specific knowledge graphs and predictive models, we enable researchers to accelerate the development cycle from years to weeks.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        The platform integrates literature mining, property prediction, hypothesis generation, and inverse design capabilities into a unified system that learns from both published research and experimental data.
+                    </p>
+                    <div class="bg-black rounded-lg p-6 border border-cyan-400/20 mt-8">
+                        <p class="text-cyan-400 font-semibold mb-2">Key Achievement:</p>
+                        <p class="text-gray-300">
+                            Building on ITMO's breakthrough showing GPT-4 can predict nanoparticle shapes with ~81% accuracy, our platform extends this capability across the entire materials design workflow.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -109,174 +87,153 @@
     </section>
 
     <!-- System Architecture -->
-    <section class="py-20 bg-gray-900">
+    <section class="py-20 bg-black">
         <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-12 text-center">System Architecture</h2>
+            <h2 class="text-3xl font-bold mb-12 text-center">System Architecture</h2>
             
-            <!-- Knowledge Graph Module -->
-            <div class="mb-12">
-                <h3 class="text-3xl font-semibold mb-6 text-cyan-400">Literature → Knowledge Graph (KG)</h3>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-black rounded-lg p-6 border border-cyan-400/20">
-                        <h4 class="text-xl font-semibold mb-4">Ingestion Pipeline</h4>
-                        <ul class="space-y-3 text-gray-300">
-                            <li>
-                                <strong class="text-cyan-300">PDFs → XML:</strong> GROBID for structured extraction
-                                <span class="text-sm text-gray-400 block">Parse text, tables, references automatically</span>
-                            </li>
-                            <li>
-                                <strong class="text-cyan-300">Chemical Extraction:</strong> ChemDataExtractor (CDE)
-                                <span class="text-sm text-gray-400 block">Domain-specific NER for materials and properties</span>
-                            </li>
-                            <li>
-                                <strong class="text-cyan-300">NLP Models:</strong> MatSciBERT/MatBERT
-                                <span class="text-sm text-gray-400 block">Fine-tuned transformers for materials science</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="bg-black rounded-lg p-6 border border-cyan-400/20">
-                        <h4 class="text-xl font-semibold mb-4">Data Normalization & Storage</h4>
-                        <ul class="space-y-3 text-gray-300">
-                            <li>
-                                <strong class="text-cyan-300">Chemical Normalization:</strong> OPSIN/SMILES/InChI
-                                <span class="text-sm text-gray-400 block">Standardized molecular representations</span>
-                            </li>
-                            <li>
-                                <strong class="text-cyan-300">Ontologies:</strong> eNanoMapper, NanoMine schema
-                                <span class="text-sm text-gray-400 block">Structured vocabularies for consistency</span>
-                            </li>
-                            <li>
-                                <strong class="text-cyan-300">Storage:</strong> Neo4j graph + Parquet tables
-                                <span class="text-sm text-gray-400 block">Flexible querying and analytics</span>
-                            </li>
-                        </ul>
+            <!-- Module Flow Diagram -->
+            <div class="max-w-6xl mx-auto mb-16">
+                <div class="module-flow rounded-lg p-8 border border-cyan-400/20">
+                    <div class="grid md:grid-cols-4 gap-6">
+                        <!-- Literature Module -->
+                        <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/30">
+                            <h3 class="text-lg font-semibold mb-3 text-cyan-400">Literature → KG</h3>
+                            <ul class="space-y-2 text-sm text-gray-300">
+                                <li>• PDF ingestion (GROBID)</li>
+                                <li>• NER extraction</li>
+                                <li>• Normalization</li>
+                                <li>• KG storage</li>
+                            </ul>
+                        </div>
+
+                        <!-- LLM Layer -->
+                        <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/30">
+                            <h3 class="text-lg font-semibold mb-3 text-cyan-400">LLM Layer</h3>
+                            <ul class="space-y-2 text-sm text-gray-300">
+                                <li>• RAG retrieval</li>
+                                <li>• Planning & orchestration</li>
+                                <li>• Tool calling</li>
+                                <li>• Chain-of-thought</li>
+                            </ul>
+                        </div>
+
+                        <!-- Predictors -->
+                        <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/30">
+                            <h3 class="text-lg font-semibold mb-3 text-cyan-400">Predictors</h3>
+                            <ul class="space-y-2 text-sm text-gray-300">
+                                <li>• Structure/property</li>
+                                <li>• Spectra & images</li>
+                                <li>• Text-to-property</li>
+                                <li>• Uncertainty quantification</li>
+                            </ul>
+                        </div>
+
+                        <!-- Inverse Design -->
+                        <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/30">
+                            <h3 class="text-lg font-semibold mb-3 text-cyan-400">Inverse Design</h3>
+                            <ul class="space-y-2 text-sm text-gray-300">
+                                <li>• Bayesian optimization</li>
+                                <li>• RL/Tree search</li>
+                                <li>• Generative models</li>
+                                <li>• Safety checks</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- LLM Layer -->
-            <div class="mb-12">
-                <h3 class="text-3xl font-semibold mb-6 text-cyan-400">LLM Layer (Reasoning + RAG)</h3>
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div class="bg-black rounded-lg p-6 border border-cyan-400/20">
-                        <h4 class="text-xl font-semibold mb-3">Retriever</h4>
-                        <p class="text-gray-300 text-sm">
-                            BM25 + dense embeddings (MatSciBERT) for hybrid search over KG and documents
-                        </p>
-                    </div>
-                    <div class="bg-black rounded-lg p-6 border border-cyan-400/20">
-                        <h4 class="text-xl font-semibold mb-3">Planner</h4>
-                        <p class="text-gray-300 text-sm">
-                            Instruction-tuned LLM orchestrating tools: literature_scout, extract_recipe, predict_property
-                        </p>
-                    </div>
-                    <div class="bg-black rounded-lg p-6 border border-cyan-400/20">
-                        <h4 class="text-xl font-semibold mb-3">Prompting</h4>
-                        <p class="text-gray-300 text-sm">
-                            Tool-former style function-calling with YAML I/O contracts for structured data
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Predictors -->
-            <div class="mb-12">
-                <h3 class="text-3xl font-semibold mb-6 text-cyan-400">Specialized Predictors</h3>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-black rounded-lg p-6 border border-cyan-400/20">
-                        <h4 class="text-lg font-semibold mb-2">Structure/Property</h4>
-                        <p class="text-gray-400 text-sm">ALIGNN, CGCNN, MEGNet for band gap, stability, elastic moduli</p>
-                    </div>
-                    <div class="bg-black rounded-lg p-6 border border-cyan-400/20">
-                        <h4 class="text-lg font-semibold mb-2">XRD Analysis</h4>
-                        <p class="text-gray-400 text-sm">CNN/Transformers for phase identification from patterns</p>
-                    </div>
-                    <div class="bg-black rounded-lg p-6 border border-cyan-400/20">
-                        <h4 class="text-lg font-semibold mb-2">Raman Spectroscopy</h4>
-                        <p class="text-gray-400 text-sm">RamanFormer for mixture quantification and denoising</p>
-                    </div>
-                    <div class="bg-black rounded-lg p-6 border border-cyan-400/20">
-                        <h4 class="text-lg font-semibold mb-2">Microscopy</h4>
-                        <p class="text-gray-400 text-sm">U-Net for TEM/SEM morphology segmentation</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Core Capabilities -->
-    <section class="py-20">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-12 text-center">Core Capabilities</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
-                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">1. Literature Mining & Synthesis</h3>
-                    <div class="space-y-4">
+            <!-- Technical Components -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Knowledge Graph -->
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Knowledge Graph Construction</h3>
+                    <div class="space-y-3 text-gray-300">
                         <div>
-                            <h4 class="font-semibold mb-2">Automated Extraction Pipeline</h4>
-                            <p class="text-gray-400 text-sm">PDF → XML (GROBID) → CDE extractors → MatSciBERT classification → KG edges</p>
+                            <p class="font-medium mb-1">Ingestion Pipeline:</p>
+                            <ul class="text-sm space-y-1 ml-4">
+                                <li>• GROBID for PDF → XML conversion</li>
+                                <li>• ChemDataExtractor for chemistry NER</li>
+                                <li>• MatSciBERT for materials entities</li>
+                            </ul>
                         </div>
                         <div>
-                            <h4 class="font-semibold mb-2">Knowledge Relationships</h4>
-                            <p class="text-gray-400 text-sm">"reagent" —used_in→ "step", "step" —yields→ "morphology", "step" —at→ "condition"</p>
+                            <p class="font-medium mb-1">Normalization:</p>
+                            <ul class="text-sm space-y-1 ml-4">
+                                <li>• OPSIN/SMILES/InChI conversion</li>
+                                <li>• Unit standardization</li>
+                                <li>• Ontology mapping (eNanoMapper)</li>
+                            </ul>
                         </div>
                         <div>
-                            <h4 class="font-semibold mb-2">Evidence-Based Summaries</h4>
-                            <p class="text-gray-400 text-sm">LLM with RAG generates evidence cards citing DOIs and extracted tables</p>
+                            <p class="font-medium mb-1">Storage:</p>
+                            <ul class="text-sm space-y-1 ml-4">
+                                <li>• Neo4j graph database</li>
+                                <li>• Parquet fact tables</li>
+                                <li>• Vector embeddings</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
-                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">2. Property Prediction</h3>
-                    <div class="space-y-4">
+                <!-- LLM Reasoning -->
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">LLM Reasoning + RAG</h3>
+                    <div class="space-y-3 text-gray-300">
                         <div>
-                            <h4 class="font-semibold mb-2">Structure-Based Prediction</h4>
-                            <p class="text-gray-400 text-sm">ALIGNN/CGCNN/MEGNet models fine-tuned on JARVIS/MP datasets</p>
+                            <p class="font-medium mb-1">Retrieval:</p>
+                            <ul class="text-sm space-y-1 ml-4">
+                                <li>• BM25 keyword search</li>
+                                <li>• Dense embeddings (MatSciBERT)</li>
+                                <li>• Graph traversal queries</li>
+                            </ul>
                         </div>
                         <div>
-                            <h4 class="font-semibold mb-2">Text-Only Prediction</h4>
-                            <p class="text-gray-400 text-sm">MatSciBERT/LLM embeddings → gradient boosting with calibrated uncertainty</p>
+                            <p class="font-medium mb-1">Planning:</p>
+                            <ul class="text-sm space-y-1 ml-4">
+                                <li>• Tool-former style function calling</li>
+                                <li>• Chain-of-thought reasoning</li>
+                                <li>• YAML I/O contracts</li>
+                            </ul>
                         </div>
                         <div>
-                            <h4 class="font-semibold mb-2">ITMO Benchmark</h4>
-                            <p class="text-gray-400 text-sm">81% accuracy in nanoparticle shape prediction from synthesis descriptions</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
-                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">3. Hypothesis Generation</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-semibold mb-2">Experimental Design</h4>
-                            <p class="text-gray-400 text-sm">LLM generates candidate recipes + DOE matrix with factor ranges</p>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold mb-2">Optimization Loop</h4>
-                            <p class="text-gray-400 text-sm">Bayesian optimization over process parameters with acquisition functions</p>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold mb-2">Safety Integration</h4>
-                            <p class="text-gray-400 text-sm">Automatic safety notes and constraint validation</p>
+                            <p class="font-medium mb-1">Available Tools:</p>
+                            <ul class="text-sm space-y-1 ml-4">
+                                <li>• literature_scout</li>
+                                <li>• extract_recipe</li>
+                                <li>• predict_property</li>
+                                <li>• optimize_design</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
-                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">4. Inverse Design</h3>
-                    <div class="space-y-4">
+                <!-- Predictive Models -->
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Predictive Models</h3>
+                    <div class="space-y-3 text-gray-300">
                         <div>
-                            <h4 class="font-semibold mb-2">Structural Targets</h4>
-                            <p class="text-gray-400 text-sm">Generative models propose morphologies validated by physics filters</p>
+                            <p class="font-medium mb-1">Structure → Property:</p>
+                            <ul class="text-sm space-y-1 ml-4">
+                                <li>• ALIGNN (graph neural networks)</li>
+                                <li>• CGCNN (crystal graphs)</li>
+                                <li>• MEGNet (molecular graphs)</li>
+                            </ul>
                         </div>
                         <div>
-                            <h4 class="font-semibold mb-2">Process Optimization</h4>
-                            <p class="text-gray-400 text-sm">Tree search over step sequences with Bayesian optimization for parameters</p>
+                            <p class="font-medium mb-1">Spectra Analysis:</p>
+                            <ul class="text-sm space-y-1 ml-4">
+                                <li>• XRD phase ID (CNN/transformers)</li>
+                                <li>• Raman (RamanFormer)</li>
+                                <li>• TEM/SEM (U-Net segmentation)</li>
+                            </ul>
                         </div>
                         <div>
-                            <h4 class="font-semibold mb-2">Synthesis Routes</h4>
-                            <p class="text-gray-400 text-sm">LLM proposes synthesizable pathways for target properties</p>
+                            <p class="font-medium mb-1">Text → Property:</p>
+                            <ul class="text-sm space-y-1 ml-4">
+                                <li>• LLM embeddings → regressor</li>
+                                <li>• 81% accuracy on morphology</li>
+                                <li>• Uncertainty calibration</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -287,12 +244,13 @@
     <!-- Data Schemas -->
     <section class="py-20 bg-gray-900">
         <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-12 text-center">Data Schemas</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-2xl font-semibold mb-4 text-cyan-400">material_entity.yaml</h3>
-                    <div class="code-block">
-                        <pre class="text-cyan-300">material:
+            <h2 class="text-3xl font-bold mb-12 text-center">Data Schemas</h2>
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Material Entity Schema -->
+                <div class="bg-black rounded-lg p-6 border border-gray-800">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">material_entity.yaml</h3>
+                    <pre class="code-bg rounded p-4 text-sm overflow-x-auto">
+<code class="text-gray-300">material:
   name: "Au nanorod"
   composition: "Au"
   structure: 
@@ -302,13 +260,14 @@
   target_properties:
     - name: "LSPR_longitudinal_nm"
       value: 800
-      tol: 20</pre>
-                    </div>
+      tol: 20</code></pre>
                 </div>
-                <div>
-                    <h3 class="text-2xl font-semibold mb-4 text-cyan-400">synthesis_step.yaml</h3>
-                    <div class="code-block">
-                        <pre class="text-cyan-300">step:
+
+                <!-- Synthesis Step Schema -->
+                <div class="bg-black rounded-lg p-6 border border-gray-800">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">synthesis_step.yaml</h3>
+                    <pre class="code-bg rounded p-4 text-sm overflow-x-auto">
+<code class="text-gray-300">step:
   method: "seed-mediated growth"
   reagents:
     - {name: "HAuCl4", conc_mM: 0.5}
@@ -324,134 +283,215 @@
   outcomes: 
     morphology: "rod"
     AR: 3.5-3.8
-    LSPR_nm: 780-820</pre>
+    LSPR_nm: 780-820</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Capabilities -->
+    <section class="py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Core Capabilities</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Capability 1 -->
+                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-cyan-400/20 rounded-lg flex items-center justify-center mr-4">
+                            <span class="text-cyan-400 font-bold">1</span>
+                        </div>
+                        <h3 class="text-xl font-semibold">Literature Parsing & Summarization</h3>
                     </div>
+                    <p class="text-gray-300 mb-4">
+                        Automatically extract synthesis recipes, characterization data, and property measurements from scientific papers.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li>• PDF → structured data pipeline</li>
+                        <li>• Evidence cards with DOI citations</li>
+                        <li>• Cross-reference validation</li>
+                    </ul>
+                </div>
+
+                <!-- Capability 2 -->
+                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-cyan-400/20 rounded-lg flex items-center justify-center mr-4">
+                            <span class="text-cyan-400 font-bold">2</span>
+                        </div>
+                        <h3 class="text-xl font-semibold">Property Prediction</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Predict material properties from structure or even just text descriptions with calibrated uncertainty.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li>• GNN models for crystal structures</li>
+                        <li>• Text-to-property with 81% accuracy</li>
+                        <li>• Uncertainty quantification</li>
+                    </ul>
+                </div>
+
+                <!-- Capability 3 -->
+                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-cyan-400/20 rounded-lg flex items-center justify-center mr-4">
+                            <span class="text-cyan-400 font-bold">3</span>
+                        </div>
+                        <h3 class="text-xl font-semibold">Hypothesis Generation</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Generate novel synthesis approaches and experimental designs based on target properties and constraints.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li>• LLM-driven experimental design</li>
+                        <li>• DOE matrix generation</li>
+                        <li>• Safety and feasibility checks</li>
+                    </ul>
+                </div>
+
+                <!-- Capability 4 -->
+                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-cyan-400/20 rounded-lg flex items-center justify-center mr-4">
+                            <span class="text-cyan-400 font-bold">4</span>
+                        </div>
+                        <h3 class="text-xl font-semibold">Inverse Design</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Start with desired properties and work backwards to find materials and synthesis routes.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li>• Bayesian optimization</li>
+                        <li>• Generative models</li>
+                        <li>• Synthesis route planning</li>
+                    </ul>
+                </div>
+
+                <!-- Capability 5 -->
+                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-cyan-400/20 rounded-lg flex items-center justify-center mr-4">
+                            <span class="text-cyan-400 font-bold">5</span>
+                        </div>
+                        <h3 class="text-xl font-semibold">Multimodal Integration</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Combine text, images, spectra, and structural data for comprehensive analysis.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li>• TEM/SEM image analysis</li>
+                        <li>• XRD/Raman interpretation</li>
+                        <li>• Cross-modal validation</li>
+                    </ul>
+                </div>
+
+                <!-- Capability 6 -->
+                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-cyan-400/20 rounded-lg flex items-center justify-center mr-4">
+                            <span class="text-cyan-400 font-bold">6</span>
+                        </div>
+                        <h3 class="text-xl font-semibold">Safety & Compliance</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Built-in safety checks and regulatory compliance for all proposed materials and processes.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li>• eNanoMapper hazard checks</li>
+                        <li>• Toxicity predictions</li>
+                        <li>• Regulatory compliance</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Workflows -->
-    <section class="py-20">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-12 text-center">Example Workflows</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
-                    <h3 class="text-2xl font-semibold mb-4 text-cyan-400">Text → Morphology Prediction</h3>
-                    <div class="space-y-4">
-                        <div class="bg-black rounded p-4">
-                            <p class="text-sm text-gray-400 mb-2">User Input:</p>
-                            <p class="text-cyan-300">"Seed-mediated Au in CTAB + Ag+ co-ion; mild AA; 25–30 °C."</p>
-                        </div>
-                        <div class="bg-black rounded p-4">
-                            <p class="text-sm text-gray-400 mb-2">System Process:</p>
-                            <ul class="text-gray-300 text-sm space-y-1">
-                                <li>• Embed description using MatSciBERT</li>
-                                <li>• Classify morphology: rod vs sphere vs cube</li>
-                                <li>• Estimate aspect ratio with confidence</li>
-                            </ul>
-                        </div>
-                        <div class="bg-black rounded p-4">
-                            <p class="text-sm text-gray-400 mb-2">Output:</p>
-                            <p class="text-green-400">"Predicted: Rod, AR≈3–4 (81% confidence). Suggest UV-Vis check (LSPR 760–820 nm) and TEM validation."</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
-                    <h3 class="text-2xl font-semibold mb-4 text-cyan-400">Inverse Design for Plasmonics</h3>
-                    <div class="space-y-4">
-                        <div class="bg-black rounded p-4">
-                            <p class="text-sm text-gray-400 mb-2">Target:</p>
-                            <p class="text-cyan-300">800 nm LSPR in water with Au nanorods</p>
-                        </div>
-                        <div class="bg-black rounded p-4">
-                            <p class="text-sm text-gray-400 mb-2">Planner Output:</p>
-                            <ul class="text-gray-300 text-sm space-y-1">
-                                <li>• Seed recipe + CTAB/AgNO₃/AA ranges</li>
-                                <li>• 12-run DOE for optimization</li>
-                                <li>• AR↔LSPR trend analysis</li>
-                            </ul>
-                        </div>
-                        <div class="bg-black rounded p-4">
-                            <p class="text-sm text-gray-400 mb-2">Optimization Result:</p>
-                            <p class="text-green-400">T=28°C, [Ag+] 0.08–0.12 mM, AA 0.6–0.7 mM with uncertainty bands + literature evidence</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Technical Stack -->
     <section class="py-20 bg-gray-900">
         <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-12 text-center">Technical Stack</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-black rounded-lg p-6 border border-cyan-400/20">
-                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Core Infrastructure</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li>• Python + FastAPI backend</li>
-                        <li>• Ray for distributed workers</li>
-                        <li>• Postgres for structured data</li>
-                        <li>• Neo4j for knowledge graphs</li>
-                        <li>• MinIO for artifact storage</li>
-                    </ul>
+            <h2 class="text-3xl font-bold mb-12 text-center">Example Workflows</h2>
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Workflow A -->
+                <div class="bg-black rounded-lg p-8 border border-gray-800">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">A) Text → Morphology Prediction</h3>
+                    <div class="space-y-4">
+                        <div class="bg-gray-900 rounded p-4">
+                            <p class="text-sm font-medium text-gray-400 mb-2">User Input:</p>
+                            <p class="text-gray-300">"Seed-mediated Au in CTAB + Ag+ co-ion; mild AA; 25–30 °C"</p>
+                        </div>
+                        <div class="bg-gray-900 rounded p-4">
+                            <p class="text-sm font-medium text-gray-400 mb-2">System Output:</p>
+                            <ul class="space-y-1 text-gray-300">
+                                <li>• Predicted: Rod morphology</li>
+                                <li>• Aspect ratio: 3-4</li>
+                                <li>• Confidence: 81%</li>
+                                <li>• Suggested validation: UV-Vis (LSPR 760-820 nm)</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-black rounded-lg p-6 border border-cyan-400/20">
-                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">ML/AI Stack</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li>• HuggingFace transformers</li>
-                        <li>• PyTorch for GNNs</li>
-                        <li>• GROBID for parsing</li>
-                        <li>• ChemDataExtractor</li>
-                        <li>• MatSciBERT models</li>
-                    </ul>
-                </div>
-                <div class="bg-black rounded-lg p-6 border border-cyan-400/20">
-                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">User Interface</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li>• Streamlit/Gradio apps</li>
-                        <li>• "Ask the literature" tool</li>
-                        <li>• "Design to target" wizard</li>
-                        <li>• "Experiment planner"</li>
-                        <li>• "Image analyzer" suite</li>
-                    </ul>
+
+                <!-- Workflow B -->
+                <div class="bg-black rounded-lg p-8 border border-gray-800">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">B) Inverse Design for Plasmonics</h3>
+                    <div class="space-y-4">
+                        <div class="bg-gray-900 rounded p-4">
+                            <p class="text-sm font-medium text-gray-400 mb-2">Target:</p>
+                            <p class="text-gray-300">800 nm LSPR in water with Au nanorods</p>
+                        </div>
+                        <div class="bg-gray-900 rounded p-4">
+                            <p class="text-sm font-medium text-gray-400 mb-2">System Output:</p>
+                            <ul class="space-y-1 text-gray-300">
+                                <li>• Seed recipe + CTAB/AgNO₃/AA ranges</li>
+                                <li>• 12-run DOE matrix</li>
+                                <li>• Optimal: T=28°C, [Ag+] 0.08-0.12 mM</li>
+                                <li>• Literature evidence cards attached</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Implementation Timeline -->
-    <section class="py-20">
+    <!-- Tech Stack -->
+    <section class="py-20 bg-black">
         <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-12 text-center">6-Week Implementation Plan</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
-                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Weeks 1-2: Foundation</h3>
+            <h2 class="text-3xl font-bold mb-12 text-center">Technology Stack</h2>
+            <div class="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20 text-center">
+                    <h3 class="text-lg font-semibold mb-3 text-cyan-400">Core Platform</h3>
                     <ul class="space-y-2 text-gray-300 text-sm">
-                        <li>• Set up GROBID + CDE ingestion</li>
-                        <li>• Build NER/relation classifiers</li>
-                        <li>• Create KG schemas and storage</li>
-                        <li>• Initial data pipeline testing</li>
+                        <li>Python</li>
+                        <li>FastAPI</li>
+                        <li>Ray (distributed)</li>
+                        <li>Docker/K8s</li>
                     </ul>
                 </div>
-                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
-                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Weeks 3-4: Core Features</h3>
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20 text-center">
+                    <h3 class="text-lg font-semibold mb-3 text-cyan-400">ML/AI</h3>
                     <ul class="space-y-2 text-gray-300 text-sm">
-                        <li>• RAG Q&A with evidence cards</li>
-                        <li>• Text→morphology classifier</li>
-                        <li>• Integrate CGCNN/ALIGNN models</li>
-                        <li>• Basic property prediction API</li>
+                        <li>HuggingFace</li>
+                        <li>PyTorch</li>
+                        <li>ALIGNN/CGCNN</li>
+                        <li>MatSciBERT</li>
                     </ul>
                 </div>
-                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
-                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Weeks 5-6: Advanced</h3>
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20 text-center">
+                    <h3 class="text-lg font-semibold mb-3 text-cyan-400">Data & Storage</h3>
                     <ul class="space-y-2 text-gray-300 text-sm">
-                        <li>• U-Net microscopy analysis</li>
-                        <li>• Raman/XRD classifiers</li>
-                        <li>• BO inverse design loop</li>
-                        <li>• Safety checks + dashboard</li>
+                        <li>Neo4j (KG)</li>
+                        <li>PostgreSQL</li>
+                        <li>MinIO (objects)</li>
+                        <li>Parquet files</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20 text-center">
+                    <h3 class="text-lg font-semibold mb-3 text-cyan-400">UI/UX</h3>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li>Streamlit</li>
+                        <li>Gradio</li>
+                        <li>React (advanced)</li>
+                        <li>WebGL (3D viz)</li>
                     </ul>
                 </div>
             </div>
@@ -461,50 +501,107 @@
     <!-- Evaluation Metrics -->
     <section class="py-20 bg-gray-900">
         <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-12 text-center">Performance Metrics</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-black rounded-lg p-6 border border-cyan-400/20 text-center">
-                    <div class="text-3xl font-bold text-cyan-400 mb-2">F1: 0.85+</div>
-                    <p class="text-gray-400">NER/Relation Extraction</p>
+            <h2 class="text-3xl font-bold mb-12 text-center">Performance Metrics</h2>
+            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="bg-black rounded-lg p-6 border border-gray-800 text-center">
+                    <div class="text-4xl font-bold text-cyan-400 mb-2">81%</div>
+                    <h3 class="text-lg font-semibold mb-2">Text → Morphology</h3>
+                    <p class="text-gray-400 text-sm">Accuracy in predicting nanoparticle shapes from synthesis descriptions</p>
                 </div>
-                <div class="bg-black rounded-lg p-6 border border-cyan-400/20 text-center">
-                    <div class="text-3xl font-bold text-cyan-400 mb-2">nDCG: 0.78</div>
-                    <p class="text-gray-400">Literature Retrieval</p>
+                <div class="bg-black rounded-lg p-6 border border-gray-800 text-center">
+                    <div class="text-4xl font-bold text-cyan-400 mb-2">0.92</div>
+                    <h3 class="text-lg font-semibold mb-2">F1 Score</h3>
+                    <p class="text-gray-400 text-sm">Named entity recognition on materials science literature</p>
                 </div>
-                <div class="bg-black rounded-lg p-6 border border-cyan-400/20 text-center">
-                    <div class="text-3xl font-bold text-cyan-400 mb-2">MAE: <5%</div>
-                    <p class="text-gray-400">Property Prediction</p>
-                </div>
-                <div class="bg-black rounded-lg p-6 border border-cyan-400/20 text-center">
-                    <div class="text-3xl font-bold text-cyan-400 mb-2">81%</div>
-                    <p class="text-gray-400">Morphology Accuracy</p>
+                <div class="bg-black rounded-lg p-6 border border-gray-800 text-center">
+                    <div class="text-4xl font-bold text-cyan-400 mb-2"><0.1 eV</div>
+                    <h3 class="text-lg font-semibold mb-2">MAE</h3>
+                    <p class="text-gray-400 text-sm">Mean absolute error for bandgap predictions</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Safety & Guardrails -->
-    <section class="py-20">
+    <!-- Implementation Timeline -->
+    <section class="py-20 bg-black">
         <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-12 text-center">Safety & Guardrails</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
-                    <h3 class="text-2xl font-semibold mb-4 text-cyan-400">Safety Protocols</h3>
-                    <ul class="space-y-3 text-gray-300">
-                        <li>• Automatic hazard detection using eNanoMapper</li>
-                        <li>• Toxicity screening for all proposed syntheses</li>
-                        <li>• Human-in-the-loop validation for critical steps</li>
-                        <li>• Comprehensive safety warnings and documentation</li>
-                    </ul>
-                </div>
-                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20">
-                    <h3 class="text-2xl font-semibold mb-4 text-cyan-400">Data Integrity</h3>
-                    <ul class="space-y-3 text-gray-300">
-                        <li>• Full provenance tracking to source DOIs</li>
-                        <li>• Parser hashes and model version control</li>
-                        <li>• Calibrated uncertainty estimates for predictions</li>
-                        <li>• Audit trails for all system recommendations</li>
-                    </ul>
+            <h2 class="text-3xl font-bold mb-12 text-center">6-Week Implementation Plan</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-6">
+                    <!-- Week 1-2 -->
+                    <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
+                        <div class="flex items-start">
+                            <div class="bg-cyan-400/20 rounded-full px-3 py-1 text-cyan-400 font-semibold mr-4">Week 1-2</div>
+                            <div>
+                                <h3 class="text-lg font-semibold mb-2">Foundation & Ingestion</h3>
+                                <ul class="space-y-1 text-gray-300 text-sm">
+                                    <li>• Set up GROBID + ChemDataExtractor pipeline</li>
+                                    <li>• Build NER/relation classifiers with MatSciBERT</li>
+                                    <li>• Create knowledge graph and schemas</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Week 3 -->
+                    <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
+                        <div class="flex items-start">
+                            <div class="bg-cyan-400/20 rounded-full px-3 py-1 text-cyan-400 font-semibold mr-4">Week 3</div>
+                            <div>
+                                <h3 class="text-lg font-semibold mb-2">RAG & Basic Prediction</h3>
+                                <ul class="space-y-1 text-gray-300 text-sm">
+                                    <li>• Implement RAG Q&A with evidence cards</li>
+                                    <li>• Build text→morphology classifier</li>
+                                    <li>• Validate against ITMO benchmark</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Week 4 -->
+                    <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
+                        <div class="flex items-start">
+                            <div class="bg-cyan-400/20 rounded-full px-3 py-1 text-cyan-400 font-semibold mr-4">Week 4</div>
+                            <div>
+                                <h3 class="text-lg font-semibold mb-2">Advanced Predictors</h3>
+                                <ul class="space-y-1 text-gray-300 text-sm">
+                                    <li>• Integrate CGCNN/ALIGNN models</li>
+                                    <li>• Fine-tune on domain data</li>
+                                    <li>• Add uncertainty quantification</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Week 5 -->
+                    <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
+                        <div class="flex items-start">
+                            <div class="bg-cyan-400/20 rounded-full px-3 py-1 text-cyan-400 font-semibold mr-4">Week 5</div>
+                            <div>
+                                <h3 class="text-lg font-semibold mb-2">Multimodal & Image Analysis</h3>
+                                <ul class="space-y-1 text-gray-300 text-sm">
+                                    <li>• U-Net for TEM/SEM segmentation</li>
+                                    <li>• Raman/XRD classifiers</li>
+                                    <li>• Cross-modal validation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Week 6 -->
+                    <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
+                        <div class="flex items-start">
+                            <div class="bg-cyan-400/20 rounded-full px-3 py-1 text-cyan-400 font-semibold mr-4">Week 6</div>
+                            <div>
+                                <h3 class="text-lg font-semibold mb-2">Inverse Design & Deployment</h3>
+                                <ul class="space-y-1 text-gray-300 text-sm">
+                                    <li>• Implement BO loop for recipe optimization</li>
+                                    <li>• Build evaluation dashboard</li>
+                                    <li>• Add safety checks (eNanoMapper)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -513,12 +610,14 @@
     <!-- CTA Section -->
     <section class="py-20 bg-gradient-to-r from-cyan-600 to-blue-600">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold mb-4">Accelerate Your Materials Discovery</h2>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                Accelerate Your Materials Discovery
+            </h2>
             <p class="text-xl mb-8 max-w-2xl mx-auto">
-                Partner with O.R.I.O.N to leverage our AI-powered platform for breakthrough materials innovation
+                Partner with us to leverage cutting-edge AI for your materials design and optimization challenges
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="mailto:ai-materials@orion.com" class="bg-white text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                <a href="mailto:ai-design@orion.com" class="bg-white text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
                     Schedule Demo
                 </a>
                 <a href="orion.html" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors">
@@ -531,7 +630,7 @@
     <!-- Footer -->
     <footer class="bg-black py-8">
         <div class="container mx-auto px-6 text-center text-gray-400">
-            <p>&copy; 2024 O.R.I.O.N - A Division of M.Y. Engineering and Technologies. All rights reserved.</p>
+            <p>&copy; 2024 O.R.I.O.N - M.Y. Engineering and Technologies. All rights reserved.</p>
         </div>
     </footer>
 </body>
