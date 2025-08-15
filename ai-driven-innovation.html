@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Driven Materials Innovation Platform - O.R.I.O.N Division</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .gradient-text {
+            background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .module-card {
+            background: linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(124,58,237,0.1) 100%);
+            border: 1px solid rgba(0,212,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+        pre {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        code {
+            color: #00d4ff;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-md">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center space-x-4">
+                <a href="index.html" class="text-lg hover:text-cyan-400 transition-colors">M.Y. Engineering</a>
+                <span class="text-gray-500">|</span>
+                <a href="orion.html" class="text-lg hover:text-cyan-400 transition-colors">O.R.I.O.N</a>
+                <span class="text-gray-500">|</span>
+                <span class="text-cyan-400 font-semibold">AI Materials Platform</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6 bg-gradient-to-b from-indigo-900/20 to-gray-900">
+        <div class="container mx-auto max-w-6xl">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 gradient-text">AI-Driven Materials Innovation</h1>
+            <p class="text-xl text-gray-300 max-w-3xl mb-8">
+                Advanced competitive materials design platform leveraging state-of-the-art LLMs, 
+                knowledge graphs, and predictive models for accelerated discovery and optimization.
+            </p>
+            <div class="bg-gray-800/50 backdrop-blur-sm rounded-lg p-4 inline-block">
+                <p class="text-sm text-cyan-400 mono">Status: Platform Under Development | Target Accuracy: 81%+ (ITMO Benchmark)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Architecture Overview -->
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto max-w-6xl px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">System Architecture</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <!-- Module 1: Literature KG -->
+                <div class="module-card rounded-lg p-6 hover:transform hover:scale-105 transition-all">
+                    <div class="w-12 h-12 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Literature → KG</h3>
+                    <p class="text-sm text-gray-400">GROBID parsing, ChemDataExtractor, MatSciBERT NER</p>
+                </div>
+
+                <!-- Module 2: LLM Layer -->
+                <div class="module-card rounded-lg p-6 hover:transform hover:scale-105 transition-all">
+                    <div class="w-12 h-12 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">LLM Reasoning</h3>
+                    <p class="text-sm text-gray-400">RAG, tool orchestration, chain-of-thought</p>
+                </div>
+
+                <!-- Module 3: Predictors -->
+                <div class="module-card rounded-lg p-6 hover:transform hover:scale-105 transition-all">
+                    <div class="w-12 h-12 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Predictors</h3>
+                    <p class="text-sm text-gray-400">ALIGNN, CGCNN, MEGNet, spectral analysis</p>
+                </div>
+
+                <!-- Module 4: Inverse Design -->
+                <div class="module-card rounded-lg p-6 hover:transform hover:scale-105 transition-all">
+                    <div class="w-12 h-12 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Inverse Design</h3>
+                    <p class="text-sm text-gray-400">Bayesian optimization, RL, generative models</p>
+                </div>
+            </div>
+
+            <!-- System Flow Diagram -->
+            <div class="bg-gray-900 rounded-lg p-8">
+                <h3 class="text-xl font-semibold mb-6 text-cyan-400">Data Flow Architecture</h3>
+                <div class="space-y-4 text-sm mono">
+                    <div class="flex items-center space-x-4">
+                        <span class="text-gray-500">1.</span>
+                        <span class="text-cyan-400">PDFs</span>
+                        <span class="text-gray-500">→</span>
+                        <span>GROBID (XML)</span>
+                        <span class="text-gray-500">→</span>
+                        <span>ChemDataExtractor</span>
+                        <span class="text-gray-500">→</span>
+                        <span class="text-green-400">Knowledge Graph</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-gray-500">2.</span>
+                        <span class="text-cyan-400">User Query</span>
+                        <span class="text-gray-500">→</span>
+                        <span>LLM Planner</span>
+                        <span class="text-gray-500">→</span>
+                        <span>Tool Selection</span>
+                        <span class="text-gray-500">→</span>
+                        <span class="text-green-400">Execution</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-gray-500">3.</span>
+                        <span class="text-cyan-400">Target Property</span>
+                        <span class="text-gray-500">→</span>
+                        <span>Inverse Design</span>
+                        <span class="text-gray-500">→</span>
+                        <span>Synthesis Route</span>
+                        <span class="text-gray-500">→</span>
+                        <span class="text-green-400">Validation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Capabilities -->
+    <section class="py-20 bg-gray-900">
+        <div class="container mx-auto max-w-6xl px-6">
+            <h2 class="text-3xl font-bold mb-12">Core Capabilities</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Literature Parsing -->
+                <div class="bg-gray-800 rounded-lg p-8">
+                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">1. Literature Parsing & Summarization</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold mb-2">Pipeline Components</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">•</span>
+                                    <div>
+                                        <strong>GROBID:</strong> PDF → XML conversion with structure preservation
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">•</span>
+                                    <div>
+                                        <strong>ChemDataExtractor:</strong> Chemical entity recognition and normalization
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">•</span>
+                                    <div>
+                                        <strong>MatSciBERT:</strong> Domain-specific NER for materials, conditions, properties
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">•</span>
+                                    <div>
+                                        <strong>Neo4j KG:</strong> Structured storage with relationships and provenance
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property Prediction -->
+                <div class="bg-gray-800 rounded-lg p-8">
+                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">2. Property Prediction</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold mb-2">Model Suite</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">•</span>
+                                    <div>
+                                        <strong>Structure-based:</strong> ALIGNN/CGCNN/MEGNet for crystal properties
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">•</span>
+                                    <div>
+                                        <strong>Text-to-property:</strong> LLM embeddings → gradient boosting (81% accuracy)
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">•</span>
+                                    <div>
+                                        <strong>Spectral analysis:</strong> XRD phase ID, Raman quantification
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">•</span>
+                                    <div>
+                                        <strong>Image analysis:</strong> TEM/SEM segmentation with U-Net
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hypothesis Generation -->
+                <div class="bg-gray-800 rounded-lg p-8">
+                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">3. Hypothesis Generation & DoE</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold mb-2">Design Capabilities</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">•</span>
+                                    <div>
+                                        <strong>LLM-driven DoE:</strong> Automated experimental design matrix generation
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">•</span>
+                                    <div>
+                                        <strong>Bayesian Optimization:</strong> Efficient parameter space exploration
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">•</span>
+                                    <div>
+                                        <strong>Safety checks:</strong> eNanoMapper integration for toxicity screening
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">•</span>
+                                    <div>
+                                        <strong>Provenance tracking:</strong> Complete audit trail with DOI citations
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inverse Design -->
+                <div class="bg-gray-800 rounded-lg p-8">
+                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">4. Inverse Design</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold mb-2">Optimization Methods</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">•</span>
+                                    <div>
+                                        <strong>Generative models:</strong> Diffusion/transformers for composition design
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">•</span>
+                                    <div>
+                                        <strong>RL/Tree search:</strong> Discrete synthesis route optimization
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">•</span>
+                                    <div>
+                                        <strong>Physics filters:</strong> Mie/Gans theory for plasmonic validation
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-cyan-400 mr-2">•</span>
+                                    <div>
+                                        <strong>Closed-loop integration:</strong> A-Lab/AlabOS compatible queues
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Implementation -->
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto max-w-6xl px-6">
+            <h2 class="text-3xl font-bold mb-12">Technical Implementation</h2>
+            
+            <!-- Data Schemas -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold mb-6 text-cyan-400">Data Schemas (YAML)</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-gray-900 rounded-lg p-6">
+                        <h4 class="font-semibold mb-3 text-cyan-400">material_entity.yaml</h4>
+                        <pre class="text-sm mono text-gray-300 overflow-x-auto"><code>material:
+  name: "Au nanorod"
+  composition: "Au"
+  structure: 
+    type: "nanorod"
+    aspect_ratio: 3.6
+  ligands: ["CTAB", "Ag+"]
+  target_properties:
+    - name: "LSPR_longitudinal_nm"
+      value: 800
+      tol: 20</code></pre>
+                    </div>
+                    <div class="bg-gray-900 rounded-lg p-6">
+                        <h4 class="font-semibold mb-3 text-cyan-400">synthesis_step.yaml</h4>
+                        <pre class="text-sm mono text-gray-300 overflow-x-auto"><code>step:
+  method: "seed-mediated growth"
+  reagents:
+    - {name: "HAuCl4", conc_mM: 0.5}
+    - {name: "CTAB", conc_mM: 100}
+  conditions: 
+    T_C: 28
+    pH: 2.5
+    time_min: 30
+  outcomes: 
+    morphology: "rod"
+    LSPR_nm: 780-820</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech Stack -->
+            <div class="bg-gray-900 rounded-lg p-8">
+                <h3 class="text-2xl font-semibold mb-6 text-cyan-400">Technology Stack</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <h4 class="font-semibold mb-3">Backend Infrastructure</h4>
+                        <ul class="space-y-2 text-sm text-gray-300">
+                            <li>• Python + FastAPI microservices</li>
+                            <li>• Ray for distributed computing</li>
+                            <li>• Postgres for structured data</li>
+                            <li>• Neo4j for knowledge graphs</li>
+                            <li>• MinIO for artifact storage</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-3">ML/AI Stack</h4>
+                        <ul class="space-y-2 text-sm text-gray-300">
+                            <li>• HuggingFace transformers</li>
+                            <li>• PyTorch for custom models</li>
+                            <li>• ALIGNN/CGCNN/MEGNet</li>
+                            <li>• Scikit-learn for classical ML</li>
+                            <li>• TensorFlow for image models</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-3">User Interface</h4>
+                        <ul class="space-y-2 text-sm text-gray-300">
+                            <li>• Streamlit/Gradio dashboards</li>
+                            <li>• REST API endpoints</li>
+                            <li>• WebSocket for real-time</li>
+                            <li>• Jupyter integration</li>
+                            <li>• CLI tools for batch processing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Example Workflows -->
+    <section class="py-20 bg-gray-900">
+        <div class="container mx-auto max-w-6xl px-6">
+            <h2 class="text-3xl font-bold mb-12">Example Workflows</h2>
+            
+            <div class="space-y-8">
+                <!-- Workflow 1 -->
+                <div class="bg-gray-800 rounded-lg p-8">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">A) Text-to-Morphology Prediction (ITMO Task)</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold mb-2">Input</h4>
+                            <div class="bg-gray-900 rounded p-4 mono text-sm">
+                                "Seed-mediated Au in CTAB + Ag+ co-ion; mild AA; 25–30°C"
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Output</h4>
+                            <div class="bg-gray-900 rounded p-4 text-sm">
+                                <p class="text-green-400">Predicted: Rod morphology</p>
+                                <p class="text-gray-300">Aspect ratio: 3-4</p>
+                                <p class="text-gray-300">Confidence: 81%</p>
+                                <p class="text-gray-300">LSPR: 760-820 nm</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workflow 2 -->
+                <div class="bg-gray-800 rounded-lg p-8">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">B) Inverse Design for Plasmonic Target</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold mb-2">Target Specification</h4>
+                            <div class="bg-gray-900 rounded p-4 text-sm">
+                                <p>LSPR: 800 nm ± 10 nm</p>
+                                <p>Medium: Water</p>
+                                <p>Material: Au nanorods</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Optimized Recipe</h4>
+                            <div class="bg-gray-900 rounded p-4 text-sm">
+                                <p>Temperature: 28°C</p>
+                                <p>[Ag+]: 0.08-0.12 mM</p>
+                                <p>Ascorbic acid: 0.6-0.7 mM</p>
+                                <p>12-run DoE matrix generated</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Metrics -->
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto max-w-6xl px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Platform Performance Metrics</h2>
+            
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-gray-900 rounded-lg p-6 text-center">
+                    <h3 class="text-4xl font-bold text-cyan-400 mb-2">81%</h3>
+                    <p class="text-gray-300">Shape Prediction Accuracy</p>
+                    <p class="text-sm text-gray-500 mt-2">ITMO benchmark</p>
+                </div>
+                <div class="bg-gray-900 rounded-lg p-6 text-center">
+                    <h3 class="text-4xl font-bold text-cyan-400 mb-2">&lt;0.1 eV</h3>
+                    <p class="text-gray-300">Band Gap MAE</p>
+                    <p class="text-sm text-gray-500 mt-2">ALIGNN performance</p>
+                </div>
+                <div class="bg-gray-900 rounded-lg p-6 text-center">
+                    <h3 class="text-4xl font-bold text-cyan-400 mb-2">95%</h3>
+                    <p class="text-gray-300">XRD Phase ID</p>
+                    <p class="text-sm text-gray-500 mt-2">Top-1 accuracy</p>
+                </div>
+                <div class="bg-gray-900 rounded-lg p-6 text-center">
+                    <h3 class="text-4xl font-bold text-cyan-400 mb-2">10x</h3>
+                    <p class="text-gray-300">Discovery Speed</p>
+                    <p class="text-sm text-gray-500 mt-2">vs traditional methods</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evaluation Metrics -->
+    <section class="py-20 bg-gray-900">
+        <div class="container mx-auto max-w-6xl px-6">
+            <h2 class="text-3xl font-bold mb-12">Evaluation Framework</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-800 rounded-lg p-8">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Performance Metrics</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">▸</span>
+                            <div>
+                                <strong>Information Extraction:</strong> F1 on NER/relations vs. MatScholar benchmarks
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">▸</span>
+                            <div>
+                                <strong>Retrieval Quality:</strong> nDCG@10 / Recall@20 on question→paper grounding
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">▸</span>
+                            <div>
+                                <strong>Property Models:</strong> MAE/RMSE vs. held-out; ECE for calibration
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">▸</span>
+                            <div>
+                                <strong>Image/Spectra:</strong> IoU/Dice for segmentation, top-k phase accuracy
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg p-8">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Success Metrics</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">▸</span>
+                            <div>
+                                <strong>Inverse Design:</strong> Success@k (meets spec in simulation)
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">▸</span>
+                            <div>
+                                <strong>Synthesis Success:</strong> Lab validation rate of predictions
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">▸</span>
+                            <div>
+                                <strong>User Study:</strong> Expert ratings on novelty and reproducibility
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">▸</span>
+                            <div>
+                                <strong>Safety Compliance:</strong> Fraction passing eNanoMapper checks
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Development Roadmap -->
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto max-w-6xl px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">6-Week Development Plan</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-gray-900 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold mb-4 text-cyan-400">Weeks 1-2: Foundation</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>✓ GROBID + CDE pipeline setup</li>
+                        <li>✓ MatSciBERT NER training</li>
+                        <li>✓ Neo4j KG schema implementation</li>
+                        <li>✓ Basic data ingestion workflow</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-900 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold mb-4 text-cyan-400">Weeks 3-4: Core Features</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>✓ RAG Q&A implementation</li>
+                        <li>✓ Text→morphology classifier</li>
+                        <li>✓ CGCNN/ALIGNN integration</li>
+                        <li>✓ Basic UI with Streamlit</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-900 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold mb-4 text-cyan-400">Weeks 5-6: Advanced</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>✓ Image analysis pipelines</li>
+                        <li>✓ Bayesian optimization loop</li>
+                        <li>✓ Safety checks integration</li>
+                        <li>✓ Performance dashboard</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Example Prompts -->
+    <section class="py-20 bg-gray-900">
+        <div class="container mx-auto max-w-6xl px-6">
+            <h2 class="text-3xl font-bold mb-12">Example System Prompts</h2>
+            
+            <div class="space-y-6">
+                <div class="bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold mb-3 text-cyan-400">Literature Scout</h3>
+                    <pre class="text-sm mono text-gray-300">You are a nanomaterials librarian. Given a target "{target}", return 8 most relevant 
+recipes with reagents, temperatures, times, pH, and reported morphology or property, 
+normalized units. Output YAML list with fields: source_doi, method, reagents[], 
+conditions{}, outcome{}.</pre>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold mb-3 text-cyan-400">Design-to-Target</h3>
+                    <pre class="text-sm mono text-gray-300">You are a synthesis planner. Target: {property_spec}. Constraints: {reagents, ranges, 
+safety}. Propose: (1) 6 candidate recipes; (2) a 12-run DoE table; (3) risks & 
+mitigations; (4) measurement plan.</pre>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold mb-3 text-cyan-400">Image-in-the-Loop</h3>
+                    <pre class="text-sm mono text-gray-300">Given TEM masks + scale bar, compute size/AR distributions and decide if design met 
+spec {spec}. Return pass/fail + confidence and what to tweak next.</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Sources -->
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto max-w-6xl px-6">
+            <h2 class="text-3xl font-bold mb-12">Data Sources & Integration</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-900 rounded-lg p-8">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Literature Sources</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">•</span>
+                            <div>
+                                <strong>Publisher APIs:</strong> Direct PDF access via DOI
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">•</span>
+                            <div>
+                                <strong>GROBID Processing:</strong> Structure-preserving XML conversion
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">•</span>
+                            <div>
+                                <strong>ChemDataExtractor:</strong> Chemical entity recognition
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">•</span>
+                            <div>
+                                <strong>MatScholarNER:</strong> Domain-specific entity sets
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-900 rounded-lg p-8">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Nanomaterials Databases</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">•</span>
+                            <div>
+                                <strong>NanoMine:</strong> Polymer nanocomposites (FAIR)
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">•</span>
+                            <div>
+                                <strong>eNanoMapper:</strong> Nano-safety data
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">•</span>
+                            <div>
+                                <strong>NOMAD:</strong> FAIR repository + AI Toolkit
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">•</span>
+                            <div>
+                                <strong>Materials Project:</strong> Computed properties database
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why This Works Now -->
+    <section class="py-20 bg-gray-900">
+        <div class="container mx-auto max-w-6xl px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Why This is Credible Right Now</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-800 rounded-lg p-8">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Technical Readiness</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li>• Domain LMs (MatSciBERT) consistently outperform general models</li>
+                        <li>• LLMs achieve ~81% on nanoparticle shape prediction (ITMO)</li>
+                        <li>• GNNs (ALIGNN/CGCNN) provide strong property baselines</li>
+                        <li>• Autonomous labs (A-Lab) demonstrate closed-loop viability</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg p-8">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Guardrails & Safety</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li>• Safety blocks for hazardous syntheses via eNanoMapper</li>
+                        <li>• Full provenance tracking with DOI citations</li>
+                        <li>• Calibrated uncertainty reporting for all predictions</li>
+                        <li>• Human-in-the-loop options for critical decisions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-cyan-600 to-purple-600">
+        <div class="container mx-auto max-w-6xl px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4">Accelerate Your Materials Discovery</h2>
+            <p class="text-xl mb-8">Join the AI-powered materials revolution</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="mailto:ai-materials@orion-tech.com" class="bg-white text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    Request Early Access
+                </a>
+                <a href="orion.html" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors">
+                    Back to O.R.I.O.N
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p>&copy; 2024 O.R.I.O.N - AI-Driven Materials Innovation Platform. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
