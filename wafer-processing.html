@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wafer Processing - O.R.I.O.N Division</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="index.html" class="text-lg hover:text-cyan-400 transition-colors">M.Y. Engineering</a>
+                <span class="text-gray-500">|</span>
+                <a href="orion.html" class="text-lg hover:text-cyan-400 transition-colors">O.R.I.O.N</a>
+                <span class="text-gray-500">|</span>
+                <span class="text-cyan-400 font-semibold">Wafer Processing</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 gradient-text">Wafer Processing</h1>
+            <p class="text-xl text-gray-300 max-w-3xl">
+                Advanced semiconductor wafer processing with state-of-the-art lithography, etching, 
+                and deposition capabilities for next-generation device fabrication.
+            </p>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto max-w-6xl px-6">
+            <h2 class="text-3xl font-bold mb-12">Processing Capabilities</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Photolithography -->
+                <div class="bg-gray-900 rounded-lg p-8">
+                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">Photolithography</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-lg mb-2">DUV (Deep UV) Lithography</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li>• 193nm ArF excimer laser systems</li>
+                                <li>• Resolution down to 65nm features</li>
+                                <li>• Immersion lithography capability</li>
+                                <li>• Multi-layer alignment accuracy ±20nm</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg mb-2">EUV (Extreme UV) Lithography</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li>• 13.5nm wavelength</li>
+                                <li>• Sub-10nm feature capability</li>
+                                <li>• Advanced mask technology</li>
+                                <li>• High-NA optics available</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Plasma Etching -->
+                <div class="bg-gray-900 rounded-lg p-8">
+                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">Plasma Etching</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-lg mb-2">ICP-RIE Systems</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li>• Inductively Coupled Plasma sources</li>
+                                <li>• Anisotropic etching profiles</li>
+                                <li>• Selectivity ratios >100:1</li>
+                                <li>• Temperature controlled chuck (-20°C to 80°C)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg mb-2">Process Gases</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li>• Fluorine-based: SF₆, CF₄, CHF₃</li>
+                                <li>• Chlorine-based: Cl₂, BCl₃, HBr</li>
+                                <li>• Oxygen plasma for organics</li>
+                                <li>• Specialized gas mixtures available</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Metal Deposition -->
+                <div class="bg-gray-900 rounded-lg p-8">
+                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">Metal Deposition</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-lg mb-2">E-beam Evaporation</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li>• Multi-pocket sources (6-8 materials)</li>
+                                <li>• Deposition rate: 0.1-50 Å/s</li>
+                                <li>• In-situ thickness monitoring</li>
+                                <li>• Planetary rotation for uniformity</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg mb-2">Sputter Deposition</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li>• DC/RF magnetron sputtering</li>
+                                <li>• Co-sputtering capability</li>
+                                <li>• Reactive sputtering for nitrides/oxides</li>
+                                <li>• Thickness uniformity <±2%</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wafer Bonding -->
+                <div class="bg-gray-900 rounded-lg p-8">
+                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">Wafer Bonding & Thinning</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-lg mb-2">Bonding Technologies</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li>• Direct wafer bonding</li>
+                                <li>• Anodic bonding</li>
+                                <li>• Adhesive bonding</li>
+                                <li>• Fusion bonding up to 1100°C</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg mb-2">Thinning Services</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li>• Mechanical grinding to <50μm</li>
+                                <li>• Chemical-mechanical polishing</li>
+                                <li>• Stress relief etching</li>
+                                <li>• TTV <1μm achievable</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specifications -->
+    <section class="py-20 bg-gray-900">
+        <div class="container mx-auto max-w-6xl px-6">
+            <h2 class="text-3xl font-bold mb-12">Technical Specifications</h2>
+            
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-gray-800 rounded-lg p-6 text-center">
+                    <h3 class="text-5xl font-bold text-cyan-400 mb-2">200mm</h3>
+                    <p class="text-gray-300">Maximum wafer size</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center">
+                    <h3 class="text-5xl font-bold text-cyan-400 mb-2">65nm</h3>
+                    <p class="text-gray-300">Minimum feature size</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center">
+                    <h3 class="text-5xl font-bold text-cyan-400 mb-2">±20nm</h3>
+                    <p class="text-gray-300">Overlay accuracy</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center">
+                    <h3 class="text-5xl font-bold text-cyan-400 mb-2">Class 10</h3>
+                    <p class="text-gray-300">Cleanroom rating</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-cyan-600 to-purple-600">
+        <div class="container mx-auto max-w-6xl px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4">Start Your Wafer Processing Project</h2>
+            <p class="text-xl mb-8">From prototype to production, we deliver precision results</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="mailto:waferprocessing@orion-tech.com" class="bg-white text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    Get Quote
+                </a>
+                <a href="orion.html#services" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors">
+                    View All Services
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p>&copy; 2024 O.R.I.O.N - Wafer Processing Services. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
