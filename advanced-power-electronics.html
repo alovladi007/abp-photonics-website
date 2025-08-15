@@ -3,275 +3,438 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Power Electronics - O.R.I.O.N Division</title>
+    <title>Advanced Power Electronics - O.R.I.O.N | M.Y. Engineering and Technologies</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
         .gradient-text {
-            background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        .tech-bg {
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+                url('Nanotechnology.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .power-grid {
+            background-image: 
+                linear-gradient(90deg, rgba(0,212,255,0.1) 1px, transparent 1px),
+                linear-gradient(rgba(0,212,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
     </style>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="bg-black text-white">
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-md">
+    <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-sm border-b border-gray-800">
         <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center space-x-4">
-                <a href="index.html" class="text-lg hover:text-cyan-400 transition-colors">M.Y. Engineering</a>
-                <span class="text-gray-500">|</span>
-                <a href="orion.html" class="text-lg hover:text-cyan-400 transition-colors">O.R.I.O.N</a>
-                <span class="text-gray-500">|</span>
-                <span class="text-cyan-400 font-semibold">Advanced Power Electronics</span>
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <a href="index.html" class="text-xl font-bold">M.Y. Engineering and Technologies</a>
+                    <span class="text-gray-400">|</span>
+                    <a href="orion.html" class="text-cyan-400">O.R.I.O.N</a>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-purple-400">Advanced Power Electronics</span>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="pt-32 pb-20 px-6 bg-gradient-to-b from-purple-900/20 to-gray-900">
-        <div class="container mx-auto max-w-6xl">
-            <h1 class="text-5xl md:text-6xl font-bold mb-6 gradient-text">Advanced Power Electronics</h1>
+    <section class="tech-bg pt-32 pb-20">
+        <div class="container mx-auto px-6">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                <span class="gradient-text">Advanced Power Electronics</span>
+            </h1>
             <p class="text-xl text-gray-300 max-w-3xl">
-                GaN/SiC high-efficiency inverters, solid-state transformers, and wireless energy transfer 
-                solutions for the next generation of power systems.
+                Next-generation GaN/SiC high-efficiency inverters, solid-state transformers, 
+                and wireless energy transfer systems for the future of power management
             </p>
         </div>
     </section>
 
-    <!-- Technology Overview -->
-    <section class="py-20 bg-gray-800">
-        <div class="container mx-auto max-w-6xl px-6">
-            <h2 class="text-3xl font-bold mb-12">Core Technologies</h2>
+    <!-- Overview Section -->
+    <section class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8">Technology Overview</h2>
+                <p class="text-gray-300 mb-6">
+                    Our Advanced Power Electronics division pioneers the development of ultra-efficient 
+                    power conversion and management systems using wide-bandgap semiconductors. We specialize 
+                    in Gallium Nitride (GaN) and Silicon Carbide (SiC) based solutions that deliver 
+                    unprecedented efficiency, power density, and reliability.
+                </p>
+                <p class="text-gray-300">
+                    From high-frequency inverters achieving >99% efficiency to revolutionary solid-state 
+                    transformers and wireless power transfer systems, our technologies are enabling the 
+                    electrification of transportation, renewable energy integration, and next-generation 
+                    data centers.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Technologies -->
+    <section class="py-20 bg-black power-grid">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">Core Technologies</h2>
             
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                 <!-- GaN/SiC Inverters -->
-                <div class="bg-gray-900 rounded-lg p-8">
-                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">GaN/SiC High-Efficiency Inverters</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-semibold text-lg mb-2">Key Features</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li>• Peak efficiency >99.5%</li>
-                                <li>• Power density >50 kW/L</li>
-                                <li>• Switching frequency up to 1 MHz</li>
-                                <li>• Operating temperature -40°C to 150°C</li>
-                            </ul>
-                        </div>
-                        <div class="mt-4">
-                            <h4 class="font-semibold text-lg mb-2">Applications</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li>• Solar inverters (1kW - 1MW)</li>
-                                <li>• EV traction inverters</li>
-                                <li>• Data center power supplies</li>
-                                <li>• Industrial motor drives</li>
-                            </ul>
-                        </div>
+                <div class="bg-gray-900/90 backdrop-blur-sm rounded-lg p-8 border border-cyan-400/20">
+                    <div class="w-16 h-16 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
                     </div>
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">GaN/SiC High-Efficiency Inverters</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>• 99.5% peak efficiency</li>
+                        <li>• 1MHz+ switching frequency</li>
+                        <li>• 10x power density improvement</li>
+                        <li>• Bidirectional operation</li>
+                        <li>• Active thermal management</li>
+                    </ul>
                 </div>
 
                 <!-- Solid-State Transformers -->
-                <div class="bg-gray-900 rounded-lg p-8">
-                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">Solid-State Transformers (SSTs)</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-semibold text-lg mb-2">Technology Benefits</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li>• Bidirectional power flow</li>
-                                <li>• Voltage regulation ±0.5%</li>
-                                <li>• Power factor correction</li>
-                                <li>• 50% size reduction vs traditional</li>
-                            </ul>
-                        </div>
-                        <div class="mt-4">
-                            <h4 class="font-semibold text-lg mb-2">Smart Grid Features</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li>• Real-time monitoring</li>
-                                <li>• Harmonic filtering</li>
-                                <li>• DC link integration</li>
-                                <li>• Grid stabilization</li>
-                            </ul>
-                        </div>
+                <div class="bg-gray-900/90 backdrop-blur-sm rounded-lg p-8 border border-purple-400/20">
+                    <div class="w-16 h-16 bg-purple-400/20 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                        </svg>
                     </div>
+                    <h3 class="text-xl font-semibold mb-4 text-purple-400">Solid-State Transformers (SSTs)</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>• 98% efficiency</li>
+                        <li>• 75% size reduction</li>
+                        <li>• Smart grid integration</li>
+                        <li>• Power quality enhancement</li>
+                        <li>• Multi-port capability</li>
+                    </ul>
                 </div>
 
                 <!-- Wireless Power Transfer -->
-                <div class="bg-gray-900 rounded-lg p-8">
-                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">Wireless Energy Transfer</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-semibold text-lg mb-2">Technical Specifications</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li>• Efficiency up to 95%</li>
-                                <li>• Power range: 5W to 300kW</li>
-                                <li>• Gap tolerance: up to 30cm</li>
-                                <li>• Misalignment tolerance: ±15cm</li>
-                            </ul>
-                        </div>
-                        <div class="mt-4">
-                            <h4 class="font-semibold text-lg mb-2">Use Cases</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li>• EV wireless charging</li>
-                                <li>• Consumer electronics</li>
-                                <li>• Medical implants</li>
-                                <li>• Industrial automation</li>
-                            </ul>
-                        </div>
+                <div class="bg-gray-900/90 backdrop-blur-sm rounded-lg p-8 border border-cyan-400/20">
+                    <div class="w-16 h-16 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path>
+                        </svg>
                     </div>
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Wireless Energy Transfer</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>• 95% transfer efficiency</li>
+                        <li>• Dynamic positioning</li>
+                        <li>• kW to MW scale</li>
+                        <li>• Resonant inductive coupling</li>
+                        <li>• Safety compliance</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Performance Metrics -->
+    <!-- Technical Advantages -->
     <section class="py-20 bg-gray-900">
-        <div class="container mx-auto max-w-6xl px-6">
-            <h2 class="text-3xl font-bold mb-12 text-center">Performance Metrics</h2>
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">Technical Advantages</h2>
             
-            <div class="grid md:grid-cols-4 gap-6">
-                <div class="bg-gray-800 rounded-lg p-6 text-center">
-                    <h3 class="text-4xl font-bold text-cyan-400 mb-2">99.5%</h3>
-                    <p class="text-gray-300">Peak Efficiency</p>
-                    <p class="text-sm text-gray-500 mt-2">Industry-leading conversion efficiency</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-cyan-400/20 to-purple-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl font-bold gradient-text">99%</span>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Peak Efficiency</h3>
+                    <p class="text-gray-400 text-sm">Industry-leading conversion efficiency reduces energy waste</p>
                 </div>
-                <div class="bg-gray-800 rounded-lg p-6 text-center">
-                    <h3 class="text-4xl font-bold text-cyan-400 mb-2">1MHz</h3>
-                    <p class="text-gray-300">Switching Frequency</p>
-                    <p class="text-sm text-gray-500 mt-2">Ultra-fast switching capability</p>
+
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-cyan-400/20 to-purple-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl font-bold gradient-text">10x</span>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Power Density</h3>
+                    <p class="text-gray-400 text-sm">Dramatic size reduction enables new applications</p>
                 </div>
-                <div class="bg-gray-800 rounded-lg p-6 text-center">
-                    <h3 class="text-4xl font-bold text-cyan-400 mb-2">50kW/L</h3>
-                    <p class="text-gray-300">Power Density</p>
-                    <p class="text-sm text-gray-500 mt-2">Compact high-power solutions</p>
+
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-cyan-400/20 to-purple-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl font-bold gradient-text">MHz</span>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Switching Speed</h3>
+                    <p class="text-gray-400 text-sm">Ultra-fast switching reduces component size</p>
                 </div>
-                <div class="bg-gray-800 rounded-lg p-6 text-center">
-                    <h3 class="text-4xl font-bold text-cyan-400 mb-2">150°C</h3>
-                    <p class="text-gray-300">Max Temperature</p>
-                    <p class="text-sm text-gray-500 mt-2">High-temperature operation</p>
+
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-cyan-400/20 to-purple-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl font-bold gradient-text">50%</span>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Cost Reduction</h3>
+                    <p class="text-gray-400 text-sm">Lower system costs through integration</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Product Portfolio -->
-    <section class="py-20 bg-gray-800">
-        <div class="container mx-auto max-w-6xl px-6">
-            <h2 class="text-3xl font-bold mb-12">Product Portfolio</h2>
+    <!-- Applications -->
+    <section class="py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">Applications</h2>
             
-            <div class="space-y-8">
-                <!-- Inverter Products -->
-                <div class="bg-gray-900 rounded-lg p-8">
-                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">Inverter Solutions</h3>
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <div>
-                            <h4 class="font-semibold mb-3">Residential (1-10kW)</h4>
-                            <ul class="space-y-2 text-sm text-gray-300">
-                                <li>• Single-phase solar inverters</li>
-                                <li>• Battery storage inverters</li>
-                                <li>• Micro-inverters</li>
-                                <li>• Smart home integration</li>
-                            </ul>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Electric Vehicles -->
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20 hover:border-cyan-400/50 transition-all">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-cyan-400/20 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
                         </div>
-                        <div>
-                            <h4 class="font-semibold mb-3">Commercial (10-500kW)</h4>
-                            <ul class="space-y-2 text-sm text-gray-300">
-                                <li>• Three-phase string inverters</li>
-                                <li>• Central inverters</li>
-                                <li>• Grid-tie systems</li>
-                                <li>• Power quality management</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold mb-3">Industrial (500kW-1MW+)</h4>
-                            <ul class="space-y-2 text-sm text-gray-300">
-                                <li>• Utility-scale inverters</li>
-                                <li>• Multi-MW solutions</li>
-                                <li>• Grid support features</li>
-                                <li>• Custom configurations</li>
-                            </ul>
-                        </div>
+                        <h3 class="text-xl font-semibold">Electric Vehicles</h3>
                     </div>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• Onboard chargers (22kW+)</li>
+                        <li>• Traction inverters</li>
+                        <li>• DC-DC converters</li>
+                        <li>• Wireless charging systems</li>
+                    </ul>
                 </div>
 
-                <!-- SST Products -->
-                <div class="bg-gray-900 rounded-lg p-8">
-                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">SST Applications</h3>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-semibold mb-3">Distribution Grid</h4>
-                            <ul class="space-y-2 text-sm text-gray-300">
-                                <li>• Medium voltage (1-35kV) SSTs</li>
-                                <li>• Smart grid integration</li>
-                                <li>• Renewable energy interfacing</li>
-                                <li>• Voltage regulation and stabilization</li>
-                            </ul>
+                <!-- Renewable Energy -->
+                <div class="bg-gray-900 rounded-lg p-6 border border-purple-400/20 hover:border-purple-400/50 transition-all">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-400/20 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                            </svg>
                         </div>
-                        <div>
-                            <h4 class="font-semibold mb-3">Special Applications</h4>
-                            <ul class="space-y-2 text-sm text-gray-300">
-                                <li>• EV charging infrastructure</li>
-                                <li>• Data center power distribution</li>
-                                <li>• Railway traction systems</li>
-                                <li>• Marine and offshore platforms</li>
-                            </ul>
-                        </div>
+                        <h3 class="text-xl font-semibold">Renewable Energy</h3>
                     </div>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• Solar inverters</li>
+                        <li>• Wind power converters</li>
+                        <li>• Energy storage systems</li>
+                        <li>• Grid-tie interfaces</li>
+                    </ul>
+                </div>
+
+                <!-- Data Centers -->
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20 hover:border-cyan-400/50 transition-all">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-cyan-400/20 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">Data Centers</h3>
+                    </div>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• 48V power distribution</li>
+                        <li>• Point-of-load converters</li>
+                        <li>• UPS systems</li>
+                        <li>• Cooling optimization</li>
+                    </ul>
+                </div>
+
+                <!-- Industrial -->
+                <div class="bg-gray-900 rounded-lg p-6 border border-purple-400/20 hover:border-purple-400/50 transition-all">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-400/20 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">Industrial Systems</h3>
+                    </div>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• Motor drives</li>
+                        <li>• Welding equipment</li>
+                        <li>• Induction heating</li>
+                        <li>• Power supplies</li>
+                    </ul>
+                </div>
+
+                <!-- Aerospace -->
+                <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20 hover:border-cyan-400/50 transition-all">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-cyan-400/20 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">Aerospace & Defense</h3>
+                    </div>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• More electric aircraft</li>
+                        <li>• Satellite power systems</li>
+                        <li>• Radar power supplies</li>
+                        <li>• Electric propulsion</li>
+                    </ul>
+                </div>
+
+                <!-- Smart Grid -->
+                <div class="bg-gray-900 rounded-lg p-6 border border-purple-400/20 hover:border-purple-400/50 transition-all">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-400/20 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">Smart Grid</h3>
+                    </div>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• FACTS devices</li>
+                        <li>• HVDC converters</li>
+                        <li>• Grid stabilization</li>
+                        <li>• Power quality</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Innovation Lab -->
+    <!-- Technical Specifications -->
     <section class="py-20 bg-gray-900">
-        <div class="container mx-auto max-w-6xl px-6">
-            <h2 class="text-3xl font-bold mb-12 text-center">Innovation Lab</h2>
-            <div class="bg-gray-800 rounded-lg p-8">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4 text-cyan-400">Research Focus Areas</h3>
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">Technical Specifications</h2>
+            
+            <div class="max-w-5xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Inverter Specs -->
+                    <div class="bg-black rounded-lg p-6 border border-gray-800">
+                        <h3 class="text-xl font-semibold mb-4 text-cyan-400">High-Efficiency Inverters</h3>
                         <ul class="space-y-3 text-gray-300">
-                            <li class="flex items-start">
-                                <span class="text-cyan-400 mr-2">▸</span>
-                                <div>
-                                    <strong>Next-Gen Semiconductors:</strong> Exploring Ga₂O₃ and diamond for ultra-high voltage applications
-                                </div>
+                            <li class="flex justify-between">
+                                <span>Power Range:</span>
+                                <span class="text-white">1kW - 1MW</span>
                             </li>
-                            <li class="flex items-start">
-                                <span class="text-cyan-400 mr-2">▸</span>
-                                <div>
-                                    <strong>AI-Optimized Control:</strong> Machine learning for predictive maintenance and efficiency optimization
-                                </div>
+                            <li class="flex justify-between">
+                                <span>Efficiency:</span>
+                                <span class="text-white">>99%</span>
                             </li>
-                            <li class="flex items-start">
-                                <span class="text-cyan-400 mr-2">▸</span>
-                                <div>
-                                    <strong>Quantum Power Systems:</strong> Quantum computing for grid optimization
-                                </div>
+                            <li class="flex justify-between">
+                                <span>Switching Freq:</span>
+                                <span class="text-white">100kHz - 10MHz</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Power Density:</span>
+                                <span class="text-white">>50 kW/L</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>THD:</span>
+                                <span class="text-white"><1%</span>
                             </li>
                         </ul>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4 text-cyan-400">Testing Capabilities</h3>
+
+                    <!-- SST Specs -->
+                    <div class="bg-black rounded-lg p-6 border border-gray-800">
+                        <h3 class="text-xl font-semibold mb-4 text-purple-400">Solid-State Transformers</h3>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex justify-between">
+                                <span>Power Rating:</span>
+                                <span class="text-white">10kVA - 10MVA</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Voltage:</span>
+                                <span class="text-white">Up to 35kV</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Efficiency:</span>
+                                <span class="text-white">>98%</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Weight Reduction:</span>
+                                <span class="text-white">70%</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Features:</span>
+                                <span class="text-white">Smart Grid Ready</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- WPT Specs -->
+                    <div class="bg-black rounded-lg p-6 border border-gray-800">
+                        <h3 class="text-xl font-semibold mb-4 text-cyan-400">Wireless Power Transfer</h3>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex justify-between">
+                                <span>Power Level:</span>
+                                <span class="text-white">3.3kW - 1MW</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Transfer Gap:</span>
+                                <span class="text-white">10cm - 1m</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Efficiency:</span>
+                                <span class="text-white">>95%</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Frequency:</span>
+                                <span class="text-white">20kHz - 13.56MHz</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Alignment:</span>
+                                <span class="text-white">±30cm tolerance</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research & Development -->
+    <section class="py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">Research & Development</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-gray-900 rounded-lg p-6 border border-cyan-400/20">
+                        <h3 class="text-xl font-semibold mb-4 text-cyan-400">Current Focus Areas</h3>
                         <ul class="space-y-3 text-gray-300">
                             <li class="flex items-start">
-                                <span class="text-cyan-400 mr-2">▸</span>
-                                <div>
-                                    <strong>Power Testing:</strong> Up to 2MW test facility with grid emulation
-                                </div>
+                                <span class="text-cyan-400 mr-2 mt-1">▸</span>
+                                <span>Ultra-high frequency (10MHz+) power conversion</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-cyan-400 mr-2">▸</span>
-                                <div>
-                                    <strong>Environmental Testing:</strong> -40°C to +85°C, humidity, vibration, and shock
-                                </div>
+                                <span class="text-cyan-400 mr-2 mt-1">▸</span>
+                                <span>AI-optimized control algorithms</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-cyan-400 mr-2">▸</span>
-                                <div>
-                                    <strong>EMC Compliance:</strong> Pre-compliance testing for global standards
-                                </div>
+                                <span class="text-cyan-400 mr-2 mt-1">▸</span>
+                                <span>Integrated magnetics and packaging</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-cyan-400 mr-2 mt-1">▸</span>
+                                <span>Dynamic wireless power transfer</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-900 rounded-lg p-6 border border-purple-400/20">
+                        <h3 class="text-xl font-semibold mb-4 text-purple-400">Future Technologies</h3>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start">
+                                <span class="text-purple-400 mr-2 mt-1">▸</span>
+                                <span>Diamond semiconductor devices</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-400 mr-2 mt-1">▸</span>
+                                <span>Quantum power conversion</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-400 mr-2 mt-1">▸</span>
+                                <span>Superconducting power systems</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-400 mr-2 mt-1">▸</span>
+                                <span>Space-based power beaming</span>
                             </li>
                         </ul>
                     </div>
@@ -281,15 +444,18 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 bg-gradient-to-r from-cyan-600 to-purple-600">
-        <div class="container mx-auto max-w-6xl px-6 text-center">
-            <h2 class="text-3xl font-bold mb-4">Power the Future with Advanced Electronics</h2>
-            <p class="text-xl mb-8">Partner with us for cutting-edge power solutions</p>
+    <section class="py-20 bg-gradient-to-r from-cyan-900/20 to-purple-900/20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-6">Ready to Transform Your Power Systems?</h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Partner with O.R.I.O.N for cutting-edge power electronics solutions that deliver 
+                unmatched efficiency and performance
+            </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="mailto:power@orion-tech.com" class="bg-white text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                    Request Technical Specs
+                <a href="orion.html#contact" class="bg-gradient-to-r from-cyan-500 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-cyan-600 hover:to-purple-700 transition-all transform hover:scale-105">
+                    Get Technical Consultation
                 </a>
-                <a href="orion.html" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors">
+                <a href="orion.html" class="bg-gray-800 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-all border border-gray-700">
                     Back to O.R.I.O.N
                 </a>
             </div>
@@ -297,9 +463,9 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black py-8">
+    <footer class="bg-black py-8 border-t border-gray-800">
         <div class="container mx-auto px-6 text-center text-gray-400">
-            <p>&copy; 2024 O.R.I.O.N - Advanced Power Electronics. All rights reserved.</p>
+            <p>&copy; 2024 M.Y. Engineering and Technologies. All rights reserved.</p>
         </div>
     </footer>
 </body>
