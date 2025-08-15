@@ -164,29 +164,7 @@
             image-rendering: crisp-edges;
         }
         
-        /* Constellation effect for ORION */
-        .bg-orion::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(2px 2px at 20% 30%, white, transparent),
-                radial-gradient(2px 2px at 60% 70%, white, transparent),
-                radial-gradient(1px 1px at 50% 50%, white, transparent),
-                radial-gradient(1px 1px at 80% 20%, white, transparent),
-                radial-gradient(3px 3px at 40% 60%, #00d4ff, transparent);
-            background-size: 200% 200%;
-            animation: twinkle 5s ease-in-out infinite;
-            opacity: 0.4;
-        }
-        
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.8; }
-        }
+
         
         /* Navigation styles */
         .swiper-button-next,
