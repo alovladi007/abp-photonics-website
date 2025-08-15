@@ -5,259 +5,250 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Optoelectronic Materials - O.R.I.O.N | M.Y. Engineering and Technologies</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .orbitron {
-            font-family: 'Orbitron', sans-serif;
-        }
-        .constellation-bg {
-            background-image: url('Nanotechnology.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            position: relative;
-        }
-        .constellation-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-        }
-        .gradient-text {
-            background: linear-gradient(to right, #00ffff, #0080ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-    </style>
 </head>
 <body class="bg-black text-white">
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-sm border-b border-cyan-400/20">
+    <nav class="fixed w-full bg-black/90 backdrop-blur-sm z-50 border-b border-cyan-400/20">
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
-                <a href="index.html" class="text-2xl font-bold orbitron gradient-text">M.Y. Engineering and Technologies</a>
-                <div class="hidden md:flex space-x-8">
-                    <a href="index.html" class="hover:text-cyan-400 transition-colors">Home</a>
-                    <a href="orion.html" class="hover:text-cyan-400 transition-colors">O.R.I.O.N</a>
-                    <a href="orion.html#services" class="hover:text-cyan-400 transition-colors">Services</a>
-                    <a href="orion.html#technologies" class="hover:text-cyan-400 transition-colors">Technologies</a>
-                    <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
+                <div>
+                    <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                        M.Y. Engineering and Technologies
+                    </a>
+                    <span class="text-cyan-400 ml-2">| O.R.I.O.N - Optoelectronic Materials</span>
                 </div>
+                <a href="orion.html" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+                    ← Back to O.R.I.O.N
+                </a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="constellation-bg min-h-[60vh] flex items-center relative">
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="max-w-4xl">
-                <div class="mb-4">
-                    <a href="orion.html" class="text-cyan-400 hover:text-cyan-300 transition-colors">← Back to O.R.I.O.N</a>
-                </div>
-                <h1 class="text-5xl md:text-7xl font-bold mb-6 orbitron">
-                    Optoelectronic <span class="gradient-text">Materials</span>
-                </h1>
-                <p class="text-xl md:text-2xl text-gray-300 mb-8">
-                    Advanced III-V semiconductors, GaN, InP, AlN, and quantum dot devices for next-generation photonic and electronic applications
-                </p>
-            </div>
+    <section class="pt-32 pb-20 bg-gradient-to-b from-gray-900 to-black">
+        <div class="container mx-auto px-6">
+            <h1 class="text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                Optoelectronic Materials
+            </h1>
+            <p class="text-xl text-gray-300 max-w-3xl">
+                Advanced III-V semiconductors, quantum dots, and novel materials for next-generation photonic and optoelectronic devices
+            </p>
         </div>
     </section>
 
     <!-- Overview Section -->
     <section class="py-20 bg-gray-900">
         <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto">
-                <h2 class="text-4xl font-bold mb-8 gradient-text">Materials Overview</h2>
-                <div class="prose prose-lg prose-invert max-w-none">
-                    <p class="text-gray-300 mb-6">
-                        Our optoelectronic materials research focuses on the development and optimization of advanced compound semiconductors and nanostructures. These materials form the foundation for high-performance devices in communications, sensing, power electronics, and quantum technologies.
-                    </p>
-                    <p class="text-gray-300">
-                        By leveraging cutting-edge epitaxial growth techniques and precise material engineering, we create tailored heterostructures with exceptional optical and electronic properties for specific applications.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Materials Grid -->
-    <section class="py-20 bg-black">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-12 text-center gradient-text">Core Materials</h2>
-            <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center">Material Systems Overview</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- GaN -->
-                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20 hover:border-cyan-400/50 transition-all">
-                    <h3 class="text-2xl font-bold mb-4 text-cyan-400">Gallium Nitride (GaN)</h3>
-                    <ul class="space-y-3 text-gray-300">
-                        <li>• Wide bandgap (3.4 eV) for high-power applications</li>
-                        <li>• High electron mobility and saturation velocity</li>
-                        <li>• Excellent thermal stability up to 1000°C</li>
-                        <li>• Blue/UV LEDs and laser diodes</li>
-                        <li>• RF power amplifiers for 5G/6G</li>
-                        <li>• High-voltage power switching devices</li>
+                <div class="bg-gray-800 rounded-lg p-6 border border-cyan-400/20">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Gallium Nitride (GaN)</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>• Wide bandgap (3.4 eV)</li>
+                        <li>• High electron mobility</li>
+                        <li>• UV/blue LEDs & lasers</li>
+                        <li>• High-power RF devices</li>
                     </ul>
-                    <div class="mt-6 p-4 bg-gray-800 rounded">
-                        <p class="text-sm text-gray-400">Key Applications: Power electronics, RF devices, LED lighting, UV detectors</p>
-                    </div>
                 </div>
 
                 <!-- InP -->
-                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20 hover:border-cyan-400/50 transition-all">
-                    <h3 class="text-2xl font-bold mb-4 text-cyan-400">Indium Phosphide (InP)</h3>
-                    <ul class="space-y-3 text-gray-300">
-                        <li>• Direct bandgap (1.34 eV) ideal for telecom wavelengths</li>
-                        <li>• Superior electron velocity and mobility</li>
-                        <li>• Low noise characteristics</li>
-                        <li>• Photonic integrated circuits (PICs)</li>
-                        <li>• High-speed photodetectors and modulators</li>
-                        <li>• Quantum cascade lasers</li>
+                <div class="bg-gray-800 rounded-lg p-6 border border-cyan-400/20">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Indium Phosphide (InP)</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>• Direct bandgap (1.34 eV)</li>
+                        <li>• Superior electron velocity</li>
+                        <li>• Telecom wavelengths</li>
+                        <li>• High-speed photonics</li>
                     </ul>
-                    <div class="mt-6 p-4 bg-gray-800 rounded">
-                        <p class="text-sm text-gray-400">Key Applications: Optical communications, LIDAR, THz devices, solar cells</p>
-                    </div>
                 </div>
 
                 <!-- AlN -->
-                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20 hover:border-cyan-400/50 transition-all">
-                    <h3 class="text-2xl font-bold mb-4 text-cyan-400">Aluminum Nitride (AlN)</h3>
-                    <ul class="space-y-3 text-gray-300">
+                <div class="bg-gray-800 rounded-lg p-6 border border-cyan-400/20">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Aluminum Nitride (AlN)</h3>
+                    <ul class="space-y-2 text-gray-300">
                         <li>• Ultra-wide bandgap (6.2 eV)</li>
-                        <li>• Exceptional thermal conductivity (285 W/m·K)</li>
-                        <li>• High acoustic velocity for SAW devices</li>
-                        <li>• Deep UV LEDs (200-280 nm)</li>
-                        <li>• High-temperature electronics</li>
-                        <li>• Piezoelectric MEMS devices</li>
+                        <li>• Deep UV applications</li>
+                        <li>• Piezoelectric properties</li>
+                        <li>• High thermal conductivity</li>
                     </ul>
-                    <div class="mt-6 p-4 bg-gray-800 rounded">
-                        <p class="text-sm text-gray-400">Key Applications: UV-C sterilization, RF filters, heat spreaders, sensors</p>
-                    </div>
                 </div>
 
                 <!-- Quantum Dots -->
-                <div class="bg-gray-900 rounded-lg p-8 border border-cyan-400/20 hover:border-cyan-400/50 transition-all">
-                    <h3 class="text-2xl font-bold mb-4 text-cyan-400">Quantum Dots</h3>
-                    <ul class="space-y-3 text-gray-300">
-                        <li>• Size-tunable emission wavelengths</li>
-                        <li>• High quantum yield (>90%)</li>
-                        <li>• Narrow emission linewidth</li>
-                        <li>• InAs/GaAs for telecom wavelengths</li>
-                        <li>• CdSe/ZnS for visible displays</li>
-                        <li>• Perovskite QDs for next-gen devices</li>
-                    </ul>
-                    <div class="mt-6 p-4 bg-gray-800 rounded">
-                        <p class="text-sm text-gray-400">Key Applications: Quantum computing, single-photon sources, displays, biomarkers</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Technical Specifications -->
-    <section class="py-20 bg-gray-900">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-12 text-center gradient-text">Technical Capabilities</h2>
-            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                <div class="bg-gray-800 rounded-lg p-6">
-                    <h3 class="text-xl font-bold mb-4 text-cyan-400">Epitaxial Growth</h3>
-                    <ul class="space-y-2 text-gray-300 text-sm">
-                        <li>• MOCVD for III-V compounds</li>
-                        <li>• MBE for quantum structures</li>
-                        <li>• Atomic layer control</li>
-                        <li>• In-situ monitoring</li>
-                        <li>• Strain engineering</li>
-                    </ul>
-                </div>
-                <div class="bg-gray-800 rounded-lg p-6">
-                    <h3 class="text-xl font-bold mb-4 text-cyan-400">Characterization</h3>
-                    <ul class="space-y-2 text-gray-300 text-sm">
-                        <li>• XRD for crystal quality</li>
-                        <li>• PL/EL spectroscopy</li>
-                        <li>• Hall measurements</li>
-                        <li>• AFM/SEM imaging</li>
-                        <li>• SIMS depth profiling</li>
-                    </ul>
-                </div>
-                <div class="bg-gray-800 rounded-lg p-6">
-                    <h3 class="text-xl font-bold mb-4 text-cyan-400">Device Processing</h3>
-                    <ul class="space-y-2 text-gray-300 text-sm">
-                        <li>• E-beam lithography</li>
-                        <li>• ICP-RIE etching</li>
-                        <li>• Metal contacts</li>
-                        <li>• Passivation layers</li>
-                        <li>• Wafer bonding</li>
+                <div class="bg-gray-800 rounded-lg p-6 border border-cyan-400/20">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-400">Quantum Dots</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>• Size-tunable emission</li>
+                        <li>• High quantum yield</li>
+                        <li>• Narrow linewidth</li>
+                        <li>• Single-photon sources</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Applications -->
+    <!-- Applications Section -->
     <section class="py-20 bg-black">
         <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-12 text-center gradient-text">Applications & Markets</h2>
-            <div class="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-                <div class="text-center">
-                    <div class="w-20 h-20 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-10 h-10 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            <h2 class="text-3xl font-bold mb-12 text-center">Key Applications</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Photonic Devices -->
+                <div class="bg-gradient-to-br from-cyan-900/20 to-blue-900/20 rounded-lg p-8 border border-cyan-400/30">
+                    <div class="w-16 h-16 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                         </svg>
                     </div>
-                    <h3 class="font-semibold mb-2">Communications</h3>
-                    <p class="text-sm text-gray-400">5G/6G infrastructure, optical networks, satellite systems</p>
+                    <h3 class="text-2xl font-semibold mb-4">Photonic Devices</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li>• Laser diodes (405-1550 nm)</li>
+                        <li>• High-brightness LEDs</li>
+                        <li>• Photodetectors & APDs</li>
+                        <li>• Integrated photonic circuits</li>
+                        <li>• Quantum light sources</li>
+                    </ul>
                 </div>
-                <div class="text-center">
-                    <div class="w-20 h-20 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-10 h-10 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                <!-- RF & Power -->
+                <div class="bg-gradient-to-br from-cyan-900/20 to-blue-900/20 rounded-lg p-8 border border-cyan-400/30">
+                    <div class="w-16 h-16 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
                     </div>
-                    <h3 class="font-semibold mb-2">Power Systems</h3>
-                    <p class="text-sm text-gray-400">EV charging, renewable energy, grid infrastructure</p>
+                    <h3 class="text-2xl font-semibold mb-4">RF & Power Electronics</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li>• 5G/6G base stations</li>
+                        <li>• Radar systems</li>
+                        <li>• Satellite communications</li>
+                        <li>• Power amplifiers</li>
+                        <li>• High-voltage switches</li>
+                    </ul>
                 </div>
-                <div class="text-center">
-                    <div class="w-20 h-20 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-10 h-10 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                <!-- Sensing & Imaging -->
+                <div class="bg-gradient-to-br from-cyan-900/20 to-blue-900/20 rounded-lg p-8 border border-cyan-400/30">
+                    <div class="w-16 h-16 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                         </svg>
                     </div>
-                    <h3 class="font-semibold mb-2">Sensing</h3>
-                    <p class="text-sm text-gray-400">LIDAR, biomedical imaging, environmental monitoring</p>
+                    <h3 class="text-2xl font-semibold mb-4">Sensing & Imaging</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li>• LIDAR systems</li>
+                        <li>• Infrared cameras</li>
+                        <li>• UV sterilization</li>
+                        <li>• Biomedical sensors</li>
+                        <li>• Quantum sensing</li>
+                    </ul>
                 </div>
-                <div class="text-center">
-                    <div class="w-20 h-20 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-10 h-10 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
-                        </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Capabilities Section -->
+    <section class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Technical Capabilities</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Growth Technologies -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">Growth Technologies</h3>
+                    <div class="space-y-4">
+                        <div class="bg-gray-800 rounded-lg p-4">
+                            <h4 class="font-semibold mb-2">MOCVD (Metal-Organic CVD)</h4>
+                            <p class="text-gray-400">High-throughput epitaxy for LEDs, lasers, and HEMTs with precise composition control</p>
+                        </div>
+                        <div class="bg-gray-800 rounded-lg p-4">
+                            <h4 class="font-semibold mb-2">MBE (Molecular Beam Epitaxy)</h4>
+                            <p class="text-gray-400">Atomic-layer precision for quantum structures and research devices</p>
+                        </div>
+                        <div class="bg-gray-800 rounded-lg p-4">
+                            <h4 class="font-semibold mb-2">HVPE (Hydride Vapor Phase Epitaxy)</h4>
+                            <p class="text-gray-400">Thick layer growth for substrates and bulk materials</p>
+                        </div>
                     </div>
-                    <h3 class="font-semibold mb-2">Quantum Tech</h3>
-                    <p class="text-sm text-gray-400">Quantum computing, cryptography, precision timing</p>
+                </div>
+
+                <!-- Characterization -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-cyan-400">Characterization Suite</h3>
+                    <div class="space-y-4">
+                        <div class="bg-gray-800 rounded-lg p-4">
+                            <h4 class="font-semibold mb-2">Optical Characterization</h4>
+                            <p class="text-gray-400">PL, EL, Raman, UV-Vis-NIR spectroscopy, quantum efficiency</p>
+                        </div>
+                        <div class="bg-gray-800 rounded-lg p-4">
+                            <h4 class="font-semibold mb-2">Electrical Testing</h4>
+                            <p class="text-gray-400">I-V, C-V, Hall effect, DLTS, high-frequency S-parameters</p>
+                        </div>
+                        <div class="bg-gray-800 rounded-lg p-4">
+                            <h4 class="font-semibold mb-2">Structural Analysis</h4>
+                            <p class="text-gray-400">XRD, AFM, SEM, TEM, SIMS for composition and defect analysis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Innovation Highlights -->
+    <section class="py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Innovation Highlights</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg p-6 border border-cyan-400/30">
+                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Micro-LEDs</h3>
+                    <p class="text-gray-300">Sub-10μm devices for next-gen displays with >1M nits brightness</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg p-6 border border-cyan-400/30">
+                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">UV-C LEDs</h3>
+                    <p class="text-gray-300">AlGaN-based deep UV sources for sterilization and water purification</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg p-6 border border-cyan-400/30">
+                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Single Photon Sources</h3>
+                    <p class="text-gray-300">Quantum dot and defect-based emitters for quantum communication</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg p-6 border border-cyan-400/30">
+                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">VCSEL Arrays</h3>
+                    <p class="text-gray-300">High-power arrays for LIDAR and 3D sensing applications</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg p-6 border border-cyan-400/30">
+                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Photonic ICs</h3>
+                    <p class="text-gray-300">InP-based PICs for coherent optical communications</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg p-6 border border-cyan-400/30">
+                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">GaN-on-Diamond</h3>
+                    <p class="text-gray-300">Ultra-high thermal conductivity substrates for extreme power density</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section id="contact" class="py-20 bg-gradient-to-r from-cyan-600 to-blue-600">
+    <section class="py-20 bg-gradient-to-r from-cyan-600 to-blue-600">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold mb-4">Ready to Advance Your Optoelectronic Applications?</h2>
+            <h2 class="text-4xl font-bold mb-4">Ready to Illuminate Your Innovation?</h2>
             <p class="text-xl mb-8 max-w-2xl mx-auto">
-                Partner with O.R.I.O.N for cutting-edge materials and device solutions
+                Partner with O.R.I.O.N for cutting-edge optoelectronic materials and device development
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="mailto:materials@orion-tech.com" class="bg-white text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                    Contact Materials Team
+                <a href="mailto:optoelectronics@orion.com" class="bg-white text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    Contact Our Experts
                 </a>
                 <a href="#" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors">
-                    Download Technical Specs
+                    Download Technical Brief
                 </a>
             </div>
         </div>
