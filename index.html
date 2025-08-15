@@ -129,16 +129,25 @@
         }
         
         .bg-bioinformatics {
-            background-image: url('BioEngineering.jpeg');
-            background-size: contain;
+            background-image: url('DNA.png');
+            background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-color: #0a0a0a;
-            image-rendering: auto;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
         
         .bg-photomask {
             background-image: url('Photomask Image.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+        
+        .bg-geospatial {
+            background-image: url('GALILEO.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -328,6 +337,24 @@
                                 <p class="text-gray-300">Revolutionary brain-inspired processors enabling ultra-low power AI and cognitive computing applications.</p>
                                 <a href="hardware.html" class="inline-block bg-cyan-400 text-slate-900 font-semibold px-6 py-3 rounded-md hover:bg-cyan-300 transition">
                                     Discover More
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 7: Geospatial Intelligence -->
+                    <div class="swiper-slide relative">
+                        <div class="absolute inset-0 bg-geospatial"></div>
+                        <div class="absolute inset-0 bg-[#001933]/20"></div>
+                        <div class="relative z-10 flex items-center h-full px-6 md:px-20">
+                            <div class="max-w-xl space-y-6">
+                                <p class="text-cyan-400 uppercase tracking-wider">Satellite Analytics</p>
+                                <h1 class="text-white text-4xl md:text-6xl font-extrabold leading-tight uppercase">
+                                    Geospatial Intelligence Agency
+                                </h1>
+                                <p class="text-gray-300">Advanced satellite imagery analysis and geospatial data processing for defense, agriculture, and environmental monitoring.</p>
+                                <a href="geospatial.html" class="inline-block bg-cyan-400 text-slate-900 font-semibold px-6 py-3 rounded-md hover:bg-cyan-300 transition">
+                                    Explore Solutions
                                 </a>
                             </div>
                         </div>
