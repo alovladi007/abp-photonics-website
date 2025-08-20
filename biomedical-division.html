@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biomedical Division - BioTensor & MediMetrics</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Unified Biomedical Division combining BioTensor Labs ML research and MediMetrics medical imaging AI for comprehensive healthcare solutions">
+    <meta name="keywords" content="biotensor, medimetrics, biomedical engineering, medical imaging AI, healthcare analytics, machine learning, HIPAA compliance">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Sora', sans-serif; }
+        
+        /* Combined DNA and Medical Data Animation */
+        .bio-viz {
+            position: relative;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        
+        .dna-strand {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, #ec4899, #0760d9, transparent);
+            animation: flow 3s linear infinite;
+        }
+        
+        @keyframes flow {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(100%); }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #ec4899 0%, #0760d9 50%, #054aa8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-black/90 backdrop-blur-lg z-50 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <a href="index.html" class="text-xl font-bold bg-gradient-to-r from-pink-400 via-blue-400 to-indigo-500 bg-clip-text text-transparent">M.Y. Engineering</a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="hover:text-blue-400 transition-colors">Home</a>
+                    <a href="patents.html" class="hover:text-blue-400 transition-colors">Patents</a>
+                    <a href="cybersecurity.html" class="hover:text-blue-400 transition-colors">Cybersecurity</a>
+                    <a href="hardware.html" class="hover:text-blue-400 transition-colors">Hardware</a>
+                    <a href="biomedical-division.html" class="text-blue-400">Biomedical</a>
+                    <a href="geospatial.html" class="hover:text-blue-400 transition-colors">Geospatial</a>
+                    <a href="orion.html" class="hover:text-blue-400 transition-colors">O.R.I.O.N</a>
+                </div>
+            </div>
+            <a href="ai-security-assistant/demo.html" class="hidden md:inline-block px-4 py-2 bg-gradient-to-r from-pink-500 to-blue-500 text-white font-semibold rounded-full hover:opacity-90 transition-opacity">
+                AI Assistant
+            </a>
+        </div>
+    </nav>
+
+    <!-- Unified Biomedical Hero Section -->
+    <section class="min-h-screen bg-gradient-to-br from-slate-900 via-pink-900/20 to-blue-900/20 pt-20 relative overflow-hidden">
+        <!-- Combined Visualization Background -->
+        <div class="absolute inset-0 flex items-center justify-center opacity-10">
+            <div class="bio-viz w-full h-full">
+                <div class="dna-strand" style="left: 20%;"></div>
+                <div class="dna-strand" style="animation-delay: 1s; left: 40%;"></div>
+                <div class="dna-strand" style="animation-delay: 2s; left: 60%;"></div>
+                <div class="dna-strand" style="animation-delay: 3s; left: 80%;"></div>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 py-20 relative z-10">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text">Biomedical Division</h1>
+                <p class="text-xl text-gray-300 max-w-4xl mx-auto mb-8">Unifying BioTensor Labs research and MediMetrics clinical AI for comprehensive healthcare innovation</p>
+                
+                <!-- Two Brand Badges -->
+                <div class="flex justify-center gap-8 mb-8">
+                    <div class="bg-pink-500/20 border border-pink-500/50 rounded-full px-6 py-2">
+                        <span class="text-pink-400 font-semibold">🧬 BioTensor Labs</span>
+                    </div>
+                    <div class="bg-blue-500/20 border border-blue-500/50 rounded-full px-6 py-2">
+                        <span class="text-blue-400 font-semibold">🏥 MediMetrics</span>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center gap-4">
+                    <a href="#biotensor" class="px-8 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                        Explore BioTensor
+                    </a>
+                    <a href="#medimetrics" class="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                        Explore MediMetrics
+                    </a>
+                </div>
+            </div>
+
+            <!-- Unified Features Overview -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-purple-600/30 hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+                    <div class="text-4xl mb-3">🧠</div>
+                    <h3 class="text-xl font-bold mb-3">ML Research</h3>
+                    <p class="text-gray-300 text-sm">Advanced machine learning for biomedical applications and drug discovery</p>
+                </div>
+                
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-purple-600/30 hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+                    <div class="text-4xl mb-3">🏥</div>
+                    <h3 class="text-xl font-bold mb-3">Medical Imaging AI</h3>
+                    <p class="text-gray-300 text-sm">Explainable AI with Grad-CAM for radiology and clinical diagnostics</p>
+                </div>
+                
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-purple-600/30 hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+                    <div class="text-4xl mb-3">🔬</div>
+                    <h3 class="text-xl font-bold mb-3">Biosensing</h3>
+                    <p class="text-gray-300 text-sm">Nano-biosensors and lab-on-chip technologies for real-time monitoring</p>
+                </div>
+                
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-purple-600/30 hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+                    <div class="text-4xl mb-3">🔒</div>
+                    <h3 class="text-xl font-bold mb-3">HIPAA Compliance</h3>
+                    <p class="text-gray-300 text-sm">Enterprise security with BAA support and comprehensive audit trails</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BioTensor Section -->
+    <section id="biotensor" class="py-20 bg-gradient-to-br from-pink-900/20 to-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="text-4xl">🧬</span>
+                <h2 class="text-4xl font-bold mb-4 bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent">BioTensor Labs</h2>
+                <p class="text-gray-300">Machine Learning & Biomedical Engineering Research</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a href="biomedical-ml.html" class="group bg-slate-800/50 rounded-xl p-6 border border-pink-500/30 hover:border-pink-400/50 transition-all">
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-pink-400 transition-colors">Biomedical ML</h3>
+                    <p class="text-gray-400 text-sm">AI algorithms for medical diagnosis, drug discovery, and personalized treatment</p>
+                    <span class="text-pink-400 text-sm mt-4 inline-block">Learn More →</span>
+                </a>
+                
+                <a href="bioimaging.html" class="group bg-slate-800/50 rounded-xl p-6 border border-pink-500/30 hover:border-pink-400/50 transition-all">
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-pink-400 transition-colors">Bioimaging</h3>
+                    <p class="text-gray-400 text-sm">Advanced microscopy techniques and computational imaging</p>
+                    <span class="text-pink-400 text-sm mt-4 inline-block">Learn More →</span>
+                </a>
+                
+                <a href="biosensing.html" class="group bg-slate-800/50 rounded-xl p-6 border border-pink-500/30 hover:border-pink-400/50 transition-all">
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-pink-400 transition-colors">Biosensing</h3>
+                    <p class="text-gray-400 text-sm">Nano-biosensors for disease detection and health monitoring</p>
+                    <span class="text-pink-400 text-sm mt-4 inline-block">Learn More →</span>
+                </a>
+                
+                <a href="clinical-intelligence.html" class="group bg-slate-800/50 rounded-xl p-6 border border-pink-500/30 hover:border-pink-400/50 transition-all">
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-pink-400 transition-colors">Clinical Intelligence</h3>
+                    <p class="text-gray-400 text-sm">AI-powered clinical decision support systems</p>
+                    <span class="text-pink-400 text-sm mt-4 inline-block">Learn More →</span>
+                </a>
+                
+                <a href="mynx-natalcare-dashboard.html" class="group bg-slate-800/50 rounded-xl p-6 border border-pink-500/30 hover:border-pink-400/50 transition-all">
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-pink-400 transition-colors">MYNX NatalCare™</h3>
+                    <p class="text-gray-400 text-sm">Prenatal monitoring and maternal health platform</p>
+                    <span class="text-pink-400 text-sm mt-4 inline-block">Launch Dashboard →</span>
+                </a>
+                
+                <a href="biotensor-agi-portal.html" class="group bg-slate-800/50 rounded-xl p-6 border border-pink-500/30 hover:border-pink-400/50 transition-all">
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-pink-400 transition-colors">BioTensor AGI</h3>
+                    <p class="text-gray-400 text-sm">Advanced general intelligence for healthcare</p>
+                    <span class="text-pink-400 text-sm mt-4 inline-block">Access Portal →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MediMetrics Section -->
+    <section id="medimetrics" class="py-20 bg-gradient-to-br from-blue-900/20 to-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="text-4xl">🏥</span>
+                <h2 class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">MediMetrics</h2>
+                <p class="text-gray-300">Medical Imaging AI & Healthcare Analytics Platform</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a href="/medimetrics/solutions" class="group bg-slate-800/50 rounded-xl p-6 border border-blue-500/30 hover:border-blue-400/50 transition-all">
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">Radiology Solutions</h3>
+                    <p class="text-gray-400 text-sm">Triage queues, Grad-CAM overlays, and automated reporting</p>
+                    <span class="text-blue-400 text-sm mt-4 inline-block">View Solutions →</span>
+                </a>
+                
+                <a href="/medimetrics/security" class="group bg-slate-800/50 rounded-xl p-6 border border-blue-500/30 hover:border-blue-400/50 transition-all">
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">Security & Compliance</h3>
+                    <p class="text-gray-400 text-sm">HIPAA-aligned controls with encryption and audit trails</p>
+                    <span class="text-blue-400 text-sm mt-4 inline-block">Security Details →</span>
+                </a>
+                
+                <a href="/medimetrics/pricing" class="group bg-slate-800/50 rounded-xl p-6 border border-blue-500/30 hover:border-blue-400/50 transition-all">
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">Enterprise Pricing</h3>
+                    <p class="text-gray-400 text-sm">Flexible plans from starter to enterprise with BAA support</p>
+                    <span class="text-blue-400 text-sm mt-4 inline-block">View Pricing →</span>
+                </a>
+                
+                <a href="/medimetrics" class="group bg-slate-800/50 rounded-xl p-6 border border-blue-500/30 hover:border-blue-400/50 transition-all">
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">Clinical Analytics</h3>
+                    <p class="text-gray-400 text-sm">Real-time dashboards with configurable thresholds</p>
+                    <span class="text-blue-400 text-sm mt-4 inline-block">Launch Platform →</span>
+                </a>
+                
+                <a href="/medimetrics/contact" class="group bg-slate-800/50 rounded-xl p-6 border border-blue-500/30 hover:border-blue-400/50 transition-all">
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">Integration Support</h3>
+                    <p class="text-gray-400 text-sm">PACS, DICOM, EHR, and FHIR integration assistance</p>
+                    <span class="text-blue-400 text-sm mt-4 inline-block">Request Demo →</span>
+                </a>
+                
+                <a href="/medimetrics/blog" class="group bg-slate-800/50 rounded-xl p-6 border border-blue-500/30 hover:border-blue-400/50 transition-all">
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">Resources & Blog</h3>
+                    <p class="text-gray-400 text-sm">Latest updates in medical AI and best practices</p>
+                    <span class="text-blue-400 text-sm mt-4 inline-block">Read Blog →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Unified Platform Benefits -->
+    <section class="py-20 bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Unified Biomedical Platform Benefits</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="flex items-start space-x-3">
+                    <span class="text-purple-400">✓</span>
+                    <div>
+                        <h4 class="font-semibold">End-to-End Solutions</h4>
+                        <p class="text-sm text-gray-400">From research to clinical deployment</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <span class="text-purple-400">✓</span>
+                    <div>
+                        <h4 class="font-semibold">Explainable AI</h4>
+                        <p class="text-sm text-gray-400">Transparent decision-making processes</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <span class="text-purple-400">✓</span>
+                    <div>
+                        <h4 class="font-semibold">Regulatory Compliance</h4>
+                        <p class="text-sm text-gray-400">HIPAA, FDA guidance adherence</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <span class="text-purple-400">✓</span>
+                    <div>
+                        <h4 class="font-semibold">Scalable Infrastructure</h4>
+                        <p class="text-sm text-gray-400">Cloud-native architecture on AWS</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <span class="text-purple-400">✓</span>
+                    <div>
+                        <h4 class="font-semibold">Research Integration</h4>
+                        <p class="text-sm text-gray-400">Direct pipeline from lab to clinic</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <span class="text-purple-400">✓</span>
+                    <div>
+                        <h4 class="font-semibold">Enterprise Support</h4>
+                        <p class="text-sm text-gray-400">24/7 support with SLA guarantees</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-pink-900/20 via-purple-900/20 to-blue-900/20">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4">Transform Healthcare with Unified Biomedical Solutions</h2>
+            <p class="text-gray-300 mb-8">Leverage the combined power of BioTensor research and MediMetrics clinical AI</p>
+            <div class="flex justify-center gap-4">
+                <a href="/medimetrics/contact" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-blue-500 text-white rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                    Request a Demo
+                </a>
+                <a href="/medimetrics/pricing" class="px-6 py-3 border border-purple-400 text-purple-400 rounded-xl font-semibold hover:bg-purple-400/10 transition-colors">
+                    View Pricing
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black/90 border-t border-gray-800 py-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">© 2024 Biomedical Division - BioTensor Labs & MediMetrics. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="/medimetrics/legal/tos" class="text-gray-400 hover:text-white text-sm">Terms</a>
+                    <a href="/medimetrics/legal/privacy" class="text-gray-400 hover:text-white text-sm">Privacy</a>
+                    <a href="/medimetrics/legal/baa" class="text-gray-400 hover:text-white text-sm">BAA</a>
+                    <a href="/medimetrics/blog" class="text-gray-400 hover:text-white text-sm">Blog</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP Animations
+        gsap.from(".gradient-text", {
+            duration: 1.5,
+            opacity: 0,
+            y: -50,
+            ease: "power3.out"
+        });
+
+        gsap.from("section > div > div > div", {
+            duration: 1,
+            opacity: 0,
+            y: 30,
+            stagger: 0.1,
+            ease: "power2.out",
+            delay: 0.5
+        });
+    </script>
+</body>
+</html>
