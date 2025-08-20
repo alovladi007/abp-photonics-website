@@ -1,51 +1,66 @@
-# MediMetrics - Medical Imaging AI Platform
+# MediMetrics Marketing Site (Next.js App Router)
 
-## Overview
-MediMetrics is an enterprise-ready medical imaging AI platform with explainable AI, HIPAA compliance, and seamless healthcare integration.
+**Features**: Advanced SEO, MDX blog, HubSpot contact with email fallback, Stripe Checkout, OG image, sitemap/robots, analytics provider, accessible UI.
 
-## Features
-- 🏥 **Medical Imaging AI**: Advanced algorithms with Grad-CAM explainability
-- 🔒 **HIPAA Compliance**: Enterprise-grade security with BAA support
-- 📊 **Clinical Analytics**: Real-time dashboards and automated reporting
-- 🔗 **Easy Integration**: PACS, DICOM, EHR system compatibility
+## Quickstart
 
-## Quick Start
-
-This is a Next.js 14 application. To get started:
-
-1. Install dependencies:
 ```bash
-npm install
-```
-
-2. Set up environment variables:
-```bash
+npm i
 cp .env.example .env
-```
-
-3. Run development server:
-```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000)
+Open [http://localhost:3000](http://localhost:3000) to view the site.
+
+## Build
+
+```bash
+npm run build && npm start
+```
+
+## Configure
+
+- Set `BASE_URL` to your domain
+- Create Stripe prices with nicknames `starter-monthly` and `pro-monthly`
+- Set webhook secret at `/api/stripe/webhook`
+- HubSpot: set `HUBSPOT_PORTAL_ID` & `HUBSPOT_FORM_ID` or remove from contact page
+- Email fallback: configure SMTP_* vars
+- Analytics: Configure PostHog and GA4 keys for tracking
 
 ## Project Structure
+
 ```
 medimetrics/
-├── app/           # Next.js App Router pages
-├── components/    # React components
-├── lib/          # Utility functions
-├── content/      # MDX blog content
-└── public/       # Static assets
+├── app/                    # Next.js App Router pages
+│   ├── api/               # API routes (Stripe, contact)
+│   ├── blog/              # Blog pages
+│   ├── legal/             # Legal pages (TOS, Privacy, BAA)
+│   └── ...                # Other pages
+├── components/            # React components
+├── content/              # MDX blog content
+├── lib/                  # Utility functions
+└── public/               # Static assets
 ```
 
+## Features
+
+- **Modern UI**: Tailwind CSS with responsive design
+- **SEO Optimized**: Metadata, OG images, sitemap, robots.txt
+- **Analytics**: PostHog with A/B testing and GA4 with consent mode
+- **Lead Capture**: HubSpot integration with email fallback
+- **Monetization**: Stripe Checkout and webhook handling
+- **Compliance**: GDPR cookie consent, HIPAA-ready content
+- **Blog**: MDX support for rich content
+
 ## Deployment
-Deploy to Vercel, Netlify, or any Node.js platform:
+
+Deploy to Vercel, Netlify, or any Node.js hosting platform:
+
 ```bash
 npm run build
 npm start
 ```
 
 ## License
+
 © 2024 MediMetrics. All rights reserved.
