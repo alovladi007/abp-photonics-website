@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediMetrics - Medical Imaging AI & Healthcare Analytics</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="MediMetrics - Explainable AI for medical imaging with HIPAA-aligned controls, advanced analytics, and enterprise-ready healthcare solutions">
+    <meta name="keywords" content="medimetrics, medical imaging AI, healthcare analytics, HIPAA compliance, medical AI, radiology AI, clinical decision support">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Sora', sans-serif; }
+        
+        /* Medical Data Visualization Animation */
+        .medical-viz {
+            width: 200px;
+            height: 400px;
+            position: relative;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        
+        .data-stream {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, #0760d9, transparent);
+            animation: flow 3s linear infinite;
+        }
+        
+        @keyframes flow {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(100%); }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #0760d9 0%, #054aa8 50%, #032f6b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-black/90 backdrop-blur-lg z-50 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <a href="index.html" class="text-xl font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">M.Y. Engineering</a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="hover:text-blue-400 transition-colors">Home</a>
+                    <a href="patents.html" class="hover:text-blue-400 transition-colors">Patents</a>
+                    <a href="cybersecurity.html" class="hover:text-blue-400 transition-colors">Cybersecurity</a>
+                    <a href="hardware.html" class="hover:text-blue-400 transition-colors">Hardware</a>
+                    <a href="biotensor.html" class="hover:text-blue-400 transition-colors">BioTensor</a>
+                    <a href="medimetrics-division.html" class="text-blue-400">MediMetrics</a>
+                </div>
+            </div>
+            <a href="ai-security-assistant/demo.html" class="hidden md:inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-400 transition-colors">
+                AI Assistant
+            </a>
+        </div>
+    </nav>
+
+    <!-- MediMetrics Hero Section -->
+    <section class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900/20 to-indigo-900/20 pt-20 relative overflow-hidden">
+        <!-- Medical Data Visualization Background -->
+        <div class="absolute inset-0 flex items-center justify-center opacity-10">
+            <div class="medical-viz">
+                <div class="data-stream"></div>
+                <div class="data-stream" style="animation-delay: 1s; left: 50px;"></div>
+                <div class="data-stream" style="animation-delay: 2s; left: 100px;"></div>
+                <div class="data-stream" style="animation-delay: 3s; left: 150px;"></div>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 py-20 relative z-10">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text">MediMetrics</h1>
+                <p class="text-xl text-blue-200 max-w-4xl mx-auto">Explainable AI for medical imaging with HIPAA-aligned controls, advanced analytics, and enterprise-ready healthcare solutions</p>
+                <div class="mt-8 flex justify-center gap-4">
+                    <a href="/medimetrics" class="px-8 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-500 transition-colors">
+                        Launch Application
+                    </a>
+                    <a href="#features" class="px-8 py-3 border border-blue-400 text-blue-400 rounded-xl font-semibold hover:bg-blue-400/10 transition-colors">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+
+            <!-- Core Solutions -->
+            <div id="features" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-blue-600/30 hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+                    <div class="text-4xl mb-3">🏥</div>
+                    <h3 class="text-xl font-bold mb-3">Medical Imaging AI</h3>
+                    <p class="text-blue-200 text-sm">Advanced AI algorithms for medical diagnosis with Grad-CAM explainability and audit trails</p>
+                    <div class="mt-4">
+                        <a href="/medimetrics/solutions" class="text-blue-300 hover:text-blue-100 text-sm flex items-center">
+                            Learn More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-blue-600/30 hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+                    <div class="text-4xl mb-3">🔒</div>
+                    <h3 class="text-xl font-bold mb-3">HIPAA Compliance</h3>
+                    <p class="text-blue-200 text-sm">Enterprise-grade security with BAA support, encryption, and comprehensive audit logging</p>
+                    <div class="mt-4">
+                        <a href="/medimetrics/security" class="text-blue-300 hover:text-blue-100 text-sm flex items-center">
+                            Security Details →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-blue-600/30 hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+                    <div class="text-4xl mb-3">📊</div>
+                    <h3 class="text-xl font-bold mb-3">Clinical Analytics</h3>
+                    <p class="text-blue-200 text-sm">Real-time analytics dashboard with configurable thresholds and automated reporting</p>
+                    <div class="mt-4">
+                        <a href="/medimetrics/pricing" class="text-blue-300 hover:text-blue-100 text-sm flex items-center">
+                            View Pricing →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-blue-600/30 hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+                    <div class="text-4xl mb-3">🔗</div>
+                    <h3 class="text-xl font-bold mb-3">Easy Integration</h3>
+                    <p class="text-blue-200 text-sm">Seamless integration with PACS, DICOM, EHR systems, and existing healthcare infrastructure</p>
+                    <div class="mt-4">
+                        <a href="/medimetrics/contact" class="text-blue-300 hover:text-blue-100 text-sm flex items-center">
+                            Request Demo →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Features -->
+            <div class="bg-slate-800/30 rounded-2xl p-8 backdrop-blur-sm border border-blue-600/20">
+                <h2 class="text-3xl font-bold mb-6 text-center">Enterprise Healthcare Platform</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="flex items-start space-x-3">
+                        <span class="text-blue-400">✓</span>
+                        <div>
+                            <h4 class="font-semibold">Explainable AI</h4>
+                            <p class="text-sm text-gray-400">Grad-CAM overlays show exactly what the model is analyzing</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="text-blue-400">✓</span>
+                        <div>
+                            <h4 class="font-semibold">Faster Triage</h4>
+                            <p class="text-sm text-gray-400">Prioritize critical findings with configurable thresholds</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="text-blue-400">✓</span>
+                        <div>
+                            <h4 class="font-semibold">RBAC & SSO</h4>
+                            <p class="text-sm text-gray-400">Enterprise authentication with SAML/OIDC support</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="text-blue-400">✓</span>
+                        <div>
+                            <h4 class="font-semibold">Audit Trails</h4>
+                            <p class="text-sm text-gray-400">Complete audit logging for compliance and security</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="text-blue-400">✓</span>
+                        <div>
+                            <h4 class="font-semibold">FHIR Export</h4>
+                            <p class="text-sm text-gray-400">Standards-based integration with EHR systems</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="text-blue-400">✓</span>
+                        <div>
+                            <h4 class="font-semibold">PDF Reports</h4>
+                            <p class="text-sm text-gray-400">Automated versioned reports with one-click generation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Platform Sections -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a href="/medimetrics/solutions" class="group bg-gradient-to-br from-blue-900/50 to-indigo-900/50 rounded-xl p-6 border border-blue-500/30 hover:border-blue-400/50 transition-all">
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">Solutions</h3>
+                    <p class="text-gray-400 text-sm">Tailored solutions for radiology groups and clinics</p>
+                </a>
+                
+                <a href="/medimetrics/security" class="group bg-gradient-to-br from-blue-900/50 to-indigo-900/50 rounded-xl p-6 border border-blue-500/30 hover:border-blue-400/50 transition-all">
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">Security</h3>
+                    <p class="text-gray-400 text-sm">HIPAA compliance and enterprise security features</p>
+                </a>
+                
+                <a href="/medimetrics/pricing" class="group bg-gradient-to-br from-blue-900/50 to-indigo-900/50 rounded-xl p-6 border border-blue-500/30 hover:border-blue-400/50 transition-all">
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">Pricing</h3>
+                    <p class="text-gray-400 text-sm">Flexible plans from starter to enterprise</p>
+                </a>
+            </div>
+
+            <!-- Trust Indicators -->
+            <div class="mt-12 text-center">
+                <p class="text-sm text-gray-400 mb-4">Trusted by leading healthcare institutions</p>
+                <div class="flex justify-center items-center space-x-8 opacity-50">
+                    <span class="text-2xl font-bold">HIPAA</span>
+                    <span class="text-2xl font-bold">BAA</span>
+                    <span class="text-2xl font-bold">SOC2</span>
+                    <span class="text-2xl font-bold">AWS</span>
+                    <span class="text-2xl font-bold">DICOM</span>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="mt-16 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 rounded-2xl p-8 text-center backdrop-blur-sm border border-blue-500/30">
+                <h3 class="text-2xl font-bold mb-4">Ready to Transform Your Medical Imaging Workflow?</h3>
+                <p class="text-blue-200 mb-6">Start with a pilot program or explore our demo environment</p>
+                <div class="flex justify-center gap-4">
+                    <a href="/medimetrics/contact" class="px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-500 transition-colors">
+                        Request a Demo
+                    </a>
+                    <a href="/medimetrics/pricing" class="px-6 py-3 border border-blue-400 text-blue-400 rounded-xl font-semibold hover:bg-blue-400/10 transition-colors">
+                        View Pricing
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black/90 border-t border-gray-800 py-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">© 2024 MediMetrics. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="/medimetrics/legal/tos" class="text-gray-400 hover:text-white text-sm">Terms</a>
+                    <a href="/medimetrics/legal/privacy" class="text-gray-400 hover:text-white text-sm">Privacy</a>
+                    <a href="/medimetrics/legal/baa" class="text-gray-400 hover:text-white text-sm">BAA</a>
+                    <a href="/medimetrics/blog" class="text-gray-400 hover:text-white text-sm">Blog</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP Animations
+        gsap.from(".gradient-text", {
+            duration: 1.5,
+            opacity: 0,
+            y: -50,
+            ease: "power3.out"
+        });
+
+        gsap.from("#features > div", {
+            duration: 1,
+            opacity: 0,
+            y: 30,
+            stagger: 0.2,
+            ease: "power2.out",
+            delay: 0.5
+        });
+    </script>
+</body>
+</html>
