@@ -1,0 +1,1 @@
+export type Prediction = { score: number; modelVersion: string };
