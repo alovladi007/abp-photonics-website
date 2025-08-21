@@ -1,5 +1,5 @@
 services:
-  # API Service
+  # API Service (keep as-is)
   - type: web
     name: medimetrics-api
     env: node
@@ -17,9 +17,15 @@ services:
       - key: JWT_SECRET
         generateValue: true
 
-  # Web Frontend
+  # Keep the static site but don't try to change it
+  - type: static
+    name: medimetrics-web
+    staticPublishPath: ./medimetrics-enterprise
+    buildCommand: echo "Keeping as placeholder"
+
+  # Add a new web service for the actual Next.js app
   - type: web
-    name: medimetrics-web  
+    name: medimetrics-frontend
     env: node
     rootDir: medimetrics-enterprise/apps/web
     buildCommand: npm install && npm run build
