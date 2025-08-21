@@ -3,55 +3,77 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Install pnpm
+RUN npm install -g pnpm
+
 # Copy package files
 COPY package*.json ./
-COPY tsconfig*.json ./
+COPY pnpm-lock.yaml* ./
 
 # Install dependencies
-RUN npm ci --only=production && \
-    npm cache clean --force
+RUN pnpm install --frozen-lockfile
 
 # Copy source code
-COPY src ./src
+COPY . .
 
 # Build application
-RUN npm run build
+RUN pnpm run build
+
+# Production stage
+FROM node:20-alpine AS production
+
+WORKDIR /app
+
+# Install pnpm and dumb-init
+RUN npm install -g pnpm && \
+    apk add --no-cache dumb-init
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+# Copy package files
+COPY package*.json ./
+COPY pnpm-lock.yaml* ./
+
+# Install production dependencies only
+RUN pnpm install --prod --frozen-lockfile && \
+    pnpm store prune
+
+# Copy built application
+COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
+
+# Switch to non-root user
+USER nodejs
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD node -e "require('http').get('http://localhost:8000/health', (r) => {r.statusCode === 200 ? process.exit(0) : process.exit(1)})"
+
+EXPOSE 8000
+
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["node", "dist/main"]
 
 # Development stage
 FROM node:20-alpine AS development
 
 WORKDIR /app
 
-# Install all dependencies for development
-COPY package*.json ./
-RUN npm ci && \
-    npm cache clean --force
+# Install pnpm
+RUN npm install -g pnpm
 
+# Copy package files
+COPY package*.json ./
+COPY pnpm-lock.yaml* ./
+
+# Install all dependencies
+RUN pnpm install --frozen-lockfile
+
+# Copy source code
 COPY . .
 
-EXPOSE 8000 9100
+EXPOSE 8000
 
-CMD ["npm", "run", "dev"]
-
-# Production stage
-FROM node:20-alpine AS production
-
-RUN apk add --no-cache tini
-
-WORKDIR /app
-
-# Copy only production dependencies
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
-COPY package*.json ./
-
-# Create non-root user
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001
-
-USER nodejs
-
-EXPOSE 8000 9100
-
-ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["node", "dist/main"]
+CMD ["pnpm", "run", "dev"]

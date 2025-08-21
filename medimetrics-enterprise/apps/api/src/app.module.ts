@@ -3,8 +3,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { TerminusModule } from '@nestjs/terminus';
-import { PrometheusModule } from '@willsoto/nestjs-prometheus';
-import { RedisModule } from '@liaoliaots/nestjs-redis';
 
 // Feature modules
 import { AuthModule } from './auth/auth.module';
@@ -50,18 +48,6 @@ import configuration from './config/configuration';
       inject: [ConfigService],
     }),
 
-    // Redis
-    RedisModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        config: {
-          url: configService.get<string>('REDIS_URL'),
-          retryStrategy: (times: number) => Math.min(times * 50, 2000),
-        },
-      }),
-      inject: [ConfigService],
-    }),
-
     // Rate limiting
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
@@ -79,15 +65,6 @@ import configuration from './config/configuration';
 
     // Monitoring
     TerminusModule,
-    PrometheusModule.register({
-      defaultMetrics: {
-        enabled: true,
-      },
-      path: '/metrics',
-      defaultLabels: {
-        app: 'medimetrics-api',
-      },
-    }),
 
     // Feature modules
     DatabaseModule,

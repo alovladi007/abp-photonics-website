@@ -1,21 +1,24 @@
 #!/bin/bash
 
-# Initialize MinIO buckets for MediMetrics
-
+# Wait for MinIO to be ready
 echo "Waiting for MinIO to be ready..."
-sleep 10
+until curl -f http://localhost:9000/minio/health/live > /dev/null 2>&1; do
+    sleep 2
+done
+
+echo "Creating MinIO buckets..."
 
 # Configure MinIO client
-docker exec medimetrics-minio mc alias set minio http://localhost:9000 medimetrics medimetricssecret
+docker run --rm --network medimetrics-enterprise_medimetrics \
+    -e MC_HOST_minio=http://medimetrics:medimetricssecret@minio:9000 \
+    minio/mc mb minio/medimetrics-raw
 
-# Create buckets
-docker exec medimetrics-minio mc mb minio/medimetrics-raw
-docker exec medimetrics-minio mc mb minio/medimetrics-derivatives
-docker exec medimetrics-minio mc mb minio/medimetrics-reports
-docker exec medimetrics-minio mc mb minio/medimetrics-models
-docker exec medimetrics-minio mc mb minio/medimetrics-backups
+docker run --rm --network medimetrics-enterprise_medimetrics \
+    -e MC_HOST_minio=http://medimetrics:medimetricssecret@minio:9000 \
+    minio/mc mb minio/medimetrics-derivatives
 
-# Set bucket policies
-docker exec medimetrics-minio mc policy set download minio/medimetrics-reports
+docker run --rm --network medimetrics-enterprise_medimetrics \
+    -e MC_HOST_minio=http://medimetrics:medimetricssecret@minio:9000 \
+    minio/mc mb minio/medimetrics-reports
 
-echo "MinIO buckets created successfully!"
+echo "✓ MinIO buckets created successfully"

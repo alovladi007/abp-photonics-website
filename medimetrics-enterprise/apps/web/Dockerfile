@@ -3,49 +3,74 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Install pnpm
+RUN npm install -g pnpm
+
 # Copy package files
 COPY package*.json ./
+COPY pnpm-lock.yaml* ./
 
 # Install dependencies
-RUN npm ci
+RUN pnpm install --frozen-lockfile
 
 # Copy source code
 COPY . .
 
 # Build application
-RUN npm run build
-
-# Development stage
-FROM node:20-alpine AS development
-
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm ci
-
-COPY . .
-
-EXPOSE 3000
-
-CMD ["npm", "run", "dev"]
+RUN pnpm run build
 
 # Production stage
 FROM node:20-alpine AS production
 
 WORKDIR /app
 
+# Install pnpm and dumb-init
+RUN npm install -g pnpm && \
+    apk add --no-cache dumb-init
+
+# Create non-root user
 RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nextjs -u 1001
+    adduser -S nodejs -u 1001
+
+# Copy package files
+COPY package*.json ./
+COPY pnpm-lock.yaml* ./
+
+# Install production dependencies only
+RUN pnpm install --prod --frozen-lockfile && \
+    pnpm store prune
 
 # Copy built application
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder --chown=nodejs:nodejs /app/.next ./.next
+COPY --from=builder --chown=nodejs:nodejs /app/public ./public
 
-USER nextjs
+# Switch to non-root user
+USER nodejs
 
 EXPOSE 3000
 
-ENV NODE_ENV production
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["pnpm", "start"]
 
-CMD ["node", "server.js"]
+# Development stage
+FROM node:20-alpine AS development
+
+WORKDIR /app
+
+# Install pnpm
+RUN npm install -g pnpm
+
+# Copy package files
+COPY package*.json ./
+COPY pnpm-lock.yaml* ./
+
+# Install all dependencies
+RUN pnpm install --frozen-lockfile
+
+# Copy source code
+COPY . .
+
+EXPOSE 3000
+
+CMD ["pnpm", "run", "dev"]

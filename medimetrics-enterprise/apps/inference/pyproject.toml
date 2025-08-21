@@ -34,7 +34,6 @@ python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 grad-cam = "^1.5.0"
 onnx = "^1.15.0"
-onnxruntime-gpu = {version = "^1.16.3", optional = true}
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.4"

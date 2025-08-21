@@ -10,12 +10,12 @@ RED := \033[0;31m
 NC := \033[0m # No Color
 
 help: ## Show this help message
-	@echo -e "$(CYAN)MediMetrics Enterprise - Make Commands$(NC)"
-	@echo -e "$(CYAN)======================================$(NC)"
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "$(GREEN)%-20s$(NC) %s\n", $$1, $$2}'
+	@echo -e "${CYAN}MediMetrics Enterprise - Make Commands${NC}"
+	@echo -e "${CYAN}======================================${NC}"
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "${GREEN}%-20s${NC} %s\n", $$1, $$2}'
 
 init: ## Initialize the project (install deps, setup DB, seed data)
-	@echo -e "$(CYAN)Initializing MediMetrics...$(NC)"
+	@echo -e "${CYAN}Initializing MediMetrics...${NC}"
 	@cp -n .env.example .env 2>/dev/null || true
 	@docker compose up -d postgres redis minio
 	@sleep 5
@@ -26,18 +26,18 @@ init: ## Initialize the project (install deps, setup DB, seed data)
 	@docker compose run --rm web pnpm install
 	@docker compose run --rm inference pip install -e .
 	@./scripts/init-minio-buckets.sh
-	@echo -e "$(GREEN)✓ Initialization complete!$(NC)"
+	@echo -e "${GREEN}✓ Initialization complete!${NC}"
 
 dev: ## Start development environment
-	@echo -e "$(CYAN)Starting development environment...$(NC)"
+	@echo -e "${CYAN}Starting development environment...${NC}"
 	@docker compose up --build
 
 prod: ## Start production environment
-	@echo -e "$(CYAN)Starting production environment...$(NC)"
+	@echo -e "${CYAN}Starting production environment...${NC}"
 	@docker compose --profile prod up -d --build
 
 test: ## Run all tests
-	@echo -e "$(CYAN)Running tests...$(NC)"
+	@echo -e "${CYAN}Running tests...${NC}"
 	@docker compose run --rm api pnpm test
 	@docker compose run --rm web pnpm test
 	@docker compose run --rm inference pytest
@@ -92,23 +92,23 @@ api-docs: ## Open API documentation
 	@open http://localhost:8000/swagger
 
 clean: ## Clean up containers and volumes
-	@echo -e "$(RED)Cleaning up...$(NC)"
+	@echo -e "${RED}Cleaning up...${NC}"
 	@docker compose down -v
 	@rm -rf node_modules apps/*/node_modules packages/*/node_modules
 	@rm -rf apps/inference/.venv
-	@echo -e "$(GREEN)✓ Cleanup complete$(NC)"
+	@echo -e "${GREEN}✓ Cleanup complete${NC}"
 
 backup: ## Backup database and S3 data
-	@echo -e "$(CYAN)Creating backup...$(NC)"
+	@echo -e "${CYAN}Creating backup...${NC}"
 	@mkdir -p backups
-	@docker compose exec postgres pg_dump -U postgres medimetrics > backups/db_$$(date +%Y%m%d_%H%M%S).sql
-	@docker compose exec minio mc mirror --overwrite minio/medimetrics-raw backups/s3_raw_$$(date +%Y%m%d_%H%M%S)
-	@echo -e "$(GREEN)✓ Backup complete$(NC)"
+	@docker compose exec postgres pg_dump -U postgres medimetrics > backups/db_$(shell date +%Y%m%d_%H%M%S).sql
+	@docker compose exec minio mc mirror --overwrite minio/medimetrics-raw backups/s3_raw_$(shell date +%Y%m%d_%H%M%S)
+	@echo -e "${GREEN}✓ Backup complete${NC}"
 
 restore: ## Restore from latest backup
-	@echo -e "$(CYAN)Restoring from backup...$(NC)"
-	@docker compose exec -T postgres psql -U postgres medimetrics < $$(ls -t backups/db_*.sql | head -1)
-	@echo -e "$(GREEN)✓ Restore complete$(NC)"
+	@echo -e "${CYAN}Restoring from backup...${NC}"
+	@docker compose exec -T postgres psql -U postgres medimetrics < $(shell ls -t backups/db_*.sql | head -1)
+	@echo -e "${GREEN}✓ Restore complete${NC}"
 
 k8s-dev: ## Deploy to Kubernetes (dev)
 	@kubectl apply -k k8s/overlays/dev

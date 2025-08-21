@@ -1,4 +1,4 @@
-name: Complete CI/CD Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
@@ -68,10 +68,13 @@ jobs:
           cache: 'npm'
       
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       
       - name: Run unit tests
-        run: npm run test:unit
+        run: npm run test:unit --workspace=apps/api
+      
+      - name: Run integration tests
+        run: npm run test:integration --workspace=apps/api
       
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
@@ -133,8 +136,8 @@ jobs:
       
       - name: Deploy to Kubernetes (Staging)
         run: |
-          echo "Deploying to staging environment"
-          # kubectl apply -k infra/k8s/overlays/staging
+          echo "Deploying to staging environment..."
+          # kubectl apply -k k8s/overlays/staging
 
   # Deploy to Production
   deploy-production:
@@ -148,5 +151,5 @@ jobs:
       
       - name: Deploy to Kubernetes (Production)
         run: |
-          echo "Deploying to production environment"
-          # kubectl apply -k infra/k8s/overlays/prod
+          echo "Deploying to production environment..."
+          # kubectl apply -k k8s/overlays/prod

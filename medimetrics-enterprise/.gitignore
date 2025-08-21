@@ -1,10 +1,43 @@
 # Dependencies
 node_modules/
 .pnpm-store/
+.yarn/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 lerna-debug.log*
 
 # Python
@@ -26,46 +59,21 @@ htmlcov/
 .dmypy.json
 dmypy.json
 .pyre/
-*.egg-info/
-dist/
-build/
+.ruff_cache/
 
-# IDEs
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-
-# Environment
-.env
-.env.local
-.env.*.local
-
-# Build outputs
-dist/
-build/
-out/
-.next/
-.nuxt/
-.cache/
-.turbo/
-
-# Testing
-coverage/
-.nyc_output/
-test-results/
-playwright-report/
-playwright/.cache/
+# ML/Data
+*.h5
+*.pkl
+*.pth
+*.onnx
+/models/
+/data/
+*.csv
+*.parquet
 
 # Docker
-*.log
+.dockerignore
 docker-compose.override.yml
-
-# Kubernetes
-*.kubeconfig
-kubeconfig
 
 # Terraform
 *.tfstate
@@ -73,41 +81,34 @@ kubeconfig
 .terraform/
 .terraform.lock.hcl
 terraform.tfvars
+*.tfvars
 
-# ML/Data
-data/raw/
-data/processed/
-models/
-mlruns/
-wandb/
-checkpoints/
-*.h5
-*.pt
-*.pth
-*.onnx
-*.pb
-
-# Logs
-logs/
-*.log
+# Kubernetes
+kubeconfig
+*.kubeconfig
 
 # Backups
 backups/
-*.bak
 *.backup
-
-# Temporary files
-tmp/
-temp/
-.tmp/
+*.sql
+*.dump
 
 # OS
 Thumbs.db
 .DS_Store
+.AppleDouble
+.LSOverride
 
-# Secrets
-*.key
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Security
 *.pem
+*.key
 *.crt
 *.p12
+*.pfx
 secrets/
