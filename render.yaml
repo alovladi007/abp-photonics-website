@@ -1,0 +1,166 @@
+services:
+  # PostgreSQL Database
+  - type: pserv
+    name: medimetrics-postgres
+    runtime: docker
+    dockerfilePath: ./medimetrics-enterprise/Dockerfile.postgres
+    dockerContext: ./medimetrics-enterprise
+    disk:
+      name: postgres-data
+      mountPath: /var/lib/postgresql/data
+      sizeGB: 10
+    envVars:
+      - key: POSTGRES_DB
+        value: medimetrics
+      - key: POSTGRES_USER
+        value: postgres
+      - key: POSTGRES_PASSWORD
+        generateValue: true
+    healthCheckPath: /
+    initialDeployHook: |
+      psql -U postgres -d medimetrics < /scripts/init-db.sql
+
+  # Redis Cache
+  - type: pserv
+    name: medimetrics-redis
+    runtime: docker
+    dockerCommand: redis-server --appendonly yes --requirepass $REDIS_PASSWORD
+    disk:
+      name: redis-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: REDIS_PASSWORD
+        generateValue: true
+
+  # MinIO Object Storage
+  - type: web
+    name: medimetrics-minio
+    runtime: docker
+    dockerCommand: server /data --console-address ":9001"
+    disk:
+      name: minio-data
+      mountPath: /data
+      sizeGB: 20
+    envVars:
+      - key: MINIO_ROOT_USER
+        value: medimetrics
+      - key: MINIO_ROOT_PASSWORD
+        generateValue: true
+      - key: MINIO_BROWSER_REDIRECT_URL
+        value: https://medimetrics-minio.onrender.com:9001
+    healthCheckPath: /minio/health/live
+
+  # NestJS API
+  - type: web
+    name: medimetrics-api
+    runtime: node
+    buildCommand: cd medimetrics-enterprise/apps/api && npm install && npm run build
+    startCommand: cd medimetrics-enterprise/apps/api && npm run start:prod
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 8000
+      - key: DATABASE_URL
+        fromService:
+          type: pserv
+          name: medimetrics-postgres
+          property: connectionString
+      - key: REDIS_HOST
+        fromService:
+          type: pserv
+          name: medimetrics-redis
+          property: host
+      - key: REDIS_PORT
+        fromService:
+          type: pserv
+          name: medimetrics-redis
+          property: port
+      - key: REDIS_PASSWORD
+        fromService:
+          type: pserv
+          name: medimetrics-redis
+          envVarKey: REDIS_PASSWORD
+      - key: S3_ENDPOINT
+        fromService:
+          type: web
+          name: medimetrics-minio
+          property: url
+      - key: S3_ACCESS_KEY
+        value: medimetrics
+      - key: S3_SECRET_KEY
+        fromService:
+          type: web
+          name: medimetrics-minio
+          envVarKey: MINIO_ROOT_PASSWORD
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CSRF_SECRET
+        generateValue: true
+    healthCheckPath: /health
+    autoDeploy: true
+
+  # Next.js Web Application
+  - type: web
+    name: medimetrics-web
+    runtime: node
+    buildCommand: cd medimetrics-enterprise/apps/web && npm install && npm run build
+    startCommand: cd medimetrics-enterprise/apps/web && npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: medimetrics-api
+          property: url
+    healthCheckPath: /
+    autoDeploy: true
+
+  # Python Inference Service
+  - type: web
+    name: medimetrics-inference
+    runtime: python
+    buildCommand: cd medimetrics-enterprise/apps/inference && pip install -r requirements.txt
+    startCommand: cd medimetrics-enterprise/apps/inference && uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: 1
+      - key: DATABASE_URL
+        fromService:
+          type: pserv
+          name: medimetrics-postgres
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: pserv
+          name: medimetrics-redis
+          property: connectionString
+      - key: S3_ENDPOINT
+        fromService:
+          type: web
+          name: medimetrics-minio
+          property: url
+    healthCheckPath: /health
+    autoDeploy: true
+
+databases:
+  - name: medimetrics-db
+    databaseName: medimetrics
+    user: postgres
+    postgresMajorVersion: 16
+
+envVarGroups:
+  - name: medimetrics-shared
+    envVars:
+      - key: LOG_LEVEL
+        value: info
+      - key: TZ
+        value: UTC
+      - key: ENABLE_AI_ANALYSIS
+        value: true
+      - key: ENABLE_AUDIT_LOGS
+        value: true
+      - key: ENABLE_2FA
+        value: true

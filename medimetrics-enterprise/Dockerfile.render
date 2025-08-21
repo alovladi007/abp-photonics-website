@@ -1,0 +1,36 @@
+# Multi-stage Dockerfile for Render deployment
+FROM node:20-alpine AS api-builder
+WORKDIR /app
+COPY apps/api/package*.json ./
+RUN npm ci
+COPY apps/api/ ./
+RUN npm run build
+
+FROM node:20-alpine AS web-builder
+WORKDIR /app
+COPY apps/web/package*.json ./
+RUN npm ci
+COPY apps/web/ ./
+RUN npm run build
+
+FROM node:20-alpine AS production
+WORKDIR /app
+
+# Install production dependencies
+COPY package*.json ./
+RUN npm ci --only=production
+
+# Copy built applications
+COPY --from=api-builder /app/dist ./apps/api/dist
+COPY --from=web-builder /app/.next ./apps/web/.next
+COPY --from=web-builder /app/public ./apps/web/public
+
+# Copy necessary files
+COPY apps/api/package*.json ./apps/api/
+COPY apps/web/package*.json ./apps/web/
+
+# Expose ports
+EXPOSE 3000 8000
+
+# Start script
+CMD ["npm", "run", "start:prod"]
