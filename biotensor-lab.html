@@ -82,14 +82,13 @@
                     <a href="cybersecurity.html" class="hover:text-emerald-400 transition-colors">Cybersecurity</a>
                     <a href="hardware.html" class="hover:text-emerald-400 transition-colors">Hardware</a>
                     <a href="biomedical-division.html" class="hover:text-emerald-400 transition-colors">Biomedical</a>
-                    <a href="biotensor-lab.html" class="text-emerald-400">BioTensor Lab</a>
                     <a href="geospatial.html" class="hover:text-emerald-400 transition-colors">Geospatial</a>
                     <a href="orion.html" class="hover:text-emerald-400 transition-colors">O.R.I.O.N</a>
                 </div>
             </div>
             <div class="flex items-center space-x-4">
-                <a href="biotensor-lab/README.md" target="_blank" class="hidden md:inline-block px-4 py-2 border border-emerald-500 text-emerald-400 rounded-full hover:bg-emerald-500/10 transition-all">
-                    View Docs
+                <a href="#quickstart" class="hidden md:inline-block px-4 py-2 border border-emerald-500 text-emerald-400 rounded-full hover:bg-emerald-500/10 transition-all">
+                    Quick Start
                 </a>
                 <a href="#demo" class="hidden md:inline-block px-4 py-2 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold rounded-full hover:opacity-90 transition-opacity">
                     Launch Demo
@@ -136,10 +135,10 @@
                 
                 <div class="flex justify-center gap-4">
                     <a href="#architecture" class="px-8 py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-xl font-semibold hover:opacity-90 transition-opacity">
-                        Explore Platform
+                        Explore Architecture
                     </a>
-                    <a href="biotensor-lab/" target="_blank" class="px-8 py-3 border border-emerald-500 text-emerald-400 rounded-xl font-semibold hover:bg-emerald-500/10 transition-all">
-                        View Source Code
+                    <a href="#implementation" class="px-8 py-3 border border-emerald-500 text-emerald-400 rounded-xl font-semibold hover:bg-emerald-500/10 transition-all">
+                        View Implementation
                     </a>
                 </div>
             </div>
@@ -391,8 +390,184 @@
         </div>
     </section>
 
+    <!-- Implementation Section -->
+    <section id="implementation" class="py-20 bg-gradient-to-br from-slate-900 via-cyan-900/20 to-emerald-900/20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 gradient-text">Full Implementation</h2>
+                <p class="text-gray-300">Complete source code structure and setup</p>
+            </div>
+            
+            <!-- Project Structure -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold mb-6 text-emerald-400">📁 Project Structure</h3>
+                <div class="bg-slate-800/50 rounded-xl p-6 border border-emerald-500/30">
+                    <pre class="text-sm text-gray-300 overflow-x-auto">
+biotensor-lab/
+├── apps/
+│   ├── web/                    # Next.js Frontend Application
+│   │   ├── app/
+│   │   │   ├── page.tsx       # Landing page
+│   │   │   ├── app/
+│   │   │   │   ├── page.tsx   # Dashboard
+│   │   │   │   └── stream/
+│   │   │   │       └── page.tsx # Live streaming
+│   │   │   └── security/
+│   │   │       └── page.tsx   # Security info
+│   │   ├── lib/
+│   │   │   └── posthog/       # Analytics
+│   │   ├── package.json
+│   │   └── Dockerfile
+│   │
+│   ├── api/                    # NestJS Backend API
+│   │   ├── src/
+│   │   │   ├── main.ts
+│   │   │   ├── app.module.ts
+│   │   │   ├── controllers/
+│   │   │   │   ├── health.controller.ts
+│   │   │   │   ├── predict.controller.ts
+│   │   │   │   └── signals.controller.ts
+│   │   │   ├── entities/
+│   │   │   │   ├── user.entity.ts
+│   │   │   │   ├── patient.entity.ts
+│   │   │   │   ├── signal-chunk.entity.ts
+│   │   │   │   └── feature.entity.ts
+│   │   │   └── services/
+│   │   │       └── db-bootstrap.service.ts
+│   │   ├── package.json
+│   │   └── Dockerfile
+│   │
+│   └── inference/              # FastAPI ML Service
+│       ├── app/
+│       │   └── main.py
+│       ├── requirements.txt
+│       └── Dockerfile
+│
+├── packages/
+│   ├── ui/                    # Shared UI Components
+│   ├── types/                 # Shared TypeScript Types
+│   └── config/                # Shared Configuration
+│
+├── infra/
+│   └── db/
+│       └── init.sql           # TimescaleDB initialization
+│
+├── docker-compose.yml         # Container orchestration
+├── package.json              # Root package configuration
+├── pnpm-workspace.yaml       # Monorepo workspace config
+└── turbo.json                # Build system configuration
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Key Files -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-cyan-400">🔧 Core Configuration Files</h3>
+                    <div class="bg-slate-800/50 rounded-xl p-4 border border-cyan-500/30">
+                        <h4 class="text-sm font-semibold text-cyan-300 mb-2">docker-compose.yml</h4>
+                        <pre class="text-xs text-gray-400 overflow-x-auto">
+services:
+  postgres:
+    image: timescale/timescaledb:2.14.2-pg15
+    environment:
+      POSTGRES_DB: biotensor
+      POSTGRES_USER: biotensor
+      POSTGRES_PASSWORD: biotensor
+    volumes:
+      - ./infra/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+  
+  api:
+    build: ./apps/api
+    environment:
+      - DATABASE_URL=postgres://biotensor:biotensor@postgres:5432/biotensor
+      - INFERENCE_URL=http://inference:8000
+    ports:
+      - "4000:4000"
+  
+  inference:
+    build: ./apps/inference
+    ports:
+      - "8000:8000"
+  
+  web:
+    build: ./apps/web
+    ports:
+      - "3000:3000"
+                        </pre>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-blue-400">📊 TimescaleDB Schema</h3>
+                    <div class="bg-slate-800/50 rounded-xl p-4 border border-blue-500/30">
+                        <h4 class="text-sm font-semibold text-blue-300 mb-2">Signal Chunk Entity</h4>
+                        <pre class="text-xs text-gray-400 overflow-x-auto">
+@Entity('signal_chunks')
+@Index(['patientId', 'channel', 'tStart'])
+export class SignalChunk {
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
+  
+  @Column()
+  patientId!: string;
+  
+  @Column()
+  channel!: string; // "EEG:C3", "ECG:leadI"
+  
+  @Column({ type: 'timestamptz' })
+  tStart!: Date;
+  
+  @Column({ type: 'timestamptz' })
+  tEnd!: Date;
+  
+  @Column({ type: 'real' })
+  fs!: number; // Sampling frequency
+  
+  @Column('double precision', { array: true })
+  values!: number[]; // Signal data
+}
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Environment Variables -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold mb-6 text-purple-400">🔐 Environment Configuration</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-slate-800/50 rounded-xl p-4 border border-purple-500/30">
+                        <h4 class="text-sm font-semibold text-purple-300 mb-2">Web App (.env)</h4>
+                        <pre class="text-xs text-gray-400">
+NEXT_PUBLIC_API_URL=http://localhost:4000
+NEXT_PUBLIC_POSTHOG_KEY=phc_xxx
+NEXT_PUBLIC_POSTHOG_HOST=/ingest
+                        </pre>
+                    </div>
+                    <div class="bg-slate-800/50 rounded-xl p-4 border border-purple-500/30">
+                        <h4 class="text-sm font-semibold text-purple-300 mb-2">API (.env)</h4>
+                        <pre class="text-xs text-gray-400">
+PORT=4000
+DATABASE_URL=postgres://biotensor:biotensor@localhost:5432/biotensor
+CORS_ORIGIN=http://localhost:3000
+INFERENCE_URL=http://localhost:8000
+INFERENCE_KEY=dev-key
+                        </pre>
+                    </div>
+                    <div class="bg-slate-800/50 rounded-xl p-4 border border-purple-500/30">
+                        <h4 class="text-sm font-semibold text-purple-300 mb-2">Inference (.env)</h4>
+                        <pre class="text-xs text-gray-400">
+PORT=8000
+API_KEY=dev-key
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Getting Started Section -->
-    <section class="py-20 bg-gradient-to-br from-slate-900 via-emerald-900/20 to-cyan-900/20">
+    <section id="quickstart" class="py-20 bg-gradient-to-br from-slate-900 via-emerald-900/20 to-cyan-900/20">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-bold mb-4 gradient-text">Quick Start</h2>
@@ -511,11 +686,11 @@
             <h2 class="text-3xl font-bold mb-4">Ready to Transform Biomedical Signal Processing?</h2>
             <p class="text-gray-300 mb-8">Deploy BioTensor Lab for your healthcare applications</p>
             <div class="flex justify-center gap-4">
-                <a href="biotensor-lab/" target="_blank" class="px-8 py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-xl font-semibold hover:opacity-90 transition-opacity">
-                    Explore Source Code
+                <a href="#quickstart" class="px-8 py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                    Get Started Now
                 </a>
-                <a href="biotensor-lab/README.md" target="_blank" class="px-8 py-3 border border-emerald-500 text-emerald-400 rounded-xl font-semibold hover:bg-emerald-500/10 transition-all">
-                    Read Documentation
+                <a href="#implementation" class="px-8 py-3 border border-emerald-500 text-emerald-400 rounded-xl font-semibold hover:bg-emerald-500/10 transition-all">
+                    View Implementation
                 </a>
             </div>
         </div>
