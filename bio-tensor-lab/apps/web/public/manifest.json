@@ -1,9 +1,0 @@
-{
-  "name": "BioTensor Lab",
-  "short_name": "BioTensor",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#111111",
-  "icons": []
-}
