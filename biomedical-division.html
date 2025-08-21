@@ -133,9 +133,14 @@
     <section id="biotensor" class="py-20 bg-gradient-to-br from-pink-900/20 to-slate-900">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-12">
-                <span class="text-4xl">🧬</span>
+                <div class="inline-flex items-center justify-center mb-4">
+                    <span class="text-5xl">🧬</span>
+                    <span class="text-5xl ml-3">⚡</span>
+                    <span class="text-5xl ml-3">📊</span>
+                </div>
                 <h2 class="text-4xl font-bold mb-4 bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent">BioTensor Labs</h2>
-                <p class="text-gray-300">Machine Learning & Biomedical Engineering Research</p>
+                <p class="text-gray-300 mb-2">Machine Learning & Biomedical Engineering Research</p>
+                <p class="text-lg text-pink-300">Now featuring: Real-time Signal Processing Platform with TimescaleDB</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -177,6 +182,198 @@
             </div>
         </div>
     </section>
+
+    <!-- New BioTensor Lab Platform Section -->
+    <section class="py-20 bg-gradient-to-br from-slate-900 via-pink-900/10 to-purple-900/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="inline-block px-4 py-1 bg-pink-500/20 border border-pink-500/50 rounded-full text-pink-400 text-sm font-semibold mb-4">NEW PLATFORM</span>
+                <h2 class="text-4xl font-bold mb-4 bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+                    BioTensor Lab Signal Processing Platform
+                </h2>
+                <p class="text-xl text-gray-300">Production-Grade Multimodal Biomedical Signal Processing</p>
+            </div>
+
+            <!-- Platform Features -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-pink-600/30 hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+                    <div class="text-4xl mb-3">📡</div>
+                    <h3 class="text-xl font-bold mb-3 text-pink-300">Real-time Signal Ingestion</h3>
+                    <p class="text-gray-300 text-sm">High-throughput EEG/ECG/HRV data streaming with TimescaleDB hypertables</p>
+                </div>
+                
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-purple-600/30 hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+                    <div class="text-4xl mb-3">⚙️</div>
+                    <h3 class="text-xl font-bold mb-3 text-purple-300">Feature Extraction</h3>
+                    <p class="text-gray-300 text-sm">Real-time signal processing with statistical features and custom DSP algorithms</p>
+                </div>
+                
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-blue-600/30 hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+                    <div class="text-4xl mb-3">🤖</div>
+                    <h3 class="text-xl font-bold mb-3 text-blue-300">AI Inference Pipeline</h3>
+                    <p class="text-gray-300 text-sm">Pluggable ML models with FastAPI microservice for real-time predictions</p>
+                </div>
+            </div>
+
+            <!-- Architecture Overview -->
+            <div class="bg-slate-800/30 rounded-2xl p-8 border border-purple-500/20 mb-12">
+                <h3 class="text-2xl font-bold mb-6 text-center">Microservices Architecture</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-slate-900/50 rounded-xl p-4 border border-pink-500/20">
+                        <div class="flex items-center mb-2">
+                            <span class="text-2xl mr-2">🌐</span>
+                            <h4 class="font-bold">Next.js Web</h4>
+                        </div>
+                        <p class="text-xs text-gray-400">Real-time charts, dashboards</p>
+                        <span class="text-xs text-pink-400">Port: 3000</span>
+                    </div>
+                    <div class="bg-slate-900/50 rounded-xl p-4 border border-purple-500/20">
+                        <div class="flex items-center mb-2">
+                            <span class="text-2xl mr-2">⚡</span>
+                            <h4 class="font-bold">NestJS API</h4>
+                        </div>
+                        <p class="text-xs text-gray-400">TypeORM, signal endpoints</p>
+                        <span class="text-xs text-purple-400">Port: 4000</span>
+                    </div>
+                    <div class="bg-slate-900/50 rounded-xl p-4 border border-blue-500/20">
+                        <div class="flex items-center mb-2">
+                            <span class="text-2xl mr-2">🧠</span>
+                            <h4 class="font-bold">FastAPI ML</h4>
+                        </div>
+                        <p class="text-xs text-gray-400">Inference, predictions</p>
+                        <span class="text-xs text-blue-400">Port: 8000</span>
+                    </div>
+                    <div class="bg-slate-900/50 rounded-xl p-4 border border-green-500/20">
+                        <div class="flex items-center mb-2">
+                            <span class="text-2xl mr-2">🗄️</span>
+                            <h4 class="font-bold">TimescaleDB</h4>
+                        </div>
+                        <p class="text-xs text-gray-400">Time-series storage</p>
+                        <span class="text-xs text-green-400">Port: 5432</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Endpoints -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold mb-6 text-center">Signal Processing API</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-slate-800/40 rounded-xl p-4 border border-green-500/30">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-semibold text-sm">Signal Ingest</span>
+                            <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded text-xs">POST</span>
+                        </div>
+                        <code class="text-xs text-green-300">/signals/ingest</code>
+                    </div>
+                    <div class="bg-slate-800/40 rounded-xl p-4 border border-blue-500/30">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-semibold text-sm">Recent Data</span>
+                            <span class="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs">GET</span>
+                        </div>
+                        <code class="text-xs text-blue-300">/signals/recent</code>
+                    </div>
+                    <div class="bg-slate-800/40 rounded-xl p-4 border border-purple-500/30">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-semibold text-sm">Extract & Predict</span>
+                            <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded text-xs">POST</span>
+                        </div>
+                        <code class="text-xs text-purple-300">/signals/extract-and-predict</code>
+                    </div>
+                    <div class="bg-slate-800/40 rounded-xl p-4 border border-pink-500/30">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-semibold text-sm">Health Check</span>
+                            <span class="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs">GET</span>
+                        </div>
+                        <code class="text-xs text-pink-300">/health</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Start -->
+            <div class="bg-gradient-to-r from-pink-900/20 to-purple-900/20 rounded-2xl p-8 border border-purple-500/20">
+                <h3 class="text-2xl font-bold mb-6 text-center">Quick Start with Docker</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-semibold mb-3 text-pink-300">1. Clone & Setup</h4>
+                        <div class="bg-black/50 rounded-lg p-3 font-mono text-xs">
+                            <div class="text-gray-400 mb-1"># Navigate to project</div>
+                            <div class="text-green-400">cd biotensor-lab</div>
+                            <div class="text-gray-400 mb-1 mt-2"># Copy environment files</div>
+                            <div class="text-green-400">cp apps/web/.env.example apps/web/.env</div>
+                            <div class="text-green-400">cp apps/api/.env.example apps/api/.env</div>
+                            <div class="text-green-400">cp apps/inference/.env.example apps/inference/.env</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-3 text-purple-300">2. Launch Platform</h4>
+                        <div class="bg-black/50 rounded-lg p-3 font-mono text-xs">
+                            <div class="text-gray-400 mb-1"># Start all services</div>
+                            <div class="text-green-400">docker compose up --build</div>
+                            <div class="text-gray-400 mb-1 mt-2"># Access points:</div>
+                            <div class="text-blue-400">Web: http://localhost:3000</div>
+                            <div class="text-blue-400">API: http://localhost:4000</div>
+                            <div class="text-blue-400">Docs: http://localhost:8000/docs</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Implementation Details Button -->
+            <div class="text-center mt-8">
+                <button onclick="toggleImplementation()" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                    View Full Implementation Details ↓
+                </button>
+            </div>
+
+            <!-- Hidden Implementation Details -->
+            <div id="implementation-details" class="hidden mt-8">
+                <div class="bg-slate-800/30 rounded-2xl p-8 border border-purple-500/20">
+                    <h3 class="text-2xl font-bold mb-6">📁 Complete Project Structure</h3>
+                    <pre class="bg-black/50 rounded-lg p-4 text-xs text-gray-300 overflow-x-auto">
+biotensor-lab/
+├── apps/
+│   ├── web/                    # Next.js Frontend
+│   │   ├── app/
+│   │   │   ├── page.tsx       # Landing page
+│   │   │   ├── app/
+│   │   │   │   ├── page.tsx   # Dashboard
+│   │   │   │   └── stream/
+│   │   │   │       └── page.tsx # Live streaming
+│   │   │   └── security/
+│   │   │       └── page.tsx   # Security info
+│   │   ├── lib/posthog/       # Analytics
+│   │   └── Dockerfile
+│   │
+│   ├── api/                    # NestJS Backend
+│   │   ├── src/
+│   │   │   ├── controllers/   # API endpoints
+│   │   │   ├── entities/      # Database models
+│   │   │   └── services/      # Business logic
+│   │   └── Dockerfile
+│   │
+│   └── inference/              # FastAPI ML Service
+│       ├── app/main.py        # Inference endpoints
+│       └── Dockerfile
+│
+├── packages/
+│   ├── ui/                    # Shared components
+│   ├── types/                 # TypeScript types
+│   └── config/                # Shared configs
+│
+├── docker-compose.yml         # Container orchestration
+└── pnpm-workspace.yaml       # Monorepo configuration
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function toggleImplementation() {
+            const details = document.getElementById('implementation-details');
+            details.classList.toggle('hidden');
+        }
+    </script>
 
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-12">
