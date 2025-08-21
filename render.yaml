@@ -1,11 +1,26 @@
 services:
-  # NestJS API
+  # Main Web Application
+  - type: web
+    name: medimetrics-web
+    env: static
+    staticPublishPath: ./medimetrics-enterprise
+    buildCommand: echo "Static site ready"
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+    routes:
+      - type: rewrite
+        source: /api/*
+        destination: https://medimetrics-api.onrender.com/api/*
+
+  # API Service
   - type: web
     name: medimetrics-api
     env: node
-    buildCommand: cd medimetrics-enterprise/apps/api && npm install && npm run build
-    startCommand: cd medimetrics-enterprise/apps/api && npm run start:prod
-    healthCheckPath: /health
+    buildCommand: cd medimetrics-enterprise/apps/api && npm install
+    startCommand: cd medimetrics-enterprise/apps/api && node src/main.js || npm start
+    healthCheckPath: /
     envVars:
       - key: NODE_ENV
         value: production
@@ -17,46 +32,6 @@ services:
           property: connectionString
       - key: JWT_SECRET
         generateValue: true
-      - key: REDIS_HOST
-        value: medimetrics-redis.internal
-      - key: REDIS_PORT
-        value: 6379
-      - key: REDIS_PASSWORD
-        generateValue: true
-      - key: S3_ENDPOINT
-        value: https://medimetrics-minio.onrender.com
-      - key: S3_ACCESS_KEY
-        value: medimetrics
-      - key: S3_SECRET_KEY
-        generateValue: true
-
-  # Next.js Web Application
-  - type: web
-    name: medimetrics-web
-    env: node
-    buildCommand: cd medimetrics-enterprise/apps/web && npm install && npm run build
-    startCommand: cd medimetrics-enterprise/apps/web && npm run start
-    healthCheckPath: /
-    envVars:
-      - key: NODE_ENV
-        value: production
-      - key: NEXT_PUBLIC_API_URL
-        value: https://medimetrics-api.onrender.com
-
-  # Python Inference Service
-  - type: web
-    name: medimetrics-inference
-    env: python
-    buildCommand: cd medimetrics-enterprise/apps/inference && pip install -r requirements.txt
-    startCommand: cd medimetrics-enterprise/apps/inference && uvicorn main:app --host 0.0.0.0 --port $PORT
-    healthCheckPath: /health
-    envVars:
-      - key: PYTHONUNBUFFERED
-        value: 1
-      - key: DATABASE_URL
-        fromDatabase:
-          name: medimetrics-db
-          property: connectionString
 
 databases:
   - name: medimetrics-db
