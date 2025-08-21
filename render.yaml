@@ -1,12 +1,15 @@
 services:
-  # API Service (keep as-is)
+  # NestJS API Service
   - type: web
     name: medimetrics-api
     env: node
-    rootDir: medimetrics-enterprise/apps/api
-    buildCommand: npm install
-    startCommand: npm start
-    healthCheckPath: /
+    buildCommand: |
+      cd medimetrics-enterprise/apps/api
+      npm install --include=dev
+      npx nest build || npm run build
+    startCommand: |
+      cd medimetrics-enterprise/apps/api
+      npm run start:prod
     envVars:
       - key: NODE_ENV
         value: production
@@ -16,21 +19,22 @@ services:
           property: connectionString
       - key: JWT_SECRET
         generateValue: true
+      - key: CORS_ORIGIN
+        value: "*"
+      - key: PORT
+        value: 8000
 
-  # Keep the static site but don't try to change it
-  - type: static
-    name: medimetrics-web
-    staticPublishPath: ./medimetrics-enterprise
-    buildCommand: echo "Keeping as placeholder"
-
-  # Add a new web service for the actual Next.js app
+  # Next.js Frontend
   - type: web
     name: medimetrics-frontend
     env: node
-    rootDir: medimetrics-enterprise/apps/web
-    buildCommand: npm install && npm run build
-    startCommand: npm start
-    healthCheckPath: /
+    buildCommand: |
+      cd medimetrics-enterprise/apps/web
+      npm install
+      npm run build
+    startCommand: |
+      cd medimetrics-enterprise/apps/web
+      npm run start
     envVars:
       - key: NODE_ENV
         value: production
