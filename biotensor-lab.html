@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioTensor Lab - Real-time Biomedical Signal Processing Platform | M.Y. Engineering</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="BioTensor Lab - Production-grade multimodal biomedical platform with real-time EEG/ECG/HRV signal processing, TimescaleDB integration, and AI inference.">
+    <meta name="keywords" content="BioTensor Lab, biomedical signals, EEG processing, ECG analysis, TimescaleDB, real-time healthcare, signal processing, medical AI">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Sora', sans-serif; }
+        
+        /* Animated signal wave */
+        .signal-wave {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #10b981, #06b6d4, transparent);
+            animation: wave 3s linear infinite;
+        }
+        
+        @keyframes wave {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+        
+        /* Pulse animation for cards */
+        .pulse-border {
+            animation: pulse-border 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-border {
+            0%, 100% { border-color: rgba(16, 185, 129, 0.3); }
+            50% { border-color: rgba(16, 185, 129, 0.8); }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 50%, #0891b2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Data flow animation */
+        .data-flow {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .data-flow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.4), transparent);
+            animation: dataflow 2s linear infinite;
+        }
+        
+        @keyframes dataflow {
+            from { left: -100%; }
+            to { left: 100%; }
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-black/90 backdrop-blur-lg z-50 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <a href="index.html" class="text-xl font-bold bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">M.Y. Engineering</a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="hover:text-emerald-400 transition-colors">Home</a>
+                    <a href="patents.html" class="hover:text-emerald-400 transition-colors">Patents</a>
+                    <a href="cybersecurity.html" class="hover:text-emerald-400 transition-colors">Cybersecurity</a>
+                    <a href="hardware.html" class="hover:text-emerald-400 transition-colors">Hardware</a>
+                    <a href="biomedical-division.html" class="hover:text-emerald-400 transition-colors">Biomedical</a>
+                    <a href="biotensor-lab.html" class="text-emerald-400">BioTensor Lab</a>
+                    <a href="geospatial.html" class="hover:text-emerald-400 transition-colors">Geospatial</a>
+                    <a href="orion.html" class="hover:text-emerald-400 transition-colors">O.R.I.O.N</a>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="biotensor-lab/README.md" target="_blank" class="hidden md:inline-block px-4 py-2 border border-emerald-500 text-emerald-400 rounded-full hover:bg-emerald-500/10 transition-all">
+                    View Docs
+                </a>
+                <a href="#demo" class="hidden md:inline-block px-4 py-2 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold rounded-full hover:opacity-90 transition-opacity">
+                    Launch Demo
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900/20 to-cyan-900/20 pt-20 relative overflow-hidden">
+        <!-- Animated Background -->
+        <div class="absolute inset-0">
+            <div class="signal-wave" style="top: 20%;"></div>
+            <div class="signal-wave" style="top: 40%; animation-delay: 1s;"></div>
+            <div class="signal-wave" style="top: 60%; animation-delay: 2s;"></div>
+            <div class="signal-wave" style="top: 80%; animation-delay: 3s;"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 py-20 relative z-10">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center justify-center mb-6">
+                    <span class="text-6xl">🧬</span>
+                    <span class="text-6xl ml-4">⚡</span>
+                    <span class="text-6xl ml-4">📊</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text">BioTensor Lab</h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8">Production-Grade Multimodal Biomedical Signal Processing Platform</p>
+                
+                <!-- Key Features Badge -->
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <div class="bg-emerald-500/20 border border-emerald-500/50 rounded-full px-6 py-2">
+                        <span class="text-emerald-400 font-semibold">Real-time Streaming</span>
+                    </div>
+                    <div class="bg-cyan-500/20 border border-cyan-500/50 rounded-full px-6 py-2">
+                        <span class="text-cyan-400 font-semibold">TimescaleDB</span>
+                    </div>
+                    <div class="bg-blue-500/20 border border-blue-500/50 rounded-full px-6 py-2">
+                        <span class="text-blue-400 font-semibold">AI Inference</span>
+                    </div>
+                    <div class="bg-purple-500/20 border border-purple-500/50 rounded-full px-6 py-2">
+                        <span class="text-purple-400 font-semibold">HIPAA Ready</span>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center gap-4">
+                    <a href="#architecture" class="px-8 py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                        Explore Platform
+                    </a>
+                    <a href="biotensor-lab/" target="_blank" class="px-8 py-3 border border-emerald-500 text-emerald-400 rounded-xl font-semibold hover:bg-emerald-500/10 transition-all">
+                        View Source Code
+                    </a>
+                </div>
+            </div>
+
+            <!-- Platform Overview -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-emerald-600/30 hover:scale-105 transition-all duration-300 backdrop-blur-sm data-flow">
+                    <div class="text-4xl mb-3">📡</div>
+                    <h3 className="text-xl font-bold mb-3">Signal Ingestion</h3>
+                    <p class="text-gray-300 text-sm">High-throughput EEG/ECG/HRV data ingestion with TimescaleDB hypertables for efficient storage</p>
+                </div>
+                
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-cyan-600/30 hover:scale-105 transition-all duration-300 backdrop-blur-sm data-flow">
+                    <div class="text-4xl mb-3">⚙️</div>
+                    <h3 class="text-xl font-bold mb-3">Feature Extraction</h3>
+                    <p class="text-gray-300 text-sm">Real-time signal processing with mean, std, RMS extraction and custom DSP algorithms</p>
+                </div>
+                
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-blue-600/30 hover:scale-105 transition-all duration-300 backdrop-blur-sm data-flow">
+                    <div class="text-4xl mb-3">🤖</div>
+                    <h3 class="text-xl font-bold mb-3">AI Inference</h3>
+                    <p class="text-gray-300 text-sm">Pluggable ML models with FastAPI microservice for real-time predictions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="py-20 bg-gradient-to-br from-slate-900 to-slate-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 gradient-text">Microservices Architecture</h2>
+                <p class="text-gray-300">Scalable, maintainable, and production-ready</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Web App -->
+                <div class="bg-slate-800/50 rounded-xl p-6 border border-emerald-500/30 pulse-border">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">🌐</span>
+                        <h3 class="text-xl font-bold">Next.js Web App</h3>
+                    </div>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li>• Real-time signal visualization</li>
+                        <li>• Interactive charts with Recharts</li>
+                        <li>• Live streaming dashboard</li>
+                        <li>• Responsive Tailwind UI</li>
+                        <li>• PostHog analytics integration</li>
+                    </ul>
+                    <div class="mt-4 pt-4 border-t border-gray-700">
+                        <span class="text-xs text-emerald-400">Port: 3000</span>
+                    </div>
+                </div>
+
+                <!-- API -->
+                <div class="bg-slate-800/50 rounded-xl p-6 border border-cyan-500/30 pulse-border">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">⚡</span>
+                        <h3 class="text-xl font-bold">NestJS API</h3>
+                    </div>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li>• TypeORM with PostgreSQL</li>
+                        <li>• TimescaleDB hypertables</li>
+                        <li>• Signal ingestion endpoints</li>
+                        <li>• Feature extraction pipeline</li>
+                        <li>• WebSocket support</li>
+                    </ul>
+                    <div class="mt-4 pt-4 border-t border-gray-700">
+                        <span class="text-xs text-cyan-400">Port: 4000</span>
+                    </div>
+                </div>
+
+                <!-- Inference -->
+                <div class="bg-slate-800/50 rounded-xl p-6 border border-blue-500/30 pulse-border">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">🧠</span>
+                        <h3 class="text-xl font-bold">FastAPI Inference</h3>
+                    </div>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li>• Pluggable ML models</li>
+                        <li>• NumPy signal processing</li>
+                        <li>• API key authentication</li>
+                        <li>• Async prediction endpoints</li>
+                        <li>• OpenAPI documentation</li>
+                    </ul>
+                    <div class="mt-4 pt-4 border-t border-gray-700">
+                        <span class="text-xs text-blue-400">Port: 8000</span>
+                    </div>
+                </div>
+
+                <!-- Database -->
+                <div class="bg-slate-800/50 rounded-xl p-6 border border-purple-500/30 pulse-border">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">🗄️</span>
+                        <h3 class="text-xl font-bold">TimescaleDB</h3>
+                    </div>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li>• Time-series optimized</li>
+                        <li>• Automatic partitioning</li>
+                        <li>• pgvector extension ready</li>
+                        <li>• Compression policies</li>
+                        <li>• Continuous aggregates</li>
+                    </ul>
+                    <div class="mt-4 pt-4 border-t border-gray-700">
+                        <span class="text-xs text-purple-400">Port: 5432</span>
+                    </div>
+                </div>
+
+                <!-- Shared Packages -->
+                <div class="bg-slate-800/50 rounded-xl p-6 border border-pink-500/30 pulse-border">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">📦</span>
+                        <h3 class="text-xl font-bold">Shared Packages</h3>
+                    </div>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li>• UI components library</li>
+                        <li>• TypeScript types</li>
+                        <li>• Configuration presets</li>
+                        <li>• Monorepo with pnpm</li>
+                        <li>• Turbo build system</li>
+                    </ul>
+                    <div class="mt-4 pt-4 border-t border-gray-700">
+                        <span class="text-xs text-pink-400">Workspace packages</span>
+                    </div>
+                </div>
+
+                <!-- DevOps -->
+                <div class="bg-slate-800/50 rounded-xl p-6 border border-orange-500/30 pulse-border">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">🐳</span>
+                        <h3 class="text-xl font-bold">Docker & DevOps</h3>
+                    </div>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li>• Docker Compose setup</li>
+                        <li>• Multi-stage builds</li>
+                        <li>• Health check endpoints</li>
+                        <li>• Environment configs</li>
+                        <li>• Production ready</li>
+                    </ul>
+                    <div class="mt-4 pt-4 border-t border-gray-700">
+                        <span class="text-xs text-orange-400">Container orchestration</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Endpoints Section -->
+    <section class="py-20 bg-gradient-to-br from-emerald-900/20 to-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 gradient-text">Signal Processing API</h2>
+                <p class="text-gray-300">RESTful endpoints for biomedical signal management</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-slate-800/50 rounded-xl p-6 border border-emerald-500/30">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold">Signal Ingestion</h3>
+                        <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs">POST</span>
+                    </div>
+                    <code class="block bg-black/50 p-3 rounded text-sm text-emerald-400 mb-3">/signals/ingest</code>
+                    <p class="text-gray-400 text-sm">Ingest time-series signal data with automatic hypertable storage</p>
+                </div>
+
+                <div class="bg-slate-800/50 rounded-xl p-6 border border-cyan-500/30">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold">Recent Signals</h3>
+                        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs">GET</span>
+                    </div>
+                    <code class="block bg-black/50 p-3 rounded text-sm text-cyan-400 mb-3">/signals/recent</code>
+                    <p class="text-gray-400 text-sm">Query recent signal chunks by patient and channel</p>
+                </div>
+
+                <div class="bg-slate-800/50 rounded-xl p-6 border border-blue-500/30">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold">Extract & Predict</h3>
+                        <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs">POST</span>
+                    </div>
+                    <code class="block bg-black/50 p-3 rounded text-sm text-blue-400 mb-3">/signals/extract-and-predict</code>
+                    <p class="text-gray-400 text-sm">Extract features and run ML inference on signal data</p>
+                </div>
+
+                <div class="bg-slate-800/50 rounded-xl p-6 border border-purple-500/30">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold">Health Check</h3>
+                        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs">GET</span>
+                    </div>
+                    <code class="block bg-black/50 p-3 rounded text-sm text-purple-400 mb-3">/health</code>
+                    <p class="text-gray-400 text-sm">Service health status and diagnostics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="py-20 bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 gradient-text">Live Demo Features</h2>
+                <p class="text-gray-300">Experience the platform capabilities</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-slate-800/50 rounded-xl p-8 border border-emerald-500/30">
+                    <h3 class="text-2xl font-bold mb-4 text-emerald-400">📊 Live Stream Demo</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <span class="text-emerald-400 mr-2">•</span>
+                            <span>Synthetic ECG signal generation with realistic waveforms</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-emerald-400 mr-2">•</span>
+                            <span>Real-time chart visualization with 200Hz sampling</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-emerald-400 mr-2">•</span>
+                            <span>Automatic data refresh every 3 seconds</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-emerald-400 mr-2">•</span>
+                            <span>TimescaleDB storage with efficient querying</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800/50 rounded-xl p-8 border border-cyan-500/30">
+                    <h3 class="text-2xl font-bold mb-4 text-cyan-400">🧮 Feature Extraction</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">•</span>
+                            <span>Statistical features: mean, standard deviation, RMS</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">•</span>
+                            <span>Window-based feature computation</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">•</span>
+                            <span>Automatic feature storage in hypertables</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">•</span>
+                            <span>Extensible for custom DSP algorithms</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Getting Started Section -->
+    <section class="py-20 bg-gradient-to-br from-slate-900 via-emerald-900/20 to-cyan-900/20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 gradient-text">Quick Start</h2>
+                <p class="text-gray-300">Get up and running in minutes</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-slate-800/50 rounded-xl p-8 border border-emerald-500/30">
+                    <h3 class="text-xl font-bold mb-6">Using Docker (Recommended)</h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-gray-400 text-sm mb-2">1. Clone and navigate to the project:</p>
+                            <code class="block bg-black/50 p-3 rounded text-emerald-400">
+                                cd biotensor-lab
+                            </code>
+                        </div>
+                        
+                        <div>
+                            <p class="text-gray-400 text-sm mb-2">2. Copy environment files:</p>
+                            <code class="block bg-black/50 p-3 rounded text-emerald-400">
+                                cp apps/web/.env.example apps/web/.env<br>
+                                cp apps/api/.env.example apps/api/.env<br>
+                                cp apps/inference/.env.example apps/inference/.env
+                            </code>
+                        </div>
+                        
+                        <div>
+                            <p class="text-gray-400 text-sm mb-2">3. Start all services:</p>
+                            <code class="block bg-black/50 p-3 rounded text-emerald-400">
+                                docker compose up --build
+                            </code>
+                        </div>
+                        
+                        <div>
+                            <p class="text-gray-400 text-sm mb-2">4. Access the platform:</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-2">
+                                <a href="http://localhost:3000" target="_blank" class="bg-black/50 p-3 rounded text-center hover:bg-emerald-500/10 transition-colors">
+                                    <span class="text-emerald-400">Web App</span><br>
+                                    <span class="text-xs text-gray-500">localhost:3000</span>
+                                </a>
+                                <a href="http://localhost:4000/health" target="_blank" class="bg-black/50 p-3 rounded text-center hover:bg-cyan-500/10 transition-colors">
+                                    <span class="text-cyan-400">API Health</span><br>
+                                    <span class="text-xs text-gray-500">localhost:4000</span>
+                                </a>
+                                <a href="http://localhost:8000/docs" target="_blank" class="bg-black/50 p-3 rounded text-center hover:bg-blue-500/10 transition-colors">
+                                    <span class="text-blue-400">Inference Docs</span><br>
+                                    <span class="text-xs text-gray-500">localhost:8000</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Next Steps Section -->
+    <section class="py-20 bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 gradient-text">Roadmap & Next Steps</h2>
+                <p class="text-gray-300">Planned enhancements and integrations</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="flex items-start space-x-3">
+                    <span class="text-emerald-400">🔬</span>
+                    <div>
+                        <h4 class="font-semibold">Advanced DSP Algorithms</h4>
+                        <p class="text-sm text-gray-400">FFT, wavelet transforms, HRV analysis</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <span class="text-cyan-400">🔍</span>
+                    <div>
+                        <h4 class="font-semibold">pgvector Integration</h4>
+                        <p class="text-sm text-gray-400">Similarity search for signal patterns</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <span class="text-blue-400">⚙️</span>
+                    <div>
+                        <h4 class="font-semibold">Temporal Workflows</h4>
+                        <p class="text-sm text-gray-400">Batch processing and alerting pipelines</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <span class="text-purple-400">🌐</span>
+                    <div>
+                        <h4 class="font-semibold">WebAssembly DSP</h4>
+                        <p class="text-sm text-gray-400">Client-side signal processing</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <span class="text-pink-400">🔐</span>
+                    <div>
+                        <h4 class="font-semibold">Enhanced Security</h4>
+                        <p class="text-sm text-gray-400">OIDC/SAML, PHI encryption</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <span class="text-orange-400">📊</span>
+                    <div>
+                        <h4 class="font-semibold">Analytics Dashboard</h4>
+                        <p class="text-sm text-gray-400">Comprehensive monitoring & metrics</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-emerald-900/20 via-cyan-900/20 to-blue-900/20">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to Transform Biomedical Signal Processing?</h2>
+            <p class="text-gray-300 mb-8">Deploy BioTensor Lab for your healthcare applications</p>
+            <div class="flex justify-center gap-4">
+                <a href="biotensor-lab/" target="_blank" class="px-8 py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                    Explore Source Code
+                </a>
+                <a href="biotensor-lab/README.md" target="_blank" class="px-8 py-3 border border-emerald-500 text-emerald-400 rounded-xl font-semibold hover:bg-emerald-500/10 transition-all">
+                    Read Documentation
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black/90 border-t border-gray-800 py-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">© 2024 M.Y. Engineering and Technologies. BioTensor Lab Division.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="index.html" class="text-gray-400 hover:text-emerald-400 transition-colors">Home</a>
+                    <a href="biomedical-division.html" class="text-gray-400 hover:text-emerald-400 transition-colors">Biomedical</a>
+                    <a href="biotensor.html" class="text-gray-400 hover:text-emerald-400 transition-colors">BioTensor</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP Animations
+        gsap.from(".gradient-text", {
+            duration: 1.5,
+            opacity: 0,
+            y: -50,
+            ease: "power3.out"
+        });
+
+        gsap.from("section > div > div > div", {
+            duration: 1,
+            opacity: 0,
+            y: 30,
+            stagger: 0.1,
+            ease: "power2.out",
+            delay: 0.5
+        });
+    </script>
+</body>
+</html>
