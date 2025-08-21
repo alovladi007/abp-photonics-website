@@ -55,7 +55,6 @@
 <body>
     <div class="container">
         <h1>🔄 Cache Clearer for ABP Website</h1>
-        <p>This page will clear your browser cache and show the updated website with MediMetrics Enterprise division.</p>
         
         <div id="status" class="status">
             <p>Ready to clear cache and view updated site...</p>
@@ -68,7 +67,6 @@
             <h3>✅ What's New:</h3>
             <ul style="text-align: left;">
                 <li>Seven divisions total (updated from six)</li>
-                <li><strong>NEW: MediMetrics Enterprise</strong> - Medical imaging platform</li>
                 <li>Located between BioTensor Labs and GALILEO</li>
             </ul>
         </div>
@@ -120,7 +118,6 @@
             // Redirect with cache-busting parameters
             setTimeout(() => {
                 const timestamp = new Date().getTime();
-                window.location.href = 'index.html?v=2.1-medimetrics&t=' + timestamp + '&nocache=true&cleared=true';
             }, 2000);
         }
         
