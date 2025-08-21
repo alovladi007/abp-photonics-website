@@ -1,24 +1,6 @@
 services:
-  # PostgreSQL Database
-  - type: pserv
-    name: medimetrics-postgres
-    runtime: docker
-    dockerfilePath: ./medimetrics-enterprise/Dockerfile.postgres
-    dockerContext: ./medimetrics-enterprise
-    disk:
-      name: postgres-data
-      mountPath: /var/lib/postgresql/data
-      sizeGB: 10
-    envVars:
-      - key: POSTGRES_DB
-        value: medimetrics
-      - key: POSTGRES_USER
-        value: postgres
-      - key: POSTGRES_PASSWORD
-        generateValue: true
-    healthCheckPath: /
-    initialDeployHook: |
-      psql -U postgres -d medimetrics < /scripts/init-db.sql
+  # PostgreSQL Database (using Render's managed database instead)
+  # Defined in databases section below
 
   # Redis Cache
   - type: pserv
@@ -63,9 +45,8 @@ services:
       - key: PORT
         value: 8000
       - key: DATABASE_URL
-        fromService:
-          type: pserv
-          name: medimetrics-postgres
+        fromDatabase:
+          name: medimetrics-db
           property: connectionString
       - key: REDIS_HOST
         fromService:
@@ -83,10 +64,7 @@ services:
           name: medimetrics-redis
           envVarKey: REDIS_PASSWORD
       - key: S3_ENDPOINT
-        fromService:
-          type: web
-          name: medimetrics-minio
-          property: url
+        value: https://medimetrics-minio.onrender.com
       - key: S3_ACCESS_KEY
         value: medimetrics
       - key: S3_SECRET_KEY
@@ -97,6 +75,8 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: CSRF_SECRET
+        generateValue: true
+      - key: FIELD_ENCRYPTION_KEK
         generateValue: true
     healthCheckPath: /health
     autoDeploy: true
@@ -111,10 +91,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: NEXT_PUBLIC_API_URL
-        fromService:
-          type: web
-          name: medimetrics-api
-          property: url
+        value: https://medimetrics-api.onrender.com
     healthCheckPath: /
     autoDeploy: true
 
@@ -128,27 +105,39 @@ services:
       - key: PYTHONUNBUFFERED
         value: 1
       - key: DATABASE_URL
-        fromService:
-          type: pserv
-          name: medimetrics-postgres
+        fromDatabase:
+          name: medimetrics-db
           property: connectionString
-      - key: REDIS_URL
+      - key: REDIS_HOST
         fromService:
           type: pserv
           name: medimetrics-redis
-          property: connectionString
+          property: host
+      - key: REDIS_PORT
+        fromService:
+          type: pserv
+          name: medimetrics-redis
+          property: port
+      - key: REDIS_PASSWORD
+        fromService:
+          type: pserv
+          name: medimetrics-redis
+          envVarKey: REDIS_PASSWORD
       - key: S3_ENDPOINT
+        value: https://medimetrics-minio.onrender.com
+      - key: S3_ACCESS_KEY
+        value: medimetrics
+      - key: S3_SECRET_KEY
         fromService:
           type: web
           name: medimetrics-minio
-          property: url
+          envVarKey: MINIO_ROOT_PASSWORD
     healthCheckPath: /health
     autoDeploy: true
 
 databases:
   - name: medimetrics-db
     databaseName: medimetrics
-    user: postgres
     postgresMajorVersion: 16
 
 envVarGroups:
