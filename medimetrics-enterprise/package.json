@@ -1,37 +1,12 @@
 {
   "name": "medimetrics-enterprise",
-  "version": "2.0.0",
-  "description": "Enterprise Medical Image Analysis Platform",
+  "version": "1.0.0",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "test": "turbo run test",
-    "test:e2e": "turbo run test:e2e",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
-    "prepare": "husky install",
-    "docker:build": "docker compose build",
-    "docker:up": "docker compose up",
-    "docker:down": "docker compose down",
-    "k8s:deploy:dev": "kubectl apply -k k8s/overlays/dev",
-    "k8s:deploy:prod": "kubectl apply -k k8s/overlays/prod"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^18.4.0",
-    "@commitlint/config-conventional": "^18.4.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.1.0",
-    "prettier": "^3.1.0",
-    "turbo": "^1.11.0"
-  },
   "engines": {
-    "node": ">=20.0.0",
-    "pnpm": ">=8.0.0"
+    "node": "20.11.0",
+    "npm": ">=9.0.0"
   },
-  "packageManager": "pnpm@8.12.0"
+  "workspaces": [
+    "apps/*"
+  ]
 }

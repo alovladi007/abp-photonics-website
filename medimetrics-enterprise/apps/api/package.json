@@ -3,6 +3,9 @@
   "version": "2.0.0",
   "description": "MediMetrics API Service",
   "main": "dist/main.js",
+  "engines": {
+    "node": "20.11.0"
+  },
   "scripts": {
     "build": "nest build",
     "dev": "nest start --watch",

@@ -1,15 +1,13 @@
 services:
-  # API Service
+  # API Service - Isolated build
   - type: web
     name: medimetrics-api
     env: node
+    rootDir: medimetrics-enterprise/apps/api
     buildCommand: |
-      cd medimetrics-enterprise/apps/api
       npm cache clean --force
-      npm install --legacy-peer-deps
-    startCommand: |
-      cd medimetrics-enterprise/apps/api
-      node src/main.js || npm start
+      npm install --legacy-peer-deps || npm install --force
+    startCommand: node src/main.js || npm start
     envVars:
       - key: NODE_ENV
         value: production
@@ -17,25 +15,26 @@ services:
         fromDatabase:
           name: medimetrics-db
           property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 8000
 
-  # Frontend - Fixed npm install issues
+  # Web Frontend - Isolated build
   - type: web
     name: medimetrics-frontend
-    env: node  
+    env: node
+    rootDir: medimetrics-enterprise/apps/web
     buildCommand: |
-      cd medimetrics-enterprise/apps/web
       npm cache clean --force
-      npm config set registry https://registry.npmjs.org/
-      npm install --legacy-peer-deps --force
+      npm install --legacy-peer-deps || npm install --force
       npm run build
-    startCommand: |
-      cd medimetrics-enterprise/apps/web
-      npx --yes next start -p $PORT
+    startCommand: npx next start -p $PORT || npm start
     envVars:
       - key: NODE_ENV
         value: production
-      - key: NODE_VERSION
-        value: 20.11.0
+      - key: NEXT_PUBLIC_API_URL
+        value: https://medimetrics-api.onrender.com
 
 databases:
   - name: medimetrics-db
