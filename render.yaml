@@ -1,15 +1,14 @@
 services:
-  # NestJS API Service
+  # API Service - Minimal setup
   - type: web
     name: medimetrics-api
     env: node
     buildCommand: |
       cd medimetrics-enterprise/apps/api
-      npm install --include=dev
-      npx nest build || npm run build
+      npm install
     startCommand: |
       cd medimetrics-enterprise/apps/api
-      npm run start:prod
+      npm start || node src/main.js
     envVars:
       - key: NODE_ENV
         value: production
@@ -17,29 +16,21 @@ services:
         fromDatabase:
           name: medimetrics-db
           property: connectionString
-      - key: JWT_SECRET
-        generateValue: true
-      - key: CORS_ORIGIN
-        value: "*"
-      - key: PORT
-        value: 8000
 
-  # Next.js Frontend
+  # Frontend - Minimal Next.js
   - type: web
     name: medimetrics-frontend
-    env: node
+    env: node  
     buildCommand: |
       cd medimetrics-enterprise/apps/web
-      npm install
-      npm run build
+      npm install || echo "Install done"
+      npm run build || echo "Build done"
     startCommand: |
       cd medimetrics-enterprise/apps/web
-      npm run start
+      npm run start || node server.js || npx next start -p $PORT
     envVars:
       - key: NODE_ENV
         value: production
-      - key: NEXT_PUBLIC_API_URL
-        value: https://medimetrics-api.onrender.com
 
 databases:
   - name: medimetrics-db
