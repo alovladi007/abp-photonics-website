@@ -2,6 +2,10 @@
   "name": "@medimetrics/web",
   "version": "2.0.0",
   "private": true,
+  "engines": {
+    "node": ">=18.0.0 <21.0.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,6 +17,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\""
   },
   "dependencies": {
+    "express": "^4.18.2",
     "@hookform/resolvers": "^3.3.3",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-avatar": "^1.0.4",

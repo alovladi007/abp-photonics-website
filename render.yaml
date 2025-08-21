@@ -1,14 +1,15 @@
 services:
-  # API Service - Minimal setup
+  # API Service
   - type: web
     name: medimetrics-api
     env: node
     buildCommand: |
       cd medimetrics-enterprise/apps/api
-      npm install
+      npm cache clean --force
+      npm install --legacy-peer-deps
     startCommand: |
       cd medimetrics-enterprise/apps/api
-      npm start || node src/main.js
+      node src/main.js || npm start
     envVars:
       - key: NODE_ENV
         value: production
@@ -17,20 +18,24 @@ services:
           name: medimetrics-db
           property: connectionString
 
-  # Frontend - Minimal Next.js
+  # Frontend - Fixed npm install issues
   - type: web
     name: medimetrics-frontend
     env: node  
     buildCommand: |
       cd medimetrics-enterprise/apps/web
-      npm install || echo "Install done"
-      npm run build || echo "Build done"
+      npm cache clean --force
+      npm config set registry https://registry.npmjs.org/
+      npm install --legacy-peer-deps --force
+      npm run build
     startCommand: |
       cd medimetrics-enterprise/apps/web
-      npm run start || node server.js || npx next start -p $PORT
+      npx --yes next start -p $PORT
     envVars:
       - key: NODE_ENV
         value: production
+      - key: NODE_VERSION
+        value: 20.11.0
 
 databases:
   - name: medimetrics-db
